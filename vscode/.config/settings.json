@@ -1,0 +1,110 @@
+{
+  "python.condaPath": "/home/achalmaedison/anaconda3/bin/conda",
+  "python.defaultInterpreterPath": "/home/achalmaedison/anaconda3/bin/python",
+  "python.experiments.optInto": [
+    "pythonTerminalEnvVarActivation"
+  ],
+  "python.pythonPath": "/home/achalmaedison/anaconda3/bin/python",
+  "python.terminal.activateEnvInCurrentTerminal": true,
+  "python.terminal.activateEnvironment": true,
+  "redhat.telemetry.enabled": true,
+  "terminal.integrated.inheritEnv": false,
+  "terminal.integrated.fontSize": 12,
+  "git.openRepositoryInParentFolders": "always",
+  "workbench.iconTheme": "material-icon-theme",
+  "[latex]": {
+    "editor.defaultFormatter": "James-Yu.latex-workshop"
+  },
+  "terminal.integrated.copyOnSelection": true,
+  "terminal.integrated.fontFamily": "Hack Nerd Font",
+  "animations.Install-Method": "Apc Customize UI++",
+  "apc.imports": [
+    "file://${userHome}/.vscode/extensions/brandonkirbyson.vscode-animations-2.0.3/dist/updateHandler.js"
+  ],
+  "glassit.alpha": 220,
+  "diffEditor.maxComputationTime": 0,
+  "quarto.visualEditor.spellingDictionary": "es_ES",
+  "github.copilot.enable": {
+    "quarto": true,
+    "*": true
+  },
+  "diffEditor.ignoreTrimWhitespace": false,
+  "files.autoSave": "onFocusChange",
+  "workbench.editor.limit.enabled": true,
+  "editor.linkedEditing": true,
+  "window.customTitleBarVisibility": "auto",
+  "workbench.experimental.share.enabled": true,
+  "workbench.activityBar.location": "top",
+  "workbench.editor.highlightModifiedTabs": true,
+  "workbench.editor.tabSizing": "fixed",
+  "editor.minimap.autohide": true,
+  "editor.overviewRulerBorder": false,
+  "editor.formatOnSave": true,
+  "editor.glyphMargin": false,
+  "editor.formatOnPaste": true,
+  "editor.inlineSuggest.syntaxHighlightingEnabled": true,
+  "terminal.integrated.cursorBlinking": true,
+  "terminal.integrated.cursorStyleInactive": "line",
+  "terminal.integrated.defaultProfile.linux": "zsh",
+  "terminal.integrated.enablePersistentSessions": false,
+  "[quarto]": {
+    "editor.defaultFormatter": "quarto.quarto"
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[yaml]": {
+    "editor.defaultFormatter": "quarto.quarto"
+  },
+  "git.enableSmartCommit": true,
+  "codesnap.transparentBackground": true,
+  "codesnap.showWindowTitle": true,
+  "codesnap.containerPadding": "0em",
+  "codesnap.roundedCorners": false,
+  "latex-workshop.formatting.latex": "latexindent",
+  "git.autofetch": true,
+  "editor.formatOnType": true,
+  "diffEditor.codeLens": true,
+  "diffEditor.wordWrap": "off",
+  "workbench.editor.wrapTabs": true,
+  "notebook.output.wordWrap": true,
+  "debug.console.wordWrap": false,
+  "chat.editor.wordWrap": "on",
+  "latex-workshop.latex.option.maxPrintLine.enabled": false,
+  "editor.scrollbar.horizontal": "hidden",
+  "editor.suggest.preview": true,
+  "workbench.editor.centeredLayoutFixedWidth": true,
+  "workbench.editor.empty.hint": "hidden",
+  "yaml.schemas": {
+    "https://quarto.org/schemas/quarto.yaml": "*.qmd"
+  },
+  "workbench.productIconTheme": "fluent-icons",
+  "editor.minimap.enabled": false,
+  "editor.scrollbar.vertical": "hidden",
+  "workbench.editor.showTabs": "single",
+  "workbench.colorTheme": "One Dark Pro Mix",
+  "gitlens.graph.minimap.additionalTypes": [
+    "localBranches",
+    "stashes",
+    "remoteBranches",
+    "pullRequests",
+    "tags"
+  ],
+  "github.copilot.nextEditSuggestions.enabled": true,
+  "editor.cursorBlinking": "expand",
+  "editor.cursorSmoothCaretAnimation": "on",
+  "editor.guides.indentation": false,
+  "indenticator.width": 0.5,
+  "indenticator.color.dark": "rgba(255,255,255,0.1)",
+  "editor.matchBrackets": "never",
+  "breadcrumbs.enabled": false,
+  "workbench.statusBar.visible": false,
+  "jupyter.interactiveWindow.textEditor.executeSelection": true,
+  "terminal.integrated.fontLigatures.enabled": true,
+  "terminal.integrated.accessibleViewFocusOnCommandExecution": true,
+  "terminal.integrated.suggest.enabled": true,
+  "terminal.integrated.cursorStyle": "underline",
+  "workbench.sideBar.location": "right",
+  "accessibility.verbosity.terminal": false,
+  "accessibility.hideAccessibleView": true
+}

@@ -1,0 +1,54 @@
+{
+    "initial_working_directory": "~/Documents",
+    "python_type": "system",
+    "python_version": "3.12.7",
+    "python_path": "/usr/bin/python3.12",
+    "pdf_previewer": "system",
+    "spelling_dictionary_language": "es_ES",
+    "posix_terminal_shell": "zsh",
+    "default_open_project_location": "~/Documentos",
+    "jobs_tab_visibility": "shown",
+    "highlight_r_function_calls": true,
+    "auto_save_on_blur": true,
+    "syntax_color_console": true,
+    "console_double_click_select": true,
+    "auto_detect_indentation": true,
+    "panes": {
+        "quadrants": [
+            "Source",
+            "TabSet2",
+            "Console",
+            "TabSet1"
+        ],
+        "tabSet1": [
+            "Environment",
+            "History",
+            "Connections",
+            "Build",
+            "VCS",
+            "Tutorial",
+            "Presentation"
+        ],
+        "tabSet2": [
+            "Files",
+            "Plots",
+            "Packages",
+            "Help",
+            "Viewer",
+            "Presentations"
+        ],
+        "hiddenTabSet": [],
+        "console_left_on_top": false,
+        "console_right_on_top": true,
+        "additional_source_columns": 0
+    },
+    "show_help_tooltip_on_idle": true,
+    "default_encoding": "UTF-8",
+    "code_formatter": "styler",
+    "visual_markdown_editing_wrap": "sentence",
+    "default_sweave_engine": "knitr",
+    "latex_shell_escape": true,
+    "terminal_track_environment": false,
+    "copilot_enabled": true,
+    "default_latex_program": "XeLaTeX"
+}

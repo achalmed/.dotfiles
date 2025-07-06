@@ -1,0 +1,13 @@
+{
+  "cover_priorities": {
+    "Big Book Search": 2,
+    "Google": 2,
+    "Google Images": 2
+  },
+  "fewer_tags": false,
+  "ignore_fields": [],
+  "keep_dups": false,
+  "max_tags": 8,
+  "wait_after_first_cover_result": 40,
+  "wait_after_first_identify_result": 20
+}

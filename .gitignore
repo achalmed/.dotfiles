@@ -5,3 +5,9 @@
 akonadi*
 kactivitymanagerd*
 cache/
+zotero/.zotero/zotero/*/zotero.sqlite
+zotero/.zotero/zotero/*/cookies.sqlite
+zotero/.zotero/zotero/*/places.sqlite
+calibre/.	config/caches/
+calibre/.config/server-users.sqlite
+libreoffice/.config/libreoffice/4/user/{backup,temp,uno_packages}

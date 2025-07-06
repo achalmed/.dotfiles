@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>lineedit_history_bulk_edit_replace_with</key>
+	<array/>
+	<key>lineedit_history_bulk_edit_search_for</key>
+	<array>
+		<string>CURSO 14</string>
+	</array>
+	<key>lineedit_history_choose_library_dialog</key>
+	<array>
+		<string>/home/achalmaedison/Documents/biblioteca</string>
+	</array>
+	<key>lineedit_history_manage_authors_filter</key>
+	<array/>
+	<key>lineedit_history_manage_authors_search</key>
+	<array/>
+	<key>lineedit_history_store_config_chooser_query</key>
+	<array/>
+	<key>lineedit_history_store_search_search</key>
+	<array>
+		<string>978-99979-2-099-7</string>
+	</array>
+	<key>lineedit_history_store_search_search_title</key>
+	<array>
+		<string>antropólogo inocente</string>
+		<string>antropólogo inicente</string>
+		<string>el capital</string>
+		<string>capital</string>
+	</array>
+	<key>lineedit_history_tag_browser_search</key>
+	<array>
+		<string>desconocido</string>
+	</array>
+	<key>lineedit_history_viewer-search-panel-expression</key>
+	<array>
+		<string>When</string>
+		<string>When the U.S. Environmental Prot</string>
+	</array>
+</dict>
+</plist>

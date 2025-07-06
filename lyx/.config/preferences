@@ -1,0 +1,88 @@
+# LyX 2.4.3 generated this file. If you want to make your own
+# modifications you should do them from inside LyX and save.
+
+Format 38
+
+
+#
+# MISC SECTION ######################################
+#
+
+# The time interval between auto-saves in seconds.
+\autosave 120
+\user_name "Edison Achalma"
+\user_email "achalmed.18@gmail.com"
+\user_initials "EEAM"
+\preview on
+
+#
+# SCREEN & FONTS SECTION ############################
+#
+
+\use_system_theme_icons true
+\paragraph_markers true
+\screen_font_sizes 5 7 8 9 10 12 14.4 17.26 20.74 24.88
+\single_instance false
+
+#
+# COLOR SECTION ###################################
+#
+
+
+#
+# PRINTER SECTION ###################################
+#
+
+
+#
+# TEX SECTION #######################################
+#
+
+
+#
+# FILE SECTION ######################################
+#
+
+\document_path "/home/achalmaedison/Downloads"
+\load_session true
+\completion_inline_text true
+\autocorrection_math true
+\completion_popup_text true
+
+#
+# PLAIN TEXT EXPORT SECTION ##############################
+#
+
+
+#
+# SPELLCHECKER SECTION ##############################
+#
+
+
+#
+# LANGUAGE SUPPORT SECTION ##########################
+#
+
+\language_custom_package ""
+\language_package_selection 1
+
+#
+# 2nd MISC SUPPORT SECTION ##########################
+#
+
+\gui_language spanish
+
+#
+# FORMATS SECTION ##########################
+#
+
+
+#
+# CONVERTERS SECTION ##########################
+#
+
+
+#
+# COPIERS SECTION ##########################
+#
+

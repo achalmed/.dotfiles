@@ -1,0 +1,3265 @@
+{
+  "action-layout-toolbar": [
+    "Add Books",
+    "Edit Metadata",
+    null,
+    "Convert Books",
+    "View",
+    null,
+    "Store",
+    "Donate",
+    "Fetch News",
+    "Help",
+    null,
+    "Preferences",
+    "Remove Books",
+    "Choose Library",
+    "Save To Disk",
+    "Connect Share",
+    "Tweak ePub",
+    "Zotero Metadata Importer",
+    "Reading Goal",
+    "Count Pages",
+    "Send Highlights to Obsidian"
+  ],
+  "action-layout-toolbar-device": [
+    "Add Books",
+    "Edit Metadata",
+    null,
+    "Convert Books",
+    "View",
+    "Send To Device",
+    null,
+    null,
+    "Location Manager",
+    null,
+    null,
+    "Fetch News",
+    "Save To Disk",
+    "Store",
+    "Connect Share",
+    null,
+    "Remove Books",
+    null,
+    "Help",
+    "Preferences",
+    "Zotero Metadata Importer",
+    "Reading Goal",
+    "Count Pages",
+    "Send Highlights to Obsidian"
+  ],
+  "advanced search dialog current tab": 0,
+  "ask_to_manage_device": [
+    "RF8N117TPKR"
+  ],
+  "auto_add_check_for_duplicates": true,
+  "auto_add_everything": true,
+  "basic_metadata_widget_splitter_state": {
+    "__class__": "bytearray",
+    "__value__": "AAAA/wAAAAEAAAADAAAA8wAAAcMAAAEKAf////8BAAAAAQA="
+  },
+  "bd_overlay_cover_size": true,
+  "book_details_comments_heading_pos": "above",
+  "book_details_widget_splitter_state_horizontal": {
+    "__class__": "bytearray",
+    "__value__": "AAAA/wAAAAEAAAACAAAEKAAAA1QB/////wEAAAABAA=="
+  },
+  "book_details_widget_splitter_state_vertical": {
+    "__class__": "bytearray",
+    "__value__": "AAAA/wAAAAEAAAACAAAB9wAAAWgB/////wEAAAACAA=="
+  },
+  "book_info_dialog_splitter_state": {
+    "__class__": "bytearray",
+    "__value__": "AAAA/wAAAAEAAAACAAABXgAAAV4B/////wEAAAABAA=="
+  },
+  "book_info_dialog_splitter_state_1": {
+    "__class__": "bytearray",
+    "__value__": "AAAA/wAAAAEAAAACAAABXgAAAV4B/////wEAAAABAA=="
+  },
+  "book_list_pin_splitter_state": {
+    "__class__": "bytearray",
+    "__value__": "AAAA/wAAAAEAAAACAAABAAAAAEYA/////wEAAAABAA=="
+  },
+  "book_list_split": false,
+  "booklist_grid": false,
+  "bulk-mde-casing-algorithm": "title_case",
+  "bulk_metadata_window_tab": 0,
+  "card_a_view books view state": {
+    "column_alignment": {
+      "size": "center",
+      "timestamp": "center"
+    },
+    "column_positions": {
+      "authors": 2,
+      "collections": 5,
+      "inlibrary": 0,
+      "size": 4,
+      "timestamp": 3,
+      "title": 1
+    },
+    "column_sizes": {
+      "authors": 90,
+      "collections": 109,
+      "inlibrary": 128,
+      "size": 78,
+      "timestamp": 78,
+      "title": 65
+    },
+    "formats_injected": true,
+    "hidden_columns": [],
+    "id_injected": true,
+    "languages_injected": true,
+    "last_modified_injected": true,
+    "path_injected": true,
+    "sort_history": [
+      [
+        "timestamp",
+        false
+      ],
+      [
+        "inlibrary",
+        false
+      ],
+      [
+        "timestamp",
+        false
+      ],
+      [
+        "inlibrary",
+        false
+      ],
+      [
+        "timestamp",
+        false
+      ],
+      [
+        "inlibrary",
+        false
+      ],
+      [
+        "timestamp",
+        false
+      ],
+      [
+        "inlibrary",
+        false
+      ],
+      [
+        "timestamp",
+        false
+      ],
+      [
+        "inlibrary",
+        false
+      ],
+      [
+        "timestamp",
+        false
+      ],
+      [
+        "inlibrary",
+        false
+      ],
+      [
+        "timestamp",
+        false
+      ],
+      [
+        "inlibrary",
+        false
+      ],
+      [
+        "timestamp",
+        false
+      ],
+      [
+        "inlibrary",
+        false
+      ],
+      [
+        "timestamp",
+        false
+      ],
+      [
+        "inlibrary",
+        false
+      ],
+      [
+        "timestamp",
+        false
+      ]
+    ]
+  },
+  "card_b_view books view state": {
+    "column_alignment": {
+      "size": "center",
+      "timestamp": "center"
+    },
+    "column_positions": {
+      "authors": 2,
+      "collections": 5,
+      "inlibrary": 0,
+      "size": 4,
+      "timestamp": 3,
+      "title": 1
+    },
+    "column_sizes": {
+      "authors": 90,
+      "collections": 109,
+      "inlibrary": 128,
+      "size": 78,
+      "timestamp": 78,
+      "title": 65
+    },
+    "formats_injected": true,
+    "hidden_columns": [],
+    "id_injected": true,
+    "languages_injected": true,
+    "last_modified_injected": true,
+    "path_injected": true,
+    "sort_history": [
+      [
+        "timestamp",
+        false
+      ],
+      [
+        "inlibrary",
+        false
+      ],
+      [
+        "timestamp",
+        false
+      ],
+      [
+        "inlibrary",
+        false
+      ],
+      [
+        "timestamp",
+        false
+      ],
+      [
+        "inlibrary",
+        false
+      ],
+      [
+        "timestamp",
+        false
+      ],
+      [
+        "inlibrary",
+        false
+      ],
+      [
+        "timestamp",
+        false
+      ],
+      [
+        "inlibrary",
+        false
+      ],
+      [
+        "timestamp",
+        false
+      ],
+      [
+        "inlibrary",
+        false
+      ],
+      [
+        "timestamp",
+        false
+      ],
+      [
+        "inlibrary",
+        false
+      ],
+      [
+        "timestamp",
+        false
+      ],
+      [
+        "inlibrary",
+        false
+      ],
+      [
+        "timestamp",
+        false
+      ],
+      [
+        "inlibrary",
+        false
+      ],
+      [
+        "timestamp",
+        false
+      ]
+    ]
+  },
+  "cb_double_click_to_activate": true,
+  "choose-merge-dialog-splitter-state": {
+    "__class__": "bytearray",
+    "__value__": "AAAA/wAAAAEAAAACAAABcwAAAQAA/////wEAAAABAA=="
+  },
+  "color_palette": "system",
+  "confirm-merge-dialog-splitter-state": {
+    "__class__": "bytearray",
+    "__value__": "AAAA/wAAAAEAAAACAAABHQAAAQAA/////wEAAAABAA=="
+  },
+  "cover_browser_reflections": true,
+  "cover_corner_radius": 4,
+  "cover_generation_save_settings_for_future": true,
+  "cover_grid_background": {
+    "dark": [
+      45,
+      45,
+      45
+    ],
+    "dark_texture": null,
+    "light": [
+      80,
+      80,
+      80
+    ],
+    "light_texture": null,
+    "migrated": true
+  },
+  "cover_grid_show_title": false,
+  "custcol-prefs-column_order": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "custcol-prefs-table-geometry": [
+    68,
+    186,
+    164,
+    546,
+    1669,
+    100
+  ],
+  "custom_colors_for_color_dialog": [
+    [
+      255,
+      255,
+      255,
+      255
+    ],
+    [
+      255,
+      255,
+      255,
+      255
+    ],
+    [
+      255,
+      255,
+      255,
+      255
+    ],
+    [
+      255,
+      255,
+      255,
+      255
+    ],
+    [
+      255,
+      255,
+      255,
+      255
+    ],
+    [
+      255,
+      255,
+      255,
+      255
+    ],
+    [
+      255,
+      255,
+      255,
+      255
+    ],
+    [
+      255,
+      255,
+      255,
+      255
+    ],
+    [
+      255,
+      255,
+      255,
+      255
+    ],
+    [
+      255,
+      255,
+      255,
+      255
+    ],
+    [
+      255,
+      255,
+      255,
+      255
+    ],
+    [
+      255,
+      255,
+      255,
+      255
+    ],
+    [
+      255,
+      255,
+      255,
+      255
+    ],
+    [
+      255,
+      255,
+      255,
+      255
+    ],
+    [
+      255,
+      255,
+      255,
+      255
+    ],
+    [
+      255,
+      255,
+      255,
+      255
+    ]
+  ],
+  "dark_palette_name": "",
+  "dark_palettes": {
+    "__current__": {
+      "AlternateBase": "#2d2d2d",
+      "Base": "#121212",
+      "BrightText": "#ff0000",
+      "BrightText-disabled": "#ff0000",
+      "Button": "#2d2d2d",
+      "ButtonText": "#dddddd",
+      "ButtonText-disabled": "#7f7f7f",
+      "Highlight": "#0b45c4",
+      "HighlightedText": "#dddddd",
+      "HighlightedText-disabled": "#7f7f7f",
+      "Link": "#6cb4ee",
+      "LinkVisited": "#800080",
+      "PlaceholderText": "#7f7f7f",
+      "PlaceholderText-disabled": "#7f7f7f",
+      "Text": "#dddddd",
+      "Text-disabled": "#7f7f7f",
+      "ToolTipBase": "#2d2d2d",
+      "ToolTipText": "#dddddd",
+      "ToolTipText-disabled": "#dddddd",
+      "Window": "#2d2d2d",
+      "WindowText": "#dddddd",
+      "WindowText-disabled": "#dddddd"
+    }
+  },
+  "default_author_link": null,
+  "diff_widget_show_comments_controls": false,
+  "filename_pattern_history": [
+    "(?P<title>.+) - (?P<author>[^_]+)",
+    "(?P<title>.+)",
+    "(?P<author>[^_-]+) -?\\s*(?P<series>[^_0-9-]*)(?P<series_index>[0-9]*)\\s*-\\s*(?P<title>[^_].+) ?"
+  ],
+  "general_category_editor_row_height": 30,
+  "geometry-of-Plugin Updater plugin:plugin updater dialog": {
+    "frame_geometry": {
+      "height": 985,
+      "width": 1920,
+      "x": 1920,
+      "y": 0
+    },
+    "full_screened": false,
+    "geometry": {
+      "height": 985,
+      "width": 1920,
+      "x": 1920,
+      "y": 0
+    },
+    "maximized": true,
+    "normal_geometry": {
+      "height": 985,
+      "width": 1920,
+      "x": 1920,
+      "y": 0
+    },
+    "qt": {
+      "__class__": "bytearray",
+      "__value__": "AdnQywADAAAAAAeAAAAAAAAADv8AAAPYAAAHgAAAAAAAAA7/AAAD2AAAAAECAAAAB4AAAAeAAAAAAAAADv8AAAPY"
+    },
+    "screen": {
+      "depth": 32,
+      "device_pixel_ratio": 1.0,
+      "geometry_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920,
+        "x": 1920,
+        "y": 0
+      },
+      "index_in_screens_list": 1,
+      "manufacturer": "Samsung Electric Company",
+      "model": "LF22T35",
+      "name": "HDMI-A-1",
+      "serial": "",
+      "size_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920
+      },
+      "virtual_geometry": {
+        "height": 1080,
+        "width": 3840,
+        "x": 0,
+        "y": 0
+      }
+    }
+  },
+  "geometry-of-add-custom-news-source-geometry": {
+    "frame_geometry": {
+      "height": 600,
+      "width": 1007,
+      "x": 1920,
+      "y": 0
+    },
+    "full_screened": false,
+    "geometry": {
+      "height": 600,
+      "width": 1007,
+      "x": 1920,
+      "y": 0
+    },
+    "maximized": false,
+    "normal_geometry": {
+      "height": 600,
+      "width": 1007,
+      "x": 1920,
+      "y": 0
+    },
+    "qt": {
+      "__class__": "bytearray",
+      "__value__": "AdnQywADAAAAAAeAAAAAAAAAC24AAAJXAAAHgAAAAAAAAAtuAAACVwAAAAEAAAAAB4AAAAeAAAAAAAAAC24AAAJX"
+    },
+    "screen": {
+      "depth": 32,
+      "device_pixel_ratio": 1.0,
+      "geometry_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920,
+        "x": 1920,
+        "y": 0
+      },
+      "index_in_screens_list": 1,
+      "manufacturer": "Samsung Electric Company",
+      "model": "LF22T35",
+      "name": "HDMI-A-1",
+      "serial": "",
+      "size_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920
+      },
+      "virtual_geometry": {
+        "height": 1080,
+        "width": 3840,
+        "x": 0,
+        "y": 0
+      }
+    }
+  },
+  "geometry-of-book-details-popup-conf-geometry": {
+    "frame_geometry": {
+      "height": 500,
+      "width": 745,
+      "x": 1920,
+      "y": 0
+    },
+    "full_screened": false,
+    "geometry": {
+      "height": 500,
+      "width": 745,
+      "x": 1920,
+      "y": 0
+    },
+    "maximized": false,
+    "normal_geometry": {
+      "height": 500,
+      "width": 745,
+      "x": 1920,
+      "y": 0
+    },
+    "qt": {
+      "__class__": "bytearray",
+      "__value__": "AdnQywADAAAAAAeAAAAAAAAACmgAAAHzAAAHgAAAAAAAAApoAAAB8wAAAAEAAAAAB4AAAAeAAAAAAAAACmgAAAHz"
+    },
+    "screen": {
+      "depth": 32,
+      "device_pixel_ratio": 1.0,
+      "geometry_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920,
+        "x": 1920,
+        "y": 0
+      },
+      "index_in_screens_list": 1,
+      "manufacturer": "Samsung Electric Company",
+      "model": "LF22T35/HCNNC02012",
+      "name": "HDMI-A-1",
+      "serial": "",
+      "size_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920
+      },
+      "virtual_geometry": {
+        "height": 1080,
+        "width": 3840,
+        "x": 0,
+        "y": 0
+      }
+    }
+  },
+  "geometry-of-book_details_image_view": {
+    "frame_geometry": {
+      "height": 985,
+      "width": 981,
+      "x": 457,
+      "y": 439
+    },
+    "full_screened": false,
+    "geometry": {
+      "height": 985,
+      "width": 981,
+      "x": 457,
+      "y": 439
+    },
+    "maximized": false,
+    "normal_geometry": {
+      "height": 985,
+      "width": 981,
+      "x": 457,
+      "y": 439
+    },
+    "qt": {
+      "__class__": "bytearray",
+      "__value__": "AdnQywADAAAAAAHJAAABtwAABZ0AAAWPAAAByQAAAbcAAAWdAAAFjwAAAAAAAAAAB4AAAAHJAAABtwAABZ0AAAWP"
+    },
+    "screen": {
+      "depth": 32,
+      "device_pixel_ratio": 1.0,
+      "geometry_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920,
+        "x": 0,
+        "y": 0
+      },
+      "index_in_screens_list": 0,
+      "manufacturer": "BOE",
+      "model": "eDP-1-0x0868",
+      "name": "eDP-1",
+      "serial": "",
+      "size_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920
+      },
+      "virtual_geometry": {
+        "height": 1080,
+        "width": 3840,
+        "x": 0,
+        "y": 0
+      }
+    }
+  },
+  "geometry-of-book_info_dialog_geometry": {
+    "frame_geometry": {
+      "height": 985,
+      "width": 1920,
+      "x": 0,
+      "y": 0
+    },
+    "full_screened": false,
+    "geometry": {
+      "height": 985,
+      "width": 1920,
+      "x": 0,
+      "y": 0
+    },
+    "maximized": true,
+    "normal_geometry": {
+      "height": 881,
+      "width": 822,
+      "x": 1920,
+      "y": 0
+    },
+    "qt": {
+      "__class__": "bytearray",
+      "__value__": "AdnQywADAAAAAAAAAAAAAAAAB38AAAPYAAAHgAAAAAAAAAq1AAADcAAAAAACAAAAB4AAAAAAAAAAAAAAB38AAAPY"
+    },
+    "screen": {
+      "depth": 32,
+      "device_pixel_ratio": 1.0,
+      "geometry_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920,
+        "x": 0,
+        "y": 0
+      },
+      "index_in_screens_list": 0,
+      "manufacturer": "BOE",
+      "model": "eDP-1-0x0868",
+      "name": "eDP-1",
+      "serial": "",
+      "size_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920
+      },
+      "virtual_geometry": {
+        "height": 1080,
+        "width": 3840,
+        "x": 0,
+        "y": 0
+      }
+    }
+  },
+  "geometry-of-book_info_dialog_geometry_1": {
+    "frame_geometry": {
+      "height": 979,
+      "width": 910,
+      "x": 1920,
+      "y": 0
+    },
+    "full_screened": false,
+    "geometry": {
+      "height": 979,
+      "width": 910,
+      "x": 1920,
+      "y": 0
+    },
+    "maximized": false,
+    "normal_geometry": {
+      "height": 979,
+      "width": 910,
+      "x": 1920,
+      "y": 0
+    },
+    "qt": {
+      "__class__": "bytearray",
+      "__value__": "AdnQywADAAAAAAeAAAAAAAAACw0AAAPSAAAHgAAAAAAAAAsNAAAD0gAAAAEAAAAAB4AAAAeAAAAAAAAACw0AAAPS"
+    },
+    "screen": {
+      "depth": 32,
+      "device_pixel_ratio": 1.0,
+      "geometry_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920,
+        "x": 1920,
+        "y": 0
+      },
+      "index_in_screens_list": 1,
+      "manufacturer": "Samsung Electric Company",
+      "model": "LF22T35/HCNNC02012",
+      "name": "HDMI-A-1",
+      "serial": "",
+      "size_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920
+      },
+      "virtual_geometry": {
+        "height": 1080,
+        "width": 3840,
+        "x": 0,
+        "y": 0
+      }
+    }
+  },
+  "geometry-of-bulk_metadata_window_geometry": {
+    "frame_geometry": {
+      "height": 975,
+      "width": 1163,
+      "x": 1920,
+      "y": 0
+    },
+    "full_screened": false,
+    "geometry": {
+      "height": 975,
+      "width": 1163,
+      "x": 1920,
+      "y": 0
+    },
+    "maximized": false,
+    "normal_geometry": {
+      "height": 975,
+      "width": 1163,
+      "x": 1920,
+      "y": 0
+    },
+    "qt": {
+      "__class__": "bytearray",
+      "__value__": "AdnQywADAAAAAAeAAAAAAAAADAoAAAPOAAAHgAAAAAAAAAwKAAADzgAAAAEAAAAAB4AAAAeAAAAAAAAADAoAAAPO"
+    },
+    "screen": {
+      "depth": 32,
+      "device_pixel_ratio": 1.0,
+      "geometry_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920,
+        "x": 1920,
+        "y": 0
+      },
+      "index_in_screens_list": 1,
+      "manufacturer": "Samsung Electric Company",
+      "model": "LF22T35",
+      "name": "HDMI-A-1",
+      "serial": "",
+      "size_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920
+      },
+      "virtual_geometry": {
+        "height": 1080,
+        "width": 3840,
+        "x": 0,
+        "y": 0
+      }
+    }
+  },
+  "geometry-of-calibre_main_window_geometry": {
+    "frame_geometry": {
+      "height": 988,
+      "width": 1920,
+      "x": 1920,
+      "y": 0
+    },
+    "full_screened": false,
+    "geometry": {
+      "height": 988,
+      "width": 1920,
+      "x": 1920,
+      "y": 0
+    },
+    "maximized": true,
+    "normal_geometry": {
+      "height": 980,
+      "width": 1920,
+      "x": 0,
+      "y": 0
+    },
+    "qt": {
+      "__class__": "bytearray",
+      "__value__": "AdnQywADAAAAAAeAAAAAAAAADv8AAAPbAAAAAAAAAAAAAAd/AAAD0wAAAAECAAAAB4AAAAeAAAAAAAAADv8AAAPb"
+    },
+    "screen": {
+      "depth": 32,
+      "device_pixel_ratio": 1.0,
+      "geometry_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920,
+        "x": 1920,
+        "y": 0
+      },
+      "index_in_screens_list": 1,
+      "manufacturer": "Samsung Electric Company",
+      "model": "LF22T35",
+      "name": "HDMI-A-1",
+      "serial": "",
+      "size_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920
+      },
+      "virtual_geometry": {
+        "height": 1080,
+        "width": 3840,
+        "x": 0,
+        "y": 0
+      }
+    }
+  },
+  "geometry-of-choose-builtin-recipe-geometry": {
+    "frame_geometry": {
+      "height": 450,
+      "width": 600,
+      "x": 1920,
+      "y": 0
+    },
+    "full_screened": false,
+    "geometry": {
+      "height": 450,
+      "width": 600,
+      "x": 1920,
+      "y": 0
+    },
+    "maximized": false,
+    "normal_geometry": {
+      "height": 450,
+      "width": 600,
+      "x": 1920,
+      "y": 0
+    },
+    "qt": {
+      "__class__": "bytearray",
+      "__value__": "AdnQywADAAAAAAeAAAAAAAAACdcAAAHBAAAHgAAAAAAAAAnXAAABwQAAAAEAAAAAB4AAAAeAAAAAAAAACdcAAAHB"
+    },
+    "screen": {
+      "depth": 32,
+      "device_pixel_ratio": 1.0,
+      "geometry_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920,
+        "x": 1920,
+        "y": 0
+      },
+      "index_in_screens_list": 1,
+      "manufacturer": "Samsung Electric Company",
+      "model": "LF22T35",
+      "name": "HDMI-A-1",
+      "serial": "",
+      "size_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920
+      },
+      "virtual_geometry": {
+        "height": 1080,
+        "width": 3840,
+        "x": 0,
+        "y": 0
+      }
+    }
+  },
+  "geometry-of-choose-icon-theme-dialog-geometry": {
+    "frame_geometry": {
+      "height": 881,
+      "width": 900,
+      "x": 1920,
+      "y": 0
+    },
+    "full_screened": false,
+    "geometry": {
+      "height": 881,
+      "width": 900,
+      "x": 1920,
+      "y": 0
+    },
+    "maximized": false,
+    "normal_geometry": {
+      "height": 881,
+      "width": 900,
+      "x": 1920,
+      "y": 0
+    },
+    "qt": {
+      "__class__": "bytearray",
+      "__value__": "AdnQywADAAAAAAeAAAAAAAAACwMAAANwAAAHgAAAAAAAAAsDAAADcAAAAAAAAAAAB4AAAAeAAAAAAAAACwMAAANw"
+    },
+    "screen": {
+      "depth": 32,
+      "device_pixel_ratio": 1.0,
+      "geometry_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920,
+        "x": 1920,
+        "y": 0
+      },
+      "index_in_screens_list": 0,
+      "manufacturer": "Samsung Electric Company",
+      "model": "LF22T35",
+      "name": "HDMI-A-1",
+      "serial": "",
+      "size_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920
+      },
+      "virtual_geometry": {
+        "height": 1080,
+        "width": 3840,
+        "x": 0,
+        "y": 0
+      }
+    }
+  },
+  "geometry-of-choose-merge-dialog-geometry": {
+    "frame_geometry": {
+      "height": 368,
+      "width": 649,
+      "x": 1920,
+      "y": 0
+    },
+    "full_screened": false,
+    "geometry": {
+      "height": 368,
+      "width": 649,
+      "x": 1920,
+      "y": 0
+    },
+    "maximized": false,
+    "normal_geometry": {
+      "height": 368,
+      "width": 649,
+      "x": 1920,
+      "y": 0
+    },
+    "qt": {
+      "__class__": "bytearray",
+      "__value__": "AdnQywADAAAAAAeAAAAAAAAACggAAAFvAAAHgAAAAAAAAAoIAAABbwAAAAEAAAAAB4AAAAeAAAAAAAAACggAAAFv"
+    },
+    "screen": {
+      "depth": 32,
+      "device_pixel_ratio": 1.0,
+      "geometry_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920,
+        "x": 1920,
+        "y": 0
+      },
+      "index_in_screens_list": 1,
+      "manufacturer": "Samsung Electric Company",
+      "model": "LF22T35",
+      "name": "HDMI-A-1",
+      "serial": "",
+      "size_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920
+      },
+      "virtual_geometry": {
+        "height": 1080,
+        "width": 3840,
+        "x": 0,
+        "y": 0
+      }
+    }
+  },
+  "geometry-of-config_widget_dialog_geometry_Sharing_Metadata download": {
+    "frame_geometry": {
+      "height": 556,
+      "width": 1193,
+      "x": 1920,
+      "y": 0
+    },
+    "full_screened": false,
+    "geometry": {
+      "height": 556,
+      "width": 1193,
+      "x": 1920,
+      "y": 0
+    },
+    "maximized": false,
+    "normal_geometry": {
+      "height": 556,
+      "width": 1193,
+      "x": 1920,
+      "y": 0
+    },
+    "qt": {
+      "__class__": "bytearray",
+      "__value__": "AdnQywADAAAAAAeAAAAAAAAADCgAAAIrAAAHgAAAAAAAAAwoAAACKwAAAAAAAAAAB4AAAAeAAAAAAAAADCgAAAIr"
+    },
+    "screen": {
+      "depth": 32,
+      "device_pixel_ratio": 1.0,
+      "geometry_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920,
+        "x": 1920,
+        "y": 0
+      },
+      "index_in_screens_list": 0,
+      "manufacturer": "Samsung Electric Company",
+      "model": "LF22T35/HCNNC02012",
+      "name": "HDMI-A-1",
+      "serial": "",
+      "size_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920
+      },
+      "virtual_geometry": {
+        "height": 1080,
+        "width": 3840,
+        "x": 0,
+        "y": 0
+      }
+    }
+  },
+  "geometry-of-configure-read-aloud2-geometry": {
+    "frame_geometry": {
+      "height": 838,
+      "width": 899,
+      "x": 32,
+      "y": 364
+    },
+    "full_screened": false,
+    "geometry": {
+      "height": 838,
+      "width": 899,
+      "x": 32,
+      "y": 364
+    },
+    "maximized": false,
+    "normal_geometry": {
+      "height": 838,
+      "width": 899,
+      "x": 32,
+      "y": 364
+    },
+    "qt": {
+      "__class__": "bytearray",
+      "__value__": "AdnQywADAAAAAAAgAAABbAAAA6IAAASxAAAAIAAAAWwAAAOiAAAEsQAAAAAAAAAAA9YAAAAgAAABbAAAA6IAAASx"
+    },
+    "screen": {
+      "depth": 32,
+      "device_pixel_ratio": 2.0,
+      "geometry_in_logical_pixels": {
+        "height": 1745,
+        "width": 982,
+        "x": 0,
+        "y": 0
+      },
+      "index_in_screens_list": 0,
+      "manufacturer": "BOE",
+      "model": "eDP-1-0x0868",
+      "name": "eDP-1",
+      "serial": "",
+      "size_in_logical_pixels": {
+        "height": 1745,
+        "width": 982
+      },
+      "virtual_geometry": {
+        "height": 1745,
+        "width": 982,
+        "x": 0,
+        "y": 0
+      }
+    }
+  },
+  "geometry-of-confirm-merge-dialog-geometry": {
+    "frame_geometry": {
+      "height": 314,
+      "width": 700,
+      "x": 1920,
+      "y": 0
+    },
+    "full_screened": false,
+    "geometry": {
+      "height": 314,
+      "width": 700,
+      "x": 1920,
+      "y": 0
+    },
+    "maximized": false,
+    "normal_geometry": {
+      "height": 314,
+      "width": 700,
+      "x": 1920,
+      "y": 0
+    },
+    "qt": {
+      "__class__": "bytearray",
+      "__value__": "AdnQywADAAAAAAeAAAAAAAAACjsAAAE5AAAHgAAAAAAAAAo7AAABOQAAAAEAAAAAB4AAAAeAAAAAAAAACjsAAAE5"
+    },
+    "screen": {
+      "depth": 32,
+      "device_pixel_ratio": 1.0,
+      "geometry_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920,
+        "x": 1920,
+        "y": 0
+      },
+      "index_in_screens_list": 1,
+      "manufacturer": "Samsung Electric Company",
+      "model": "LF22T35",
+      "name": "HDMI-A-1",
+      "serial": "",
+      "size_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920
+      },
+      "virtual_geometry": {
+        "height": 1080,
+        "width": 3840,
+        "x": 0,
+        "y": 0
+      }
+    }
+  },
+  "geometry-of-convert_single_dialog_geom": {
+    "frame_geometry": {
+      "height": 764,
+      "width": 1578,
+      "x": 1920,
+      "y": 0
+    },
+    "full_screened": false,
+    "geometry": {
+      "height": 764,
+      "width": 1578,
+      "x": 1920,
+      "y": 0
+    },
+    "maximized": false,
+    "normal_geometry": {
+      "height": 764,
+      "width": 1578,
+      "x": 1920,
+      "y": 0
+    },
+    "qt": {
+      "__class__": "bytearray",
+      "__value__": "AdnQywADAAAAAAeAAAAAAAAADakAAAL7AAAHgAAAAAAAAA2pAAAC+wAAAAEAAAAAB4AAAAeAAAAAAAAADakAAAL7"
+    },
+    "screen": {
+      "depth": 32,
+      "device_pixel_ratio": 1.0,
+      "geometry_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920,
+        "x": 1920,
+        "y": 0
+      },
+      "index_in_screens_list": 1,
+      "manufacturer": "Samsung Electric Company",
+      "model": "LF22T35",
+      "name": "HDMI-A-1",
+      "serial": "",
+      "size_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920
+      },
+      "virtual_geometry": {
+        "height": 1080,
+        "width": 3840,
+        "x": 0,
+        "y": 0
+      }
+    }
+  },
+  "geometry-of-copy_to_choose_library_dialog-geometry": {
+    "frame_geometry": {
+      "height": 550,
+      "width": 800,
+      "x": 1746,
+      "y": 0
+    },
+    "full_screened": false,
+    "geometry": {
+      "height": 550,
+      "width": 800,
+      "x": 1746,
+      "y": 0
+    },
+    "maximized": false,
+    "normal_geometry": {
+      "height": 550,
+      "width": 800,
+      "x": 1746,
+      "y": 0
+    },
+    "qt": {
+      "__class__": "bytearray",
+      "__value__": "AdnQywADAAAAAAbSAAAAAAAACfEAAAIlAAAG0gAAAAAAAAnxAAACJQAAAAEAAAAABtEAAAbSAAAAAAAACfEAAAIl"
+    },
+    "screen": {
+      "depth": 32,
+      "device_pixel_ratio": 2.0,
+      "geometry_in_logical_pixels": {
+        "height": 982,
+        "width": 1745,
+        "x": 1746,
+        "y": 0
+      },
+      "index_in_screens_list": 1,
+      "manufacturer": "Samsung Electric Company",
+      "model": "LF22T35/HCNNC02012",
+      "name": "HDMI-A-1",
+      "serial": "",
+      "size_in_logical_pixels": {
+        "height": 982,
+        "width": 1745
+      },
+      "virtual_geometry": {
+        "height": 982,
+        "width": 3491,
+        "x": 0,
+        "y": 0
+      }
+    }
+  },
+  "geometry-of-cover_browser_dialog_geometry": {
+    "frame_geometry": {
+      "height": 980,
+      "width": 956,
+      "x": 0,
+      "y": 0
+    },
+    "full_screened": false,
+    "geometry": {
+      "height": 980,
+      "width": 956,
+      "x": 0,
+      "y": 0
+    },
+    "maximized": false,
+    "normal_geometry": {
+      "height": 980,
+      "width": 956,
+      "x": 0,
+      "y": 0
+    },
+    "qt": {
+      "__class__": "bytearray",
+      "__value__": "AdnQywADAAAAAAAAAAAAAAAAA7sAAAPTAAAAAAAAAAAAAAO7AAAD0wAAAAAAAAAAB4AAAAAAAAAAAAAAA7sAAAPT"
+    },
+    "screen": {
+      "depth": 32,
+      "device_pixel_ratio": 1.0,
+      "geometry_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920,
+        "x": 0,
+        "y": 0
+      },
+      "index_in_screens_list": 0,
+      "manufacturer": "BOE",
+      "model": "eDP-1-0x0868",
+      "name": "eDP-1",
+      "serial": "",
+      "size_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920
+      },
+      "virtual_geometry": {
+        "height": 1080,
+        "width": 3840,
+        "x": 0,
+        "y": 0
+      }
+    }
+  },
+  "geometry-of-cover_settings_dialog_geom": {
+    "frame_geometry": {
+      "height": 626,
+      "width": 980,
+      "x": 1920,
+      "y": 0
+    },
+    "full_screened": false,
+    "geometry": {
+      "height": 626,
+      "width": 980,
+      "x": 1920,
+      "y": 0
+    },
+    "maximized": false,
+    "normal_geometry": {
+      "height": 626,
+      "width": 980,
+      "x": 1920,
+      "y": 0
+    },
+    "qt": {
+      "__class__": "bytearray",
+      "__value__": "AdnQywADAAAAAAeAAAAAAAAAC1MAAAJxAAAHgAAAAAAAAAtTAAACcQAAAAEAAAAAB4AAAAeAAAAAAAAAC1MAAAJx"
+    },
+    "screen": {
+      "depth": 32,
+      "device_pixel_ratio": 1.0,
+      "geometry_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920,
+        "x": 1920,
+        "y": 0
+      },
+      "index_in_screens_list": 1,
+      "manufacturer": "Samsung Electric Company",
+      "model": "LF22T35",
+      "name": "HDMI-A-1",
+      "serial": "",
+      "size_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920
+      },
+      "virtual_geometry": {
+        "height": 1080,
+        "width": 3840,
+        "x": 0,
+        "y": 0
+      }
+    }
+  },
+  "geometry-of-create-virtual-library-dialog": {
+    "frame_geometry": {
+      "height": 341,
+      "width": 816,
+      "x": 1746,
+      "y": 0
+    },
+    "full_screened": false,
+    "geometry": {
+      "height": 341,
+      "width": 816,
+      "x": 1746,
+      "y": 0
+    },
+    "maximized": false,
+    "normal_geometry": {
+      "height": 341,
+      "width": 816,
+      "x": 1746,
+      "y": 0
+    },
+    "qt": {
+      "__class__": "bytearray",
+      "__value__": "AdnQywADAAAAAAbSAAAAAAAACgEAAAFUAAAG0gAAAAAAAAoBAAABVAAAAAEAAAAABtEAAAbSAAAAAAAACgEAAAFU"
+    },
+    "screen": {
+      "depth": 32,
+      "device_pixel_ratio": 2.0,
+      "geometry_in_logical_pixels": {
+        "height": 982,
+        "width": 1745,
+        "x": 1746,
+        "y": 0
+      },
+      "index_in_screens_list": 1,
+      "manufacturer": "Samsung Electric Company",
+      "model": "LF22T35/HCNNC02012",
+      "name": "HDMI-A-1",
+      "serial": "",
+      "size_in_logical_pixels": {
+        "height": 982,
+        "width": 1745
+      },
+      "virtual_geometry": {
+        "height": 982,
+        "width": 3491,
+        "x": 0,
+        "y": 0
+      }
+    }
+  },
+  "geometry-of-customize-palette-geometry": {
+    "frame_geometry": {
+      "height": 555,
+      "width": 826,
+      "x": 1920,
+      "y": 0
+    },
+    "full_screened": false,
+    "geometry": {
+      "height": 555,
+      "width": 826,
+      "x": 1920,
+      "y": 0
+    },
+    "maximized": false,
+    "normal_geometry": {
+      "height": 555,
+      "width": 826,
+      "x": 1920,
+      "y": 0
+    },
+    "qt": {
+      "__class__": "bytearray",
+      "__value__": "AdnQywADAAAAAAeAAAAAAAAACrkAAAIqAAAHgAAAAAAAAAq5AAACKgAAAAEAAAAAB4AAAAeAAAAAAAAACrkAAAIq"
+    },
+    "screen": {
+      "depth": 32,
+      "device_pixel_ratio": 1.0,
+      "geometry_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920,
+        "x": 1920,
+        "y": 0
+      },
+      "index_in_screens_list": 1,
+      "manufacturer": "Samsung Electric Company",
+      "model": "LF22T35",
+      "name": "HDMI-A-1",
+      "serial": "",
+      "size_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920
+      },
+      "virtual_geometry": {
+        "height": 1080,
+        "width": 3840,
+        "x": 0,
+        "y": 0
+      }
+    }
+  },
+  "geometry-of-diff_dialog_geom": {
+    "frame_geometry": {
+      "height": 648,
+      "width": 1359,
+      "x": 1920,
+      "y": 0
+    },
+    "full_screened": false,
+    "geometry": {
+      "height": 648,
+      "width": 1359,
+      "x": 1920,
+      "y": 0
+    },
+    "maximized": false,
+    "normal_geometry": {
+      "height": 648,
+      "width": 1359,
+      "x": 1920,
+      "y": 0
+    },
+    "qt": {
+      "__class__": "bytearray",
+      "__value__": "AdnQywADAAAAAAeAAAAAAAAADM4AAAKHAAAHgAAAAAAAAAzOAAAChwAAAAEAAAAAB4AAAAeAAAAAAAAADM4AAAKH"
+    },
+    "screen": {
+      "depth": 32,
+      "device_pixel_ratio": 1.0,
+      "geometry_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920,
+        "x": 1920,
+        "y": 0
+      },
+      "index_in_screens_list": 1,
+      "manufacturer": "Samsung Electric Company",
+      "model": "LF22T35",
+      "name": "HDMI-A-1",
+      "serial": "",
+      "size_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920
+      },
+      "virtual_geometry": {
+        "height": 1080,
+        "width": 3840,
+        "x": 0,
+        "y": 0
+      }
+    }
+  },
+  "geometry-of-edit-add-filter-rule-geometry": {
+    "frame_geometry": {
+      "height": 881,
+      "width": 866,
+      "x": 1746,
+      "y": 0
+    },
+    "full_screened": false,
+    "geometry": {
+      "height": 881,
+      "width": 866,
+      "x": 1746,
+      "y": 0
+    },
+    "maximized": false,
+    "normal_geometry": {
+      "height": 881,
+      "width": 866,
+      "x": 1746,
+      "y": 0
+    },
+    "qt": {
+      "__class__": "bytearray",
+      "__value__": "AdnQywADAAAAAAbSAAAAAAAACjMAAANwAAAG0gAAAAAAAAozAAADcAAAAAEAAAAABtEAAAbSAAAAAAAACjMAAANw"
+    },
+    "screen": {
+      "depth": 32,
+      "device_pixel_ratio": 2.0,
+      "geometry_in_logical_pixels": {
+        "height": 982,
+        "width": 1745,
+        "x": 1746,
+        "y": 0
+      },
+      "index_in_screens_list": 1,
+      "manufacturer": "Samsung Electric Company",
+      "model": "LF22T35/HCNNC02012",
+      "name": "HDMI-A-1",
+      "serial": "",
+      "size_in_logical_pixels": {
+        "height": 982,
+        "width": 1745
+      },
+      "virtual_geometry": {
+        "height": 982,
+        "width": 3491,
+        "x": 0,
+        "y": 0
+      }
+    }
+  },
+  "geometry-of-edit-author-mapping-rule-geometry": {
+    "frame_geometry": {
+      "height": 975,
+      "width": 955,
+      "x": 1920,
+      "y": 0
+    },
+    "full_screened": false,
+    "geometry": {
+      "height": 975,
+      "width": 955,
+      "x": 1920,
+      "y": 0
+    },
+    "maximized": false,
+    "normal_geometry": {
+      "height": 975,
+      "width": 955,
+      "x": 1920,
+      "y": 0
+    },
+    "qt": {
+      "__class__": "bytearray",
+      "__value__": "AdnQywADAAAAAAeAAAAAAAAACzoAAAPOAAAHgAAAAAAAAAs6AAADzgAAAAEAAAAAB4AAAAeAAAAAAAAACzoAAAPO"
+    },
+    "screen": {
+      "depth": 32,
+      "device_pixel_ratio": 1.0,
+      "geometry_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920,
+        "x": 1920,
+        "y": 0
+      },
+      "index_in_screens_list": 1,
+      "manufacturer": "Samsung Electric Company",
+      "model": "LF22T35",
+      "name": "HDMI-A-1",
+      "serial": "",
+      "size_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920
+      },
+      "virtual_geometry": {
+        "height": 1080,
+        "width": 3840,
+        "x": 0,
+        "y": 0
+      }
+    }
+  },
+  "geometry-of-edit-author-mapping-rules-geometry": {
+    "frame_geometry": {
+      "height": 358,
+      "width": 922,
+      "x": 1920,
+      "y": 0
+    },
+    "full_screened": false,
+    "geometry": {
+      "height": 358,
+      "width": 922,
+      "x": 1920,
+      "y": 0
+    },
+    "maximized": false,
+    "normal_geometry": {
+      "height": 358,
+      "width": 922,
+      "x": 1920,
+      "y": 0
+    },
+    "qt": {
+      "__class__": "bytearray",
+      "__value__": "AdnQywADAAAAAAeAAAAAAAAACxkAAAFlAAAHgAAAAAAAAAsZAAABZQAAAAEAAAAAB4AAAAeAAAAAAAAACxkAAAFl"
+    },
+    "screen": {
+      "depth": 32,
+      "device_pixel_ratio": 1.0,
+      "geometry_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920,
+        "x": 1920,
+        "y": 0
+      },
+      "index_in_screens_list": 1,
+      "manufacturer": "Samsung Electric Company",
+      "model": "LF22T35",
+      "name": "HDMI-A-1",
+      "serial": "",
+      "size_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920
+      },
+      "virtual_geometry": {
+        "height": 1080,
+        "width": 3840,
+        "x": 0,
+        "y": 0
+      }
+    }
+  },
+  "geometry-of-edit-file-filter-rules-geometry": {
+    "frame_geometry": {
+      "height": 390,
+      "width": 922,
+      "x": 1746,
+      "y": 0
+    },
+    "full_screened": false,
+    "geometry": {
+      "height": 390,
+      "width": 922,
+      "x": 1746,
+      "y": 0
+    },
+    "maximized": false,
+    "normal_geometry": {
+      "height": 390,
+      "width": 922,
+      "x": 1746,
+      "y": 0
+    },
+    "qt": {
+      "__class__": "bytearray",
+      "__value__": "AdnQywADAAAAAAbSAAAAAAAACmsAAAGFAAAG0gAAAAAAAAprAAABhQAAAAEAAAAABtEAAAbSAAAAAAAACmsAAAGF"
+    },
+    "screen": {
+      "depth": 32,
+      "device_pixel_ratio": 2.0,
+      "geometry_in_logical_pixels": {
+        "height": 982,
+        "width": 1745,
+        "x": 1746,
+        "y": 0
+      },
+      "index_in_screens_list": 1,
+      "manufacturer": "Samsung Electric Company",
+      "model": "LF22T35/HCNNC02012",
+      "name": "HDMI-A-1",
+      "serial": "",
+      "size_in_logical_pixels": {
+        "height": 982,
+        "width": 1745
+      },
+      "virtual_geometry": {
+        "height": 982,
+        "width": 3491,
+        "x": 0,
+        "y": 0
+      }
+    }
+  },
+  "geometry-of-edit-notes-for-category-geometry": {
+    "frame_geometry": {
+      "height": 620,
+      "width": 800,
+      "x": 78,
+      "y": 0
+    },
+    "full_screened": false,
+    "geometry": {
+      "height": 620,
+      "width": 800,
+      "x": 78,
+      "y": 0
+    },
+    "maximized": false,
+    "normal_geometry": {
+      "height": 620,
+      "width": 800,
+      "x": 78,
+      "y": 0
+    },
+    "qt": {
+      "__class__": "bytearray",
+      "__value__": "AdnQywADAAAAAABOAAAAAAAAA20AAAJrAAAATgAAAAAAAANtAAACawAAAAAAAAAAB4AAAABOAAAAAAAAA20AAAJr"
+    },
+    "screen": {
+      "depth": 32,
+      "device_pixel_ratio": 1.0,
+      "geometry_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920,
+        "x": 0,
+        "y": 0
+      },
+      "index_in_screens_list": 0,
+      "manufacturer": "BOE",
+      "model": "eDP-1-0x0868",
+      "name": "eDP-1",
+      "serial": "",
+      "size_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920
+      },
+      "virtual_geometry": {
+        "height": 1080,
+        "width": 1920,
+        "x": 0,
+        "y": 0
+      }
+    }
+  },
+  "geometry-of-job-detail-view-dialog-geometry": {
+    "frame_geometry": {
+      "height": 500,
+      "width": 700,
+      "x": 156,
+      "y": 0
+    },
+    "full_screened": false,
+    "geometry": {
+      "height": 500,
+      "width": 700,
+      "x": 156,
+      "y": 0
+    },
+    "maximized": false,
+    "normal_geometry": {
+      "height": 500,
+      "width": 700,
+      "x": 156,
+      "y": 0
+    },
+    "qt": {
+      "__class__": "bytearray",
+      "__value__": "AdnQywADAAAAAACcAAAAAAAAA1cAAAHzAAAAnAAAAAAAAANXAAAB8wAAAAAAAAAAB4AAAACcAAAAAAAAA1cAAAHz"
+    },
+    "screen": {
+      "depth": 32,
+      "device_pixel_ratio": 1.0,
+      "geometry_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920,
+        "x": 0,
+        "y": 0
+      },
+      "index_in_screens_list": 0,
+      "manufacturer": "BOE",
+      "model": "eDP-1-0x0868",
+      "name": "eDP-1",
+      "serial": "",
+      "size_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920
+      },
+      "virtual_geometry": {
+        "height": 1080,
+        "width": 1920,
+        "x": 0,
+        "y": 0
+      }
+    }
+  },
+  "geometry-of-jobs_dialog_geometry": {
+    "frame_geometry": {
+      "height": 530,
+      "width": 1609,
+      "x": 1920,
+      "y": 0
+    },
+    "full_screened": false,
+    "geometry": {
+      "height": 530,
+      "width": 1609,
+      "x": 1920,
+      "y": 0
+    },
+    "maximized": false,
+    "normal_geometry": {
+      "height": 530,
+      "width": 1609,
+      "x": 1920,
+      "y": 0
+    },
+    "qt": {
+      "__class__": "bytearray",
+      "__value__": "AdnQywADAAAAAAeAAAAAAAAADcgAAAIRAAAHgAAAAAAAAA3IAAACEQAAAAEAAAAAB4AAAAeAAAAAAAAADcgAAAIR"
+    },
+    "screen": {
+      "depth": 32,
+      "device_pixel_ratio": 1.0,
+      "geometry_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920,
+        "x": 1920,
+        "y": 0
+      },
+      "index_in_screens_list": 1,
+      "manufacturer": "Samsung Electric Company",
+      "model": "LF22T35",
+      "name": "HDMI-A-1",
+      "serial": "",
+      "size_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920
+      },
+      "virtual_geometry": {
+        "height": 1080,
+        "width": 3840,
+        "x": 0,
+        "y": 0
+      }
+    }
+  },
+  "geometry-of-library-annotations-browser-geometry": {
+    "frame_geometry": {
+      "height": 985,
+      "width": 1920,
+      "x": 0,
+      "y": 0
+    },
+    "full_screened": false,
+    "geometry": {
+      "height": 985,
+      "width": 1920,
+      "x": 0,
+      "y": 0
+    },
+    "maximized": true,
+    "normal_geometry": {
+      "height": 652,
+      "width": 922,
+      "x": 0,
+      "y": 0
+    },
+    "qt": {
+      "__class__": "bytearray",
+      "__value__": "AdnQywADAAAAAAAAAAAAAAAAB38AAAPYAAAAAAAAAAAAAAOZAAACiwAAAAACAAAAB4AAAAAAAAAAAAAAB38AAAPY"
+    },
+    "screen": {
+      "depth": 32,
+      "device_pixel_ratio": 1.0,
+      "geometry_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920,
+        "x": 0,
+        "y": 0
+      },
+      "index_in_screens_list": 0,
+      "manufacturer": "BOE",
+      "model": "eDP-1-0x0868",
+      "name": "eDP-1",
+      "serial": "",
+      "size_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920
+      },
+      "virtual_geometry": {
+        "height": 1080,
+        "width": 3840,
+        "x": 0,
+        "y": 0
+      }
+    }
+  },
+  "geometry-of-manage-data-files-xx-geometry": {
+    "frame_geometry": {
+      "height": 530,
+      "width": 596,
+      "x": 1920,
+      "y": 0
+    },
+    "full_screened": false,
+    "geometry": {
+      "height": 530,
+      "width": 596,
+      "x": 1920,
+      "y": 0
+    },
+    "maximized": false,
+    "normal_geometry": {
+      "height": 530,
+      "width": 596,
+      "x": 1920,
+      "y": 0
+    },
+    "qt": {
+      "__class__": "bytearray",
+      "__value__": "AdnQywADAAAAAAeAAAAAAAAACdMAAAIRAAAHgAAAAAAAAAnTAAACEQAAAAEAAAAAB4AAAAeAAAAAAAAACdMAAAIR"
+    },
+    "screen": {
+      "depth": 32,
+      "device_pixel_ratio": 1.0,
+      "geometry_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920,
+        "x": 1920,
+        "y": 0
+      },
+      "index_in_screens_list": 1,
+      "manufacturer": "Samsung Electric Company",
+      "model": "LF22T35/HCNNC02012",
+      "name": "HDMI-A-1",
+      "serial": "",
+      "size_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920
+      },
+      "virtual_geometry": {
+        "height": 1080,
+        "width": 3840,
+        "x": 0,
+        "y": 0
+      }
+    }
+  },
+  "geometry-of-manage-saved-searches-geometry": {
+    "frame_geometry": {
+      "height": 500,
+      "width": 632,
+      "x": 1746,
+      "y": 0
+    },
+    "full_screened": false,
+    "geometry": {
+      "height": 500,
+      "width": 632,
+      "x": 1746,
+      "y": 0
+    },
+    "maximized": false,
+    "normal_geometry": {
+      "height": 500,
+      "width": 632,
+      "x": 1746,
+      "y": 0
+    },
+    "qt": {
+      "__class__": "bytearray",
+      "__value__": "AdnQywADAAAAAAbSAAAAAAAACUkAAAHzAAAG0gAAAAAAAAlJAAAB8wAAAAEAAAAABtEAAAbSAAAAAAAACUkAAAHz"
+    },
+    "screen": {
+      "depth": 32,
+      "device_pixel_ratio": 2.0,
+      "geometry_in_logical_pixels": {
+        "height": 982,
+        "width": 1745,
+        "x": 1746,
+        "y": 0
+      },
+      "index_in_screens_list": 1,
+      "manufacturer": "Samsung Electric Company",
+      "model": "LF22T35/HCNNC02012",
+      "name": "HDMI-A-1",
+      "serial": "",
+      "size_in_logical_pixels": {
+        "height": 982,
+        "width": 1745
+      },
+      "virtual_geometry": {
+        "height": 982,
+        "width": 3491,
+        "x": 0,
+        "y": 0
+      }
+    }
+  },
+  "geometry-of-manage_authors_dialog_geometry": {
+    "frame_geometry": {
+      "height": 581,
+      "width": 1299,
+      "x": 1920,
+      "y": 0
+    },
+    "full_screened": false,
+    "geometry": {
+      "height": 581,
+      "width": 1299,
+      "x": 1920,
+      "y": 0
+    },
+    "maximized": false,
+    "normal_geometry": {
+      "height": 581,
+      "width": 1299,
+      "x": 1920,
+      "y": 0
+    },
+    "qt": {
+      "__class__": "bytearray",
+      "__value__": "AdnQywADAAAAAAeAAAAAAAAADJIAAAJEAAAHgAAAAAAAAAySAAACRAAAAAEAAAAAB4AAAAeAAAAAAAAADJIAAAJE"
+    },
+    "screen": {
+      "depth": 32,
+      "device_pixel_ratio": 1.0,
+      "geometry_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920,
+        "x": 1920,
+        "y": 0
+      },
+      "index_in_screens_list": 1,
+      "manufacturer": "Samsung Electric Company",
+      "model": "LF22T35/HCNNC02012",
+      "name": "HDMI-A-1",
+      "serial": "",
+      "size_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920
+      },
+      "virtual_geometry": {
+        "height": 1080,
+        "width": 3840,
+        "x": 0,
+        "y": 0
+      }
+    }
+  },
+  "geometry-of-metadata_single_gui_geom": {
+    "frame_geometry": {
+      "height": 600,
+      "width": 1131,
+      "x": 1920,
+      "y": 0
+    },
+    "full_screened": false,
+    "geometry": {
+      "height": 600,
+      "width": 1131,
+      "x": 1920,
+      "y": 0
+    },
+    "maximized": false,
+    "normal_geometry": {
+      "height": 600,
+      "width": 1131,
+      "x": 1920,
+      "y": 0
+    },
+    "qt": {
+      "__class__": "bytearray",
+      "__value__": "AdnQywADAAAAAAeAAAAAAAAAC+oAAAJXAAAHgAAAAAAAAAvqAAACVwAAAAEAAAAAB4AAAAeAAAAAAAAAC+oAAAJX"
+    },
+    "screen": {
+      "depth": 32,
+      "device_pixel_ratio": 1.0,
+      "geometry_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920,
+        "x": 1920,
+        "y": 0
+      },
+      "index_in_screens_list": 1,
+      "manufacturer": "Samsung Electric Company",
+      "model": "LF22T35",
+      "name": "HDMI-A-1",
+      "serial": "",
+      "size_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920
+      },
+      "virtual_geometry": {
+        "height": 1080,
+        "width": 3840,
+        "x": 0,
+        "y": 0
+      }
+    }
+  },
+  "geometry-of-metasingle_window_geometry3": {
+    "frame_geometry": {
+      "height": 988,
+      "width": 1920,
+      "x": 1920,
+      "y": 0
+    },
+    "full_screened": false,
+    "geometry": {
+      "height": 988,
+      "width": 1920,
+      "x": 1920,
+      "y": 0
+    },
+    "maximized": true,
+    "normal_geometry": {
+      "height": 988,
+      "width": 1920,
+      "x": 1920,
+      "y": 0
+    },
+    "qt": {
+      "__class__": "bytearray",
+      "__value__": "AdnQywADAAAAAAeAAAAAAAAADv8AAAPbAAAHgAAAAAAAAA7/AAAD2wAAAAECAAAAB4AAAAeAAAAAAAAADv8AAAPb"
+    },
+    "screen": {
+      "depth": 32,
+      "device_pixel_ratio": 1.0,
+      "geometry_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920,
+        "x": 1920,
+        "y": 0
+      },
+      "index_in_screens_list": 1,
+      "manufacturer": "Samsung Electric Company",
+      "model": "LF22T35",
+      "name": "HDMI-A-1",
+      "serial": "",
+      "size_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920
+      },
+      "virtual_geometry": {
+        "height": 1080,
+        "width": 3840,
+        "x": 0,
+        "y": 0
+      }
+    }
+  },
+  "geometry-of-plugin config dialog:Acción de interfaz de usuario:Count Pages": {
+    "frame_geometry": {
+      "height": 625,
+      "width": 668,
+      "x": 1920,
+      "y": 0
+    },
+    "full_screened": false,
+    "geometry": {
+      "height": 625,
+      "width": 668,
+      "x": 1920,
+      "y": 0
+    },
+    "maximized": false,
+    "normal_geometry": {
+      "height": 625,
+      "width": 668,
+      "x": 1920,
+      "y": 0
+    },
+    "qt": {
+      "__class__": "bytearray",
+      "__value__": "AdnQywADAAAAAAeAAAAAAAAAChsAAAJwAAAHgAAAAAAAAAobAAACcAAAAAEAAAAAB4AAAAeAAAAAAAAAChsAAAJw"
+    },
+    "screen": {
+      "depth": 32,
+      "device_pixel_ratio": 1.0,
+      "geometry_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920,
+        "x": 1920,
+        "y": 0
+      },
+      "index_in_screens_list": 1,
+      "manufacturer": "Samsung Electric Company",
+      "model": "LF22T35/HCNNC02012",
+      "name": "HDMI-A-1",
+      "serial": "",
+      "size_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920
+      },
+      "virtual_geometry": {
+        "height": 1080,
+        "width": 3840,
+        "x": 0,
+        "y": 0
+      }
+    }
+  },
+  "geometry-of-plugin config dialog:Acción de interfaz de usuario:Highlights to Obsidian": {
+    "frame_geometry": {
+      "height": 197,
+      "width": 457,
+      "x": 1920,
+      "y": 0
+    },
+    "full_screened": false,
+    "geometry": {
+      "height": 197,
+      "width": 457,
+      "x": 1920,
+      "y": 0
+    },
+    "maximized": false,
+    "normal_geometry": {
+      "height": 197,
+      "width": 457,
+      "x": 1920,
+      "y": 0
+    },
+    "qt": {
+      "__class__": "bytearray",
+      "__value__": "AdnQywADAAAAAAeAAAAAAAAACUgAAADEAAAHgAAAAAAAAAlIAAAAxAAAAAEAAAAAB4AAAAeAAAAAAAAACUgAAADE"
+    },
+    "screen": {
+      "depth": 32,
+      "device_pixel_ratio": 1.0,
+      "geometry_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920,
+        "x": 1920,
+        "y": 0
+      },
+      "index_in_screens_list": 1,
+      "manufacturer": "Samsung Electric Company",
+      "model": "LF22T35",
+      "name": "HDMI-A-1",
+      "serial": "",
+      "size_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920
+      },
+      "virtual_geometry": {
+        "height": 1080,
+        "width": 3840,
+        "x": 0,
+        "y": 0
+      }
+    }
+  },
+  "geometry-of-plugin-reading-goal-challenges-dialog-geometry": {
+    "frame_geometry": {
+      "height": 350,
+      "width": 800,
+      "x": 1920,
+      "y": 0
+    },
+    "full_screened": false,
+    "geometry": {
+      "height": 350,
+      "width": 800,
+      "x": 1920,
+      "y": 0
+    },
+    "maximized": false,
+    "normal_geometry": {
+      "height": 350,
+      "width": 800,
+      "x": 1920,
+      "y": 0
+    },
+    "qt": {
+      "__class__": "bytearray",
+      "__value__": "AdnQywADAAAAAAeAAAAAAAAACp8AAAFdAAAHgAAAAAAAAAqfAAABXQAAAAAAAAAAB4AAAAeAAAAAAAAACp8AAAFd"
+    },
+    "screen": {
+      "depth": 32,
+      "device_pixel_ratio": 1.0,
+      "geometry_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920,
+        "x": 1920,
+        "y": 0
+      },
+      "index_in_screens_list": 0,
+      "manufacturer": "Samsung Electric Company",
+      "model": "LF22T35/HCNNC02012",
+      "name": "HDMI-A-1",
+      "serial": "",
+      "size_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920
+      },
+      "virtual_geometry": {
+        "height": 1080,
+        "width": 3840,
+        "x": 0,
+        "y": 0
+      }
+    }
+  },
+  "geometry-of-plugin-reading-goal-config-dialog-geometry": {
+    "frame_geometry": {
+      "height": 979,
+      "width": 954,
+      "x": 1920,
+      "y": 0
+    },
+    "full_screened": false,
+    "geometry": {
+      "height": 979,
+      "width": 954,
+      "x": 1920,
+      "y": 0
+    },
+    "maximized": false,
+    "normal_geometry": {
+      "height": 979,
+      "width": 954,
+      "x": 1920,
+      "y": 0
+    },
+    "qt": {
+      "__class__": "bytearray",
+      "__value__": "AdnQywADAAAAAAeAAAAAAAAACzkAAAPSAAAHgAAAAAAAAAs5AAAD0gAAAAEAAAAAB4AAAAeAAAAAAAAACzkAAAPS"
+    },
+    "screen": {
+      "depth": 32,
+      "device_pixel_ratio": 1.0,
+      "geometry_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920,
+        "x": 1920,
+        "y": 0
+      },
+      "index_in_screens_list": 1,
+      "manufacturer": "Samsung Electric Company",
+      "model": "LF22T35/HCNNC02012",
+      "name": "HDMI-A-1",
+      "serial": "",
+      "size_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920
+      },
+      "virtual_geometry": {
+        "height": 1080,
+        "width": 3840,
+        "x": 0,
+        "y": 0
+      }
+    }
+  },
+  "geometry-of-plugin-reading-goal-edit-goal-dialog-geometry": {
+    "frame_geometry": {
+      "height": 674,
+      "width": 1116,
+      "x": 1920,
+      "y": 0
+    },
+    "full_screened": false,
+    "geometry": {
+      "height": 674,
+      "width": 1116,
+      "x": 1920,
+      "y": 0
+    },
+    "maximized": false,
+    "normal_geometry": {
+      "height": 674,
+      "width": 1116,
+      "x": 1920,
+      "y": 0
+    },
+    "qt": {
+      "__class__": "bytearray",
+      "__value__": "AdnQywADAAAAAAeAAAAAAAAAC9sAAAKhAAAHgAAAAAAAAAvbAAACoQAAAAEAAAAAB4AAAAeAAAAAAAAAC9sAAAKh"
+    },
+    "screen": {
+      "depth": 32,
+      "device_pixel_ratio": 1.0,
+      "geometry_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920,
+        "x": 1920,
+        "y": 0
+      },
+      "index_in_screens_list": 1,
+      "manufacturer": "Samsung Electric Company",
+      "model": "LF22T35/HCNNC02012",
+      "name": "HDMI-A-1",
+      "serial": "",
+      "size_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920
+      },
+      "virtual_geometry": {
+        "height": 1080,
+        "width": 3840,
+        "x": 0,
+        "y": 0
+      }
+    }
+  },
+  "geometry-of-plugin-reading-goal-input-dialog-geometry": {
+    "frame_geometry": {
+      "height": 123,
+      "width": 250,
+      "x": 1920,
+      "y": 0
+    },
+    "full_screened": false,
+    "geometry": {
+      "height": 123,
+      "width": 250,
+      "x": 1920,
+      "y": 0
+    },
+    "maximized": false,
+    "normal_geometry": {
+      "height": 123,
+      "width": 250,
+      "x": 1920,
+      "y": 0
+    },
+    "qt": {
+      "__class__": "bytearray",
+      "__value__": "AdnQywADAAAAAAeAAAAAAAAACHkAAAB6AAAHgAAAAAAAAAh5AAAAegAAAAEAAAAAB4AAAAeAAAAAAAAACHkAAAB6"
+    },
+    "screen": {
+      "depth": 32,
+      "device_pixel_ratio": 1.0,
+      "geometry_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920,
+        "x": 1920,
+        "y": 0
+      },
+      "index_in_screens_list": 1,
+      "manufacturer": "Samsung Electric Company",
+      "model": "LF22T35/HCNNC02012",
+      "name": "HDMI-A-1",
+      "serial": "",
+      "size_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920
+      },
+      "virtual_geometry": {
+        "height": 1080,
+        "width": 3840,
+        "x": 0,
+        "y": 0
+      }
+    }
+  },
+  "geometry-of-plugin-reading-goal-stats-dialog-geometry": {
+    "frame_geometry": {
+      "height": 670,
+      "width": 722,
+      "x": 1920,
+      "y": 0
+    },
+    "full_screened": false,
+    "geometry": {
+      "height": 670,
+      "width": 722,
+      "x": 1920,
+      "y": 0
+    },
+    "maximized": false,
+    "normal_geometry": {
+      "height": 670,
+      "width": 722,
+      "x": 1920,
+      "y": 0
+    },
+    "qt": {
+      "__class__": "bytearray",
+      "__value__": "AdnQywADAAAAAAeAAAAAAAAAClEAAAKdAAAHgAAAAAAAAApRAAACnQAAAAEAAAAAB4AAAAeAAAAAAAAAClEAAAKd"
+    },
+    "screen": {
+      "depth": 32,
+      "device_pixel_ratio": 1.0,
+      "geometry_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920,
+        "x": 1920,
+        "y": 0
+      },
+      "index_in_screens_list": 1,
+      "manufacturer": "Samsung Electric Company",
+      "model": "LF22T35",
+      "name": "HDMI-A-1",
+      "serial": "",
+      "size_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920
+      },
+      "virtual_geometry": {
+        "height": 1080,
+        "width": 3840,
+        "x": 0,
+        "y": 0
+      }
+    }
+  },
+  "geometry-of-preferences dialog geometry": {
+    "frame_geometry": {
+      "height": 988,
+      "width": 1920,
+      "x": 1920,
+      "y": 0
+    },
+    "full_screened": false,
+    "geometry": {
+      "height": 988,
+      "width": 1920,
+      "x": 1920,
+      "y": 0
+    },
+    "maximized": true,
+    "normal_geometry": {
+      "height": 980,
+      "width": 1920,
+      "x": 0,
+      "y": 0
+    },
+    "qt": {
+      "__class__": "bytearray",
+      "__value__": "AdnQywADAAAAAAeAAAAAAAAADv8AAAPbAAAAAAAAAAAAAAd/AAAD0wAAAAECAAAAB4AAAAeAAAAAAAAADv8AAAPb"
+    },
+    "screen": {
+      "depth": 32,
+      "device_pixel_ratio": 1.0,
+      "geometry_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920,
+        "x": 1920,
+        "y": 0
+      },
+      "index_in_screens_list": 1,
+      "manufacturer": "Samsung Electric Company",
+      "model": "LF22T35",
+      "name": "HDMI-A-1",
+      "serial": "",
+      "size_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920
+      },
+      "virtual_geometry": {
+        "height": 1080,
+        "width": 3840,
+        "x": 0,
+        "y": 0
+      }
+    }
+  },
+  "geometry-of-quickview_dialog_geometry": {
+    "frame_geometry": {
+      "height": 985,
+      "width": 1920,
+      "x": 0,
+      "y": 0
+    },
+    "full_screened": false,
+    "geometry": {
+      "height": 985,
+      "width": 1920,
+      "x": 0,
+      "y": 0
+    },
+    "maximized": true,
+    "normal_geometry": {
+      "height": 979,
+      "width": 954,
+      "x": 1920,
+      "y": 0
+    },
+    "qt": {
+      "__class__": "bytearray",
+      "__value__": "AdnQywADAAAAAAAAAAAAAAAAB38AAAPYAAAHgAAAAAAAAAs5AAAD0gAAAAACAAAAB4AAAAAAAAAAAAAAB38AAAPY"
+    },
+    "screen": {
+      "depth": 32,
+      "device_pixel_ratio": 1.0,
+      "geometry_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920,
+        "x": 0,
+        "y": 0
+      },
+      "index_in_screens_list": 0,
+      "manufacturer": "BOE",
+      "model": "eDP-1-0x0868",
+      "name": "eDP-1",
+      "serial": "",
+      "size_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920
+      },
+      "virtual_geometry": {
+        "height": 1080,
+        "width": 3840,
+        "x": 0,
+        "y": 0
+      }
+    }
+  },
+  "geometry-of-scheduler_dialog_geometry": {
+    "frame_geometry": {
+      "height": 979,
+      "width": 954,
+      "x": 1920,
+      "y": 0
+    },
+    "full_screened": false,
+    "geometry": {
+      "height": 979,
+      "width": 954,
+      "x": 1920,
+      "y": 0
+    },
+    "maximized": false,
+    "normal_geometry": {
+      "height": 979,
+      "width": 954,
+      "x": 1920,
+      "y": 0
+    },
+    "qt": {
+      "__class__": "bytearray",
+      "__value__": "AdnQywADAAAAAAeAAAAAAAAACzkAAAPSAAAHgAAAAAAAAAs5AAAD0gAAAAEAAAAAB4AAAAeAAAAAAAAACzkAAAPS"
+    },
+    "screen": {
+      "depth": 32,
+      "device_pixel_ratio": 1.0,
+      "geometry_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920,
+        "x": 1920,
+        "y": 0
+      },
+      "index_in_screens_list": 1,
+      "manufacturer": "Samsung Electric Company",
+      "model": "LF22T35",
+      "name": "HDMI-A-1",
+      "serial": "",
+      "size_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920
+      },
+      "virtual_geometry": {
+        "height": 1080,
+        "width": 3840,
+        "x": 0,
+        "y": 0
+      }
+    }
+  },
+  "geometry-of-single-cover-fetch-dialog-geometry": {
+    "frame_geometry": {
+      "height": 283,
+      "width": 298,
+      "x": 1920,
+      "y": 0
+    },
+    "full_screened": false,
+    "geometry": {
+      "height": 283,
+      "width": 298,
+      "x": 1920,
+      "y": 0
+    },
+    "maximized": false,
+    "normal_geometry": {
+      "height": 283,
+      "width": 298,
+      "x": 1920,
+      "y": 0
+    },
+    "qt": {
+      "__class__": "bytearray",
+      "__value__": "AdnQywADAAAAAAeAAAAAAAAACKkAAAEaAAAHgAAAAAAAAAipAAABGgAAAAEAAAAAB4AAAAeAAAAAAAAACKkAAAEa"
+    },
+    "screen": {
+      "depth": 32,
+      "device_pixel_ratio": 1.0,
+      "geometry_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920,
+        "x": 1920,
+        "y": 0
+      },
+      "index_in_screens_list": 1,
+      "manufacturer": "Samsung Electric Company",
+      "model": "LF22T35",
+      "name": "HDMI-A-1",
+      "serial": "",
+      "size_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920
+      },
+      "virtual_geometry": {
+        "height": 1080,
+        "width": 3840,
+        "x": 0,
+        "y": 0
+      }
+    }
+  },
+  "geometry-of-tag_list_editor_dialog_geometry": {
+    "frame_geometry": {
+      "height": 708,
+      "width": 1136,
+      "x": 1920,
+      "y": 0
+    },
+    "full_screened": false,
+    "geometry": {
+      "height": 708,
+      "width": 1136,
+      "x": 1920,
+      "y": 0
+    },
+    "maximized": false,
+    "normal_geometry": {
+      "height": 708,
+      "width": 1136,
+      "x": 1920,
+      "y": 0
+    },
+    "qt": {
+      "__class__": "bytearray",
+      "__value__": "AdnQywADAAAAAAeAAAAAAAAAC+8AAALDAAAHgAAAAAAAAAvvAAACwwAAAAEAAAAAB4AAAAeAAAAAAAAAC+8AAALD"
+    },
+    "screen": {
+      "depth": 32,
+      "device_pixel_ratio": 1.0,
+      "geometry_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920,
+        "x": 1920,
+        "y": 0
+      },
+      "index_in_screens_list": 1,
+      "manufacturer": "Samsung Electric Company",
+      "model": "LF22T35",
+      "name": "HDMI-A-1",
+      "serial": "",
+      "size_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920
+      },
+      "virtual_geometry": {
+        "height": 1080,
+        "width": 3840,
+        "x": 0,
+        "y": 0
+      }
+    }
+  },
+  "geometry-of-template_editor_dialog_geometry": {
+    "frame_geometry": {
+      "height": 525,
+      "width": 1017,
+      "x": 1920,
+      "y": 0
+    },
+    "full_screened": false,
+    "geometry": {
+      "height": 525,
+      "width": 1017,
+      "x": 1920,
+      "y": 0
+    },
+    "maximized": false,
+    "normal_geometry": {
+      "height": 525,
+      "width": 1017,
+      "x": 1920,
+      "y": 0
+    },
+    "qt": {
+      "__class__": "bytearray",
+      "__value__": "AdnQywADAAAAAAeAAAAAAAAAC3gAAAIMAAAHgAAAAAAAAAt4AAACDAAAAAAAAAAAB4AAAAeAAAAAAAAAC3gAAAIM"
+    },
+    "screen": {
+      "depth": 32,
+      "device_pixel_ratio": 1.0,
+      "geometry_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920,
+        "x": 1920,
+        "y": 0
+      },
+      "index_in_screens_list": 0,
+      "manufacturer": "Samsung Electric Company",
+      "model": "LF22T35/HCNNC02012",
+      "name": "HDMI-A-1",
+      "serial": "",
+      "size_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920
+      },
+      "virtual_geometry": {
+        "height": 1080,
+        "width": 3840,
+        "x": 0,
+        "y": 0
+      }
+    }
+  },
+  "geometry-of-template_editor_doc_viewer_dialog-geometry": {
+    "frame_geometry": {
+      "height": 600,
+      "width": 800,
+      "x": 98,
+      "y": 0
+    },
+    "full_screened": false,
+    "geometry": {
+      "height": 600,
+      "width": 800,
+      "x": 98,
+      "y": 0
+    },
+    "maximized": false,
+    "normal_geometry": {
+      "height": 600,
+      "width": 800,
+      "x": 98,
+      "y": 0
+    },
+    "qt": {
+      "__class__": "bytearray",
+      "__value__": "AdnQywADAAAAAABiAAAAAAAAA4EAAAJXAAAAYgAAAAAAAAOBAAACVwAAAAAAAAAABtEAAABiAAAAAAAAA4EAAAJX"
+    },
+    "screen": {
+      "depth": 32,
+      "device_pixel_ratio": 2.0,
+      "geometry_in_logical_pixels": {
+        "height": 982,
+        "width": 1745,
+        "x": 0,
+        "y": 0
+      },
+      "index_in_screens_list": 0,
+      "manufacturer": "BOE",
+      "model": "eDP-1-0x0868",
+      "name": "eDP-1",
+      "serial": "",
+      "size_in_logical_pixels": {
+        "height": 982,
+        "width": 1745
+      },
+      "virtual_geometry": {
+        "height": 982,
+        "width": 1745,
+        "x": 0,
+        "y": 0
+      }
+    }
+  },
+  "geometry-of-user_category_editor_dialog_geometry": {
+    "frame_geometry": {
+      "height": 567,
+      "width": 979,
+      "x": 1920,
+      "y": 0
+    },
+    "full_screened": false,
+    "geometry": {
+      "height": 567,
+      "width": 979,
+      "x": 1920,
+      "y": 0
+    },
+    "maximized": false,
+    "normal_geometry": {
+      "height": 567,
+      "width": 979,
+      "x": 1920,
+      "y": 0
+    },
+    "qt": {
+      "__class__": "bytearray",
+      "__value__": "AdnQywADAAAAAAeAAAAAAAAAC1IAAAI2AAAHgAAAAAAAAAtSAAACNgAAAAAAAAAAB4AAAAeAAAAAAAAAC1IAAAI2"
+    },
+    "screen": {
+      "depth": 32,
+      "device_pixel_ratio": 1.0,
+      "geometry_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920,
+        "x": 1920,
+        "y": 0
+      },
+      "index_in_screens_list": 0,
+      "manufacturer": "Samsung Electric Company",
+      "model": "LF22T35/HCNNC02012",
+      "name": "HDMI-A-1",
+      "serial": "",
+      "size_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920
+      },
+      "virtual_geometry": {
+        "height": 1080,
+        "width": 3840,
+        "x": 0,
+        "y": 0
+      }
+    }
+  },
+  "gpm_template_editor_font": "SF Pro Display",
+  "gpm_template_editor_word_wrap_mode": true,
+  "grid view visible": false,
+  "image_popup_zoom_factor": 0.8000000000000002,
+  "jobs view column layout3": {
+    "__class__": "bytearray",
+    "__value__": "AAAA/wAAAAAAAAABAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABPcAAAAFAQEBAAAAAAAAAAAAAAAAAGT/////AAAAhAAAAAAAAAAFAAABawAAAAEAAAAAAAAA7QAAAAEAAAAAAAAAngAAAAEAAAAAAAABJAAAAAEAAAAAAAAA3QAAAAEAAAAAAAAD6AAAAAAAAAAAAA=="
+  },
+  "library-annotations-browser-splitter-state": {
+    "__class__": "bytearray",
+    "__value__": "AAAA/wAAAAEAAAACAAABwgAAAcIA/////wEAAAABAA=="
+  },
+  "library_usage_stats": {
+    "/home/achalmaedison/Biblioteca de calibre": 12,
+    "/home/achalmaedison/Documentos/biblioteca": 22,
+    "/home/achalmaedison/Documents/biblioteca": 288
+  },
+  "light_palette_name": "",
+  "light_palettes": {
+    "__current__": {
+      "AlternateBase": "#f5f5f5",
+      "Base": "#ffffff",
+      "BrightText": "#ff0000",
+      "BrightText-disabled": "#ff0000",
+      "Button": "#f0f0f0",
+      "ButtonText": "#000000",
+      "ButtonText-disabled": "#787878",
+      "Highlight": "#308cc6",
+      "HighlightedText": "#ffffff",
+      "HighlightedText-disabled": "#787878",
+      "Link": "#0000ff",
+      "LinkVisited": "#ff00ff",
+      "PlaceholderText": "#787878",
+      "PlaceholderText-disabled": "#787878",
+      "Text": "#000000",
+      "Text-disabled": "#787878",
+      "ToolTipBase": "#ffffdc",
+      "ToolTipText": "#000000",
+      "ToolTipText-disabled": "#000000",
+      "Window": "#f0f0f0",
+      "WindowText": "#000000",
+      "WindowText-disabled": "#000000"
+    }
+  },
+  "main_window_central_widget_state": {
+    "layout": "wide",
+    "narrow_desires": {
+      "book_details_height": 0.4634146341463415,
+      "cover_browser_width": 0.3494897959183674,
+      "quick_view_height": 0.25615212527964204,
+      "tag_browser_width": 0.25
+    },
+    "narrow_visibility": {
+      "book_details": true,
+      "book_list": true,
+      "cover_browser": false,
+      "quick_view": false,
+      "tag_browser": true
+    },
+    "wide_desires": {
+      "book_details_width": 0.190625,
+      "cover_browser_height": 0.4610917537746806,
+      "quick_view_height": 0.23779854620976115,
+      "tag_browser_width": 0.175
+    },
+    "wide_visibility": {
+      "book_details": false,
+      "book_list": true,
+      "cover_browser": false,
+      "quick_view": false,
+      "tag_browser": true
+    }
+  },
+  "manage_authors_table_widths": [
+    391,
+    352,
+    177,
+    177,
+    177
+  ],
+  "manage_data_files_last_sort_idx": 0,
+  "memory_view books view state": {
+    "column_alignment": {
+      "size": "center",
+      "timestamp": "center"
+    },
+    "column_positions": {
+      "authors": 2,
+      "collections": 5,
+      "inlibrary": 0,
+      "size": 4,
+      "timestamp": 3,
+      "title": 1
+    },
+    "column_sizes": {
+      "authors": 142,
+      "collections": 109,
+      "inlibrary": 128,
+      "size": 78,
+      "timestamp": 78,
+      "title": 311
+    },
+    "formats_injected": true,
+    "hidden_columns": [],
+    "id_injected": true,
+    "languages_injected": true,
+    "last_modified_injected": true,
+    "path_injected": true,
+    "sort_history": [
+      [
+        "timestamp",
+        false
+      ],
+      [
+        "inlibrary",
+        false
+      ],
+      [
+        "timestamp",
+        false
+      ],
+      [
+        "inlibrary",
+        false
+      ],
+      [
+        "timestamp",
+        false
+      ],
+      [
+        "inlibrary",
+        false
+      ],
+      [
+        "timestamp",
+        false
+      ],
+      [
+        "inlibrary",
+        false
+      ],
+      [
+        "timestamp",
+        false
+      ],
+      [
+        "inlibrary",
+        false
+      ],
+      [
+        "timestamp",
+        false
+      ],
+      [
+        "inlibrary",
+        false
+      ],
+      [
+        "timestamp",
+        false
+      ],
+      [
+        "inlibrary",
+        false
+      ],
+      [
+        "timestamp",
+        false
+      ],
+      [
+        "inlibrary",
+        false
+      ],
+      [
+        "timestamp",
+        false
+      ],
+      [
+        "inlibrary",
+        false
+      ],
+      [
+        "timestamp",
+        false
+      ]
+    ]
+  },
+  "metadata-download-identify-widget-splitter-state": {
+    "__class__": "bytearray",
+    "__value__": "AAAA/wAAAAEAAAACAAACAAAAAQAA/////wEAAAABAA=="
+  },
+  "previous_sort_order_BooksView": {
+    "#leído": true,
+    "#pages": true,
+    "#read_date": false,
+    "#zotero_date_added": true,
+    "#zotero_key": true,
+    "#zotero_pages": true,
+    "authors": true,
+    "formats": true,
+    "id": true,
+    "languages": false,
+    "pubdate": true,
+    "publisher": false,
+    "rating": true,
+    "tags": true,
+    "timestamp": false,
+    "title": true
+  },
+  "quick_start_guide_added": true,
+  "quickview_dialog_books_table_widths": [
+    294,
+    294,
+    294,
+    100,
+    100,
+    100,
+    100,
+    100,
+    100,
+    100,
+    100,
+    100,
+    100
+  ],
+  "qv_follows_column": true,
+  "qv_open_at_shutdown": false,
+  "recently_used_languages": [
+    "Español",
+    "Inglés"
+  ],
+  "replace_scene_breaks_history": [
+    "",
+    "<hr />",
+    "∗ ∗ ∗",
+    "• • •",
+    "♦ ♦ ♦",
+    "† †",
+    "‡ ‡ ‡",
+    "∞ ∞ ∞",
+    "¤ ¤ ¤"
+  ],
+  "row_numbers_in_book_list": false,
+  "search bar visible": true,
+  "server3_warning_done": true,
+  "show_emblems": false,
+  "show_highlight_toggle_button": true,
+  "show_layout_buttons": true,
+  "show_links_in_tag_browser": true,
+  "show_notes_in_tag_browser": true,
+  "show_sb_all_actions_button": true,
+  "tag browser search box visible": false,
+  "tag_browser_rules_dialog_table_widths": [
+    20,
+    328,
+    328,
+    20,
+    328,
+    20,
+    328
+  ],
+  "tag_list_editor_table_widths": [
+    482,
+    94,
+    185,
+    120,
+    126
+  ],
+  "tags_browser_value_icons": {},
+  "tb_search_order": {
+    "0": 1,
+    "1": 2,
+    "2": 3,
+    "3": 4,
+    "4": 0
+  },
+  "template_editor_table_widths": [
+    140,
+    41,
+    498
+  ],
+  "template_functions_prefs_st_show_help": true,
+  "template_functions_prefs_tf_show_help": true,
+  "toolbar_icon_size": "mid-small",
+  "toolbar_text": "always",
+  "zotero_metadata_importer:gui_zmi_dialog": {
+    "__class__": "bytearray",
+    "__value__": "AdnQywADAAAAAAeAAAAAAAAADLgAAAPSAAAHgAAAAAAAAAy4AAAD0gAAAAEAAAAAB4AAAAeAAAAAAAAADLgAAAPS"
+  }
+}

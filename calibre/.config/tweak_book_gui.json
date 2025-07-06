@@ -1,0 +1,321 @@
+{
+  "check-book-splitter-state": {
+    "__class__": "bytearray",
+    "__value__": "AAAA/wAAAAEAAAACAAAARgAAAEYA/////wEAAAABAA=="
+  },
+  "custom_colors_for_color_dialog": [
+    [
+      255,
+      255,
+      255,
+      255
+    ],
+    [
+      255,
+      255,
+      255,
+      255
+    ],
+    [
+      255,
+      255,
+      255,
+      255
+    ],
+    [
+      255,
+      255,
+      255,
+      255
+    ],
+    [
+      255,
+      255,
+      255,
+      255
+    ],
+    [
+      255,
+      255,
+      255,
+      255
+    ],
+    [
+      255,
+      255,
+      255,
+      255
+    ],
+    [
+      255,
+      255,
+      255,
+      255
+    ],
+    [
+      255,
+      255,
+      255,
+      255
+    ],
+    [
+      255,
+      255,
+      255,
+      255
+    ],
+    [
+      255,
+      255,
+      255,
+      255
+    ],
+    [
+      255,
+      255,
+      255,
+      255
+    ],
+    [
+      255,
+      255,
+      255,
+      255
+    ],
+    [
+      255,
+      255,
+      255,
+      255
+    ],
+    [
+      255,
+      255,
+      255,
+      255
+    ],
+    [
+      255,
+      255,
+      255,
+      255
+    ]
+  ],
+  "find-widget-state": {
+    "case_sensitive": false,
+    "direction": "down",
+    "dot_all": false,
+    "mode": "normal",
+    "where": "current",
+    "wrap": true
+  },
+  "geometry-of-import-foreign-geometry": {
+    "frame_geometry": {
+      "height": 158,
+      "width": 767,
+      "x": 1536,
+      "y": 0
+    },
+    "full_screened": false,
+    "geometry": {
+      "height": 158,
+      "width": 767,
+      "x": 1536,
+      "y": 0
+    },
+    "maximized": false,
+    "normal_geometry": {
+      "height": 158,
+      "width": 767,
+      "x": 1536,
+      "y": 0
+    },
+    "qt": {
+      "__class__": "bytearray",
+      "__value__": "AdnQywADAAAAAAYAAAAAAAAACP4AAACdAAAGAAAAAAAAAAj+AAAAnQAAAAAAAAAABgAAAAYAAAAAAAAACP4AAACd"
+    },
+    "screen": {
+      "depth": 32,
+      "device_pixel_ratio": 2.0,
+      "geometry_in_logical_pixels": {
+        "height": 864,
+        "width": 1536,
+        "x": 1536,
+        "y": 0
+      },
+      "index_in_screens_list": 0,
+      "manufacturer": "Samsung Electric Company",
+      "model": "LF22T35/HCNNC02012",
+      "name": "HDMI-A-1",
+      "serial": "",
+      "size_in_logical_pixels": {
+        "height": 864,
+        "width": 1536
+      },
+      "virtual_geometry": {
+        "height": 864,
+        "width": 3072,
+        "x": 0,
+        "y": 0
+      }
+    }
+  },
+  "geometry-of-main_window_geometry": {
+    "frame_geometry": {
+      "height": 985,
+      "width": 1920,
+      "x": 0,
+      "y": 49
+    },
+    "full_screened": false,
+    "geometry": {
+      "height": 985,
+      "width": 1920,
+      "x": 0,
+      "y": 49
+    },
+    "maximized": true,
+    "normal_geometry": {
+      "height": 985,
+      "width": 1920,
+      "x": 0,
+      "y": 49
+    },
+    "qt": {
+      "__class__": "bytearray",
+      "__value__": "AdnQywADAAAAAAAAAAAAMQAAB38AAAQJAAAAAAAAADEAAAd/AAAECQAAAAECAAAAB4AAAAAAAAAAMQAAB38AAAQJ"
+    },
+    "screen": {
+      "depth": 32,
+      "device_pixel_ratio": 1.0,
+      "geometry_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920,
+        "x": 1920,
+        "y": 0
+      },
+      "index_in_screens_list": 1,
+      "manufacturer": "Samsung Electric Company",
+      "model": "LF22T35",
+      "name": "HDMI-A-1",
+      "serial": "",
+      "size_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920
+      },
+      "virtual_geometry": {
+        "height": 1080,
+        "width": 3840,
+        "x": 0,
+        "y": 0
+      }
+    }
+  },
+  "geometry-of-reports-dialog-geometry": {
+    "frame_geometry": {
+      "height": 600,
+      "width": 950,
+      "x": 1920,
+      "y": 0
+    },
+    "full_screened": false,
+    "geometry": {
+      "height": 600,
+      "width": 950,
+      "x": 1920,
+      "y": 0
+    },
+    "maximized": false,
+    "normal_geometry": {
+      "height": 600,
+      "width": 950,
+      "x": 1920,
+      "y": 0
+    },
+    "qt": {
+      "__class__": "bytearray",
+      "__value__": "AdnQywADAAAAAAeAAAAAAAAACzUAAAJXAAAHgAAAAAAAAAs1AAACVwAAAAEAAAAAB4AAAAeAAAAAAAAACzUAAAJX"
+    },
+    "screen": {
+      "depth": 32,
+      "device_pixel_ratio": 1.0,
+      "geometry_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920,
+        "x": 1920,
+        "y": 0
+      },
+      "index_in_screens_list": 1,
+      "manufacturer": "Samsung Electric Company",
+      "model": "LF22T35/HCNNC02012",
+      "name": "HDMI-A-1",
+      "serial": "",
+      "size_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920
+      },
+      "virtual_geometry": {
+        "height": 1080,
+        "width": 3840,
+        "x": 0,
+        "y": 0
+      }
+    }
+  },
+  "main_window_state": {
+    "__class__": "bytearray",
+    "__value__": "AAAA/wAAAAD9AAAABAAAAAAAAAF8AAADnPwCAAAABfsAAAAkAGYAaQBsAGUAcwAtAGIAcgBvAHcAcwBlAHIALQBkAG8AYwBrAQAAACcAAAOcAAAAVwD////7AAAAHgB0AG8AYwAtAHYAaQBlAHcAZQByAC0AZABvAGMAawAAAAAA/////wAAAFcA////+wAAACAAdABlAHgAdAAtAHMAZQBhAHIAYwBoAC0AZABvAGMAawAAAAAA/////wAAAHQA////+wAAACAAYwBoAGUAYwBrAHAAbwBpAG4AdABzAC0AZABvAGMAawAAAAAA/////wAAAIcA////+wAAACYAcwBhAHYAZQBkAC0AcwBlAGEAcgBjAGgAZQBzAC0AZABvAGMAawAAAAAA/////wAAAfUA////AAAAAQAAAlgAAAOc/AIAAAAC+wAAABgAcAByAGUAdgBpAGUAdwAtAGQAbwBjAGsBAAAAJwAAA5wAAABOAP////sAAAAaAGwAaQB2AGUALQBjAHMAcwAtAGQAbwBjAGsAAAAAAP////8AAABXAP///wAAAAIAAAAAAAAAAPwBAAAAAfsAAAAeAGMAaABlAGMAawAtAGIAbwBvAGsALQBkAG8AYwBrAAAAAAD/////AAAAkAD///8AAAADAAAAAAAAAAD8AQAAAAH7AAAAHABpAG4AcwBwAGUAYwB0AG8AcgAtAGQAbwBjAGsAAAAAAP////8AAAAyAP///wAAA6AAAAOcAAAABAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAMAAAAUAGcAbABvAGIAYQBsAC0AYgBhAHIBAAAAAP////8AAAAAAAAAAAAAABIAdABvAG8AbABzAC0AYgBhAHIBAAABJv////8AAAAAAAAAAAAAABYAcABsAHUAZwBpAG4AcwAtAGIAYQByAAAAAAD/////AAAAAAAAAAA="
+  },
+  "recent-books": [
+    "/home/achalmaedison/Documents/biblioteca/Michael J. Sandel/Justicia _hacemos lo que debemos_ (2113)/Justicia _hacemos lo que debemos_ - Michael J. Sandel.epub",
+    "/home/achalmaedison/Documents/macroeconomia/monografia cambio climatico y crecimiento economico en el peru 2010 2020/Cambio climatico y Crecimiento Economico. 2010-2020.epub",
+    "/home/achalmaedison/Documentos/biblioteca/Gustavo Bueno/_Que es la filosofia_ (6)/_Que es la filosofia_ - Gustavo Bueno.epub"
+  ],
+  "reports-ui-state": {
+    "all-files-table": {
+      "__class__": "bytearray",
+      "__value__": "AAAA/wAAAAAAAAABAAAAAAAAAAEBAAAAAAAAAAAAAAAAAAAAAAAAAfQAAAAFAQEBAAAAAAAAAAAAAAAAAGT/////AAAAhAAAAAAAAAAFAAAAZAAAAAEAAAAAAAAAZAAAAAEAAAAAAAAAZAAAAAEAAAAAAAAAZAAAAAEAAAAAAAAAZAAAAAEAAAAAAAAD6AAAAAAAAAAAAA=="
+    },
+    "chars-table": {
+      "__class__": "bytearray",
+      "__value__": "AAAA/wAAAAAAAAABAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAZAAAAAEAQEBAAAAAAAAAAAAAAAAAGT/////AAAAhAAAAAAAAAAEAAAAZAAAAAEAAAAAAAAAZAAAAAEAAAAAAAAAZAAAAAEAAAAAAAAAZAAAAAEAAAAAAAAD6AAAAAAAAAAAAA=="
+    },
+    "classes-sort-ascending": true,
+    "classes-sort-on-counts": true,
+    "css-sort-ascending": true,
+    "css-sort-on-counts": true,
+    "image-files-table": {
+      "__class__": "bytearray",
+      "__value__": "AAAA/wAAAAAAAAABAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAZAAAAAEAQEBAAAAAAAAAAAAAAAAAGT/////AAAAhAAAAAAAAAAEAAAAZAAAAAEAAAAAAAAAZAAAAAEAAAAAAAAAZAAAAAEAAAAAAAAAZAAAAAEAAAAAAAAD6AAAAAAAAAAAAA=="
+    },
+    "links-table": {
+      "__class__": "bytearray",
+      "__value__": "AAAA/wAAAAAAAAABAAAAAAAAAAEBAAAAAAAAAAAAAAAAAAAAAAAAAlgAAAAGAQEBAAAAAAAAAAAAAAAAAGT/////AAAAhAAAAAAAAAAGAAAAZAAAAAEAAAAAAAAAZAAAAAEAAAAAAAAAZAAAAAEAAAAAAAAAZAAAAAEAAAAAAAAAZAAAAAEAAAAAAAAAZAAAAAEAAAAAAAAD6AAAAAAAAAAAAA=="
+    },
+    "links-view-splitter": {
+      "__class__": "bytearray",
+      "__value__": "AAAA/wAAAAEAAAAC//////////8B/////wEAAAACAA=="
+    },
+    "report-page": -1,
+    "splitter-state": {
+      "__class__": "bytearray",
+      "__value__": "AAAA/wAAAAEAAAACAAABAAABeIYA/////wEAAAABAA=="
+    },
+    "words-table": {
+      "__class__": "bytearray",
+      "__value__": "AAAA/wAAAAAAAAABAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAASwAAAADAQEBAAAAAAAAAAAAAAAAAGT/////AAAAhAAAAAAAAAADAAAAZAAAAAEAAAAAAAAAZAAAAAEAAAAAAAAAZAAAAAEAAAAAAAAD6AAAAAAAAAAAAA=="
+    }
+  },
+  "saved_seaches_state": {
+    "direction": "down",
+    "where": "current",
+    "wrap": true
+  },
+  "search-panel-visible": false,
+  "text_search_widget_state": {
+    "case_sensitive": false,
+    "dot_all": true,
+    "mode": "normal",
+    "where": "current"
+  }
+}

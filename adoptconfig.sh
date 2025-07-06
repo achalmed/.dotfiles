@@ -11,9 +11,6 @@ fi
 
 # Crear enlaces simbólicos con Stow y adoptar archivos existentes
 cd "$DOTFILES_DIR" || exit
-stow -v --adopt git
-stow -v --adopt kde
-stow -v --adopt shell
-stow -v --adopt terminal
+stow -v --adopt git kde shell terminal digikam vscode zotero obsidian calibre libreoffice xournalpp kate texstudio lyx okular rstudio vlc krusader
 
 echo "Dotfiles instalados correctamente!"

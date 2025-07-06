@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='utf-8'?>
+<recipe_collection xmlns="http://calibre-ebook.com/recipe_collection">
+
+	<recipe_customization keep_issues="0" id="builtin:abc_es" add_title_tag="yes" custom_tags="" recipe_specific_options="{}"/>
+
+	<recipe_customization keep_issues="0" id="builtin:elmundo" add_title_tag="yes" custom_tags="" recipe_specific_options="{}"/>
+
+	<recipe_customization keep_issues="0" id="builtin:bloomberg" add_title_tag="yes" custom_tags="" recipe_specific_options="{}"/>
+
+	<recipe_customization keep_issues="0" id="builtin:infobae" add_title_tag="yes" custom_tags="" recipe_specific_options="{}"/>
+
+	<recipe_customization keep_issues="0" id="builtin:iprofesional" add_title_tag="yes" custom_tags="" recipe_specific_options="{}"/>
+
+	<recipe_customization keep_issues="0" id="builtin:lanacion" add_title_tag="yes" custom_tags="" recipe_specific_options="{}"/>
+
+	<recipe_customization keep_issues="0" id="builtin:pagina12" add_title_tag="yes" custom_tags="" recipe_specific_options="{}"/>
+
+	<recipe_customization keep_issues="0" id="builtin:revista_veintitres" add_title_tag="yes" custom_tags="" recipe_specific_options="{}"/>
+
+	<recipe_customization keep_issues="0" id="builtin:hoy" add_title_tag="yes" custom_tags="" recipe_specific_options="{}"/>
+
+	<recipe_customization keep_issues="0" id="builtin:el_pais_babelia" add_title_tag="yes" custom_tags="" recipe_specific_options="{}"/>
+
+	<recipe_customization keep_issues="0" id="builtin:national_geographic_es" add_title_tag="yes" custom_tags="" recipe_specific_options="{}"/>
+
+	<recipe_customization keep_issues="0" id="builtin:queleer" add_title_tag="yes" custom_tags="" recipe_specific_options="{}"/>
+
+	<recipe_customization keep_issues="0" id="builtin:revista_muy" add_title_tag="yes" custom_tags="" recipe_specific_options="{}"/>
+
+	<recipe_customization keep_issues="0" id="builtin:weblogs_sl" add_title_tag="yes" custom_tags="" recipe_specific_options="{}"/>
+
+	<recipe_customization keep_issues="0" id="builtin:jot_down" add_title_tag="yes" custom_tags="" recipe_specific_options="{}"/>
+
+	<recipe_customization keep_issues="0" id="builtin:expansion_spanish" add_title_tag="yes" custom_tags="" recipe_specific_options="{}"/>
+
+	<recipe_customization keep_issues="0" id="builtin:europa_press" add_title_tag="yes" custom_tags="" recipe_specific_options="{}"/>
+
+	<recipe_customization keep_issues="0" id="builtin:nyt_tmag" add_title_tag="yes" custom_tags="" recipe_specific_options="{}"/>
+
+	<recipe_customization keep_issues="0" id="builtin:the_week_magazine_free" add_title_tag="yes" custom_tags="" recipe_specific_options="{}"/>
+
+	<recipe_customization keep_issues="0" id="builtin:nytimes" add_title_tag="yes" custom_tags="" recipe_specific_options="{}"/>
+
+	<recipe_customization keep_issues="0" id="builtin:nyt_magazine" add_title_tag="yes" custom_tags="" recipe_specific_options="{}"/>
+
+	<recipe_customization keep_issues="0" id="builtin:miami_herald" add_title_tag="yes" custom_tags="" recipe_specific_options="{}"/>
+
+	<recipe_customization keep_issues="0" id="builtin:cnn" add_title_tag="yes" custom_tags="" recipe_specific_options="{}"/>
+
+	<scheduled_recipe id="builtin:bbc_es" title="BBC Mundo" last_downloaded="2025-07-05T11:01:22.268414+00:00"><schedule type="days_of_week">2,5,6:6:0</schedule></scheduled_recipe>
+
+	<recipe_customization keep_issues="0" id="builtin:bbc_es" add_title_tag="yes" custom_tags="" recipe_specific_options="{}"/>
+
+	<scheduled_recipe id="builtin:el_economista" title="elEconomista.es" last_downloaded="2025-07-05T11:01:25.217024+00:00"><schedule type="days_of_week">2,5,6:6:0</schedule></scheduled_recipe>
+
+	<recipe_customization keep_issues="0" id="builtin:el_economista" add_title_tag="yes" custom_tags="" recipe_specific_options="{}"/>
+
+	<scheduled_recipe id="builtin:nytimes_sub" title="The New York Times" last_downloaded="2025-07-05T11:01:08.279214+00:00"><schedule type="days_of_week">2,5,6:6:0</schedule></scheduled_recipe>
+
+	<recipe_customization keep_issues="0" id="builtin:nytimes_sub" add_title_tag="yes" custom_tags="" recipe_specific_options="{}"/>
+
+</recipe_collection>

@@ -1,0 +1,9 @@
+{
+  "nativeMenus": true,
+  "cssTheme": "Things",
+  "theme": "system",
+  "textFontFamily": "Excalifont",
+  "baseFontSize": 17,
+  "monospaceFontFamily": "Hack Nerd Font",
+  "baseFontSizeAction": true
+}

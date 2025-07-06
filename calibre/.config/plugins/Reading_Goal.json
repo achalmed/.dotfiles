@@ -1,0 +1,40 @@
+{
+  "allow_other_years": true,
+  "auto_add_challenges": "",
+  "auto_add_column": "",
+  "auto_add_value": "",
+  "auto_collapse": "",
+  "autofill": true,
+  "backup_date": {
+    "biblioteca": {
+      "__class__": "datetime.datetime",
+      "__value__": "2025-07-01T20:54:42.273335+00:00"
+    }
+  },
+  "backup_files": "",
+  "backup_interval": "7",
+  "backup_path": "/home/achalmaedison/Documents/biblioteca/Reading Goal",
+  "genre_column": "#genres",
+  "jump_to_selected": true,
+  "keep_rereading_color": false,
+  "main_action": "Add to reading goal",
+  "page_count_column": "#pages",
+  "reading_progress_column": "#percentage",
+  "rereading_shelf": false,
+  "shelf_colors": "",
+  "sorting": "Date (asc)",
+  "state": {
+    "CustomChallengesDialog": {
+      "__class__": "bytearray",
+      "__value__": "AAAA/wAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAuYAAAAFAQAAAAAAAAABAAAAAAAAAGT/////AAAAhAAAAAAAAAAFAAAA8gAAAAEAAAABAAAAeAAAAAEAAAAAAAAAeAAAAAEAAAAAAAAAyAAAAAEAAAAAAAAAPAAAAAEAAAAAAAAD6AAAAABkAAAAAA=="
+    },
+    "EditGoalDialog": {
+      "__class__": "bytearray",
+      "__value__": "AAAA/wAAAAAAAAABAAAAAAAAAAABAAAAAAAAAAAAAAALBgcAAAAFAAAACQAAAGQAAAAIAAAAZAAAAAEAAABkAAAACgAAAGQAAAACAAAAZAAABCIAAAALAQEAAAAAAAABAAAAAAAAAGT/////AAAAhAAAAAAAAAALAAABogAAAAEAAAABAAAAAAAAAAEAAAAAAAAAAAAAAAEAAAAAAAAAyAAAAAEAAAAAAAAAyAAAAAEAAAAAAAAAUAAAAAEAAAAAAAAAZAAAAAEAAAAAAAAAPAAAAAEAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAEAAAAAAAAD6AAAAABkAAAAAA=="
+    },
+    "LinkBookDialog": ""
+  },
+  "status_date_column": "#read_date",
+  "use_rereading_color": true,
+  "use_rereading_counter": true
+}

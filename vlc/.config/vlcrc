@@ -1,0 +1,8 @@
+[Audio Preview Settings]
+Autoplay=false
+
+[KFileDialog Settings]
+Recent Files[$e]=PTT-20170627-WA0000.opus,file:$HOME/.local/share/vlc/skins2/Hind-Flat.vlt,file:$HOME/.local/share/vlc/skins2/Dandash.vlt,file:$HOME/Videos/2024/20240301_183037.mp4
+Recent URLs[$e]=file:$HOME/,file:$HOME/Downloads/,file:$HOME/Documents/,file:$HOME/Downloads/VideoDownloader/,file:$HOME/Videos/2024/,file:$HOME/Music/,file:$HOME/Videos/,file:$HOME/.local/share/vlc/skins2/,file:$HOME/.local/share/vlc/
+detailViewIconSize=16
+iconViewIconSize=64

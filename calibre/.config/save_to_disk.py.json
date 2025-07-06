@@ -1,0 +1,15 @@
+{
+  "asciiize": false,
+  "formats": "all",
+  "replace_whitespace": true,
+  "save_cover": true,
+  "save_extra_files": true,
+  "send_template": "{author_sort}/{title} - {authors}",
+  "send_timefmt": "%b, %Y",
+  "single_dir": false,
+  "template": "{author_sort}/{title}/{title} - {authors}",
+  "timefmt": "%b, %Y",
+  "to_lowercase": true,
+  "update_metadata": true,
+  "write_opf": true
+}

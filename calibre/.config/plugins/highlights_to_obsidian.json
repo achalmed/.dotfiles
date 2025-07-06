@@ -1,0 +1,21 @@
+{
+  "body_format": "\n[Highlighted]({url}) on {date} at {time} UTC:\n{blockquote}\n\n{notes}\n\n---\n",
+  "confirm_send_all": true,
+  "copy_header": false,
+  "display_help_on_menu_open": false,
+  "header_format": "\n{booksent} highlights from \"{title}\" sent on {datenow} at {timenow} UTC.\n\n---\n",
+  "highlights_sent_dialog": true,
+  "last_send_time": "2025-07-01 12:58:37",
+  "max_note_size": "20000",
+  "no_notes_format": "\n[Highlighted]({url}) on {date} at {time} UTC:\n{blockquote}\n\n---\n",
+  "prev_send": "1970-01-03 00:00:00",
+  "sleep_secs": 0.1,
+  "sort_key": "location",
+  "title_format": "Books/{title} by {authors}",
+  "use_header": false,
+  "use_max_note_size": true,
+  "use_xdg_open": false,
+  "vault_name": "thoughts",
+  "web_user": false,
+  "web_user_name": "*"
+}

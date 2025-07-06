@@ -1,0 +1,164 @@
+{
+  "2025": {
+    "2094": {
+      "authors": [
+        "Luis Eduardo, Girón Cruz"
+      ],
+      "challenges": [
+        "Annual"
+      ],
+      "date": null,
+      "genre": "Undefined",
+      "last_year_pages": 0,
+      "page_count": 102,
+      "read_pages": 0,
+      "records": {
+        "0": {
+          "date": null,
+          "read_pages": 0,
+          "status": 0
+        }
+      },
+      "reread_count": -1,
+      "series": null,
+      "shelf": "Want to read",
+      "status": 0,
+      "title": "Econometría Aplicada Usando Stata 13",
+      "title_sort": "Econometría Aplicada Usando Stata 13"
+    },
+    "2105": {
+      "authors": [
+        "Graciela, Reyes"
+      ],
+      "challenges": [
+        "Annual"
+      ],
+      "date": null,
+      "genre": "Undefined",
+      "last_year_pages": 0,
+      "page_count": 373,
+      "read_pages": 0,
+      "records": {
+        "0": {
+          "date": null,
+          "read_pages": 0,
+          "status": 0
+        }
+      },
+      "reread_count": -1,
+      "series": null,
+      "shelf": "Want to read",
+      "status": 0,
+      "title": "Como Escribir Bien en Espanol 2008",
+      "title_sort": "Como Escribir Bien en Espanol 2008"
+    },
+    "2111": {
+      "authors": [
+        "Michael J., Sandel"
+      ],
+      "challenges": [
+        "Annual"
+      ],
+      "date": null,
+      "genre": "Undefined",
+      "last_year_pages": 0,
+      "page_count": 315,
+      "read_pages": 0,
+      "records": {
+        "0": {
+          "date": null,
+          "read_pages": 0,
+          "status": 0
+        }
+      },
+      "reread_count": -1,
+      "series": null,
+      "shelf": "Want to read",
+      "status": 0,
+      "title": "La Tiranía Del Mérito",
+      "title_sort": "Tiranía Del Mérito, La"
+    },
+    "2113": {
+      "authors": [
+        "Michael J., Sandel"
+      ],
+      "challenges": [
+        "Annual"
+      ],
+      "date": {
+        "__class__": "datetime.datetime",
+        "__value__": "2025-03-04T15:58:33+00:00"
+      },
+      "genre": "Undefined",
+      "last_year_pages": 0,
+      "page_count": 377,
+      "read_pages": 11,
+      "records": {
+        "0": {
+          "date": null,
+          "read_pages": 0,
+          "status": 0
+        },
+        "1": {
+          "date": null,
+          "read_pages": 8,
+          "status": 2.0
+        },
+        "2": {
+          "date": null,
+          "read_pages": 11,
+          "status": 3.0
+        }
+      },
+      "reread_count": 0,
+      "series": null,
+      "shelf": "Reading",
+      "status": 3.0,
+      "title": "Justicia ¿hacemos Lo Que Debemos?",
+      "title_sort": "Justicia ¿hacemos Lo Que Debemos?"
+    },
+    "summary": {
+      "challenges_dict": {
+        "Annual": {
+          "count": 4,
+          "end": {
+            "__class__": "datetime.datetime",
+            "__value__": "2025-12-31T05:00:00+00:00"
+          },
+          "progress": 0,
+          "start": {
+            "__class__": "datetime.datetime",
+            "__value__": "2025-01-01T05:00:00+00:00"
+          }
+        }
+      },
+      "goal_books_count": 4,
+      "goal_page_count": 1167,
+      "goal_percentage": 0.0,
+      "read_books_count": 0,
+      "read_books_month_count": {
+        "abr": 0,
+        "ago": 0,
+        "dic": 0,
+        "ene": 0,
+        "feb": 0,
+        "jul": 0,
+        "jun": 0,
+        "mar": 0,
+        "may": 0,
+        "nov": 0,
+        "oct": 0,
+        "set": 0
+      },
+      "read_page_count": 11
+    }
+  },
+  "general_info": {
+    "autofill_done": true,
+    "schema_version": 1.5,
+    "timestamp": {
+      "__class__": "datetime.datetime",
+      "__value__": "2025-07-01T20:54:42.279240+00:00"
+    }
+  }
+}

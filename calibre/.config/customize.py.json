@@ -1,0 +1,26 @@
+{
+  "disabled_plugins": {
+    "__class__": "set",
+    "__value__": []
+  },
+  "enabled_plugins": {
+    "__class__": "set",
+    "__value__": [
+      "Catalog_BIBTEX",
+      "Big Book Search",
+      "Google Images",
+      "Edelweiss"
+    ]
+  },
+  "filetype_mapping": {},
+  "plugin_customization": {},
+  "plugins": {
+    "Count Pages": "/home/achalmaedison/.config/calibre/plugins/Count Pages.zip",
+    "Goodreads": "/home/achalmaedison/.config/calibre/plugins/Goodreads.zip",
+    "Highlights to Obsidian": "/home/achalmaedison/.config/calibre/plugins/Highlights to Obsidian.zip",
+    "PDF Cover": "/home/achalmaedison/.config/calibre/plugins/PDF Cover.zip",
+    "Reading Goal": "/home/achalmaedison/.config/calibre/plugins/Reading Goal.zip",
+    "Wikidata": "/home/achalmaedison/.config/calibre/plugins/Wikidata.zip",
+    "Zotero Metadata Importer": "/home/achalmaedison/.config/calibre/plugins/Zotero Metadata Importer.zip"
+  }
+}

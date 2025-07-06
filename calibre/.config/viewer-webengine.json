@@ -1,0 +1,404 @@
+{
+  "geometry-of-main_window_geometry": {
+    "frame_geometry": {
+      "height": 990,
+      "width": 1920,
+      "x": 1920,
+      "y": 0
+    },
+    "full_screened": false,
+    "geometry": {
+      "height": 990,
+      "width": 1920,
+      "x": 1920,
+      "y": 0
+    },
+    "maximized": true,
+    "normal_geometry": {
+      "height": 985,
+      "width": 1920,
+      "x": 1920,
+      "y": 0
+    },
+    "qt": {
+      "__class__": "bytearray",
+      "__value__": "AdnQywADAAAAAAeAAAAAAAAADv8AAAPdAAAHgAAAAAAAAA7/AAAD2AAAAAECAAAAB4AAAAeAAAAAAAAADv8AAAPd"
+    },
+    "screen": {
+      "depth": 32,
+      "device_pixel_ratio": 1.0,
+      "geometry_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920,
+        "x": 1920,
+        "y": 0
+      },
+      "index_in_screens_list": 1,
+      "manufacturer": "Samsung Electric Company",
+      "model": "LF22T35",
+      "name": "HDMI-A-1",
+      "serial": "",
+      "size_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920
+      },
+      "virtual_geometry": {
+        "height": 1080,
+        "width": 3840,
+        "x": 0,
+        "y": 0
+      }
+    }
+  },
+  "geometry-of-read-aloud-config-geometry": {
+    "frame_geometry": {
+      "height": 681,
+      "width": 459,
+      "x": 721,
+      "y": 173
+    },
+    "full_screened": false,
+    "geometry": {
+      "height": 652,
+      "width": 459,
+      "x": 721,
+      "y": 202
+    },
+    "maximized": false,
+    "normal_geometry": {
+      "height": 652,
+      "width": 459,
+      "x": 721,
+      "y": 202
+    },
+    "qt": {
+      "__class__": "bytearray",
+      "__value__": "AdnQywADAAAAAALRAAAArQAABJsAAANVAAAC0QAAAMoAAASbAAADVQAAAAAAAAAAB4AAAALRAAAAygAABJsAAANV"
+    },
+    "screen": {
+      "depth": 24,
+      "device_pixel_ratio": 1.0,
+      "geometry_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920,
+        "x": 0,
+        "y": 0
+      },
+      "index_in_screens_list": 0,
+      "manufacturer": "BOE",
+      "model": "",
+      "name": "eDP-1",
+      "serial": "",
+      "size_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920
+      },
+      "virtual_geometry": {
+        "height": 1080,
+        "width": 3840,
+        "x": 0,
+        "y": 0
+      }
+    }
+  },
+  "local_storage": {
+    "simple_input_history_net_search_url": [
+      "https://google.com/search?q={q}"
+    ]
+  },
+  "lookup_location": "Google search",
+  "lookup_zoom_factor": 0.8,
+  "main_window_state": {
+    "__class__": "bytearray",
+    "__value__": "AAAA/wAAAAH9AAAAAgAAAAAAAAFwAAADr/wCAAAAAvsAAAAQAHQAbwBjAC0AZABvAGMAawAAAAAAAAADrwAAAIoA////+wAAABYAcwBlAGEAcgBjAGgALQBkAG8AYwBrAAAAAngAAAE3AAAAmgD///8AAAABAAABiwAAA6/8AgAAAAT7AAAAFgBsAG8AbwBrAHUAcAAtAGQAbwBjAGsAAAAAAAAAA68AAACDAP////sAAAAcAGIAbwBvAGsAbQBhAHIAawBzAC0AZABvAGMAawAAAAAAAAADrwAAAPIA////+wAAABwAaQBuAHMAcABlAGMAdABvAHIALQBkAG8AYwBrAAAAAAAAAAOvAAAAFAD////7AAAAHgBoAGkAZwBoAGwAaQBnAGgAdABzAC0AZABvAGMAawAAAAAAAAADrwAAANcA////AAAHgAAAA7cAAAAEAAAABAAAAAgAAAAI/AAAAAEAAAADAAAAAQAAAB4AYQBjAHQAaQBvAG4AcwBfAHQAbwBvAGwAYgBhAHIBAAAAAP////8AAAAAAAAAAA=="
+  },
+  "old_prefs_migrated": true,
+  "saved-search-settings": {
+    "When": {
+      "case_sensitive": false,
+      "mode": "normal"
+    },
+    "When the U.S. Environmental Prot": {
+      "case_sensitive": false,
+      "mode": "normal"
+    }
+  },
+  "session_data": {
+    "base_font_size": 19,
+    "book_scrollbar": true,
+    "columns_per_screen": {
+      "landscape": 2,
+      "portrait": 2
+    },
+    "controls_footer": {
+      "left": "empty",
+      "middle": "empty",
+      "right": "progress"
+    },
+    "controls_help_shown_count": 2,
+    "current_color_scheme": "sepia-light",
+    "footer": {
+      "left": "menu-icon-on-hover",
+      "middle": "empty",
+      "right": "progress"
+    },
+    "gesture_overrides": {},
+    "header": {
+      "left": "empty",
+      "middle": "empty",
+      "right": "menu-icon-on-hover"
+    },
+    "highlight_style": {
+      "kind": "color",
+      "type": "builtin",
+      "which": "yellow"
+    },
+    "left-margin": {
+      "left": "empty",
+      "middle": "empty",
+      "right": "empty"
+    },
+    "margin_bottom": 70,
+    "margin_left": 80,
+    "margin_right": 80,
+    "margin_top": 70,
+    "max_text_height": 0,
+    "max_text_width": 0,
+    "override_book_colors": "never",
+    "read_mode": "paged",
+    "right-margin": {
+      "left": "empty",
+      "middle": "empty",
+      "right": "empty"
+    },
+    "selection_bar_actions": [
+      "bookmark",
+      "copy",
+      "lookup",
+      "search_net",
+      "speak",
+      "search",
+      "remove_highlight"
+    ],
+    "selection_bar_quick_highlights": [
+      "type:builtin;kind:color;which:yellow;light:undefined;dark:undefined;background-color:undefined;text-decoration-line:undefined;text-decoration-color:undefined;text-decoration-style:undefined",
+      "type:builtin;kind:color;which:blue;light:undefined;dark:undefined;background-color:undefined;text-decoration-line:undefined;text-decoration-color:undefined;text-decoration-style:undefined",
+      "type:builtin;kind:color;which:green;light:undefined;dark:undefined;background-color:undefined;text-decoration-line:undefined;text-decoration-color:undefined;text-decoration-style:undefined",
+      "type:builtin;kind:decoration;which:wavy;light:undefined;dark:undefined;background-color:undefined;text-decoration-line:undefined;text-decoration-color:undefined;text-decoration-style:undefined",
+      "type:builtin;kind:decoration;which:strikeout;light:undefined;dark:undefined;background-color:undefined;text-decoration-line:undefined;text-decoration-color:undefined;text-decoration-style:undefined"
+    ],
+    "skipped_dialogs": {
+      "confirm_remove_highlight": "2025-03-03T23:56:15.301Z"
+    },
+    "standalone_font_settings": {
+      "minimum_font_size": 14,
+      "mono_family": "Courier New",
+      "sans_family": "Verdana",
+      "serif_family": "Times New Roman"
+    },
+    "standalone_misc_settings": {
+      "remember_window_geometry": true,
+      "show_actions_toolbar": true
+    },
+    "standalone_recently_opened": [
+      {
+        "authors": [
+          "Chacon Scott"
+        ],
+        "key": "/home/achalmaedison/Documents/biblioteca/Scott Chacon/Pro Git (3113)/Pro Git - Scott Chacon.epub",
+        "pathtoebook": "/home/achalmaedison/Documents/biblioteca/Scott Chacon/Pro Git (3113)/Pro Git - Scott Chacon.epub",
+        "timestamp": "2025-06-14T05:03:57.918Z",
+        "title": "Pro Git"
+      },
+      {
+        "authors": [
+          " von Mises Ludwig"
+        ],
+        "key": "/home/achalmaedison/Documents/biblioteca/Ludwig, von Mises/La Accion Humana (36)/La Accion Humana - Ludwig, von Mises.epub",
+        "pathtoebook": "/home/achalmaedison/Documents/biblioteca/Ludwig, von Mises/La Accion Humana (36)/La Accion Humana - Ludwig, von Mises.epub",
+        "timestamp": "2025-06-08T19:15:48.556Z",
+        "title": "La Accion Humana"
+      },
+      {
+        "authors": [
+          " Sandel Michael J."
+        ],
+        "key": "/home/achalmaedison/Documents/biblioteca/Michael J., Sandel/Justicia _hacemos Lo Que Debemos_ (2113)/Justicia _hacemos Lo Que Debemos_ - Michael J., Sandel.epub",
+        "pathtoebook": "/home/achalmaedison/Documents/biblioteca/Michael J., Sandel/Justicia _hacemos Lo Que Debemos_ (2113)/Justicia _hacemos Lo Que Debemos_ - Michael J., Sandel.epub",
+        "timestamp": "2025-06-08T19:15:28.470Z",
+        "title": "Justicia  hacemos Lo Que Debemos "
+      },
+      {
+        "key": "/home/achalmaedison/Documents/biblioteca/Desconocido/Pro Git (3113)/Pro Git - Desconocido.epub",
+        "pathtoebook": "/home/achalmaedison/Documents/biblioteca/Desconocido/Pro Git (3113)/Pro Git - Desconocido.epub",
+        "timestamp": "2025-05-19T02:53:34.232Z",
+        "title": "Pro Git"
+      },
+      {
+        "authors": [
+          " Kaiser Axel"
+        ],
+        "key": "/home/achalmaedison/Documents/biblioteca/Axel, Kaiser/El Engano Populista (14)/El Engano Populista - Axel, Kaiser.epub",
+        "pathtoebook": "/home/achalmaedison/Documents/biblioteca/Axel, Kaiser/El Engano Populista (14)/El Engano Populista - Axel, Kaiser.epub",
+        "timestamp": "2025-05-12T16:06:08.182Z",
+        "title": "El Engano Populista"
+      },
+      {
+        "authors": [
+          " Kaiser Axel"
+        ],
+        "key": "/home/achalmaedison/Documents/biblioteca/Axel, Kaiser/El Economista Callejero (33)/El Economista Callejero - Axel, Kaiser.epub",
+        "pathtoebook": "/home/achalmaedison/Documents/biblioteca/Axel, Kaiser/El Economista Callejero (33)/El Economista Callejero - Axel, Kaiser.epub",
+        "timestamp": "2025-05-12T15:53:58.742Z",
+        "title": "El Economista Callejero"
+      },
+      {
+        "authors": [
+          " Huerta De Soto Jesus"
+        ],
+        "key": "/home/achalmaedison/Documents/biblioteca/Jesus, Huerta De Soto/Dinero, Credito Bancario Y Ciclos Economicos (2077)/Dinero, Credito Bancario Y Ciclos Economic - Jesus, Huerta De Soto.epub",
+        "pathtoebook": "/home/achalmaedison/Documents/biblioteca/Jesus, Huerta De Soto/Dinero, Credito Bancario Y Ciclos Economicos (2077)/Dinero, Credito Bancario Y Ciclos Economic - Jesus, Huerta De Soto.epub",
+        "timestamp": "2025-03-08T20:22:48.659Z",
+        "title": "Dinero, Credito Bancario Y Ciclos Economic"
+      },
+      {
+        "authors": [
+          "Michael J. Sandel"
+        ],
+        "key": "/home/achalmaedison/Documents/biblioteca/Michael J. Sandel/La tirania del merito (2111)/La tirania del merito - Michael J. Sandel.epub",
+        "pathtoebook": "/home/achalmaedison/Documents/biblioteca/Michael J. Sandel/La tirania del merito (2111)/La tirania del merito - Michael J. Sandel.epub",
+        "timestamp": "2025-03-04T16:00:24.934Z",
+        "title": "La tiranía del mérito"
+      },
+      {
+        "authors": [
+          "Michael J. Sandel"
+        ],
+        "key": "/home/achalmaedison/Documents/biblioteca/Michael J. Sandel/Justicia _hacemos lo que debemos_ (2113)/Justicia _hacemos lo que debemos_ - Michael J. Sandel.epub",
+        "pathtoebook": "/home/achalmaedison/Documents/biblioteca/Michael J. Sandel/Justicia _hacemos lo que debemos_ (2113)/Justicia _hacemos lo que debemos_ - Michael J. Sandel.epub",
+        "timestamp": "2025-03-04T15:59:37.791Z",
+        "title": "Justicia ¿hacemos lo que debemos?"
+      },
+      {
+        "authors": [
+          "Ashkarcito"
+        ],
+        "key": "/home/achalmaedison/Documents/biblioteca/Paul Johnson/_Existe Una Base Moral Para El Capitalismo_ (2028)/_Existe Una Base Moral Para El Capitalismo - Paul Johnson.pdf",
+        "pathtoebook": "/home/achalmaedison/Documents/biblioteca/Paul Johnson/_Existe Una Base Moral Para El Capitalismo_ (2028)/_Existe Una Base Moral Para El Capitalismo - Paul Johnson.pdf",
+        "timestamp": "2025-03-04T15:06:36.043Z",
+        "title": "966_597.pdf"
+      },
+      {
+        "authors": [
+          "Michael Sandel"
+        ],
+        "key": "/home/achalmaedison/Documents/biblioteca/Michael J. Sandel/Justice_ What's the Right Thing to Do_ (2112)/Justice_ What's the Right Thing to Do_ - Michael J. Sandel.mobi",
+        "pathtoebook": "/home/achalmaedison/Documents/biblioteca/Michael J. Sandel/Justice_ What's the Right Thing to Do_ (2112)/Justice_ What's the Right Thing to Do_ - Michael J. Sandel.mobi",
+        "timestamp": "2025-03-03T23:52:29.787Z",
+        "title": "Justice: What's the Right Thing to Do?"
+      },
+      {
+        "authors": [
+          "Waldo Mendoza Bellido;Yuliño Anastacio Clemente"
+        ],
+        "key": "/home/achalmaedison/Documents/biblioteca/Waldo Mendoza Bellido/La Historia Fiscal Del Peru_ 1980-2020 (42)/La Historia Fiscal Del Peru_ 1980-2020 - Waldo Mendoza Bellido.epub",
+        "pathtoebook": "/home/achalmaedison/Documents/biblioteca/Waldo Mendoza Bellido/La Historia Fiscal Del Peru_ 1980-2020 (42)/La Historia Fiscal Del Peru_ 1980-2020 - Waldo Mendoza Bellido.epub",
+        "timestamp": "2025-03-03T21:42:10.663Z",
+        "title": "La historia fiscal del Perú: 1980-2020"
+      },
+      {
+        "authors": [
+          "Murray N. Rothbard"
+        ],
+        "key": "/home/achalmaedison/Documents/biblioteca/Murray N. Rothbard/Historia Del Pensamiento Economico, Vol. II (17)/Historia Del Pensamiento Economico, Vol. I - Murray N. Rothbard.epub",
+        "pathtoebook": "/home/achalmaedison/Documents/biblioteca/Murray N. Rothbard/Historia Del Pensamiento Economico, Vol. II (17)/Historia Del Pensamiento Economico, Vol. I - Murray N. Rothbard.epub",
+        "timestamp": "2025-03-03T18:44:14.337Z",
+        "title": "Historia del pensamiento económico, vol. II"
+      },
+      {
+        "authors": [
+          "Murray N. Rothbard"
+        ],
+        "key": "/home/achalmaedison/Documents/biblioteca/Murray N. Rothbard/Historia Del Pensamiento Economico, Vol. I (28)/Historia Del Pensamiento Economico, Vol. I - Murray N. Rothbard.epub",
+        "pathtoebook": "/home/achalmaedison/Documents/biblioteca/Murray N. Rothbard/Historia Del Pensamiento Economico, Vol. I (28)/Historia Del Pensamiento Economico, Vol. I - Murray N. Rothbard.epub",
+        "timestamp": "2025-03-03T18:41:54.965Z",
+        "title": "Historia del pensamiento económico, vol. I"
+      },
+      {
+        "authors": [
+          "Robert Nozick"
+        ],
+        "key": "/home/achalmaedison/Documents/biblioteca/Robert Nozick/Anarquia, Estado Y Utopia (7)/Anarquia, Estado Y Utopia - Robert Nozick.epub",
+        "pathtoebook": "/home/achalmaedison/Documents/biblioteca/Robert Nozick/Anarquia, Estado Y Utopia (7)/Anarquia, Estado Y Utopia - Robert Nozick.epub",
+        "timestamp": "2025-03-01T05:35:23.166Z",
+        "title": "Anarquía, Estado y utopía"
+      },
+      {
+        "authors": [
+          "Jacquier Eric"
+        ],
+        "key": "/home/achalmaedison/Documents/biblioteca/Eric Jacquier/Bayesian Econometrics in Finance (526)/Bayesian Econometrics in Finance - Eric Jacquier.pdf",
+        "pathtoebook": "/home/achalmaedison/Documents/biblioteca/Eric Jacquier/Bayesian Econometrics in Finance (526)/Bayesian Econometrics in Finance - Eric Jacquier.pdf",
+        "timestamp": "2025-03-01T05:26:55.788Z",
+        "title": "Bayesian Econometrics in Finance"
+      },
+      {
+        "authors": [
+          "Hal R. Varian"
+        ],
+        "key": "/home/achalmaedison/Documents/biblioteca/Hal R. Varian/Big Data_ New Tricks for Econometrics (264)/Big Data_ New Tricks for Econometrics - Hal R. Varian.pdf",
+        "pathtoebook": "/home/achalmaedison/Documents/biblioteca/Hal R. Varian/Big Data_ New Tricks for Econometrics (264)/Big Data_ New Tricks for Econometrics - Hal R. Varian.pdf",
+        "timestamp": "2025-03-01T05:22:15.683Z",
+        "title": "Big Data: New Tricks for Econometrics"
+      },
+      {
+        "authors": [
+          "calibre"
+        ],
+        "key": "/home/achalmaedison/Documents/biblioteca/calibre/BBC Mundo[sab, 01 mar, 2025] (2062)/BBC Mundo[sab, 01 mar, 2025] - calibre.epub",
+        "pathtoebook": "/home/achalmaedison/Documents/biblioteca/calibre/BBC Mundo[sab, 01 mar, 2025] (2062)/BBC Mundo[sab, 01 mar, 2025] - calibre.epub",
+        "timestamp": "2025-03-01T05:11:35.025Z",
+        "title": "BBC Mundo[sáb, 01 mar, 2025]"
+      },
+      {
+        "authors": [
+          "Ludwig von Mises"
+        ],
+        "key": "/home/achalmaedison/Documents/biblioteca/Ludwig von Mises/La Accion Humana (36)/La Accion Humana - Ludwig von Mises.epub",
+        "pathtoebook": "/home/achalmaedison/Documents/biblioteca/Ludwig von Mises/La Accion Humana (36)/La Accion Humana - Ludwig von Mises.epub",
+        "timestamp": "2025-03-01T04:33:11.704Z",
+        "title": "La acción humana"
+      },
+      {
+        "authors": [
+          "Hans-Hermann Hoppe"
+        ],
+        "key": "/home/achalmaedison/Documents/biblioteca/Hans-Hermann Hoppe/Monarquia, Democracia Y Orden Natural_ Una Vision Austriaca De La Era Americana (11)/Monarquia, Democracia Y Orden Natural_ Una - Hans-Hermann Hoppe.epub",
+        "pathtoebook": "/home/achalmaedison/Documents/biblioteca/Hans-Hermann Hoppe/Monarquia, Democracia Y Orden Natural_ Una Vision Austriaca De La Era Americana (11)/Monarquia, Democracia Y Orden Natural_ Una - Hans-Hermann Hoppe.epub",
+        "timestamp": "2025-02-26T16:24:49.484Z",
+        "title": "Monarquía, Democracia Y Orden Natural: Una Visión Austríaca De La Era Americana"
+      },
+      {
+        "authors": [
+          "José Manuel Rodríguez Pardo",
+          "amp",
+          "Iván Vélez Cipriano",
+          "amp",
+          "Santiago Armesilla Conde",
+          "amp",
+          "Ismael Carvallo Robledo"
+        ],
+        "key": "/home/achalmaedison/Documents/biblioteca/Jose Manuel Rodriguez Pardo/Podemos. _Comunismo, Populismo O Socialfascismo_ (15)/Podemos. _Comunismo, Populismo O Socialfas - Jose Manuel Rodriguez Pardo.epub",
+        "pathtoebook": "/home/achalmaedison/Documents/biblioteca/Jose Manuel Rodriguez Pardo/Podemos. _Comunismo, Populismo O Socialfascismo_ (15)/Podemos. _Comunismo, Populismo O Socialfas - Jose Manuel Rodriguez Pardo.epub",
+        "timestamp": "2025-02-26T09:29:04.944Z",
+        "title": "Podemos. ¿Comunismo, populismo o socialfascismo?"
+      }
+    ]
+  },
+  "speechd-voice-table-state": {
+    "__class__": "bytearray",
+    "__value__": "AAAA/wAAAAAAAAABAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAmwAAAADAAEBAAAAAAAAAAAAAAAAAGT/////AAAAhAAAAAAAAAADAAABpAAAAAEAAAAAAAAAZAAAAAEAAAAAAAAAZAAAAAEAAAAAAAAD6AAAAAAAAAAAAA=="
+  },
+  "viewer-search-case-sensitive": false,
+  "viewer-search-mode": "normal"
+}

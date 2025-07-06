@@ -1,0 +1,55 @@
+2 screens: Window-Maximized=true
+MenuBar=Disabled
+State=AAAA/wAAAAD9AAAAAQAAAAAAAAD3AAADkPwCAAAAAfsAAAAcAG8AawB1AGwAYQByAF8AcwBpAGQAZQBiAGEAcgEAAABvAAADkAAAASIBAAAIAAAGiAAAA5AAAAAEAAAABAAAAAgAAAAI/AAAAAIAAAACAAAAAQAAABYAbQBhAGkAbgBUAG8AbwBsAEIAYQByAQAAAAD/////AAAAAAAAAAAAAAACAAAAAgAAACIAYQBuAG4AbwB0AGEAdABpAG8AbgBUAG8AbwBsAEIAYQByAQAAAAAAAAX5AAAAAAAAAAAAAAAsAHEAdQBpAGMAawBBAG4AbgBvAHQAYQB0AGkAbwBuAFQAbwBvAGwAQgBhAHIBAAAF+QAAAYcAAAAAAAAAAA==
+
+[Desktop Entry]
+FullScreen=false
+
+[General]
+LockSidebar=true
+ShowSidebar=false
+
+[KFileDialog Settings]
+iconViewIconSize=64
+
+[MainWindow]
+1536x864 screen: Height=809
+1536x864 screen: Width=1536
+1536x864 screen: Window-Maximized=true
+1536x864 screen: XPosition=0
+1536x864 screen: YPosition=55
+1920x1080 screen: Height=970
+1920x1080 screen: Width=612
+1920x1080 screen: Window-Maximized=true
+1920x1080 screen: XPosition=1306
+1920x1080 screen: YPosition=60
+2 screens: Height=988
+2 screens: Width=1920
+2 screens: Window-Maximized=true
+2 screens: XPosition=0
+2 screens: YPosition=1136
+HDMI-1 eDP-1=eDP-1
+MenuBar=Disabled
+eDP-1=eDP-1
+
+[Recent Files]
+File1[$e]=$HOME/Documents/biblioteca/Desconocido/Programacion en C. Metodologia, algoritmos y estructura de datos (3651)/Programacion en C. Metodologia, algoritmos - Desconocido.pdf
+File10[$e]=$HOME/Documents/infox r/sesion infox r 07 modelo de machine learning iv tex mining/slide infox getting ready for text analytics.pdf
+File2[$e]=$HOME/Documents/biblioteca/GoalKicker.com/HTML5 Canvas Notes for Professionals (3653)/HTML5 Canvas Notes for Professionals - GoalKicker.com.pdf
+File3[$e]=$HOME/Documents/biblioteca/GoalKicker.com/HTML5 Notes for Professionals (3654)/HTML5 Notes for Professionals - GoalKicker.com.pdf
+File4[$e]=$HOME/Documents/biblioteca/GoalKicker.com/CSS Notes for Professionals (3657)/CSS Notes for Professionals - GoalKicker.com.pdf
+File5[$e]=$HOME/Documents/biblioteca/RICOH Company Ltd_/como programa en c c plus plus (3658)/como programa en c c plus plus - RICOH Company Ltd_.pdf
+File6[$e]=$HOME/Documents/infox fundamentos de programacion/sesion infox 01 pensamiento logico/slide tema 01 subtema 01 habilidades pensamiento.pdf
+File7[$e]=$HOME/Documents/infox power bi/sesion infox power bi 01 introduccion al mundo de bi y la suite power conceptos basicos/slide pbi sesion 01 infox.pdf
+File8[$e]=$HOME/Documents/biblioteca/Ricardo, Crispin Morris/Slide 09 (3739)/Slide 09 - Ricardo, Crispin Morris.pdf
+File9[$e]=$HOME/Documents/biblioteca/Ricardo, Crispin Morris/Slide 09 vizualizacion de datos (3739)/Slide 09 vizualizacion de datos - Ricardo, Crispin Morris.pdf
+Name1[$e]=Programacion en C. Metodologia, algoritmos - Desconocido.pdf
+Name10[$e]=slide infox getting ready for text analytics.pdf
+Name2[$e]=HTML5 Canvas Notes for Professionals - GoalKicker.com.pdf
+Name3[$e]=HTML5 Notes for Professionals - GoalKicker.com.pdf
+Name4[$e]=CSS Notes for Professionals - GoalKicker.com.pdf
+Name5[$e]=como programa en c c plus plus - RICOH Company Ltd_.pdf
+Name6[$e]=slide tema 01 subtema 01 habilidades pensamiento.pdf
+Name7[$e]=slide pbi sesion 01 infox.pdf
+Name8[$e]=Slide 09 - Ricardo, Crispin Morris.pdf
+Name9[$e]=Slide 09 vizualizacion de datos - Ricardo, Crispin Morris.pdf
