@@ -1,0 +1,40 @@
+[Desktop Entry]
+DefaultProfile=Profile zsh.profile
+
+[General]
+ConfigVersion=1
+
+[KFileDialog Settings]
+detailViewIconSize=16
+
+[KonsoleWindow]
+ShowWindowTitleOnTitleBar=true
+
+[MainWindow]
+1536x864 screen: Height=497
+1536x864 screen: Width=1019
+1536x864 screen: Window-Maximized=true
+1536x864 screen: XPosition=312
+1536x864 screen: YPosition=174
+1920x1080 screen: Height=498
+1920x1080 screen: Width=836
+1920x1080 screen: Window-Maximized=true
+1920x1080 screen: XPosition=0
+1920x1080 screen: YPosition=60
+2 screens: Height=970
+2 screens: Width=1453
+2 screens: Window-Maximized=true
+2 screens: XPosition=0
+2 screens: YPosition=1136
+HDMI-1 eDP-1=eDP-1
+MenuBar=Disabled
+eDP-1=eDP-1
+
+[SearchSettings]
+SearchNoWrap=true
+
+[TabBar]
+TabBarVisibility=AlwaysShowTabBar
+
+[UiSettings]
+ColorScheme=

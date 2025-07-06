@@ -1,0 +1,7 @@
+# Ignorar archivos sensibles o cachés
+*.bak
+*.cache
+*.log
+akonadi*
+kactivitymanagerd*
+cache/

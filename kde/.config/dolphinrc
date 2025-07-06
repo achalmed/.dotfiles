@@ -1,0 +1,68 @@
+MenuBar=Disabled
+
+[$Version]
+update_info=dolphin_detailsmodesettings.upd:rename-leading-padding,dolphin_detailsmodesettings.upd:move-content-display,dolphin_directorysizemode.upd:convert-directorysizecount-to-directorysizemode
+
+[CompactMode]
+IconSize=48
+PreviewSize=32
+
+[ContentDisplay]
+DirectorySizeMode=ContentSize
+UsePermissionsFormat=CombinedFormat
+
+[ContextMenu]
+ShowCopyMoveMenu=true
+
+[DetailsMode]
+IconSize=48
+PreviewSize=32
+
+[ExtractDialog]
+2 screens: Height=480
+2 screens: Width=809
+
+[General]
+AutoExpandFolders=true
+DoubleClickViewAction=view_redisplay
+EditableUrl=true
+RememberOpenedTabs=false
+ShowZoomSlider=false
+SplitView=true
+UseTabForSwitchingSplitView=true
+Version=202
+ViewPropsTimestamp=2024,6,12,22,16,27.095
+
+[IconsMode]
+IconSize=80
+
+[InformationPanel]
+dateFormat=ShortFormat
+
+[KFileDialog Settings]
+Places Icons Auto-resize=false
+Places Icons Static Size=22
+
+[KPropertiesDialog]
+1536x864 screen: Height=543
+1536x864 screen: Width=381
+1920x1080 screen: Height=532
+1920x1080 screen: Width=779
+2 screens: Height=368
+2 screens: Width=502
+
+[MainWindow]
+MenuBar=Disabled
+
+[MainWindow][Toolbar mainToolBar]
+ToolButtonStyle=IconOnly
+
+[PreviewSettings]
+Plugins=heif,imagethumbnail,jpegthumbnail,jxl,svgthumbnail,ffmpegthumbs
+
+[Toolbar mainToolBar]
+ToolButtonStyle=IconOnly
+
+[ViewPropertiesDialog]
+2 screens: Height=565
+2 screens: Width=365
