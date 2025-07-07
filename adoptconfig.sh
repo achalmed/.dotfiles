@@ -13,4 +13,7 @@ fi
 cd "$DOTFILES_DIR" || exit
 stow -v --adopt git kde shell terminal digikam vscode zotero obsidian calibre libreoffice xournalpp kate texstudio lyx okular rstudio vlc krusader
 
+ln -sf ~/dotfiles/rstudio/.config/rstudio-prefs.json ~/.config/rstudio/rstudio-prefs.json
+ln -sf ~/dotfiles/texstudio/.config/texstudio.ini ~/.config/texstudio/texstudio.ini
+
 echo "Dotfiles instalados correctamente!"

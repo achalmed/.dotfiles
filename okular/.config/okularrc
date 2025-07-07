@@ -7,7 +7,7 @@ FullScreen=false
 
 [General]
 LockSidebar=true
-ShowSidebar=false
+ShowSidebar=true
 
 [KFileDialog Settings]
 iconViewIconSize=64
@@ -33,23 +33,23 @@ MenuBar=Disabled
 eDP-1=eDP-1
 
 [Recent Files]
-File1[$e]=$HOME/Documents/biblioteca/Desconocido/Programacion en C. Metodologia, algoritmos y estructura de datos (3651)/Programacion en C. Metodologia, algoritmos - Desconocido.pdf
-File10[$e]=$HOME/Documents/infox r/sesion infox r 07 modelo de machine learning iv tex mining/slide infox getting ready for text analytics.pdf
-File2[$e]=$HOME/Documents/biblioteca/GoalKicker.com/HTML5 Canvas Notes for Professionals (3653)/HTML5 Canvas Notes for Professionals - GoalKicker.com.pdf
-File3[$e]=$HOME/Documents/biblioteca/GoalKicker.com/HTML5 Notes for Professionals (3654)/HTML5 Notes for Professionals - GoalKicker.com.pdf
-File4[$e]=$HOME/Documents/biblioteca/GoalKicker.com/CSS Notes for Professionals (3657)/CSS Notes for Professionals - GoalKicker.com.pdf
-File5[$e]=$HOME/Documents/biblioteca/RICOH Company Ltd_/como programa en c c plus plus (3658)/como programa en c c plus plus - RICOH Company Ltd_.pdf
-File6[$e]=$HOME/Documents/infox fundamentos de programacion/sesion infox 01 pensamiento logico/slide tema 01 subtema 01 habilidades pensamiento.pdf
-File7[$e]=$HOME/Documents/infox power bi/sesion infox power bi 01 introduccion al mundo de bi y la suite power conceptos basicos/slide pbi sesion 01 infox.pdf
-File8[$e]=$HOME/Documents/biblioteca/Ricardo, Crispin Morris/Slide 09 (3739)/Slide 09 - Ricardo, Crispin Morris.pdf
-File9[$e]=$HOME/Documents/biblioteca/Ricardo, Crispin Morris/Slide 09 vizualizacion de datos (3739)/Slide 09 vizualizacion de datos - Ricardo, Crispin Morris.pdf
-Name1[$e]=Programacion en C. Metodologia, algoritmos - Desconocido.pdf
-Name10[$e]=slide infox getting ready for text analytics.pdf
-Name2[$e]=HTML5 Canvas Notes for Professionals - GoalKicker.com.pdf
-Name3[$e]=HTML5 Notes for Professionals - GoalKicker.com.pdf
-Name4[$e]=CSS Notes for Professionals - GoalKicker.com.pdf
-Name5[$e]=como programa en c c plus plus - RICOH Company Ltd_.pdf
-Name6[$e]=slide tema 01 subtema 01 habilidades pensamiento.pdf
-Name7[$e]=slide pbi sesion 01 infox.pdf
-Name8[$e]=Slide 09 - Ricardo, Crispin Morris.pdf
-Name9[$e]=Slide 09 vizualizacion de datos - Ricardo, Crispin Morris.pdf
+File1[$e]=$HOME/Documents/biblioteca/Ricardo, Crispin Morris/Slide 09 (3739)/Slide 09 - Ricardo, Crispin Morris.pdf
+File10[$e]=$HOME/Documents/mostly harmless replication master/mostly harmless econometrics an empiricists companion.pdf
+File2[$e]=$HOME/Documents/biblioteca/Ricardo, Crispin Morris/Slide 09 vizualizacion de datos (3739)/Slide 09 vizualizacion de datos - Ricardo, Crispin Morris.pdf
+File3[$e]=$HOME/Documents/infox r/sesion infox r 07 modelo de machine learning iv tex mining/slide infox getting ready for text analytics.pdf
+File4[$e]=$HOME/Documents/promperu 2023 inteligencia comercial/GRUPO 2 - Estudio de mercado Mantas y Trenzas.pdf
+File5[$e]=$HOME/Documents/biblioteca/Ricardo, Crispin Morris/Slide 08 vizualizacion de datos (3738)/Slide 08 vizualizacion de datos - Ricardo, Crispin Morris.pdf
+File6[$e]=$HOME/Documents/thoughts/metodologia de investigacion/borradores/borrador de tesis desigualdad socioeconomica y la pobreza/borrador de tesis desigualdad socioeconomica y la pobreza.pdf
+File7[$e]=$HOME/Documents/tasks metodologia de investigacion/slide sesion 01.pdf
+File8[$e]=$HOME/Documents/tasks metodologia de investigacion/01 el origen de la ciencia lectura.pdf
+File9[$e]=$HOME/Documents/wooldridge solutions introductory econometrics main/chapter 14/ejercicio 03.pdf
+Name1[$e]=Slide 09 - Ricardo, Crispin Morris.pdf
+Name10[$e]=mostly harmless econometrics an empiricists companion.pdf
+Name2[$e]=Slide 09 vizualizacion de datos - Ricardo, Crispin Morris.pdf
+Name3[$e]=slide infox getting ready for text analytics.pdf
+Name4[$e]=GRUPO 2 - Estudio de mercado Mantas y Trenzas.pdf
+Name5[$e]=Slide 08 vizualizacion de datos - Ricardo, Crispin Morris.pdf
+Name6[$e]=borrador de tesis desigualdad socioeconomica y la pobreza.pdf
+Name7[$e]=slide sesion 01.pdf
+Name8[$e]=01 el origen de la ciencia lectura.pdf
+Name9[$e]=ejercicio 03.pdf

@@ -23,7 +23,7 @@ Icon Show Modification Date=false
 Icon Show Name=true
 Icon Show Overlays=false
 Icon Show Pick Label=false
-Icon Show Rating=false
+Icon Show Rating=true
 Icon Show Resolution=false
 Icon Show Size=false
 Icon Show Tags=false
@@ -32,7 +32,7 @@ IconView Font=Noto Sans,10,-1,0,400,0,0,0,0,0,0,0,0,0,0,1
 Image Group Mode=4
 Image Group Sort Order=1
 Image Sort Order=0
-Image Sorting=0
+Image Sorting=1
 Item Left Click Action=0
 Preview Convert To Eight Bit=false
 Preview Image Smooth Scaled=true
@@ -86,10 +86,10 @@ TreeView Font=Noto Sans,10,-1,0,400,0,0,0,0,0,0,0,0,0,0,1
 Update Type=0
 
 [AlbumFolderView Sidebar]
-CurrentIndex=1440
-Expansion=0,4982,4989,4994,4995,4996,4998,4997,8937,9542,9543,1440,1640,1641,1642,1649,1651,1809,1620,1622,1467,1810,11182,1626,1628,1631,1633,1811,1634,1472,1473
+CurrentIndex=1457
+Expansion=0,4982,4989,4994,4995,4996,4998,4997,8937,9542,9543,1640,1641,1642,1649,1651,1809,11181,1455,1745,11066,-4,1620,1622,1467,1810,11182,1626,1628,1631,1633,1811,1634,1472,1473
 RestoreChecked=false
-Selection=1440
+Selection=1457
 SortColumn=0
 SortOrder=0
 
@@ -888,7 +888,7 @@ tagPaths=1
 
 [Database Settings]
 Database Connectoptions=
-Database Encrypted Password=AwJUVFQ=
+Database Encrypted Password=AwKnp6c=
 Database Hostname=
 Database Name=/home/achalmaedison/Pictures/
 Database Name Face=/home/achalmaedison/Pictures/
@@ -925,7 +925,7 @@ ItemProperties Expanded=true
 LocationProperties Expanded=true
 Minimized=true
 PhotographProperties Expanded=true
-RestoreSize=389
+RestoreSize=208
 RightsProperties Expanded=true
 TagsProperties Expanded=true
 VideoProperties Expanded=true
@@ -1096,7 +1096,7 @@ AlbumComboBox-Checked=
 AlbumComboBox-CurrentIndex=1457
 AlbumComboBox-Expansion=1,1440,1457
 AlbumComboBox-RestoreChecked=true
-AlbumComboBox-Selection=1457
+AlbumComboBox-Selection=1,1457
 AlbumComboBox-SortColumn=0
 AlbumComboBox-SortOrder=0
 AlbumTypeEntry=0
@@ -1106,7 +1106,7 @@ TagComboBox-Checked=
 TagComboBox-CurrentIndex=57
 TagComboBox-Expansion=
 TagComboBox-RestoreChecked=true
-TagComboBox-Selection=57,46
+TagComboBox-Selection=46,93
 TagComboBox-SortColumn=0
 TagComboBox-SortOrder=0
 Use Full CPU=false
@@ -1115,10 +1115,10 @@ UseWholeTagsEntry=false
 
 [Find Duplicates View]
 AlbumComboBox-Checked=
-AlbumComboBox-CurrentIndex=1457
+AlbumComboBox-CurrentIndex=1
 AlbumComboBox-Expansion=
 AlbumComboBox-RestoreChecked=true
-AlbumComboBox-Selection=1457
+AlbumComboBox-Selection=1
 AlbumComboBox-SortColumn=0
 AlbumComboBox-SortOrder=0
 AlbumTypeEntry=0
@@ -1129,10 +1129,10 @@ Last search album tag relation=0
 Last search results restriction=0
 Lower bound for minimum similarity=40
 TagComboBox-Checked=
-TagComboBox-CurrentIndex=46
+TagComboBox-CurrentIndex=93
 TagComboBox-Expansion=
 TagComboBox-RestoreChecked=true
-TagComboBox-Selection=46
+TagComboBox-Selection=93
 TagComboBox-SortColumn=0
 TagComboBox-SortOrder=0
 UseWholeAlbumsEntry=false
@@ -1159,7 +1159,7 @@ AlbumComboBox-Checked=
 AlbumComboBox-CurrentIndex=1457
 AlbumComboBox-Expansion=1,1440,1457
 AlbumComboBox-RestoreChecked=true
-AlbumComboBox-Selection=1457
+AlbumComboBox-Selection=1,1457
 AlbumComboBox-SortColumn=0
 AlbumComboBox-SortOrder=0
 UseWholeAlbumsEntry=true
@@ -1208,7 +1208,7 @@ Application Font=Noto Sans,10,-1,0,400,0,0,0,0,0,0,0,0,0,0,1
 Application Style=kvantum
 Apply Sidebar Changes Directly=false
 Clean core DB At Start=false
-Detect faces in newly added images=false
+Detect faces in newly added images=true
 Draw Frames To Grouped Items=true
 Expand New Current Item On Click=true
 FullScreen Hide SideBars=false
@@ -1216,7 +1216,7 @@ FullScreen Hide StatusBar=false
 FullScreen Hide ThumbBar=true
 FullScreen Hide ToolBars=false
 Icon Theme=
-Scan At Start=true
+Scan At Start=false
 Scroll Current Item To Center=false
 Select First Album Item=true
 Show Only Face Tags For Assigning Name=true
@@ -1670,9 +1670,9 @@ Version Properties Tab=versions
 Version Properties View Mode=2
 
 [MainWindow]
-InitialAlbumID=1440
+InitialAlbumID=1457
 SplitterState=AAAA/wAAAAEAAAADAAABfQAABCIAAAGFAf////8AAAAAAQE=
-ThumbbarState=AAAA/wAAAAD9AAAAAQAAAAIAAAWuAAAAwPwBAAAAAfsAAAAmAG0AYQBpAG4AdwBpAG4AZABvAHcAXwB0AGgAdQBtAGIAYgBhAHIAAAAAAAAABa4AAAB3AP///wAABa4AAAONAAAABAAAAAQAAAAIAAAACPwAAAAA
+ThumbbarState=AAAA/wAAAAD9AAAAAQAAAAIAAAWuAAAAwPwBAAAAAfsAAAAmAG0AYQBpAG4AdwBpAG4AZABvAHcAXwB0AGgAdQBtAGIAYgBhAHIAAAAAAAAABa4AAAB3AP///wAABa4AAALGAAAABAAAAAQAAAAIAAAACPwAAAAA
 
 [Marble Settings]
 Angle Unit=1
@@ -1806,7 +1806,7 @@ HelpBoxNotifSeen=true
 
 [People Sidebar]
 CurrentIndex=126
-Expansion=4,126
+Expansion=4,126,276,815,245,746,80
 RestoreChecked=false
 Selection=126
 SortColumn=0
@@ -1816,10 +1816,10 @@ SortOrder=0
 CaseSensitive=0
 
 [Search Sidebar]
-CurrentIndex=
+CurrentIndex=2
 Expansion=
 RestoreChecked=false
-Selection=
+Selection=2
 SortColumn=0
 SortOrder=0
 
@@ -1828,10 +1828,10 @@ CaseSensitive=0
 
 [Select Reference]
 AlbumComboBox-Checked=
-AlbumComboBox-CurrentIndex=1457
+AlbumComboBox-CurrentIndex=1
 AlbumComboBox-Expansion=
 AlbumComboBox-RestoreChecked=true
-AlbumComboBox-Selection=1457
+AlbumComboBox-Selection=1
 AlbumComboBox-SortColumn=0
 AlbumComboBox-SortOrder=0
 UseWholeAlbumsEntry=false
@@ -1855,7 +1855,7 @@ AlbumComboBox-Checked=
 AlbumComboBox-CurrentIndex=1457
 AlbumComboBox-Expansion=1,1440,1457
 AlbumComboBox-RestoreChecked=true
-AlbumComboBox-Selection=1457
+AlbumComboBox-Selection=1,1457
 AlbumComboBox-SortColumn=0
 AlbumComboBox-SortOrder=0
 UseWholeAlbumsEntry=true
