@@ -19,139 +19,139 @@ ColorAmount=0.025
 ColorEffect=2
 ContrastAmount=0.1
 ContrastEffect=2
-Enable=false
+Enable=true
 IntensityAmount=0
 IntensityEffect=0
 
 [Colors:Button]
-BackgroundAlternate=77,77,77
-BackgroundNormal=101,101,101
+BackgroundAlternate=189,195,199
+BackgroundNormal=255,255,255
 DecorationFocus=49,91,239
-DecorationHover=49,91,239
+DecorationHover=83,143,255
 ForegroundActive=61,174,233
-ForegroundInactive=189,195,199
+ForegroundInactive=120,120,120
 ForegroundLink=41,128,185
 ForegroundNegative=218,68,83
 ForegroundNeutral=246,116,0
-ForegroundNormal=252,252,252
+ForegroundNormal=36,36,36
 ForegroundPositive=39,174,96
 ForegroundVisited=127,140,141
 
 [Colors:Complementary]
 BackgroundAlternate=66,66,66
 BackgroundNormal=51,51,51
-DecorationFocus=49,91,239
-DecorationHover=49,91,239
-ForegroundActive=246,116,0
-ForegroundInactive=160,160,160
+DecorationFocus=30,146,255
+DecorationHover=61,174,230
+ForegroundActive=49,91,239
+ForegroundInactive=120,120,120
 ForegroundLink=49,91,239
-ForegroundNegative=237,21,21
-ForegroundNeutral=201,206,59
-ForegroundNormal=252,252,252
-ForegroundPositive=17,209,22
-ForegroundVisited=49,91,239
+ForegroundNegative=231,76,60
+ForegroundNeutral=253,188,75
+ForegroundNormal=239,240,241
+ForegroundPositive=46,204,113
+ForegroundVisited=120,120,120
 
 [Colors:Header]
-BackgroundAlternate=66,66,66
-BackgroundNormal=54,54,54
+BackgroundAlternate=238,238,238
+BackgroundNormal=255,255,255
 DecorationFocus=49,91,239
-DecorationHover=49,91,239
-ForegroundActive=246,116,0
-ForegroundInactive=160,160,160
-ForegroundLink=49,91,239
-ForegroundNegative=237,21,21
-ForegroundNeutral=201,206,59
-ForegroundNormal=252,252,252
-ForegroundPositive=17,209,22
-ForegroundVisited=49,91,239
+DecorationHover=83,143,255
+ForegroundActive=61,174,233
+ForegroundInactive=120,120,120
+ForegroundLink=41,128,185
+ForegroundNegative=218,68,83
+ForegroundNeutral=246,116,0
+ForegroundNormal=36,36,36
+ForegroundPositive=39,174,96
+ForegroundVisited=127,140,141
 
 [Colors:Header][Inactive]
-BackgroundAlternate=66,66,66
-BackgroundNormal=45,45,45
-DecorationFocus=49,91,239
-DecorationHover=49,91,239
-ForegroundActive=246,116,0,150
-ForegroundInactive=160,160,160,150
-ForegroundLink=49,91,239
-ForegroundNegative=237,21,21
-ForegroundNeutral=201,206,59
-ForegroundNormal=252,252,252,150
-ForegroundPositive=17,209,22
-ForegroundVisited=49,91,239
+BackgroundAlternate=238,238,238
+BackgroundNormal=245,245,245
+DecorationFocus=49,91,239,150
+DecorationHover=83,143,255
+ForegroundActive=61,174,233,150
+ForegroundInactive=120,120,120,150
+ForegroundLink=41,128,185
+ForegroundNegative=218,68,83
+ForegroundNeutral=246,116,0
+ForegroundNormal=36,36,36,150
+ForegroundPositive=39,174,96
+ForegroundVisited=127,140,141
 
 [Colors:Selection]
-BackgroundAlternate=79,127,239
+BackgroundAlternate=74,124,239
 BackgroundNormal=49,91,239
 DecorationFocus=255,255,255
-DecorationHover=255,255,255
+DecorationHover=83,143,255
 ForegroundActive=252,252,252
-ForegroundInactive=130,156,239
+ForegroundInactive=135,163,239
 ForegroundLink=253,188,75
 ForegroundNegative=218,68,83
 ForegroundNeutral=246,116,0
 ForegroundNormal=255,255,255
 ForegroundPositive=39,174,96
-ForegroundVisited=128,152,239
+ForegroundVisited=127,160,239
 
 [Colors:Tooltip]
 BackgroundAlternate=77,77,77
-BackgroundNormal=51,51,51
+BackgroundNormal=36,36,36
 DecorationFocus=49,91,239
-DecorationHover=49,91,239
-ForegroundActive=49,91,239
-ForegroundInactive=189,195,199
-ForegroundLink=49,91,239
+DecorationHover=83,143,255
+ForegroundActive=61,174,233
+ForegroundInactive=120,120,120
+ForegroundLink=41,128,185
 ForegroundNegative=218,68,83
 ForegroundNeutral=246,116,0
-ForegroundNormal=252,252,252
+ForegroundNormal=222,222,222
 ForegroundPositive=39,174,96
 ForegroundVisited=127,140,141
 
 [Colors:View]
-BackgroundAlternate=48,48,48
-BackgroundNormal=36,36,36
+BackgroundAlternate=239,239,239
+BackgroundNormal=255,255,255
 DecorationFocus=49,91,239
-DecorationHover=49,91,239
+DecorationHover=83,143,255
 ForegroundActive=49,91,239
-ForegroundInactive=160,160,160
+ForegroundInactive=120,120,120
 ForegroundLink=49,91,239
 ForegroundNegative=218,68,83
 ForegroundNeutral=246,116,0
-ForegroundNormal=252,252,252
+ForegroundNormal=36,36,36
 ForegroundPositive=39,174,96
-ForegroundVisited=120,120,120
+ForegroundVisited=127,140,141
 
 [Colors:Window]
-BackgroundAlternate=66,66,66
-BackgroundNormal=54,54,54
+BackgroundAlternate=238,238,238
+BackgroundNormal=255,255,255
 DecorationFocus=49,91,239
-DecorationHover=49,91,239
-ForegroundActive=49,91,239
-ForegroundInactive=160,160,160
-ForegroundLink=49,91,239
+DecorationHover=83,143,255
+ForegroundActive=61,174,233
+ForegroundInactive=120,120,120
+ForegroundLink=41,128,185
 ForegroundNegative=218,68,83
 ForegroundNeutral=246,116,0
-ForegroundNormal=252,252,252
+ForegroundNormal=36,36,36
 ForegroundPositive=39,174,96
-ForegroundVisited=120,120,120
+ForegroundVisited=127,140,141
 
 [DirSelect Dialog]
-DirSelectDialog Size=1346,802
-History Items[$e]=file:$HOME/Downloads/github/website-achalma/_site,file:$HOME/Downloads/github/website-achalma,file:$HOME/Documents/thoughts,file:$HOME/Documents/thoughts/personales/solicitudes,file:$HOME/Documents,file:$HOME/Downloads,file:$HOME/Downloads/Irixium,file:$HOME/Downloads/commonality,file:$HOME/Pictures/2025,file:$HOME/Downloads,file:$HOME/Documents/bcrp 2024 macroeconomia,file:$HOME/Downloads/github/website-achalma,file:$HOME/Downloads/github/website-achalma,file:$HOME/Documents/thoughts,file:$HOME/Documents/thoughts,file:$HOME,file:$HOME,file:$HOME/Videos,file:$HOME/Videos,file:$HOME/Downloads/css,file:$HOME/Downloads,file:$HOME/Documents/thoughts,file:$HOME/Downloads/github/website-achalma,file:$HOME/Downloads/github/website-achalma,mtp:/A30s de E. Edison/Phone/Kubuntu,file:$HOME/Documents/thoughts,file:$HOME/Documents/biblioteca/Reading Goal,file:$HOME/Documents/biblioteca,file:$HOME/Documents/edx justice,file:$HOME/Documents/edx justice,file:$HOME/Downloads/github/website-achalma,file:$HOME/Documents/thoughts,file:$HOME/Documents/thoughts,file:$HOME/Documents/bibliography,file:$HOME/Documents/bibliography,file:$HOME/Videos,file:$HOME/Downloads/github/website-achalma,file:$HOME/Music,file:$HOME,file:$HOME/Documents/calendar and notes,file:$HOME,file:$HOME/Documents/calendar and notes,file:$HOME/Documents,file:$HOME/Downloads/github,file:$HOME/Videos,file:$HOME/Downloads/Lenny,file:$HOME/Downloads/Carl,file:$HOME/Downloads/Edna-Light,file:$HOME/Downloads/Edna,file:$HOME/Downloads/Marge
+DirSelectDialog Size=1920,980
+History Items[$e]=file:$HOME/Pictures/2010,file:$HOME/Pictures,file:$HOME/Documents/thoughts/agenda,file:$HOME/Downloads/github/website-achalma/_site,file:$HOME/Downloads/github/website-achalma,file:$HOME/Documents/thoughts,file:$HOME/Documents/thoughts/personales/solicitudes,file:$HOME/Documents,file:$HOME/Downloads,file:$HOME/Downloads/Irixium,file:$HOME/Downloads/commonality,file:$HOME/Pictures/2025,file:$HOME/Downloads,file:$HOME/Documents/bcrp 2024 macroeconomia,file:$HOME/Downloads/github/website-achalma,file:$HOME/Downloads/github/website-achalma,file:$HOME/Documents/thoughts,file:$HOME/Documents/thoughts,file:$HOME,file:$HOME,file:$HOME/Videos,file:$HOME/Videos,file:$HOME/Downloads/css,file:$HOME/Downloads,file:$HOME/Documents/thoughts,file:$HOME/Downloads/github/website-achalma,file:$HOME/Downloads/github/website-achalma,mtp:/A30s de E. Edison/Phone/Kubuntu,file:$HOME/Documents/thoughts,file:$HOME/Documents/biblioteca/Reading Goal,file:$HOME/Documents/biblioteca,file:$HOME/Documents/edx justice,file:$HOME/Documents/edx justice,file:$HOME/Downloads/github/website-achalma,file:$HOME/Documents/thoughts,file:$HOME/Documents/thoughts,file:$HOME/Documents/bibliography,file:$HOME/Documents/bibliography,file:$HOME/Videos,file:$HOME/Downloads/github/website-achalma,file:$HOME/Music,file:$HOME,file:$HOME/Documents/calendar and notes,file:$HOME,file:$HOME/Documents/calendar and notes,file:$HOME/Documents,file:$HOME/Downloads/github,file:$HOME/Videos,file:$HOME/Downloads/Lenny,file:$HOME/Downloads/Carl
 Splitter State=\x00\x00\x00\xff\x00\x00\x00\x01\x00\x00\x00\x02\x00\x00\x00\xad\x00\x00\x02\xa8\x00\xff\xff\xff\xff\x01\x00\x00\x00\x01\x00
 
 [General]
+AccentColor=0,0,0,0
 BrowserApplication=google-chrome.desktop
-ColorSchemeHash=697626961cd3018a86d5d1b6a546c7ac8b282d8c
+ColorSchemeHash=c65979a94a32ba71f292f4d8c0e076cba979136f
+LastUsedCustomAccentColor=104,107,111
 TerminalApplication=env BAMF_DESKTOP_FILE_HINT=/var/lib/snapd/desktop/applications/waveterm_waveterm.desktop /snap/bin/waveterm %U
 TerminalService=waveterm_waveterm.desktop
 UseSystemBell=true
 XftAntialias=true
 XftHintStyle=hintslight
 XftSubPixel=rgb
-
-[Icons]
-Theme=breeze-dark
+accentColorFromWallpaper=false
 
 [KDE]
 LookAndFeelPackage=org.kde.breeze.desktop
@@ -162,7 +162,7 @@ widgetStyle=kvantum
 Allow Expansion=true
 Automatically select filename extension=true
 Breadcrumb Navigation=false
-Decoration position=2
+Decoration position=0
 LocationCombo Completionmode=5
 PathCombo Completionmode=5
 Preview Width=323
@@ -171,7 +171,7 @@ Show Full Path=false
 Show Inline Previews=false
 Show Preview=true
 Show Speedbar=true
-Show hidden files=true
+Show hidden files=false
 Sort by=Date
 Sort directories first=true
 Sort hidden files last=true
@@ -190,9 +190,9 @@ MaximumRemoteSize=8388608
 Theme=oxygen
 
 [WM]
-activeBackground=51,51,51
-activeBlend=171,171,171
-activeForeground=252,252,252
-inactiveBackground=66,66,66
-inactiveBlend=85,85,85
-inactiveForeground=170,170,170
+activeBackground=255,255,255
+activeBlend=86,86,86
+activeForeground=66,66,66
+inactiveBackground=245,245,245
+inactiveBlend=102,102,102
+inactiveForeground=120,120,120

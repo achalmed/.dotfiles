@@ -153,3 +153,4 @@ eval "$(thefuck --alias)"
 . "$HOME/.atuin/bin/env"
 
 eval "$(atuin init zsh)"
+eval "$(gh copilot alias -- zsh)"

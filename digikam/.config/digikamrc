@@ -86,10 +86,10 @@ TreeView Font=Noto Sans,10,-1,0,400,0,0,0,0,0,0,0,0,0,0,1
 Update Type=0
 
 [AlbumFolderView Sidebar]
-CurrentIndex=1457
-Expansion=0,4982,4989,4994,4995,4996,4998,4997,8937,9542,9543,1640,1641,1642,1649,1651,1809,11181,1455,1745,11066,-4,1620,1622,1467,1810,11182,1626,1628,1631,1633,1811,1634,1472,1473
+CurrentIndex=1440
+Expansion=0,4989,4996,4998,4997,9542,9543,1440,1640,1641,1642,1649,1651,1809,11181,1455,1745,11066,-4,1457,1458,1617,1620,1622,1467,1810,11182,1626,1628,1631,1633,1811,1634,1472
 RestoreChecked=false
-Selection=1457
+Selection=1440
 SortColumn=0
 SortOrder=0
 
@@ -139,7 +139,7 @@ EnableCM=true
 GamutCheckMaskColor=126,255,255
 LastMismatchBehavior=2049
 LastMissingProfileBehavior=2050
-LastSpecifiedAssignProfile=
+LastSpecifiedAssignProfile[$e]=/usr/share/digikam/profiles/
 LastSpecifiedInputProfile=
 LastUncalibratedBehavior=2080
 ManagedPreviews=true
@@ -888,7 +888,7 @@ tagPaths=1
 
 [Database Settings]
 Database Connectoptions=
-Database Encrypted Password=AwKnp6c=
+Database Encrypted Password=AwJeXl4=
 Database Hostname=
 Database Name=/home/achalmaedison/Pictures/
 Database Name Face=/home/achalmaedison/Pictures/
@@ -1106,7 +1106,7 @@ TagComboBox-Checked=
 TagComboBox-CurrentIndex=57
 TagComboBox-Expansion=
 TagComboBox-RestoreChecked=true
-TagComboBox-Selection=46,93
+TagComboBox-Selection=93,740
 TagComboBox-SortColumn=0
 TagComboBox-SortOrder=0
 Use Full CPU=false
@@ -1129,10 +1129,10 @@ Last search album tag relation=0
 Last search results restriction=0
 Lower bound for minimum similarity=40
 TagComboBox-Checked=
-TagComboBox-CurrentIndex=93
+TagComboBox-CurrentIndex=740
 TagComboBox-Expansion=
 TagComboBox-RestoreChecked=true
-TagComboBox-Selection=93
+TagComboBox-Selection=740
 TagComboBox-SortColumn=0
 TagComboBox-SortOrder=0
 UseWholeAlbumsEntry=false
@@ -1211,6 +1211,7 @@ Clean core DB At Start=false
 Detect faces in newly added images=true
 Draw Frames To Grouped Items=true
 Expand New Current Item On Click=true
+Face Scanner First Run=true
 FullScreen Hide SideBars=false
 FullScreen Hide StatusBar=false
 FullScreen Hide ThumbBar=true
@@ -1670,9 +1671,9 @@ Version Properties Tab=versions
 Version Properties View Mode=2
 
 [MainWindow]
-InitialAlbumID=1457
+InitialAlbumID=1440
 SplitterState=AAAA/wAAAAEAAAADAAABfQAABCIAAAGFAf////8AAAAAAQE=
-ThumbbarState=AAAA/wAAAAD9AAAAAQAAAAIAAAWuAAAAwPwBAAAAAfsAAAAmAG0AYQBpAG4AdwBpAG4AZABvAHcAXwB0AGgAdQBtAGIAYgBhAHIAAAAAAAAABa4AAAB3AP///wAABa4AAALGAAAABAAAAAQAAAAIAAAACPwAAAAA
+ThumbbarState=AAAA/wAAAAD9AAAAAQAAAAIAAAWuAAAAwPwBAAAAAfsAAAAmAG0AYQBpAG4AdwBpAG4AZABvAHcAXwB0AGgAdQBtAGIAYgBhAHIAAAAAAAAABa4AAAB3AP///wAABa4AAAONAAAABAAAAAQAAAAIAAAACPwAAAAA
 
 [Marble Settings]
 Angle Unit=1
@@ -1806,7 +1807,7 @@ HelpBoxNotifSeen=true
 
 [People Sidebar]
 CurrentIndex=126
-Expansion=4,126,276,815,245,746,80
+Expansion=4,126,245,746,80,276,815
 RestoreChecked=false
 Selection=126
 SortColumn=0

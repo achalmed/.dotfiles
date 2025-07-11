@@ -8,12 +8,10 @@ update_info=kwin.upd:replace-scalein-with-scale,kwin.upd:port-minimizeanimation-
 Id_1=787f5b62-341b-4881-9a3d-5bb57376be31
 Id_2=43cfcd66-a2ea-4811-91ab-4cf7dea7f07b
 Id_3=6d149042-2508-4ee9-9aaa-905021fa2a61
-Id_4=58f8531a-692d-4b2e-8b79-722baf5ce12b
 Name_1=Carpetas
 Name_2=Desarrollo
 Name_3=Internet
-Name_4=Musica
-Number=4
+Number=3
 Rows=1
 
 [Effect-blur]
@@ -155,3 +153,5 @@ BorderSize=Normal
 BorderSizeAuto=false
 ButtonsOnLeft=LS
 ButtonsOnRight=HFIAX
+library=org.kde.kwin.aurorae
+theme=__aurorae__svg__Flat-Remix-Solid

@@ -4,16 +4,16 @@
     "type": "split",
     "children": [
       {
-        "id": "868654f25d346077",
+        "id": "cd6d9e69f2dfab4a",
         "type": "tabs",
         "children": [
           {
-            "id": "4f81651554cf4b62",
+            "id": "0532bedd94a02f97",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "2024 08 29 examen finanzas internacionales.md",
+                "file": "ideas/2025-05-23 imagenes guia de internet.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,7 +28,23 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "2024 08 29 examen finanzas internacionales"
+              "title": "2025-05-23 imagenes guia de internet"
+            }
+          },
+          {
+            "id": "a8710a0b70f2eed0",
+            "type": "leaf",
+            "state": {
+              "type": "kanban",
+              "state": {
+                "file": "agenda/kanban cursos.md",
+                "kanbanViewState": {
+                  "kanban-plugin": "board",
+                  "list-collapse": []
+                }
+              },
+              "icon": "lucide-trello",
+              "title": "kanban cursos"
             }
           }
         ]
@@ -97,13 +113,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "idiomas/nivel 3/2025-07-05 WRITING TEST 1.md",
+                "file": "idiomas/nivel 3/2025-07-09 BASIC 9 - READING TEST.md",
                 "followCursor": true,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Esquema de 2025-07-05 WRITING TEST 1"
+              "title": "Esquema de 2025-07-09 BASIC 9 - READING TEST"
             }
           },
           {
@@ -196,7 +212,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "solicitud",
+                "query": "tag:#Video",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -217,12 +233,12 @@
               "title": "Markdown-Autocomplete"
             }
           }
-        ]
+        ],
+        "currentTab": 7
       }
     ],
     "direction": "horizontal",
-    "width": 436.5,
-    "collapsed": true
+    "width": 436.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -249,55 +265,55 @@
       "markdown-importer:Abrir el importador de Markdown": false
     }
   },
-  "active": "4f81651554cf4b62",
+  "active": "0532bedd94a02f97",
   "lastOpenFiles": [
-    "ideas/2025-07-05 Tutorial Cómo usar GNU Stow para gestionar Dotfiles.md",
-    "2024 08 29 examen finanzas internacionales.md",
-    "personales/sylabus/syllabus infox paquete de software de economia y finanzas.pdf",
-    "personales/sylabus/syllabus infox fundamentos de programacion.pdf",
-    "personales/sylabus/infox paquete de software de economia y finanzas.pdf",
-    "metodologia de investigacion/borradores/monografia conceptos de mercado futuro.odt",
-    "metodologia de investigacion/borradores/monografia concepto de mila y lista de las principales bolsas de valores impreso.odt",
-    "idiomas/nivel 3/2025-07-05 WRITING TEST 1.md",
-    "idiomas/nivel 3/2025-02-05 LEVEL TEST- NGL UNITS 1 - 3.md",
-    "idiomas/nivel 1/2025-05-06.md",
-    "idiomas/nivel 1/2025-05-06 1.md",
-    "idiomas/nivel 1/2025-05-06 2.md",
-    "idiomas/nivel 1/2025-05-19 Presentación Basico 02.md",
-    "excalidraw/2025-04-27.excalidraw.md",
-    "idiomas/duolingo/2025-04-08-nota-21-05.xopp",
-    "idiomas/duolingo/2025-04-08-nota-21-05.xopp~",
-    "idiomas/nivel 3/Capítulo-4--Goals-and-Ambition-MIWXKFFL.md.tmp",
-    "metodologia de investigacion/taller de tesis 2025/primera sesion/fi sesion1 2.pdf",
-    "excalidraw/2025-04-22.excalidraw.md",
-    "excalidraw/2025-04-14.excalidraw.md",
-    "excalidraw/2025-04-07.excalidraw.md",
-    "excalidraw/2025-04-06.excalidraw.md",
-    "excalidraw/2025-04-06.excalidraw 1.md",
-    "prompts/2025-05-25 Prompt para Estudiar Ingles.md",
-    "idiomas/nivel 3/Capítulo-4--Goals-and-Ambition-MIWXKFFL.md",
-    "idiomas/nivel 2/Unit-3--Free-Time-MT3W7ZN3.md",
-    "idiomas/nivel 2/Unit-2--People-in-My-Life-XK6RXLVU.md",
-    "idiomas/nivel 2/Unit-1--Who-am-I--PKXYAJTQ.md",
-    "idiomas/nivel 3/Capítulo-1--All-About-Me-ZC6EJ3PE.md",
-    "idiomas/nivel 3/Capítulo-3--Food-for-Thought-IS8GG8GM.md",
-    "idiomas/nivel 3/Capítulo-2--Memory-Z4ZCMZA4.md",
-    "idiomas/nivel 3/index_files/7SV5Y94Y.jpg",
-    "idiomas/nivel 3/2025-07-03 Examen 1 de Ingles basico 3.md",
-    "idiomas/nivel 3/index_files",
-    "idiomas/nivel 2/Vocabulary-Reference-ZSZGMV4I.md",
-    "idiomas/nivel 2/Unit-12--The-Future-4EHXWJ79.md",
-    "idiomas/nivel 2/Unit-11--Extremes-3U7IPV4V.md",
-    "idiomas/nivel 2/index_files/II7W944G.png",
-    "idiomas/nivel 2/index_files/6P5G68Z4.png",
-    "idiomas/nivel 2/index_files/GVEMHTUM.png",
-    "idiomas/nivel 2/index_files/DAB7GX88.png",
-    "idiomas/nivel 2/index_files/TD8MF7GI.png",
-    "idiomas/nivel 3/index_files/II7W944G.png",
-    "idiomas/nivel 3/index_files/6P5G68Z4.png",
-    "idiomas/nivel 3/index_files/GVEMHTUM.png",
-    "idiomas/nivel 3/index_files/DAB7GX88.png",
+    "ideas/2025-07-02 borador de blog para redaccion de docuemntos administrativos.md",
+    "ideas/2025-04-22 proyector epson para linux.md",
+    "ideas/sesion 01 introduccion y repaso de probabilidad blog.md",
+    "ideas/cambiar_metadatos_de_pdf_odf.md",
+    "idiomas/nivel 3/2025-07-09 BASIC 9 - READING TEST.md",
+    "personales/finanzas personales/cash_personal.gnucash.20250710003158.log",
+    "personales/finanzas personales/cash_personal.gnucash.LCK",
+    "personales/finanzas personales/cash_personal.gnucash.20250710002856.log",
+    "academia sofia/finanzas sofia/cash.gnucash.20250710002720.log",
+    "academia sofia/finanzas sofia/cash.gnucash.LCK",
+    "academia sofia/finanzas sofia/cash.gnucash.20250710002516.log",
+    "academia sofia/finanzas sofia/cash.gnucash.20250710001237.log",
+    "personales/finanzas personales/cash_personal.gnucash.20250710001043.log",
+    "personales/finanzas personales/cash_personal.gnucash.tmp-z4bGJf",
+    "personales/finanzas personales/cash_personal.gnucash.20250710001043.gnucash",
+    "agenda/2025-07-09 Tareas Ingles.md",
+    "agenda/2025-07-09 Tareas de busqueda de trabajo.md",
+    "agenda/index_files/christian-schrader-i69C7l6-GXA-unsplash.jpg",
+    "agenda/index_files/jonas-degener-Qn6AAIVkLww-unsplash.jpg",
+    "agenda/index_files/danny-greenberg-frputHdEZS0-unsplash (1).jpg",
+    "agenda/index_files/danny-greenberg-frputHdEZS0-unsplash.jpg",
+    "Sin título 1.canvas",
     "Sin título.canvas",
-    "Sin título 1.canvas"
+    "agenda/2025-07-09 Tareas semestre.md",
+    "agenda/2025-07-09 Tareas cursos.md",
+    "agenda/2025-07-09 Tareas Blog.md",
+    "agenda/kanban cursos.md",
+    "agenda/Kanban To Do.md",
+    "agenda/2025-02-21 calendario semanal.md",
+    "agenda/2025-03-01 agenda cursos uni.md",
+    "agenda/calendario de publicaciones.md",
+    "agenda/2025-05-26 TAREAS PROMPERU.md",
+    "prompts/2025-05-19 Prompt para Generar Prompts.md",
+    "prompts/2024 08 02 prompit.md",
+    "ideas/index_files/FB_IMG_1747832338016.jpg",
+    "ideas/index_files/Pasted image 20250417164206.png",
+    "ideas/index_files/Pasted image 20250417163815.png",
+    "ideas/index_files/fb_1741996900356.jpg",
+    "ideas/index_files/fb_1740405502237.jpg",
+    "ideas/index_files/fb_1741996913663.jpg",
+    "meta/zotero/research note.md",
+    "prompts/2025-04-23 prompt para Zotero - Catalogacion.md",
+    "prompts/2025-05-19 prompt para búsqueda de información bibliográfica.md",
+    "prompts/2025-05-25 Prompt para Zotero - Revisión de Literatura.md",
+    "metodologia de investigacion/taller unsch como elaborar tesis de pregrado/taller 2.md",
+    "metodologia de investigacion/taller unsch como elaborar tesis de pregrado/2025 05 23 justificacion t hipotesis taller de tesis.md",
+    "metodologia de investigacion/taller unsch como elaborar tesis de pregrado/2025 05 23 justificacion nivel y tipo de inv taller de tesis.md",
+    "metodologia de investigacion/taller unsch como elaborar tesis de pregrado/2025 05 19 sustento y explicacion.md"
   ]
 }
