@@ -1,7 +1,3 @@
-2 screens: Window-Maximized=true
-MenuBar=Disabled
-State=AAAA/wAAAAD9AAAAAQAAAAAAAAD3AAADkPwCAAAAAfsAAAAcAG8AawB1AGwAYQByAF8AcwBpAGQAZQBiAGEAcgEAAABvAAADkAAAASIBAAAIAAAGiAAAA5AAAAAEAAAABAAAAAgAAAAI/AAAAAIAAAACAAAAAQAAABYAbQBhAGkAbgBUAG8AbwBsAEIAYQByAQAAAAD/////AAAAAAAAAAAAAAACAAAAAgAAACIAYQBuAG4AbwB0AGEAdABpAG8AbgBUAG8AbwBsAEIAYQByAQAAAAAAAAX5AAAAAAAAAAAAAAAsAHEAdQBpAGMAawBBAG4AbgBvAHQAYQB0AGkAbwBuAFQAbwBvAGwAQgBhAHIBAAAF+QAAAYcAAAAAAAAAAA==
-
 [Desktop Entry]
 FullScreen=false
 
@@ -9,47 +5,24 @@ FullScreen=false
 LockSidebar=true
 ShowSidebar=true
 
-[KFileDialog Settings]
-iconViewIconSize=64
-
-[MainWindow]
-1536x864 screen: Height=809
-1536x864 screen: Width=1536
-1536x864 screen: Window-Maximized=true
-1536x864 screen: XPosition=0
-1536x864 screen: YPosition=55
-1920x1080 screen: Height=970
-1920x1080 screen: Width=612
-1920x1080 screen: Window-Maximized=true
-1920x1080 screen: XPosition=1306
-1920x1080 screen: YPosition=60
-2 screens: Height=988
-2 screens: Width=1920
-2 screens: Window-Maximized=true
-2 screens: XPosition=0
-2 screens: YPosition=1136
-HDMI-1 eDP-1=eDP-1
-MenuBar=Disabled
-eDP-1=eDP-1
-
 [Recent Files]
-File1[$e]=$HOME/Documents/econometria unne/slide chapter 01.pdf
-File10[$e]=$HOME/Documents/biblioteca/Amparro, Carrasco/Microeconomia Intermedia Problemas Y Cuestiones (446)/Microeconomia Intermedia Problemas Y Cuest - Amparro, Carrasco.pdf
-File2[$e]=$HOME/Documents/Matı́as Hisgen econometria unne/slide chapter 01.pdf
-File3[$e]=$HOME/Documents/biblioteca/Oscar, Restrepo/06 Problemas Simplex 04 Ejercicios en Donde Se Formulan El Modelos De Programacion Lineal Y Se (3425)/06 Problemas Simplex 04 Ejercicios en Dond - Oscar, Restrepo.pdf
-File4[$e]=$HOME/Documents/biblioteca/Richard, Roca/Monetaria 02 Banca Historia (3350)/Monetaria 02 Banca Historia - Richard, Roca.pdf
-File5[$e]=$HOME/Documents/thoughts/metodologia de investigacion/borradores/1. plan de tesis desigualdad socioeconomica y la pobreza/plan de tesis desigualdad socioeconomica y la pobreza.pdf
-File6[$e]=$HOME/Documents/promperu 2023 inteligencia comercial/GRUPO 3 - Estudio de mercado Frutos del Ande.pdf
-File7[$e]=$HOME/Documents/biblioteca/Alan S., Blinder/Monetary Policy Today (1793)/Monetary Policy Today - Alan S., Blinder.pdf
-File8[$e]=$HOME/Documents/biblioteca/Albert, Einstein/Mis Creencias (1540)/Mis Creencias - Albert, Einstein.pdf
-File9[$e]=$HOME/Documents/biblioteca/Albert Einstein/Este Es Mi Pueblo (1745)/Este Es Mi Pueblo - Albert Einstein.pdf
-Name1[$e]=slide chapter 01.pdf
-Name10[$e]=Microeconomia Intermedia Problemas Y Cuest - Amparro, Carrasco.pdf
-Name2[$e]=slide chapter 01.pdf
-Name3[$e]=06 Problemas Simplex 04 Ejercicios en Dond - Oscar, Restrepo.pdf
-Name4[$e]=Monetaria 02 Banca Historia - Richard, Roca.pdf
-Name5[$e]=plan de tesis desigualdad socioeconomica y la pobreza.pdf
-Name6[$e]=GRUPO 3 - Estudio de mercado Frutos del Ande.pdf
-Name7[$e]=Monetary Policy Today - Alan S., Blinder.pdf
-Name8[$e]=Mis Creencias - Albert, Einstein.pdf
-Name9[$e]=Este Es Mi Pueblo - Albert Einstein.pdf
+File1[$e]=$HOME/Documents/Curriculum-Vitae/main/index.pdf
+File10[$e]=$HOME/Documents/01 notes/gestion empresarial/promperu 2023 inteligencia comercial/c 2 v2 elaboracion de estudio de mercado tarwi docx.pdf
+File2[$e]=$HOME/Documents/biblioteca/Fernando, Avila/Como se escribe (2106)/Como se escribe - Fernando, Avila.pdf
+File3[$e]=$HOME/Documents/biblioteca/Graciela, Reyes/Como escribir bien en espanol (2105)/Como escribir bien en espanol - Graciela, Reyes.pdf
+File4[$e]=$HOME/Documents/04 index/2025/2025-04-14-economia-matematica-I/exploracion rapida 12 04 2025 10 25.pdf
+File5[$e]=$HOME/Documents/biblioteca/Robert, Cecil Martin/Codigo limpio (9879)/Codigo limpio - Robert, Cecil Martin.pdf
+File6[$e]=$HOME/Downloads/handwriting-sheets.pdf
+File7[$e]=$HOME/Downloads/HDP-2.pdf
+File8[$e]=$HOME/Downloads/aprendiendo a leer con Sebas.pdf
+File9[$e]=$HOME/Documents/doc_cv/output/index.pdf
+Name1[$e]=index.pdf
+Name10[$e]=c 2 v2 elaboracion de estudio de mercado tarwi docx.pdf
+Name2[$e]=Como se escribe - Fernando, Avila.pdf
+Name3[$e]=Como escribir bien en espanol - Graciela, Reyes.pdf
+Name4[$e]=exploracion rapida 12 04 2025 10 25.pdf
+Name5[$e]=Codigo limpio - Robert, Cecil Martin.pdf
+Name6[$e]=handwriting-sheets.pdf
+Name7[$e]=HDP-2.pdf
+Name8[$e]=aprendiendo a leer con Sebas.pdf
+Name9[$e]=index.pdf

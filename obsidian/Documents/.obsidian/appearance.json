@@ -1,0 +1,13 @@
+{
+  "baseFontSize": 17,
+  "theme": "system",
+  "cssTheme": "Border",
+  "enabledCssSnippets": [
+    "my font",
+    "hidecitations",
+    "callouts"
+  ],
+  "baseFontSizeAction": false,
+  "accentColor": "",
+  "nativeMenus": false
+}

@@ -1,0 +1,19 @@
+{
+  "database": "Zotero",
+  "noteImportFolder": "01 notes",
+  "pdfExportImageDPI": 120,
+  "pdfExportImageFormat": "jpg",
+  "pdfExportImageQuality": 90,
+  "citeFormats": [],
+  "exportFormats": [
+    {
+      "name": "Create research note",
+      "outputPathTemplate": "01 notes/{{citekey}}.md",
+      "imageOutputPathTemplate": "meta/attachments/{{citekey}}/",
+      "imageBaseNameTemplate": "image",
+      "templatePath": "meta/zotero/research note.md",
+      "cslStyle": "chicago-fullnote-bibliography"
+    }
+  ],
+  "shouldConcat": true
+}

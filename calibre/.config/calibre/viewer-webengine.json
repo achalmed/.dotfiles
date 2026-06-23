@@ -1,0 +1,117 @@
+{
+  "geometry-of-main_window_geometry": {
+    "frame_geometry": {
+      "height": 540,
+      "width": 360,
+      "x": 1080,
+      "y": 0
+    },
+    "full_screened": false,
+    "geometry": {
+      "height": 540,
+      "width": 360,
+      "x": 1080,
+      "y": 0
+    },
+    "maximized": false,
+    "normal_geometry": {
+      "height": 540,
+      "width": 360,
+      "x": 1080,
+      "y": 0
+    },
+    "qt": {
+      "__class__": "bytearray",
+      "__value__": "AdnQywADAAAAAAQ4AAAAAAAABZ8AAAIbAAAEOAAAAAAAAAWfAAACGwAAAAIAAAAAB4AAAAQ4AAAAAAAABZ8AAAIb"
+    },
+    "screen": {
+      "depth": 32,
+      "device_pixel_ratio": 1.0,
+      "geometry_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920,
+        "x": 1080,
+        "y": 0
+      },
+      "index_in_screens_list": 2,
+      "manufacturer": "Samsung Electric Company",
+      "model": "LS27C33xG",
+      "name": "DP-1",
+      "serial": "",
+      "size_in_logical_pixels": {
+        "height": 1080,
+        "width": 1920
+      },
+      "virtual_geometry": {
+        "height": 2160,
+        "width": 3000,
+        "x": 0,
+        "y": 0
+      }
+    }
+  },
+  "main_window_state": {
+    "__class__": "bytearray",
+    "__value__": "AAAA/wAAAAH9AAAAAgAAAAAAAAAAAAAAAPwCAAAAAvsAAAAQAHQAbwBjAC0AZABvAGMAawAAAAAA/////wAAAIoA////+wAAABYAcwBlAGEAcgBjAGgALQBkAG8AYwBrAAAAAAD/////AAAAmgD///8AAAABAAAAAAAAAAD8AgAAAAT7AAAAFgBsAG8AbwBrAHUAcAAtAGQAbwBjAGsAAAAAAP////8AAAChAP////sAAAAcAGIAbwBvAGsAbQBhAHIAawBzAC0AZABvAGMAawAAAAAA/////wAAAPIA////+wAAABwAaQBuAHMAcABlAGMAdABvAHIALQBkAG8AYwBrAAAAAAD/////AAAAFAD////7AAAAHgBoAGkAZwBoAGwAaQBnAGgAdABzAC0AZABvAGMAawAAAAAA/////wAAANcA////AAABaAAAAhwAAAAEAAAABAAAAAgAAAAI/AAAAAEAAAAAAAAAAQAAAB4AYQBjAHQAaQBvAG4AcwBfAHQAbwBvAGwAYgBhAHICAAAAAP////8AAAAAAAAAAA=="
+  },
+  "old_prefs_migrated": true,
+  "session_data": {
+    "base_font_size": 19,
+    "controls_help_shown_count": 2,
+    "standalone_font_settings": {},
+    "standalone_misc_settings": {
+      "remember_last_read": true,
+      "remember_window_geometry": false,
+      "save_annotations_in_ebook": true,
+      "singleinstance": false
+    },
+    "standalone_recently_opened": [
+      {
+        "authors": [
+          "Waldo Mendoza Bellido;Yuliño Anastacio Clemente"
+        ],
+        "key": "/home/achalmaedison/Documents/biblioteca/Waldo, Mendoza Bellido/La historia fiscal del peru_ 1980-2020 (42)/La historia fiscal del peru_ 1980-2020 - Waldo, Mendoza Bellido.epub",
+        "pathtoebook": "/home/achalmaedison/Documents/biblioteca/Waldo, Mendoza Bellido/La historia fiscal del peru_ 1980-2020 (42)/La historia fiscal del peru_ 1980-2020 - Waldo, Mendoza Bellido.epub",
+        "timestamp": "2026-06-23T01:04:57.396Z",
+        "title": "La historia fiscal del Perú: 1980-2020"
+      },
+      {
+        "authors": [
+          "Mortimer J. Adler",
+          "Charles van Doren"
+        ],
+        "key": "/home/achalmaedison/Documents/biblioteca/Mortimer J., Adler/Como leer un libro_ una guia clasica para mejorar la lectura (8516)/Como leer un libro_ una guia clasica para - Mortimer J., Adler.epub",
+        "pathtoebook": "/home/achalmaedison/Documents/biblioteca/Mortimer J., Adler/Como leer un libro_ una guia clasica para mejorar la lectura (8516)/Como leer un libro_ una guia clasica para - Mortimer J., Adler.epub",
+        "timestamp": "2026-06-21T04:35:22.175Z",
+        "title": "Cómo leer un libro"
+      },
+      {
+        "authors": [
+          "Alexis de Tocqueville"
+        ],
+        "key": "/home/achalmaedison/Documents/biblioteca/Alexis, de Tocqueville/La democracia en america (37)/La democracia en america - Alexis, de Tocqueville.epub",
+        "pathtoebook": "/home/achalmaedison/Documents/biblioteca/Alexis, de Tocqueville/La democracia en america (37)/La democracia en america - Alexis, de Tocqueville.epub",
+        "timestamp": "2026-06-19T06:50:30.127Z",
+        "title": "La democracia en América"
+      },
+      {
+        "authors": [
+          "Robert Merton Solow"
+        ],
+        "key": "/home/achalmaedison/Documents/biblioteca/Robert Merton, Solow/La teoria del crecimiento_ una exposicion (4)/La teoria del crecimiento_ una exposicion - Robert Merton, Solow.epub",
+        "pathtoebook": "/home/achalmaedison/Documents/biblioteca/Robert Merton, Solow/La teoria del crecimiento_ una exposicion (4)/La teoria del crecimiento_ una exposicion - Robert Merton, Solow.epub",
+        "timestamp": "2026-06-19T06:50:15.515Z",
+        "title": "La teoría del crecimiento. Una exposición (Economia) (Spanish Edition)"
+      },
+      {
+        "authors": [
+          "Max Weber"
+        ],
+        "key": "/home/achalmaedison/Documents/biblioteca/Max, Weber/Economia y sociedad (5)/Economia y sociedad - Max, Weber.epub",
+        "pathtoebook": "/home/achalmaedison/Documents/biblioteca/Max, Weber/Economia y sociedad (5)/Economia y sociedad - Max, Weber.epub",
+        "timestamp": "2026-06-19T06:50:02.860Z",
+        "title": "Economía y sociedad"
+      }
+    ]
+  }
+}

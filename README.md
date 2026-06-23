@@ -211,6 +211,9 @@ dotfiles
 ### Ejemplos
 
 ```bash
+# Inicio
+cd /home/achalmaedison/.dotfiles
+
 # Instalar todos los paquetes
 ./main.sh instalar
 
@@ -219,12 +222,18 @@ dotfiles
 
 # Adoptar solo zotero desde la laptop
 ./main.sh adoptar -p zotero
+./main.sh adoptar -p git
+./main.sh adoptar -p calibre
+
+
+./main.sh adoptar -p git,shell,kde,terminal,digikam
 
 # Simular un pull sin hacer cambios
 ./main.sh sync-pull --dry-run --verbose
 
 # Ver todo el estado
 ./main.sh estado
+./main.sh estado --verbose
 
 # Subir a GitHub con confirmación de datos sensibles
 ./main.sh sync-push

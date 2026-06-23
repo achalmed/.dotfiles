@@ -1,0 +1,260 @@
+// ════════════════════════════════════════════════════════════════════════
+// CONFIGURACIÓN DE POSITRON — Edison Achalma (UNSCH, Ayacucho)
+// Positron 2026.06.0 · Python (Anaconda) + Quarto + LaTeX + zsh + Linux
+// ════════════════════════════════════════════════════════════════════════
+{
+    // ── 1. Python (Anaconda/Conda) ──
+    "python.defaultInterpreterPath": "/home/achalmaedison/anaconda3/bin/python", // ruta
+    "python.condaPath": "/home/achalmaedison/anaconda3/bin/conda", // ruta
+    "python.terminal.activateEnvironment": true,
+    "python.terminal.activateEnvInCurrentTerminal": true,
+    "python.useBundledIpykernel": true,
+    "python.enableAutoReload": true,
+    "interpreters.startupBehavior": "always", // "always" | "manual" | "auto"
+    "interpreters.discoveryCache.enabled": true,
+    // ── 2. Paquetes ──
+    "packages.enabled": true,
+    "packages.r.installer": "auto", // "auto" | "pak" | "base"
+    // ── 3. Terminal ──
+    "terminal.integrated.inheritEnv": false,
+    "terminal.integrated.fontSize": 12, // número en píxeles
+    "terminal.integrated.fontFamily": "'Hack Nerd Font', 'FiraCode Nerd Font', monospace",
+    "terminal.integrated.copyOnSelection": true,
+    "terminal.integrated.cursorBlinking": true,
+    "terminal.integrated.cursorStyle": "underline", // "block" | "line" | "underline"
+    "terminal.integrated.cursorStyleInactive": "line", // "outline" | "block" | "line" | "underline" | "none"
+    "terminal.integrated.defaultProfile.linux": "zsh", // "bash" | "zsh" | "fish" | etc.
+    "terminal.integrated.enablePersistentSessions": false,
+    "terminal.integrated.suggest.enabled": true,
+    "terminal.integrated.accessibleViewFocusOnCommandExecution": true,
+    "terminal.integrated.scrollback": 5000, // número entero
+    // ── 4. Editor ──
+    "editor.fontSize": 13, // número en píxeles
+    "editor.fontFamily": "'JetBrains Mono', 'Fira Code', 'Hack Nerd Font', monospace",
+    "editor.fontLigatures": true,
+    "editor.lineNumbers": "on", // "on" | "off" | "relative" | "interval"
+    "editor.rulers": [
+        80,
+        160
+    ], // array de columnas
+    "editor.wordWrap": "off", // "off" | "on" | "wordWrapColumn" | "bounded"
+    "editor.minimap.enabled": true,
+    "editor.minimap.autohide": "mouseover",
+    "editor.scrollbar.vertical": "hidden", // "auto" | "visible" | "hidden"
+    "editor.scrollbar.horizontal": "hidden", // "auto" | "visible" | "hidden"
+    "editor.overviewRulerBorder": false,
+    "editor.cursorBlinking": "smooth", // "blink" | "smooth" | "phase" | "expand" | "solid"
+    "editor.cursorSmoothCaretAnimation": "on", // "off" | "explicit" | "on"
+    "editor.cursorStyle": "line", // "line" | "block" | "underline" | "line-thin" | "block-outline" | "underline-thin"
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true,
+    "editor.formatOnType": false,
+    "editor.tabSize": 4, // número entero
+    "editor.insertSpaces": true,
+    "editor.detectIndentation": true,
+    "editor.renderWhitespace": "selection", // "none" | "boundary" | "selection" | "trailing" | "all"
+    "editor.glyphMargin": false,
+    "editor.bracketPairColorization.enabled": true,
+    "editor.guides.bracketPairs": true, //  | "active"
+    "editor.guides.indentation": false,
+    "editor.matchBrackets": "never", // "always" | "near" | "never"
+    "editor.linkedEditing": true,
+    "editor.suggest.preview": true,
+    "editor.inlineSuggest.enabled": true,
+    "editor.inlineSuggest.syntaxHighlightingEnabled": true,
+    "editor.quickSuggestions": {
+        "other": true, //  | "inline"
+        "comments": false, //  | "inline"
+        "strings": false //  | "inline"
+    },
+    // ── 5. Workbench ──
+    "workbench.colorTheme": "Default Positron Dark", // nombre de tema
+    "workbench.iconTheme": "material-icon-theme", // "vs-minimal" | "material-icon-theme" | etc.
+    "workbench.productIconTheme": "material-product-icons", // nombre de tema de iconos
+    "workbench.activityBar.location": "bottom", // "default" | "top" | "bottom" | "hidden"
+    "workbench.sideBar.location": "right", // "left" | "right"
+    "workbench.statusBar.visible": false,
+    "workbench.editor.showTabs": "single", // "multiple" | "single" | "none"
+    "workbench.editor.tabSizing": "fixed", // "fit" | "shrink" | "fixed"
+    "workbench.editor.highlightModifiedTabs": true,
+    "workbench.editor.limit.enabled": true,
+    "workbench.editor.empty.hint": "hidden", // "text" | "hidden"
+    "workbench.editor.wrapTabs": true,
+    "workbench.editor.centeredLayoutFixedWidth": true, // 
+    "window.customTitleBarVisibility": "auto", // "auto" | "windowed" | "never"
+    "window.commandCenter": true,
+    "breadcrumbs.enabled": false,
+    // ── 6. Files ──
+    "files.autoSave": "onFocusChange", // "off" | "afterDelay" | "onFocusChange" | "onWindowChange"
+    "files.associations": { // objeto { "patrón": "lenguaje" }
+        "renv.lock": "json",
+        "*.qmd": "quarto",
+        "*.Rmd": "rmarkdown",
+        "*.dat": "csv (pipe)",
+        "*.csv": "csv" // cambia a "csv (semicolon)" si tus CSV usan ;
+    },
+    "files.exclude": { // objeto { "patrón glob": true|false }
+        "**/_site": true,
+        "**/.quarto": true,
+        "**/__pycache__": true,
+        "**/.ipynb_checkpoints": true
+    },
+    // ── 7. Git ──
+    "git.enableSmartCommit": true,
+    "git.autofetch": true, //  | "all"
+    "git.confirmSync": false,
+    "git.openRepositoryInParentFolders": "always", // "always" | "never" | "prompt"
+    "git.addAICoAuthor": "off", // "off" | "afterDelay" | "checkpointDecision"
+    "git.allowForcePush": false,
+    "git.allowNoVerifyCommit": false,
+    "git.alwaysShowStagedChangesResourceGroup": false,
+    "git.alwaysSignOff": false,
+    "git.autofetchPeriod": 180, // número en segundos
+    "git.autorefresh": true,
+    "git.autoRepositoryDetection": true, //  | "subFolders" | "openEditors"
+    "git.blame.statusBarItem.enabled": true,
+    "git.branchProtection": [
+        "main"
+    ], // array de nombres de rama
+    "git.branchProtectionPrompt": "alwaysPrompt", // "alwaysPrompt" | "alwaysCommit" | "alwaysCommitToNewBranch"
+    "git.branchSortOrder": "committerdate", // "committerdate" | "alphabetically"
+    "git.branchWhitespaceChar": "-", // cualquier carácter
+    "git.checkoutType": [
+        "local",
+        "remote",
+        "tags"
+    ], // combinación: "local" "remote" "tags"
+    "git.commitShortHashLength": 7, // número entero
+    "git.confirmCommittedDelete": true,
+    "git.confirmEmptyCommits": true,
+    "git.confirmForcePush": true,
+    "git.confirmNoVerifyCommit": true,
+    "git.countBadge": "all", // "all" | "tracked"
+    "git.decorations.enabled": true,
+    "git.defaultBranchName": "main", // texto; vacío = config global de Git
+    "git.detectSubmodules": true,
+    "git.detectSubmodulesLimit": 10, // número entero
+    "git.detectWorktrees": true,
+    "git.detectWorktreesLimit": 50, // número entero
+    "git.discardUntrackedChangesToTrash": true,
+    "git.enabled": true,
+    "git.enableStatusBarSync": true,
+    "git.inputValidation": true, //  | "always" | "warn"
+    "git.inputValidationLength": 72, // número entero
+    "git.inputValidationSubjectLength": 50, // número entero; vacío hereda git.inputValidationLength
+    "git.mergeEditor": false,
+    "git.openAfterClone": "prompt", // "always" | "alwaysNewWindow" | "whenNoFolderOpen" | "prompt"
+    "git.openDiffOnClick": true, // 
+    "git.postCommitCommand": "none", // "none" | "push" | "sync"
+    "git.promptToSaveFilesBeforeCommit": "always", // "always" | "staged" | "never"
+    "git.promptToSaveFilesBeforeStash": "always", // "always" | "staged" | "never"
+    "git.pullTags": true,
+    "git.repositoryScanIgnoredFolders": [
+        "node_modules"
+    ], // array de nombres de carpeta
+    "git.repositoryScanMaxDepth": 1, // número entero; -1 = sin límite
+    "git.requireGitUserConfig": true,
+    "git.showActionButton": {
+        "commit": true,
+        "publish": true,
+        "sync": true
+    },
+    "git.showCommitInput": true,
+    "git.showInlineOpenFileAction": true,
+    "git.showProgress": true,
+    "git.showReferenceDetails": true,
+    "git.similarityThreshold": 50, // número del 0 al 100
+    "git.smartCommitChanges": "all", // "all" | "tracked"
+    "git.statusLimit": 10000, // número entero; 0 = sin límite
+    "git.suggestSmartCommit": true,
+    "git.terminalAuthentication": true,
+    "git.timeline.date": "committed", // "committed" | "authored"
+    "git.timeline.showAuthor": true,
+    "git.untrackedChanges": "mixed", // "mixed" | "separate" | "hidden"
+    "git.useEditorAsCommitInput": true,
+    "git.useForcePushIfIncludes": true,
+    "git.useForcePushWithLease": true,
+    "git.useIntegratedAskPass": true,
+    "git.optimisticUpdate": true,
+    // ── 8. Diff Editor ──
+    "diffEditor.ignoreTrimWhitespace": false,
+    "diffEditor.maxComputationTime": 0, // número en milisegundos; 0 = sin límite
+    "diffEditor.codeLens": true,
+    "diffEditor.wordWrap": "off", // "off" | "on" | "inherit"
+    // ── 9. Configuración por lenguaje ──
+    "[python]": {
+        "editor.defaultFormatter": "charliermarsh.ruff", // id de extensión
+        "diffEditor.ignoreTrimWhitespace": false
+    },
+    "[quarto]": {
+        "editor.defaultFormatter": "quarto.quarto" // id de extensión
+    },
+    "[markdown]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode", // id de extensión
+        "editor.formatOnSave": true
+    },
+    "[yaml]": {
+        "editor.defaultFormatter": "quarto.quarto" // id de extensión
+    },
+    "[latex]": {
+        "editor.defaultFormatter": "James-Yu.latex-workshop" // id de extensión
+    },
+    "[r]": {
+        "editor.defaultFormatter": "Posit.air-vscode", // id de extensión
+        "editor.formatOnSave": true
+    },
+    "[jsonc]": {
+        "editor.defaultFormatter": "vscode.json-language-features" // id de extensión
+    },
+    // ── 10. Notebooks (Jupyter / .ipynb) ──
+    "notebook.output.wordWrap": true,
+    "jupyter.interactiveWindow.textEditor.executeSelection": true,
+    // ── 11. Quarto ──
+    "quarto.visualEditor.spellingDictionary": "es_ES", // código de idioma, ej. "en_US" | "es_ES"
+    // ── 12. Misc ──
+    "debug.console.wordWrap": false,
+    "chat.editor.wordWrap": "on", // "off" | "on"
+    "yaml.schemas": {
+        "https://quarto.org/schemas/quarto.yaml": "*.qmd" // { "url esquema": "patrón glob" }
+    },
+    // ── 13. Posit Assistant ──
+    "assistant.enabled": true,
+    "positron.assistant.enable": true,
+    "positron.assistant.alwaysEnableApplyInEditorAction": true,
+    "positron.assistant.alwaysIncludeCopilotTools": true,
+    "positron.assistant.showTokenUsage.enable": true,
+    // ── 16. Material Icon Theme ──
+    "material-icon-theme.files.color": "#42a5f5", // hex color
+    "material-icon-theme.folders.color": "#ef5350", // hex color
+    "material-icon-theme.folders.theme": "specific", // "specific" | "classic" | "chevrons" | "none"
+    "material-icon-theme.opacity": 1, // número del 0 al 1
+    "material-icon-theme.saturation": 1, // número del 0 al 1
+    // ── 17. Prettier ──
+    "prettier.printWidth": 80, // número entero
+    "prettier.proseWrap": "preserve", // "preserve" | "always" | "never"
+    "prettier.requirePragma": false,
+    "prettier.requireConfig": false,
+    // ── 19. Accesibilidad ──
+    "accessibility.verbosity.terminal": false,
+    "accessibility.hideAccessibleView": true,
+    // ── 20. GitLens y CodeSnap ──
+    "gitlens.graph.minimap.additionalTypes": [ // combinación de los siguientes
+        "localBranches",
+        "stashes",
+        "remoteBranches",
+        "pullRequests",
+        "tags"
+    ],
+    "codesnap.transparentBackground": true,
+    "codesnap.showWindowTitle": true,
+    "codesnap.containerPadding": "0em", // valor CSS de padding
+    "codesnap.roundedCorners": false,
+    // ── 21. LaTeX Workshop ──
+    "latex-workshop.formatting.latex": "latexindent", // "latexindent" | "tex-fmt"
+    "latex-workshop.latex.option.maxPrintLine.enabled": false,
+    // ── 22. Indenticator ──
+    "indenticator.width": 0.5, // número decimal en píxeles
+    "indenticator.color.dark": "rgba(255,255,255,0.1)", // color CSS (rgba/hex)
+    // ── 23. Gitignore ──
+    "gitignore.cacheExpirationInterval": 3600 // número en segundos
+}

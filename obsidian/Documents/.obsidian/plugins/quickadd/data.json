@@ -1,0 +1,216 @@
+{
+  "choices": [
+    {
+      "id": "91ce393a-1490-464d-9818-27eea6254780",
+      "name": "Work with notes",
+      "type": "Macro",
+      "command": true,
+      "macro": {
+        "id": "20fc64b1-5f3d-4327-9a71-85c20639dab1",
+        "name": "Work-with-notes",
+        "commands": [
+          {
+            "name": "Advanced URI: copy URI for current file",
+            "type": "Obsidian",
+            "id": "0046e2cd-89b1-46ef-a732-bfc5414c594c",
+            "commandId": "obsidian-advanced-uri:copy-uri-current-file-simple"
+          },
+          {
+            "name": "workspace-load-work-with-notes",
+            "type": "UserScript",
+            "id": "d172a8b6-27f8-463c-8818-3a5c6c6c51c4",
+            "path": "meta/javascript/workspace-load-work-with-notes.js",
+            "settings": {}
+          },
+          {
+            "name": "Wait",
+            "type": "Wait",
+            "id": "ad2f6f8d-a0ee-4250-af6c-dd372863c866",
+            "time": 100
+          },
+          {
+            "name": "load-current-note",
+            "type": "UserScript",
+            "id": "f51d44d3-688d-4a45-9e49-68e50aa1ee4a",
+            "path": "meta/javascript/load-current-note.js",
+            "settings": {}
+          }
+        ]
+      },
+      "runOnStartup": false
+    },
+    {
+      "id": "61098618-b73a-485d-9e0f-2afe35ad8d5e",
+      "name": "Search research notes",
+      "type": "Macro",
+      "command": true,
+      "macro": {
+        "id": "4bc86b1c-90bf-4b55-9c42-ef731934c49d",
+        "name": "Search-research-notes",
+        "commands": [
+          {
+            "name": "workspace-load-Search-research-notes",
+            "type": "UserScript",
+            "id": "4bce144e-b091-449e-b419-b2313c7422bb",
+            "path": "meta/javascript/workspace-load-Search-research-notes.js",
+            "settings": {}
+          }
+        ]
+      },
+      "runOnStartup": false
+    },
+    {
+      "id": "74094e01-078c-4999-9f1f-2cf4f7bcdd55",
+      "name": "Write with Longform",
+      "type": "Macro",
+      "command": true,
+      "macro": {
+        "id": "8b831074-39a6-4353-a29d-ed552bdb6c67",
+        "name": "Write-with-Longform",
+        "commands": [
+          {
+            "name": "Advanced URI: copy URI for current file",
+            "type": "Obsidian",
+            "id": "b666dab2-3856-4265-b30b-7a96b850d519",
+            "commandId": "obsidian-advanced-uri:copy-uri-current-file-simple"
+          },
+          {
+            "name": "workspace-load-Write-with-Longform",
+            "type": "UserScript",
+            "id": "2f718357-87fb-41bf-8342-09d98a642974",
+            "path": "meta/javascript/workspace-load-Write-with-Longform.js",
+            "settings": {}
+          },
+          {
+            "name": "Wait",
+            "type": "Wait",
+            "id": "f1caab7b-27cf-4473-b30b-bc856003953c",
+            "time": 100
+          },
+          {
+            "name": "load-current-note",
+            "type": "UserScript",
+            "id": "dcf25890-5c07-4101-b7d2-9f357d8d9a1b",
+            "path": "meta/javascript/load-current-note.js",
+            "settings": {}
+          }
+        ]
+      },
+      "runOnStartup": false
+    }
+  ],
+  "inputPrompt": "single-line",
+  "persistInputPromptDrafts": true,
+  "useSelectionAsCaptureValue": true,
+  "devMode": false,
+  "templateFolderPath": "",
+  "announceUpdates": "all",
+  "version": "2.12.3",
+  "globalVariables": {},
+  "onePageInputEnabled": false,
+  "disableOnlineFeatures": true,
+  "enableRibbonIcon": false,
+  "showCaptureNotification": true,
+  "showInputCancellationNotification": false,
+  "enableTemplatePropertyTypes": false,
+  "dateAliases": {
+    "t": "today",
+    "tm": "tomorrow",
+    "yd": "yesterday",
+    "nw": "next week",
+    "nm": "next month",
+    "ny": "next year",
+    "lw": "last week",
+    "lm": "last month",
+    "ly": "last year"
+  },
+  "ai": {
+    "defaultModel": "Ask me",
+    "defaultSystemPrompt": "As an AI assistant within Obsidian, your primary goal is to help users manage their ideas and knowledge more effectively. Format your responses using Markdown syntax. Please use the [[Obsidian]] link format. You can write aliases for the links by writing [[Obsidian|the alias after the pipe symbol]]. To use mathematical notation, use LaTeX syntax. LaTeX syntax for larger equations should be on separate lines, surrounded with double dollar signs ($$). You can also inline math expressions by wrapping it in $ symbols. For example, use $$w_{ij}^{\text{new}}:=w_{ij}^{\text{current}}+etacdotdelta_jcdot x_{ij}$$ on a separate line, but you can write \"($eta$ = learning rate, $delta_j$ = error term, $x_{ij}$ = input)\" inline.",
+    "promptTemplatesFolderPath": "",
+    "showAssistant": true,
+    "providers": [
+      {
+        "name": "OpenAI",
+        "endpoint": "https://api.openai.com/v1",
+        "apiKey": "",
+        "models": [
+          {
+            "name": "gpt-3.5-turbo",
+            "maxTokens": 4096
+          },
+          {
+            "name": "gpt-3.5-turbo-16k",
+            "maxTokens": 16384
+          },
+          {
+            "name": "gpt-3.5-turbo-1106",
+            "maxTokens": 16385
+          },
+          {
+            "name": "gpt-4",
+            "maxTokens": 8192
+          },
+          {
+            "name": "gpt-4-32k",
+            "maxTokens": 32768
+          },
+          {
+            "name": "gpt-4-1106-preview",
+            "maxTokens": 128000
+          },
+          {
+            "name": "gpt-4-turbo",
+            "maxTokens": 128000
+          },
+          {
+            "name": "gpt-4o",
+            "maxTokens": 128000
+          },
+          {
+            "name": "gpt-4o-mini",
+            "maxTokens": 128000
+          }
+        ],
+        "autoSyncModels": false,
+        "modelSource": "modelsDev"
+      },
+      {
+        "name": "Gemini",
+        "endpoint": "https://generativelanguage.googleapis.com",
+        "apiKey": "",
+        "models": [
+          {
+            "name": "gemini-1.5-pro",
+            "maxTokens": 1000000
+          },
+          {
+            "name": "gemini-1.5-flash",
+            "maxTokens": 1000000
+          },
+          {
+            "name": "gemini-1.5-flash-8b",
+            "maxTokens": 1000000
+          }
+        ],
+        "autoSyncModels": false,
+        "modelSource": "modelsDev"
+      }
+    ]
+  },
+  "migrations": {
+    "migrateToMacroIDFromEmbeddedMacro": true,
+    "useQuickAddTemplateFolder": true,
+    "incrementFileNameSettingMoveToDefaultBehavior": true,
+    "mutualExclusionInsertAfterAndWriteToBottomOfFile": true,
+    "setVersionAfterUpdateModalRelease": true,
+    "consolidateFileExistsBehavior": true,
+    "repairTemplateFileExistsBehavior": true,
+    "addDefaultAIProviders": true,
+    "removeMacroIndirection": true,
+    "migrateFileOpeningSettings": true,
+    "backfillFileOpeningDefaults": true,
+    "setProviderModelDiscoveryMode": true,
+    "migrateProviderApiKeysToSecretStorage": true
+  }
+}

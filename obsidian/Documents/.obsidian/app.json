@@ -1,0 +1,29 @@
+{
+  "alwaysUpdateLinks": true,
+  "fileSortOrder": "alphabetical",
+  "legacyEditor": false,
+  "livePreview": true,
+  "newFileLocation": "folder",
+  "lineWrap": true,
+  "foldHeading": true,
+  "foldIndent": true,
+  "pdfExportSettings": {
+    "pageSize": "Letter",
+    "landscape": false,
+    "margin": "0",
+    "downscalePercent": 100
+  },
+  "readableLineLength": true,
+  "promptDelete": true,
+  "spellcheck": true,
+  "attachmentFolderPath": "./assets",
+  "userIgnoreFilters": [
+    "meta/"
+  ],
+  "showUnsupportedFiles": true,
+  "showInlineTitle": false,
+  "showLineNumber": true,
+  "newFileFolderPath": "01 notes",
+  "newLinkFormat": "relative",
+  "useMarkdownLinks": true
+}
