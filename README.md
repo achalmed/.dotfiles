@@ -107,17 +107,17 @@ ubicación normal gracias a los symlinks.
 ### Sistema Operativo
 
 - Arch Linux / Archcraft / EndeavourOS / Manjaro
-- Ubuntu 20.04+ / Kubuntu / Debian / Linux Mint / Pop!_OS
+- Ubuntu 20.04+ / Kubuntu / Debian / Linux Mint / Pop!\_OS
 
 ### Dependencias
 
-| Herramienta | Arch | Kubuntu | Para qué |
-|------------|------|---------|---------|
-| `stow` | `pacman -S stow` | `apt install stow` | Gestión de symlinks |
-| `git` | `pacman -S git` | `apt install git` | Control de versiones |
-| `zsh` | `pacman -S zsh` | `apt install zsh` | Shell configurado |
-| `starship` | `pacman -S starship` | Script oficial | Prompt personalizado |
-| `bash >= 4.0` | preinstalado | preinstalado | Ejecución del gestor |
+| Herramienta   | Arch                 | Kubuntu            | Para qué             |
+| ------------- | -------------------- | ------------------ | -------------------- |
+| `stow`        | `pacman -S stow`     | `apt install stow` | Gestión de symlinks  |
+| `git`         | `pacman -S git`      | `apt install git`  | Control de versiones |
+| `zsh`         | `pacman -S zsh`      | `apt install zsh`  | Shell configurado    |
+| `starship`    | `pacman -S starship` | Script oficial     | Prompt personalizado |
+| `bash >= 4.0` | preinstalado         | preinstalado       | Ejecución del gestor |
 
 ### Instalación automática de dependencias
 
@@ -183,30 +183,30 @@ dotfiles
 
 ### Comandos disponibles
 
-| Comando | Descripción |
-|---------|-------------|
-| `instalar` | Crea symlinks del repo hacia la laptop |
-| `adoptar` | Mueve configs de la laptop al repo y crea symlinks |
-| `actualizar` | Re-aplica symlinks (útil al agregar archivos al repo) |
-| `eliminar` | Elimina symlinks sin borrar el repo |
-| `sync-push` | Guarda cambios y los sube a GitHub |
-| `sync-pull` | Descarga cambios de GitHub y actualiza symlinks |
-| `estado` | Muestra estado de symlinks y Git |
-| `backup` | Crea backup de configs actuales |
-| `seguridad` | Escanea archivos en busca de credenciales expuestas |
-| `instalar-deps` | Instala dependencias según la distro detectada |
+| Comando         | Descripción                                           |
+| --------------- | ----------------------------------------------------- |
+| `instalar`      | Crea symlinks del repo hacia la laptop                |
+| `adoptar`       | Mueve configs de la laptop al repo y crea symlinks    |
+| `actualizar`    | Re-aplica symlinks (útil al agregar archivos al repo) |
+| `eliminar`      | Elimina symlinks sin borrar el repo                   |
+| `sync-push`     | Guarda cambios y los sube a GitHub                    |
+| `sync-pull`     | Descarga cambios de GitHub y actualiza symlinks       |
+| `estado`        | Muestra estado de symlinks y Git                      |
+| `backup`        | Crea backup de configs actuales                       |
+| `seguridad`     | Escanea archivos en busca de credenciales expuestas   |
+| `instalar-deps` | Instala dependencias según la distro detectada        |
 
 ### Opciones globales
 
-| Opción | Descripción |
-|--------|-------------|
+| Opción                         | Descripción                            |
+| ------------------------------ | -------------------------------------- |
 | `-p, --packages git,shell,kde` | Operar solo sobre paquetes específicos |
-| `-v, --verbose` | Salida detallada de cada operación |
-| `-n, --dry-run` | Simular sin hacer cambios reales |
-| `-f, --force` | Forzar aunque haya conflictos |
-| `--no-backup` | No crear backup automático |
-| `-h, --help` | Ver ayuda completa |
-| `--version` | Ver versión y distro detectada |
+| `-v, --verbose`                | Salida detallada de cada operación     |
+| `-n, --dry-run`                | Simular sin hacer cambios reales       |
+| `-f, --force`                  | Forzar aunque haya conflictos          |
+| `--no-backup`                  | No crear backup automático             |
+| `-h, --help`                   | Ver ayuda completa                     |
+| `--version`                    | Ver versión y distro detectada         |
 
 ### Ejemplos
 
@@ -333,7 +333,7 @@ dotfiles sync-push                 # subir la versión de laptop
 ├── terminal/            # Paquete stow: konsolerc
 ├── vscode/              # Paquete stow: settings.json, keybindings.json
 ├── zotero/              # Paquete stow: prefs.js
-├── obsidian/            # Paquete stow: .obsidian/
+├── obsidian/            # Paquete stow: Documents/.obsidian/
 ├── calibre/             # Paquete stow: gui.json, viewer.json
 ├── kate/                # Paquete stow: katerc, lspclient/
 ├── texstudio/           # Paquete stow: texstudio.ini
@@ -343,16 +343,16 @@ dotfiles sync-push                 # subir la versión de laptop
 
 ### Descripción de módulos
 
-| Archivo | Responsabilidad |
-|---------|----------------|
-| `main.sh` | Carga módulos, parsea args, hace dispatch al comando correcto |
-| `config.sh` | Detecta distro, define rutas, paquetes stow, patrones sensibles |
-| `lib/logger.sh` | Logging formateado a consola y archivo con niveles y colores |
-| `lib/validator.sh` | Verifica stow, git, internet, árbol limpio, datos sensibles |
-| `lib/cli.sh` | Parseo de argumentos, menú interactivo, confirmaciones |
-| `lib/stow_ops.sh` | Instalar, adoptar, actualizar y eliminar symlinks con stow |
-| `lib/git_ops.sh` | Push con validación, pull con re-stow, estado del repo |
-| `lib/tools.sh` | Backups comprimidos con limpieza automática, instalación de deps |
+| Archivo            | Responsabilidad                                                  |
+| ------------------ | ---------------------------------------------------------------- |
+| `main.sh`          | Carga módulos, parsea args, hace dispatch al comando correcto    |
+| `config.sh`        | Detecta distro, define rutas, paquetes stow, patrones sensibles  |
+| `lib/logger.sh`    | Logging formateado a consola y archivo con niveles y colores     |
+| `lib/validator.sh` | Verifica stow, git, internet, árbol limpio, datos sensibles      |
+| `lib/cli.sh`       | Parseo de argumentos, menú interactivo, confirmaciones           |
+| `lib/stow_ops.sh`  | Instalar, adoptar, actualizar y eliminar symlinks con stow       |
+| `lib/git_ops.sh`   | Push con validación, pull con re-stow, estado del repo           |
+| `lib/tools.sh`     | Backups comprimidos con limpieza automática, instalación de deps |
 
 ---
 
@@ -464,11 +464,11 @@ nano <archivo_indicado>
 
 ## ⚠️ Notas y Advertencias
 
-**Distros soportadas:** El script detecta automáticamente Arch Linux (y derivados: Archcraft, EndeavourOS, Manjaro) y Ubuntu/Kubuntu (y derivados: Debian, Linux Mint, Pop!_OS). Para otras distros, las operaciones de stow funcionan pero la instalación de dependencias requiere hacerse manualmente.
+**Distros soportadas:** El script detecta automáticamente Arch Linux (y derivados: Archcraft, EndeavourOS, Manjaro) y Ubuntu/Kubuntu (y derivados: Debian, Linux Mint, Pop!\_OS). Para otras distros, las operaciones de stow funcionan pero la instalación de dependencias requiere hacerse manualmente.
 
 **Archivo `prefs.js` de Zotero:** Contiene la ruta del perfil `25vfdnq5.default` que es específica de tu instalación. En una nueva máquina, Zotero generará un ID de perfil diferente. Ajusta la ruta en `config.sh` → `SENSITIVE_FILES_TO_CHECK` si cambia.
 
-**Obsidian vault:** El vault está configurado en `~/Documents/thoughts`. Si en alguna máquina está en otra ruta, el paquete stow de obsidian no funcionará correctamente hasta que muevas el vault a esa ruta o actualices la estructura en el repo.
+**Obsidian vault:** El vault está configurado directamente en `~/Documents` (el directorio Documents completo es el vault, con `.obsidian/` dentro). Si en alguna máquina está en otra ruta, actualiza la estructura del paquete `obsidian/` en el repo para que refleje la ruta correcta.
 
 **Backups:** Se guardan en `.dotfiles/.backups/` y se mantienen los últimos 10 automáticamente. No son parte del repo git (están en `.gitignore` recomendado). Son backups de emergencia, no reemplazan un backup completo del sistema.
 

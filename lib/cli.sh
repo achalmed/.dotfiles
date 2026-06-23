@@ -140,8 +140,8 @@ show_menu() {
         cat << EOF
 ${COLOR_BOLD}${COLOR_CYAN}
   ╔══════════════════════════════════════════════════╗
-  ║         GESTOR DE DOTFILES — ${SCRIPT_NAME}        ║
-  ║         Distro: ${DISTRO} | v${VERSION}              ║
+  ║         GESTOR DE DOTFILES — ${SCRIPT_NAME}      ║
+  ║         Distro: ${DISTRO} | v${VERSION}          ║
   ╚══════════════════════════════════════════════════╝
 ${COLOR_RESET}
   ${COLOR_BOLD}── CONFIGURACIÓN LOCAL ──────────────────────────${COLOR_RESET}

@@ -20,17 +20,22 @@ readonly SCRIPT_NAME="dotfiles-manager"
 # Se detecta al cargar config para que todos los módulos tengan acceso.
 # Arch y Kubuntu difieren en: gestor de paquetes, rutas XDG, y algunos
 # paths de configuración de aplicaciones.
-detect_distro() {
+#
+# IMPORTANTE: NO usar 'source /etc/os-release' porque ese archivo define
+# variables como VERSION, NAME, ID que colisionan con las nuestras al ser
+# declaradas readonly más adelante. En su lugar, leemos solo el campo ID
+# con grep para extraer únicamente lo que necesitamos.
+_detect_distro() {
     if [ -f /etc/os-release ]; then
-        # shellcheck source=/dev/null
-        source /etc/os-release
-        echo "${ID:-unknown}"
+        grep -E '^ID=' /etc/os-release | cut -d'=' -f2 | tr -d '"' 
     else
         echo "unknown"
     fi
 }
-readonly DISTRO
-DISTRO="$(detect_distro)"
+# Combinar asignación y readonly en una sola línea evita el error
+# "readonly variable" cuando la variable ya existe en el entorno del
+# proceso padre (zsh, conda, etc.) antes de la ejecución del script.
+readonly DISTRO="$(_detect_distro)"
 
 # --- Gestor de paquetes por distro --------------------------------------------
 case "$DISTRO" in
