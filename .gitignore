@@ -1,3 +1,16 @@
+# Backups generados por dotfiles-manager
+.backups/
+
+# Logs diarios
+.logs/
+
+# Archivos temporales del editor
+*~
+*.swp
+*.swo
+.DS_Store
+
+
 # Ignorar archivos sensibles o cachés
 *.bak
 *.cache
