@@ -79,6 +79,8 @@ declare -A REQUIRED_PACKAGES_APT=(
 # --- Módulos Stow a gestionar -------------------------------------------------
 # Lista canónica de todos los paquetes stow del repositorio.
 # Orden importa: los módulos base (shell, git) van primero.
+# NOTA: el paquete "positron" reemplaza a "vscode" — Positron IDE guarda
+# su config en ~/.config/Positron/ en lugar de ~/.config/Code/User/
 readonly STOW_PACKAGES=(
     git
     shell
@@ -119,7 +121,7 @@ readonly SENSITIVE_PATTERNS=(
 # zotero: el perfil 25vfdnq5.default es específico de esta instalación;
 #         si cambia de máquina, actualizar el ID de perfil aquí.
 readonly SENSITIVE_FILES_TO_CHECK=(
-    "${DOTFILES_DIR}/zotero/.zotero/zotero/25vfdnq5.default/prefs.js"
+    "${DOTFILES_DIR}/zotero/.zotero/zotero/0xh8512f.default/prefs.js"  # ID de perfil de esta instalación
     "${DOTFILES_DIR}/git/.gitconfig"
     "${DOTFILES_DIR}/vscode/.config/Code/User/settings.json"
     "${DOTFILES_DIR}/positron/.config/Positron/User/settings.json"
