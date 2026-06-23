@@ -45,7 +45,7 @@ _run_stow() {
     esac
 
     [ "$VERBOSE" = true ] && stow_flags+=("--verbose")
-    [ "$DRY_RUN" = true ] && stow_flags+=("--simulate")
+    [ "$DRY_RUN" = true ] && stow_flags+=("-n")
 
     cd "$DOTFILES_DIR" || {
         log_error "No se puede acceder a: ${DOTFILES_DIR}"
@@ -69,7 +69,7 @@ _run_stow() {
             log_error "  ✗ ${package} (código: ${exit_code})"
 
             # Diagnóstico específico para errores comunes de stow
-            if stow --simulate --dir="$DOTFILES_DIR" --target="$HOME" "$package" 2>&1 | grep -q "conflict"; then
+            if stow -n --dir="$DOTFILES_DIR" --target="$HOME" "$package" 2>&1 | grep -q "conflict\|existing target"; then
                 log_warn "  Hay conflictos en '${package}'. Archivos del sistema colisionan con el repo."
                 log_warn "  Usa 'adoptar' si quieres importar esos archivos al repo."
                 log_warn "  O usa --force (-f) para sobrescribir (crea backup automáticamente)."
@@ -211,6 +211,11 @@ remove_configs() {
 # show_stow_status()
 # Muestra el estado de cada paquete stow: si el symlink existe, apunta
 # al repo, o si hay archivos reales (no gestionados) en su lugar.
+#
+# NOTA sobre contadores con set -e:
+# En Bash, ((var++)) retorna código 1 cuando el resultado es 0 (cero),
+# lo que con set -e termina el script silenciosamente. Por eso usamos
+# la forma "var=$((var + 1))" que siempre retorna código 0.
 show_stow_status() {
     log_section "Estado de symlinks por paquete"
 
@@ -221,32 +226,36 @@ show_stow_status() {
     for package in "${STOW_PACKAGES[@]}"; do
         if [ ! -d "${DOTFILES_DIR}/${package}" ]; then
             printf "  ${COLOR_YELLOW}%-15s${COLOR_RESET} → directorio no existe en repo\n" "$package"
-            ((pkg_missing++))
+            pkg_missing=$((pkg_missing + 1))
             continue
         fi
 
-        # Verificar si stow generaría conflictos (sin aplicar cambios)
+        # stow -n es el flag estándar para simulación (equivale a --simulate).
+        # Se usa 2>&1 para capturar también stderr donde stow reporta conflictos.
         local stow_check
-        stow_check="$(stow --simulate --dir="$DOTFILES_DIR" --target="$HOME" "$package" 2>&1)"
+        stow_check="$(stow -n --dir="$DOTFILES_DIR" --target="$HOME" "$package" 2>&1)" || true
 
-        if echo "$stow_check" | grep -q "conflict\|cannot stow"; then
+        if echo "$stow_check" | grep -q "conflict\|cannot stow\|existing target"; then
             printf "  ${COLOR_RED}%-15s${COLOR_RESET} → ⚠ conflicto (archivo real existe en laptop)\n" "$package"
-            ((pkg_conflict++))
+            pkg_conflict=$((pkg_conflict + 1))
         else
-            # Buscar un archivo representativo del paquete para verificar el symlink
+            # Buscar un archivo representativo del paquete para verificar symlink.
+            # Se excluyen archivos ocultos de git (.gitkeep, etc.)
             local sample_file
-            sample_file="$(find "${DOTFILES_DIR}/${package}" -type f | head -1)"
+            sample_file="$(find "${DOTFILES_DIR}/${package}" -type f ! -name ".gitkeep" | head -1)"
             if [ -n "$sample_file" ]; then
-                # Calcular la ruta del symlink equivalente en HOME
                 local relative_path="${sample_file#${DOTFILES_DIR}/${package}/}"
                 local symlink_path="${HOME}/${relative_path}"
                 if [ -L "$symlink_path" ]; then
                     printf "  ${COLOR_GREEN}%-15s${COLOR_RESET} → ✓ symlink activo\n" "$package"
-                    ((pkg_ok++))
+                    pkg_ok=$((pkg_ok + 1))
                 else
-                    printf "  ${COLOR_YELLOW}%-15s${COLOR_RESET} → ? no instalado (ejecuta 'instalar')\n" "$package"
-                    ((pkg_missing++))
+                    printf "  ${COLOR_YELLOW}%-15s${COLOR_RESET} → ○ no instalado (ejecuta 'instalar')\n" "$package"
+                    pkg_missing=$((pkg_missing + 1))
                 fi
+            else
+                printf "  ${COLOR_YELLOW}%-15s${COLOR_RESET} → directorio vacío en repo\n" "$package"
+                pkg_missing=$((pkg_missing + 1))
             fi
         fi
     done
