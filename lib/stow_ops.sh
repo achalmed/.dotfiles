@@ -2,23 +2,46 @@
 # =============================================================================
 # lib/stow_ops.sh — Operaciones de GNU Stow para gestión de symlinks
 # =============================================================================
-# Este módulo encapsula toda la interacción con stow. Separar la lógica de
-# stow del resto permite cambiar la implementación (ej: pasar a otro gestor
-# de symlinks) sin afectar los demás módulos.
-#
 # Flujos principales:
-#   install_configs  → repo    a laptop (stow)
-#   adopt_configs    → laptop  a repo   (stow --adopt)
-#   update_configs   → actualizar symlinks existentes (stow -R)
-#   remove_configs   → eliminar symlinks              (stow -D)
+#   install_configs  → repo  → laptop  (stow)
+#   adopt_configs    → laptop → repo   (stow --adopt)
+#   update_configs   → re-stow symlinks existentes
+#   remove_configs   → eliminar symlinks (stow -D)
+#   show_stow_status → vista de estado, compacta o detallada
 # =============================================================================
 
-# _run_stow()
-# Función base que ejecuta stow con el modo y paquetes indicados.
-# Maneja dry-run, verbose y errores de conflictos de forma uniforme.
+# _is_stow_symlink()
+# Determina si una ruta en HOME es un symlink gestionado por stow
+# que apunta al repositorio de dotfiles.
+#
+# Stow puede crear symlinks RELATIVOS (ej: "../../.dotfiles/git/.gitconfig")
+# o ABSOLUTOS. Ambos son válidos; debemos resolver el destino real antes
+# de comparar con DOTFILES_DIR.
 #
 # Arguments:
-#   $1 - Modo stow: "" (instalar), "--adopt", "-R" (restow), "-D" (delete)
+#   $1 - Ruta del symlink a verificar
+#
+# Returns:
+#   0 si es un symlink de stow apuntando a DOTFILES_DIR
+#   1 si no lo es
+_is_stow_symlink() {
+    local path="$1"
+    [ -L "$path" ] || return 1
+
+    # readlink -f resuelve rutas relativas y cadenas de symlinks a ruta absoluta
+    local real_target
+    real_target="$(readlink -f "$path" 2>/dev/null)" || return 1
+
+    # Verificar que el destino real vive dentro del repo de dotfiles
+    [[ "$real_target" == "${DOTFILES_DIR}"/* ]]
+}
+
+# _run_stow()
+# Función base: ejecuta stow con el modo indicado sobre una lista de paquetes.
+# Maneja dry-run, verbose y reporta errores con diagnóstico específico.
+#
+# Arguments:
+#   $1 - Modo: "" (instalar) | "--adopt" | "-R" (restow) | "-D" (delete)
 #   $@ - Paquetes a procesar
 #
 # Returns:
@@ -45,7 +68,7 @@ _run_stow() {
     esac
 
     [ "$VERBOSE" = true ] && stow_flags+=("--verbose")
-    [ "$DRY_RUN" = true ] && stow_flags+=("-n")
+    [ "$DRY_RUN" = true ]  && stow_flags+=("-n")
 
     cd "$DOTFILES_DIR" || {
         log_error "No se puede acceder a: ${DOTFILES_DIR}"
@@ -55,7 +78,7 @@ _run_stow() {
     log_info "${description}: ${#packages[@]} paquete(s)"
 
     for package in "${packages[@]}"; do
-        # Limpiar comentarios inline del nombre (ej: "positron # IDE" → "positron")
+        # Limpiar comentarios inline (ej: "positron # IDE" → "positron")
         package="$(echo "$package" | awk '{print $1}')"
 
         if ! validate_stow_package_exists "$package"; then
@@ -68,14 +91,12 @@ _run_stow() {
         if stow "${stow_flags[@]}" --dir="$DOTFILES_DIR" --target="$HOME" "$package" 2>&1; then
             log_success "  ✓ ${package}"
         else
-            local exit_code=$?
-            log_error "  ✗ ${package} (código: ${exit_code})"
-
-            # Diagnóstico específico para errores comunes de stow
-            if stow -n --dir="$DOTFILES_DIR" --target="$HOME" "$package" 2>&1 | grep -q "conflict\|existing target"; then
-                log_warn "  Hay conflictos en '${package}'. Archivos del sistema colisionan con el repo."
-                log_warn "  Usa 'adoptar' si quieres importar esos archivos al repo."
-                log_warn "  O usa --force (-f) para sobrescribir (crea backup automáticamente)."
+            log_error "  ✗ ${package}"
+            if stow -n --dir="$DOTFILES_DIR" --target="$HOME" "$package" 2>&1 \
+               | grep -q "conflict\|existing target"; then
+                log_warn "  Conflicto: un archivo real bloquea el symlink."
+                log_warn "  → Usa 'adoptar -p ${package}' para importar la versión de la laptop."
+                log_warn "  → Usa 'instalar -p ${package} --force' para usar la versión del repo."
             fi
             failed=1
         fi
@@ -85,77 +106,75 @@ _run_stow() {
 }
 
 # install_configs()
-# Crea symlinks desde el repositorio hacia la laptop.
-# Escenario: llegaste a una máquina nueva o limpiaste tu home.
-#
-# Flow: repo → laptop (stow sin flags extra)
+# Crea symlinks: repo → laptop.
+# Escenario típico: máquina nueva o primera instalación.
 install_configs() {
     log_section "Instalando configuraciones: repo → laptop"
-
     validate_stow_installed || return 1
     validate_dotfiles_dir   || return 1
 
-    # Backup automático si NO se pidió omitirlo
     if [ "$NO_BACKUP" = false ] && [ "$DRY_RUN" = false ]; then
-        log_info "Creando backup preventivo antes de instalar..."
-        create_backup "pre-install" || log_warn "Backup falló; continuando de todos modos."
+        local pkg_names=()
+        for p in "${TARGET_PACKAGES[@]}"; do pkg_names+=("$(echo "$p" | awk '{print $1}')"); done
+        create_backup "pre-install" "quirurgico" "${pkg_names[@]}"
     fi
 
     _run_stow "" "${TARGET_PACKAGES[@]}"
     local result=$?
-
-    if [ $result -eq 0 ]; then
-        log_success "Instalación completada. Los symlinks apuntan al repo."
-    else
-        log_error "Algunos paquetes no se instalaron correctamente. Revisa los mensajes anteriores."
-    fi
+    [ $result -eq 0 ] && log_success "Instalación completada." || \
+        log_error "Algunos paquetes no se instalaron. Revisa los mensajes anteriores."
     return $result
 }
 
 # adopt_configs()
-# Mueve los archivos de configuración existentes en la laptop al repositorio
-# y crea symlinks en su lugar.
+# Mueve archivos existentes de la laptop al repo y crea symlinks.
 #
-# IMPORTANTE: stow --adopt mueve el archivo real al repo y deja un symlink.
-# Es la operación correcta cuando ya tienes configs en la laptop y quieres
-# comenzar a versionarlas. NO sobrescribe con lo que ya hay en el repo.
+# Comportamiento de stow --adopt (IMPORTANTE para entender el output):
+#   - Si el archivo SOLO existe en la laptop (no en el repo):
+#     → Lo MUEVE al repo y crea el symlink. git status mostrará "new file".
+#   - Si el archivo existe en AMBOS lugares (laptop y repo):
+#     → El repo PREVALECE: stow reemplaza el archivo de la laptop con un
+#       symlink al repo. El archivo de la laptop se pierde (por eso hacemos
+#       backup antes). git status NO mostrará cambio porque el repo no cambió.
+#   - Si el archivo SOLO existe en el repo:
+#     → Solo crea el symlink en la laptop.
 #
-# Flow: laptop → repo (stow --adopt)
+# En resumen: adopt NO actualiza el repo con el contenido de la laptop
+# cuando el repo ya tiene ese archivo. Para eso necesitas copiar manualmente.
 adopt_configs() {
     log_section "Adoptando configuraciones: laptop → repo"
-
     validate_stow_installed || return 1
     validate_dotfiles_dir   || return 1
 
     cat << 'EOF'
 
-  ⚠  ADVERTENCIA IMPORTANTE sobre --adopt:
-  ─────────────────────────────────────────
-  Esta operación MUEVE los archivos de tu laptop al repositorio.
-  Si el repo ya tiene una versión diferente del mismo archivo,
-  la versión del repo PREVALECE (stow actualiza el symlink pero
-  no sobreescribe lo que ya está en el repo).
-
-  Recomendación: revisa 'git diff' después de adoptar para ver
-  qué cambió antes de hacer commit.
+  ⚠  ADVERTENCIA — Comportamiento de --adopt:
+  ─────────────────────────────────────────────
+  • Archivo solo en laptop  → se MUEVE al repo (verás cambio en git diff)
+  • Archivo en ambos lados  → el REPO PREVALECE. La versión de la laptop
+    se reemplaza por un symlink al repo SIN actualizar el repo.
+    Si quieres que el repo tome la versión de la laptop, copia el archivo
+    manualmente antes de adoptar:
+      cp ~/.config/archivo ~/.dotfiles/paquete/.config/archivo
+  • Revisa 'git diff' después para ver qué cambió realmente.
 
 EOF
 
     confirm_action "¿Confirmas que quieres adoptar las configuraciones de la laptop al repo?" || return 0
-
     # Backup de lo que hay en el repo ANTES de adoptar
     if [ "$NO_BACKUP" = false ] && [ "$DRY_RUN" = false ]; then
-        log_info "Creando backup del repo antes de adoptar..."
-        create_backup "pre-adopt" || log_warn "Backup falló; continuando."
+        local pkg_names=()
+        for p in "${TARGET_PACKAGES[@]}"; do pkg_names+=("$(echo "$p" | awk '{print $1}')"); done
+        # Backup quirúrgico: solo los archivos de los paquetes en trabajo
+        create_backup "pre-adopt" "quirurgico" "${pkg_names[@]}"
     fi
 
     _run_stow "--adopt" "${TARGET_PACKAGES[@]}"
     local result=$?
-
     if [ $result -eq 0 ]; then
         log_success "Adopción completada."
-        log_info "Ejecuta 'git diff' en ${DOTFILES_DIR} para revisar qué cambió."
-        log_info "Luego usa 'sync-push' para subir los cambios a GitHub."
+        log_info "Revisa cambios con: cd ${DOTFILES_DIR} && git diff"
+        log_info "Luego sube con:     ./main.sh sync-push"
     else
         log_error "La adopción falló en algunos paquetes."
     fi
@@ -163,26 +182,15 @@ EOF
 }
 
 # update_configs()
-# Re-aplica los symlinks. Útil cuando:
-#   - Agregaste nuevos archivos al repositorio
-#   - Cambiaste la estructura de directorios
-#   - Los symlinks quedaron rotos por alguna razón
-#
-# Flow: re-stow (stow -R)
+# Re-aplica symlinks. Útil al agregar nuevos archivos al repo.
 update_configs() {
     log_section "Actualizando symlinks"
-
     validate_stow_installed || return 1
     validate_dotfiles_dir   || return 1
-
     _run_stow "-R" "${TARGET_PACKAGES[@]}"
     local result=$?
-
-    if [ $result -eq 0 ]; then
-        log_success "Symlinks actualizados correctamente."
-    else
+    [ $result -eq 0 ] && log_success "Symlinks actualizados." || \
         log_error "Algunos symlinks no se pudieron actualizar."
-    fi
     return $result
 }
 
@@ -194,99 +202,134 @@ update_configs() {
 # Flow: stow -D (solo elimina los symlinks)
 remove_configs() {
     log_section "Eliminando symlinks"
-
     validate_stow_installed || return 1
     validate_dotfiles_dir   || return 1
-
-    confirm_action "¿Eliminar los symlinks de: ${TARGET_PACKAGES[*]}? (Los archivos del repo NO se borran)" || return 0
-
+    confirm_action "¿Eliminar symlinks de: ${TARGET_PACKAGES[*]}? (El repo no se toca)" || return 0
     _run_stow "-D" "${TARGET_PACKAGES[@]}"
     local result=$?
-
-    if [ $result -eq 0 ]; then
-        log_success "Symlinks eliminados. Los archivos del repo están intactos."
-    else
+    [ $result -eq 0 ] && log_success "Symlinks eliminados. Repo intacto." || \
         log_error "Algunos symlinks no se pudieron eliminar."
-    fi
     return $result
 }
 
 # show_stow_status()
-# Muestra el estado de cada paquete stow con diagnóstico claro:
-#   ✓ symlink activo   → el symlink existe y apunta al repo
-#   ⚠ conflicto        → existe un archivo REAL (no symlink) en ~/.config/
-#                        Solución: ./main.sh adoptar -p <paquete>
-#   ○ no instalado     → el directorio existe en el repo pero sin symlink
-#                        Solución: ./main.sh instalar -p <paquete>
-#   ∅ vacío            → el directorio del paquete no tiene archivos aún
-#   — no en repo       → el directorio del paquete no existe en .dotfiles
+# Vista del estado de todos los paquetes.
+# Con --verbose muestra cada archivo individual del paquete.
 #
-# NOTA sobre contadores con set -e:
-# En Bash, ((var++)) retorna código 1 cuando el resultado es 0 (cero),
-# lo que con set -e termina el script silenciosamente. Por eso usamos
-# la forma "var=$((var + 1))" que siempre retorna código 0.
+# Leyenda de iconos:
+#   ✓ activo    → symlink apuntando correctamente al repo
+#   ⚠ conflicto → archivo REAL (no symlink) bloquea la instalación
+#   ○ pendiente → paquete en repo pero sin symlink en HOME
+#   ∅ vacío     → directorio del paquete existe pero sin archivos
+#   — ausente   → directorio del paquete no existe en .dotfiles
 show_stow_status() {
-    log_section "Estado de symlinks por paquete"
+    log_section "Estado de symlinks"
 
     local pkg_ok=0
-    local pkg_missing=0
     local pkg_conflict=0
+    local pkg_missing=0
     local pkg_empty=0
     local pkg_absent=0
 
-    printf "  %-16s %-10s %s\n" "PAQUETE" "ESTADO" "DETALLE"
-    printf "  %s\n" "──────────────────────────────────────────────────────────"
+    printf "  %-16s %-12s %s\n" "PAQUETE" "ESTADO" "DETALLE"
+    printf "  %s\n" "────────────────────────────────────────────────────────────────"
 
     for package in "${STOW_PACKAGES[@]}"; do
-        # Limpiar el nombre del paquete de comentarios inline (ej: "positron # IDE")
         local pkg_name
         pkg_name="$(echo "$package" | awk '{print $1}')"
 
+        # --- Caso 1: directorio del paquete no existe en el repo ---
         if [ ! -d "${DOTFILES_DIR}/${pkg_name}" ]; then
-            printf "  ${COLOR_YELLOW}%-16s${COLOR_RESET} %-10s %s\n"                 "$pkg_name" "— ausente" "directorio no existe en repo"
+            printf "  ${COLOR_YELLOW}%-16s${COLOR_RESET} %-12s %s\n" \
+                "$pkg_name" "— ausente" "no existe en .dotfiles/"
             pkg_absent=$((pkg_absent + 1))
             continue
         fi
 
-        # Buscar archivos reales (no directorios, no .gitkeep) en el paquete
-        local sample_file
-        sample_file="$(find "${DOTFILES_DIR}/${pkg_name}" -type f             ! -name ".gitkeep" ! -name ".directory" 2>/dev/null | head -1)"
+        # Recolectar todos los archivos del paquete
+        local pkg_files=()
+        while IFS= read -r f; do
+            pkg_files+=("$f")
+        done < <(find "${DOTFILES_DIR}/${pkg_name}" -type f \
+            ! -name ".gitkeep" ! -name ".directory" 2>/dev/null)
 
-        if [ -z "$sample_file" ]; then
-            printf "  ${COLOR_YELLOW}%-16s${COLOR_RESET} %-10s %s\n"                 "$pkg_name" "∅ vacío" "sin archivos en el repo todavía"
+        # --- Caso 2: directorio existe pero está vacío ---
+        if [ ${#pkg_files[@]} -eq 0 ]; then
+            printf "  ${COLOR_YELLOW}%-16s${COLOR_RESET} %-12s %s\n" \
+                "$pkg_name" "∅ vacío" "sin archivos en el repo todavía"
             pkg_empty=$((pkg_empty + 1))
             continue
         fi
 
-        # Calcular la ruta del symlink equivalente en HOME
-        local relative_path="${sample_file#${DOTFILES_DIR}/${pkg_name}/}"
-        local symlink_path="${HOME}/${relative_path}"
+        # Evaluar el estado de CADA archivo del paquete
+        local count_ok=0
+        local count_conflict=0
+        local count_missing=0
+        local file_details=()
 
-        if [ -L "$symlink_path" ]; then
-            # Es un symlink — verificar que apunta al repo (no a otro lado)
-            local link_target
-            link_target="$(readlink "$symlink_path")"
-            if echo "$link_target" | grep -q "$DOTFILES_DIR"; then
-                printf "  ${COLOR_GREEN}%-16s${COLOR_RESET} %-10s %s\n"                     "$pkg_name" "✓ activo" "→ ${relative_path}"
+        for repo_file in "${pkg_files[@]}"; do
+            local rel="${repo_file#${DOTFILES_DIR}/${pkg_name}/}"
+            local home_path="${HOME}/${rel}"
+
+            if _is_stow_symlink "$home_path"; then
+                count_ok=$((count_ok + 1))
+                file_details+=("${COLOR_GREEN}    ✓${COLOR_RESET} ~/${rel}")
+            elif [ -f "$home_path" ] || [ -d "$home_path" ]; then
+                count_conflict=$((count_conflict + 1))
+                file_details+=("${COLOR_RED}    ⚠${COLOR_RESET} ~/${rel}  ← archivo real (adoptar)")
             else
-                printf "  ${COLOR_YELLOW}%-16s${COLOR_RESET} %-10s %s\n"                     "$pkg_name" "~ externo" "symlink existe pero apunta a otro lugar"
+                count_missing=$((count_missing + 1))
+                file_details+=("${COLOR_YELLOW}    ○${COLOR_RESET} ~/${rel}  ← no existe (instalar)")
             fi
-            pkg_ok=$((pkg_ok + 1))
-        elif [ -f "$symlink_path" ] || [ -d "$symlink_path" ]; then
-            # Existe como archivo/directorio REAL → conflicto para stow
-            printf "  ${COLOR_RED}%-16s${COLOR_RESET} %-10s %s\n"                 "$pkg_name" "⚠ conflicto" "archivo real en ~/${relative_path}"
+        done
+
+        # Determinar estado global del paquete
+        local total=${#pkg_files[@]}
+        if [ "$count_conflict" -gt 0 ] && [ "$count_ok" -eq 0 ]; then
+            printf "  ${COLOR_RED}%-16s${COLOR_RESET} %-12s %s\n" \
+                "$pkg_name" "⚠ conflicto" "${count_conflict}/${total} archivos bloqueados"
             pkg_conflict=$((pkg_conflict + 1))
+        elif [ "$count_ok" -eq "$total" ]; then
+            printf "  ${COLOR_GREEN}%-16s${COLOR_RESET} %-12s %s\n" \
+                "$pkg_name" "✓ activo" "${count_ok}/${total} symlinks OK"
+            pkg_ok=$((pkg_ok + 1))
+        elif [ "$count_ok" -gt 0 ] && [ "$count_conflict" -gt 0 ]; then
+            # Existe como archivo/directorio REAL → conflicto para stow
+            printf "  ${COLOR_YELLOW}%-16s${COLOR_RESET} %-12s %s\n" \
+                "$pkg_name" "~ parcial" "${count_ok} OK | ${count_conflict} bloqueados | ${count_missing} pendientes"
+            pkg_conflict=$((pkg_conflict + 1))
+        elif [ "$count_ok" -gt 0 ]; then
+            printf "  ${COLOR_YELLOW}%-16s${COLOR_RESET} %-12s %s\n" \
+                "$pkg_name" "~ parcial" "${count_ok}/${total} symlinks, ${count_missing} pendientes"
+            pkg_missing=$((pkg_missing + 1))
         else
             # No existe nada en esa ruta → listo para instalar
-            printf "  ${COLOR_YELLOW}%-16s${COLOR_RESET} %-10s %s\n"                 "$pkg_name" "○ pendiente" "ejecuta: instalar -p ${pkg_name}"
+            printf "  ${COLOR_YELLOW}%-16s${COLOR_RESET} %-12s %s\n" \
+                "$pkg_name" "○ pendiente" "${total} archivos listos para instalar"
             pkg_missing=$((pkg_missing + 1))
+        fi
+
+        # Modo detallado: mostrar cada archivo
+        if [ "$VERBOSE" = true ]; then
+            for detail in "${file_details[@]}"; do
+                printf "${detail}\n"
+            done
         fi
     done
 
+    # Resumen
     echo ""
-    printf "  Resumen: ${COLOR_GREEN}%d OK${COLOR_RESET} | ${COLOR_YELLOW}%d pendiente${COLOR_RESET} | ${COLOR_RED}%d conflictos${COLOR_RESET} | %d vacíos | %d ausentes\n"         "$pkg_ok" "$pkg_missing" "$pkg_conflict" "$pkg_empty" "$pkg_absent"
+    printf "  Resumen: ${COLOR_GREEN}%d activos${COLOR_RESET} | ${COLOR_RED}%d conflictos${COLOR_RESET} | ${COLOR_YELLOW}%d pendientes${COLOR_RESET} | %d vacíos | %d ausentes\n" \
+        "$pkg_ok" "$pkg_conflict" "$pkg_missing" "$pkg_empty" "$pkg_absent"
     echo ""
-    printf "  ${COLOR_BOLD}Qué hacer con los conflictos:${COLOR_RESET}\n"
-    printf "  Si quieres conservar la versión de la laptop → ./main.sh adoptar\n"
-    printf "  Si quieres usar la versión del repo          → ./main.sh instalar --force\n"
+
+    if [ "$pkg_conflict" -gt 0 ]; then
+        printf "  ${COLOR_BOLD}Para resolver conflictos:${COLOR_RESET}\n"
+        printf "  Laptop → repo:  ./main.sh adoptar  -p <paquete>\n"
+        printf "  Repo   → laptop:./main.sh instalar -p <paquete> --force\n"
+        echo ""
+    fi
+    if [ "$VERBOSE" = false ] && [ $((pkg_conflict + pkg_missing)) -gt 0 ]; then
+        printf "  ${COLOR_CYAN}Tip: usa ./main.sh estado --verbose (-v) para ver cada archivo individual${COLOR_RESET}\n\n"
+    fi
 }
