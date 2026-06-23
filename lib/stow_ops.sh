@@ -55,6 +55,9 @@ _run_stow() {
     log_info "${description}: ${#packages[@]} paquete(s)"
 
     for package in "${packages[@]}"; do
+        # Limpiar comentarios inline del nombre (ej: "positron # IDE" → "positron")
+        package="$(echo "$package" | awk '{print $1}')"
+
         if ! validate_stow_package_exists "$package"; then
             log_warn "Saltando paquete inexistente: ${package}"
             continue
@@ -209,8 +212,14 @@ remove_configs() {
 }
 
 # show_stow_status()
-# Muestra el estado de cada paquete stow: si el symlink existe, apunta
-# al repo, o si hay archivos reales (no gestionados) en su lugar.
+# Muestra el estado de cada paquete stow con diagnóstico claro:
+#   ✓ symlink activo   → el symlink existe y apunta al repo
+#   ⚠ conflicto        → existe un archivo REAL (no symlink) en ~/.config/
+#                        Solución: ./main.sh adoptar -p <paquete>
+#   ○ no instalado     → el directorio existe en el repo pero sin symlink
+#                        Solución: ./main.sh instalar -p <paquete>
+#   ∅ vacío            → el directorio del paquete no tiene archivos aún
+#   — no en repo       → el directorio del paquete no existe en .dotfiles
 #
 # NOTA sobre contadores con set -e:
 # En Bash, ((var++)) retorna código 1 cuando el resultado es 0 (cero),
@@ -222,45 +231,62 @@ show_stow_status() {
     local pkg_ok=0
     local pkg_missing=0
     local pkg_conflict=0
+    local pkg_empty=0
+    local pkg_absent=0
+
+    printf "  %-16s %-10s %s\n" "PAQUETE" "ESTADO" "DETALLE"
+    printf "  %s\n" "──────────────────────────────────────────────────────────"
 
     for package in "${STOW_PACKAGES[@]}"; do
-        if [ ! -d "${DOTFILES_DIR}/${package}" ]; then
-            printf "  ${COLOR_YELLOW}%-15s${COLOR_RESET} → directorio no existe en repo\n" "$package"
-            pkg_missing=$((pkg_missing + 1))
+        # Limpiar el nombre del paquete de comentarios inline (ej: "positron # IDE")
+        local pkg_name
+        pkg_name="$(echo "$package" | awk '{print $1}')"
+
+        if [ ! -d "${DOTFILES_DIR}/${pkg_name}" ]; then
+            printf "  ${COLOR_YELLOW}%-16s${COLOR_RESET} %-10s %s\n"                 "$pkg_name" "— ausente" "directorio no existe en repo"
+            pkg_absent=$((pkg_absent + 1))
             continue
         fi
 
-        # stow -n es el flag estándar para simulación (equivale a --simulate).
-        # Se usa 2>&1 para capturar también stderr donde stow reporta conflictos.
-        local stow_check
-        stow_check="$(stow -n --dir="$DOTFILES_DIR" --target="$HOME" "$package" 2>&1)" || true
+        # Buscar archivos reales (no directorios, no .gitkeep) en el paquete
+        local sample_file
+        sample_file="$(find "${DOTFILES_DIR}/${pkg_name}" -type f             ! -name ".gitkeep" ! -name ".directory" 2>/dev/null | head -1)"
 
-        if echo "$stow_check" | grep -q "conflict\|cannot stow\|existing target"; then
-            printf "  ${COLOR_RED}%-15s${COLOR_RESET} → ⚠ conflicto (archivo real existe en laptop)\n" "$package"
+        if [ -z "$sample_file" ]; then
+            printf "  ${COLOR_YELLOW}%-16s${COLOR_RESET} %-10s %s\n"                 "$pkg_name" "∅ vacío" "sin archivos en el repo todavía"
+            pkg_empty=$((pkg_empty + 1))
+            continue
+        fi
+
+        # Calcular la ruta del symlink equivalente en HOME
+        local relative_path="${sample_file#${DOTFILES_DIR}/${pkg_name}/}"
+        local symlink_path="${HOME}/${relative_path}"
+
+        if [ -L "$symlink_path" ]; then
+            # Es un symlink — verificar que apunta al repo (no a otro lado)
+            local link_target
+            link_target="$(readlink "$symlink_path")"
+            if echo "$link_target" | grep -q "$DOTFILES_DIR"; then
+                printf "  ${COLOR_GREEN}%-16s${COLOR_RESET} %-10s %s\n"                     "$pkg_name" "✓ activo" "→ ${relative_path}"
+            else
+                printf "  ${COLOR_YELLOW}%-16s${COLOR_RESET} %-10s %s\n"                     "$pkg_name" "~ externo" "symlink existe pero apunta a otro lugar"
+            fi
+            pkg_ok=$((pkg_ok + 1))
+        elif [ -f "$symlink_path" ] || [ -d "$symlink_path" ]; then
+            # Existe como archivo/directorio REAL → conflicto para stow
+            printf "  ${COLOR_RED}%-16s${COLOR_RESET} %-10s %s\n"                 "$pkg_name" "⚠ conflicto" "archivo real en ~/${relative_path}"
             pkg_conflict=$((pkg_conflict + 1))
         else
-            # Buscar un archivo representativo del paquete para verificar symlink.
-            # Se excluyen archivos ocultos de git (.gitkeep, etc.)
-            local sample_file
-            sample_file="$(find "${DOTFILES_DIR}/${package}" -type f ! -name ".gitkeep" | head -1)"
-            if [ -n "$sample_file" ]; then
-                local relative_path="${sample_file#${DOTFILES_DIR}/${package}/}"
-                local symlink_path="${HOME}/${relative_path}"
-                if [ -L "$symlink_path" ]; then
-                    printf "  ${COLOR_GREEN}%-15s${COLOR_RESET} → ✓ symlink activo\n" "$package"
-                    pkg_ok=$((pkg_ok + 1))
-                else
-                    printf "  ${COLOR_YELLOW}%-15s${COLOR_RESET} → ○ no instalado (ejecuta 'instalar')\n" "$package"
-                    pkg_missing=$((pkg_missing + 1))
-                fi
-            else
-                printf "  ${COLOR_YELLOW}%-15s${COLOR_RESET} → directorio vacío en repo\n" "$package"
-                pkg_missing=$((pkg_missing + 1))
-            fi
+            # No existe nada en esa ruta → listo para instalar
+            printf "  ${COLOR_YELLOW}%-16s${COLOR_RESET} %-10s %s\n"                 "$pkg_name" "○ pendiente" "ejecuta: instalar -p ${pkg_name}"
+            pkg_missing=$((pkg_missing + 1))
         fi
     done
 
     echo ""
-    printf "  Resumen: ${COLOR_GREEN}%d OK${COLOR_RESET} | ${COLOR_YELLOW}%d sin instalar${COLOR_RESET} | ${COLOR_RED}%d conflictos${COLOR_RESET}\n" \
-        "$pkg_ok" "$pkg_missing" "$pkg_conflict"
+    printf "  Resumen: ${COLOR_GREEN}%d OK${COLOR_RESET} | ${COLOR_YELLOW}%d pendiente${COLOR_RESET} | ${COLOR_RED}%d conflictos${COLOR_RESET} | %d vacíos | %d ausentes\n"         "$pkg_ok" "$pkg_missing" "$pkg_conflict" "$pkg_empty" "$pkg_absent"
+    echo ""
+    printf "  ${COLOR_BOLD}Qué hacer con los conflictos:${COLOR_RESET}\n"
+    printf "  Si quieres conservar la versión de la laptop → ./main.sh adoptar\n"
+    printf "  Si quieres usar la versión del repo          → ./main.sh instalar --force\n"
 }
