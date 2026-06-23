@@ -86,6 +86,7 @@ readonly STOW_PACKAGES=(
     terminal
     digikam
     vscode
+    positron      # Positron IDE (fork de VSCode); config en ~/.config/Positron/
     zotero
     obsidian
     calibre
@@ -113,10 +114,15 @@ readonly SENSITIVE_PATTERNS=(
 )
 
 # --- Archivos a revisar por datos sensibles -----------------------------------
+# Rutas verificadas contra la estructura real del repo en Kubuntu 26.04.
+# vscode renombrado a positron (Positron IDE, config en ~/.config/Positron/).
+# zotero: el perfil 25vfdnq5.default es específico de esta instalación;
+#         si cambia de máquina, actualizar el ID de perfil aquí.
 readonly SENSITIVE_FILES_TO_CHECK=(
     "${DOTFILES_DIR}/zotero/.zotero/zotero/25vfdnq5.default/prefs.js"
     "${DOTFILES_DIR}/git/.gitconfig"
     "${DOTFILES_DIR}/vscode/.config/Code/User/settings.json"
+    "${DOTFILES_DIR}/positron/.config/Positron/User/settings.json"
 )
 
 # --- Colores para output (solo si el terminal los soporta) --------------------
