@@ -88,38 +88,21 @@ main() {
     fi
 
     # --- Dispatch de comandos -------------------------------------------------
+    # Se resuelve el comando a una función y se invoca capturando el código
+    # de salida en la condición del if: así un fallo NO aborta el script por
+    # set -e y podemos reportar el error de forma legible.
+    local handler=""
     case "$COMMAND" in
-        instalar)
-            install_configs
-            ;;
-        adoptar)
-            adopt_configs
-            ;;
-        actualizar)
-            update_configs
-            ;;
-        eliminar)
-            remove_configs
-            ;;
-        sync-push)
-            sync_push
-            ;;
-        sync-pull)
-            sync_pull
-            ;;
-        estado)
-            show_full_status
-            ;;
-        backup)
-            create_backup "manual"
-            list_backups
-            ;;
-        seguridad)
-            validate_no_sensitive_data
-            ;;
-        instalar-deps)
-            install_dependencies
-            ;;
+        instalar)      handler=install_configs ;;
+        adoptar)       handler=adopt_configs ;;
+        actualizar)    handler=update_configs ;;
+        eliminar)      handler=remove_configs ;;
+        sync-push)     handler=sync_push ;;
+        sync-pull)     handler=sync_pull ;;
+        estado)        handler=show_full_status ;;
+        backup)        handler=_cmd_backup ;;
+        seguridad)     handler=validate_no_sensitive_data ;;
+        instalar-deps) handler=install_dependencies ;;
         "")
             log_error "No se especificó ningún comando."
             show_help
@@ -132,14 +115,22 @@ main() {
             ;;
     esac
 
-    local exit_code=$?
-    if [ $exit_code -eq 0 ]; then
+    local exit_code=0
+    if "$handler"; then
         log_info "Operación finalizada correctamente."
     else
+        exit_code=$?
         log_error "La operación finalizó con errores (código: ${exit_code})."
     fi
 
     return $exit_code
+}
+
+# _cmd_backup()
+# Wrapper del comando backup: crea el backup manual y lista los existentes.
+_cmd_backup() {
+    create_backup "manual"
+    list_backups
 }
 
 # Ejecutar main solo si el script se llama directamente (no con source)

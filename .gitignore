@@ -1,26 +1,84 @@
-# Backups generados por dotfiles-manager
-.backups/
+# =============================================================================
+# .gitignore — dotfiles-manager
+# =============================================================================
+# Primera línea de defensa contra archivos efímeros. La selección positiva
+# la hace PACKAGE_FILES en config.sh; esto atrapa lo que se cuele igualmente
+# (p. ej. archivos creados por las apps junto a los symlinks del repo).
+# =============================================================================
 
-# Logs diarios
+# --- Generado por el propio gestor -------------------------------------------
+.backups/
 .logs/
 
-# Archivos temporales del editor
+# --- Editores y sistemas de archivos ------------------------------------------
 *~
 *.swp
 *.swo
+*.orig
 .DS_Store
+Thumbs.db
+.directory
 
-
-# Ignorar archivos sensibles o cachés
-*.bak
-*.cache
+# --- Caches, logs y temporales -------------------------------------------------
 *.log
-akonadi*
-kactivitymanagerd*
+*.bak
+*.tmp
+*.cache
 cache/
-zotero/.zotero/zotero/*/zotero.sqlite
-zotero/.zotero/zotero/*/cookies.sqlite
-zotero/.zotero/zotero/*/places.sqlite
-calibre/.	config/caches/
-calibre/.config/server-users.sqlite
-libreoffice/.config/libreoffice/4/user/{backup,temp,uno_packages}
+Cache/
+caches/
+.cache/
+GPUCache/
+CachedData/
+
+# --- Bases de datos y estado binario -------------------------------------------
+*.sqlite
+*.sqlite3
+*.sqlite-journal
+*.db
+*.ldb
+*.pickle
+dynamic.pickle.json
+
+# --- Locks y archivos de sesión -------------------------------------------------
+*.lock
+LOCK
+lock
+SingletonLock
+SingletonCookie
+SingletonSocket
+Session Storage/
+Local Storage/
+Service Worker/
+workspaceStorage/
+globalStorage/
+History/
+sessions/
+
+# --- Identificadores de máquina y crash dumps ------------------------------------
+machineid
+machine-id
+crashpad/
+Crashpad/
+Crash Reports/
+
+# --- Credenciales (defensa en profundidad; nunca deberían llegar aquí) -----------
+*.pem
+*.key
+cert9.db
+key4.db
+logins.json
+cookies.sqlite
+
+# --- Estado volátil de apps concretas --------------------------------------------
+# Obsidian: estado de ventanas y estadísticas, no configuración
+**/.obsidian/workspace.json
+**/.obsidian/workspace-mobile.json
+**/.obsidian/vault-stats.json
+**/.obsidian/core-plugins-migration.json
+# KOReader: historial y estadísticas
+koreader/**/history.lua
+koreader/**/statistics.sqlite3
+# Kate/KDE: sesiones
+**/sessions/
+**/lspclient/hover*

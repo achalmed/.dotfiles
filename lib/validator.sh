@@ -123,27 +123,47 @@ validate_no_sensitive_data() {
     local pattern
     local file
 
-    log_info "Escaneando archivos en busca de datos sensibles..."
+    log_info "Escaneando archivos versionados en busca de datos sensibles..."
 
-    for file in "${SENSITIVE_FILES_TO_CHECK[@]}"; do
-        if [ ! -f "$file" ]; then
+    cd "$DOTFILES_DIR" || return 1
+
+    # Archivos rastreados + nuevos sin ignorar (lo que subiría un 'git add .')
+    while IFS= read -r file; do
+        [ -f "$file" ] || continue
+
+        # Saltar archivos en la allowlist (falsos positivos revisados)
+        local allowed=false
+        local allowed_file
+        for allowed_file in "${SENSITIVE_SCAN_ALLOWLIST[@]}"; do
+            if [ "$file" = "$allowed_file" ]; then
+                allowed=true
+                break
+            fi
+        done
+        if $allowed; then
             continue
         fi
 
+        # Saltar archivos binarios
+        grep -qI . "$file" 2>/dev/null || continue
+
         for pattern in "${SENSITIVE_PATTERNS[@]}"; do
             if grep -qiE "$pattern" "$file" 2>/dev/null; then
-                log_warn "Posible dato sensible ('${pattern}') encontrado en: ${file}"
+                log_warn "Posible dato sensible en: ${file}"
+                log_warn "  patrón: ${pattern}"
                 found_sensitive=1
+                break
             fi
         done
-    done
+    done < <(git ls-files --cached --others --exclude-standard 2>/dev/null)
 
     if [ "$found_sensitive" -eq 1 ]; then
         log_error "Se encontraron posibles datos sensibles. Revisa los archivos antes de hacer commit."
+        log_error "Si es un falso positivo revisado, agrégalo a SENSITIVE_SCAN_ALLOWLIST en config.sh."
         return 1
     fi
 
-    log_success "No se encontraron datos sensibles en los archivos revisados."
+    log_success "No se encontraron datos sensibles en los archivos versionados."
     return 0
 }
 

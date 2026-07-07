@@ -54,6 +54,10 @@ parse_arguments() {
                 ;;
             --packages | -p)
                 # Acepta lista separada por comas: --packages git,shell,kde
+                if [ -z "${2:-}" ] || [[ "${2:-}" == -* ]]; then
+                    log_error "La opción $1 requiere una lista de paquetes (ej: -p git,shell)"
+                    exit 2
+                fi
                 IFS=',' read -ra TARGET_PACKAGES <<< "$2"
                 shift 2
                 ;;
@@ -81,7 +85,33 @@ parse_arguments() {
     # Si no se especificaron paquetes, usar la lista completa de config.sh
     if [ ${#TARGET_PACKAGES[@]} -eq 0 ]; then
         TARGET_PACKAGES=("${STOW_PACKAGES[@]}")
+        return 0
     fi
+
+    # Validar que los paquetes pedidos existen en STOW_PACKAGES.
+    # Detecta typos temprano en lugar de fallar a mitad de operación.
+    local validated=()
+    local pkg known is_known
+    for pkg in "${TARGET_PACKAGES[@]}"; do
+        is_known=false
+        for known in "${STOW_PACKAGES[@]}"; do
+            if [ "$pkg" = "$known" ]; then
+                is_known=true
+                break
+            fi
+        done
+        if $is_known; then
+            validated+=("$pkg")
+        else
+            log_warn "Paquete desconocido ignorado: '${pkg}' (paquetes válidos: ${STOW_PACKAGES[*]})"
+        fi
+    done
+
+    if [ ${#validated[@]} -eq 0 ]; then
+        log_error "Ninguno de los paquetes especificados existe. Abortando."
+        exit 2
+    fi
+    TARGET_PACKAGES=("${validated[@]}")
 }
 
 # show_help()
@@ -90,7 +120,8 @@ show_help() {
     cat << EOF
 
 ${COLOR_BOLD}${SCRIPT_NAME} v${VERSION}${COLOR_RESET}
-Gestor de dotfiles para Arch Linux y Kubuntu con GNU Stow y Git.
+Gestor de dotfiles para Arch Linux y Kubuntu (layout compatible con GNU Stow).
+Gestiona symlinks explícitos archivo-por-archivo según PACKAGE_FILES (config.sh).
 
 ${COLOR_BOLD}USO:${COLOR_RESET}
   $(basename "$0") [COMANDO] [OPCIONES]

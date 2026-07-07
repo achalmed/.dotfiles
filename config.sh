@@ -2,34 +2,40 @@
 # =============================================================================
 # config.sh — Configuración centralizada del gestor de dotfiles
 # =============================================================================
-# FILOSOFÍA DE ARCHIVOS GESTIONADOS:
-#   Solo se versionan archivos de PERSONALIZACIÓN (lo que el usuario configura).
-#   Se excluyen: caché, logs, locks, bases de datos SQLite, IDs de máquina,
-#   credenciales, archivos temporales, y datos que no son portables entre máquinas.
+# FILOSOFÍA DE ARCHIVOS GESTIONADOS (principio de mínima captura):
+#   Solo se versionan archivos de PERSONALIZACIÓN: aquello que el usuario
+#   configuró manualmente y quiere reproducir en otra máquina.
+#
+#   Se excluyen SIEMPRE: caché, logs, locks, bases de datos, IDs de máquina,
+#   credenciales, historial, listas MRU, posiciones/geometría de ventanas,
+#   estado de sesión y cualquier archivo regenerable o dependiente del hardware.
 #
 #   Cada paquete tiene una lista explícita de qué archivos gestionar.
 #   Si no está en la lista → no se toca. Así el repo permanece limpio.
+#
+# ARCHIVOS HÍBRIDOS (config + estado en el mismo archivo):
+#   Algunas apps (KDE, TeXstudio) mezclan preferencias reales con algo de
+#   estado en un mismo archivo. Se versionan solo cuando las preferencias
+#   dominan; el churn residual es aceptable y se documenta en el README.
+#   Los archivos donde el estado domina (digikamrc, krusaderrc, okularrc,
+#   prefs.js de Zotero, registrymodifications.xcu de LibreOffice,
+#   plasma-*appletsrc) quedaron EXCLUIDOS deliberadamente — ver README.
 # =============================================================================
 
 # --- Rutas principales -------------------------------------------------------
-readonly DOTFILES_DIR="/home/achalmaedison/.dotfiles"
+readonly DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
 readonly BACKUP_DIR="${DOTFILES_DIR}/.backups"
 readonly LOG_DIR="${DOTFILES_DIR}/.logs"
 readonly LOG_FILE="${LOG_DIR}/dotfiles-$(date '+%Y-%m-%d').log"
 
 # --- Versión del proyecto -----------------------------------------------------
-readonly VERSION="2.0.0"
+readonly VERSION="3.0.0"
 readonly SCRIPT_NAME="dotfiles-manager"
 
 # --- Detección de distribución ------------------------------------------------
-# Se detecta al cargar config para que todos los módulos tengan acceso.
-# Arch y Kubuntu difieren en: gestor de paquetes, rutas XDG, y algunos
-# paths de configuración de aplicaciones.
-#
 # IMPORTANTE: NO usar 'source /etc/os-release' porque ese archivo define
 # variables como VERSION, NAME, ID que colisionan con las nuestras al ser
-# declaradas readonly más adelante. En su lugar, leemos solo el campo ID
-# con grep para extraer únicamente lo que necesitamos.
+# declaradas readonly. Leemos solo el campo ID con grep.
 _detect_distro() {
     if [ -f /etc/os-release ]; then
         grep -E '^ID=' /etc/os-release | cut -d'=' -f2 | tr -d '"'
@@ -51,7 +57,7 @@ case "$DISTRO" in
         readonly PKG_MANAGER="apt"
         readonly PKG_INSTALL="sudo apt install -y"
         readonly PKG_UPDATE="sudo apt update && sudo apt upgrade -y"
-        readonly PKG_QUERY="dpkg -l"
+        readonly PKG_QUERY="dpkg -s"
         ;;
     *)
         readonly PKG_MANAGER="unknown"
@@ -61,48 +67,26 @@ case "$DISTRO" in
         ;;
 esac
 
-# --- Paquetes requeridos por distro -------------------------------------------
-# Arch usa nombres distintos a Ubuntu/Kubuntu para algunos paquetes.
-declare -A REQUIRED_PACKAGES_ARCH=(
-    [stow]="stow"
-    [git]="git"
-    [zsh]="zsh"
-    [starship]="starship"
-)
-
-declare -A REQUIRED_PACKAGES_APT=(
-    [stow]="stow"
-    [git]="git"
-    [zsh]="zsh"
-    # starship no está en repos oficiales de Ubuntu; se instala via curl
-    [curl]="curl"
-)
-
-# --- Módulos Stow a gestionar -------------------------------------------------
-# Lista canónica de todos los paquetes stow del repositorio.
-# Orden importa: los módulos base (shell, git) van primero.
-# NOTA: el paquete "positron" reemplaza a "vscode" — Positron IDE guarda
-# su config en ~/.config/Positron/ en lugar de ~/.config/Code/User/
+# --- Paquetes gestionados -------------------------------------------------
+# Lista canónica de todos los paquetes del repositorio.
+# Convención: un paquete = una aplicación, nombrado igual que la app.
+# Orden: los módulos base (shell, git) van primero.
+# El layout de cada paquete es 100% compatible con GNU Stow
+# (rutas relativas a $HOME dentro del directorio del paquete).
 readonly STOW_PACKAGES=(
     git
     shell
     kde
-    terminal
-    digikam
-    vscode
+    konsole
     positron      # Positron IDE (fork de VSCode); config en ~/.config/Positron/
-    zotero
-    obsidian
+    obsidian      # config del vault (~/Documents es el vault)
+    meta          # recursos del vault: plantillas, scripts, dashboards (~/Documents/meta)
     calibre
-    libreoffice
-    xournalpp
     kate
     texstudio
-    lyx
     okular
     rstudio
-    vlc
-    krusader
+    xournalpp
     koreader
 )
 
@@ -112,172 +96,165 @@ readonly STOW_PACKAGES=(
 # Define exactamente qué archivos gestiona cada paquete.
 # Formato: PACKAGE_FILES["nombre"]="ruta1|ruta2|ruta3"
 # Las rutas son RELATIVAS al directorio HOME del usuario.
+# Una ruta puede ser un directorio: se gestiona completo (symlink de directorio).
 #
 # REGLAS de inclusión:
-#   ✓ Archivos JSON/INI/TOML de configuración de la app
-#   ✓ Archivos de preferencias personalizadas
-#   ✓ Snippets, temas, plugins (código, no binarios)
-#   ✓ Keybindings personalizados
+#   ✓ Preferencias, apariencia, temas, atajos, keybindings
+#   ✓ Snippets, plantillas, scripts propios
+#   ✓ Configuración de plugins (JSON/INI/TOML/Lua, no binarios)
 #
 # REGLAS de exclusión (nunca versionar):
-#   ✗ Caché (Cache/, .cache/, *.sqlite, *.db)
-#   ✗ Logs (*.log, Log/)
-#   ✗ Locks (*.lock, LOCK, code.lock)
-#   ✗ IDs de máquina (machineid, crashpad/)
-#   ✗ Datos de sesión (Session Storage/, Local Storage/)
-#   ✗ Credenciales (privateKey.pem, cert9.db, logins.json)
-#   ✗ Datos binarios grandes (CRX, VSIX, GPU cache)
-#   ✗ Archivos de estado volátil (workspace.json en Obsidian)
+#   ✗ Caché (Cache/, .cache/, *.sqlite, *.db), logs, locks
+#   ✗ IDs de máquina, crashpad/, GPU cache, session storage
+#   ✗ Credenciales (privateKey.pem, cert9.db, logins.json, contraseñas)
+#   ✗ Historial, MRU, "recent files", posiciones de ventanas
+#   ✗ Estado volátil (workspace.json de Obsidian, *-migration.json)
 # =============================================================================
 declare -A PACKAGE_FILES
 
 # git: solo .gitconfig (sin credenciales — usar credential.helper)
 PACKAGE_FILES["git"]=".gitconfig"
 
-# shell: configuración del prompt y del shell
-PACKAGE_FILES["shell"]=".zshrc|starship.toml"
+# shell: configuración del shell y del prompt.
+# starship.toml vive en la ruta XDG estándar (~/.config/starship.toml).
+# NOTA: .zshrc actual usa Oh My Zsh; starship queda disponible pero inactivo
+# hasta agregar 'eval "$(starship init zsh)"' al .zshrc.
+PACKAGE_FILES["shell"]=".zshrc|.config/starship.toml"
 
-# kde: configuración de KDE Plasma (solo los archivos de preferencias globales)
+# kde: preferencias globales de KDE Plasma.
+# Se versionan solo archivos dominados por preferencias:
+#   kdeglobals        → tema, colores, fuentes (algo de estado residual, aceptable)
+#   kglobalshortcutsrc→ atajos globales
+#   kwinrc            → efectos y comportamiento del gestor de ventanas
+#   dolphinrc         → preferencias del gestor de archivos
+#   plasmarc          → tema de Plasma
+#   plasma-localerc   → configuración regional
+#   mimeapps.list     → aplicaciones predeterminadas
+# EXCLUIDOS (estado/hardware): plasma-org.kde.plasma.desktop-appletsrc
+# (layout de paneles, específico de pantalla), plasmashellrc (estado del
+# shell por monitor), konsolesshconfig (estado de plugin).
 PACKAGE_FILES["kde"]=\
 ".config/kdeglobals|\
-.config/dolphinrc|\
-.config/kwinrc|\
-.config/plasma-org.kde.plasma.desktop-appletsrc|\
-.config/plasmarc|\
-.config/mimeapps.list|\
 .config/kglobalshortcutsrc|\
-.config/plasmashellrc|\
+.config/kwinrc|\
+.config/dolphinrc|\
+.config/plasmarc|\
 .config/plasma-localerc|\
-.config/konsolerc|\
-.config/konsolesshconfig"
+.config/mimeapps.list"
 
-# terminal: Konsole (ya incluido en kde pero también standalone)
-PACKAGE_FILES["terminal"]=".config/konsolerc"
+# konsole: terminal de KDE. La personalización real vive en los PERFILES
+# (~/.local/share/konsole/), no en konsolerc (que solo aporta DefaultProfile).
+PACKAGE_FILES["konsole"]=\
+".config/konsolerc|\
+.local/share/konsole/achalmaedison.profile|\
+.local/share/konsole/Nothing.colorscheme"
 
-# digikam: solo preferencias (sin historial ni caché de BD)
-PACKAGE_FILES["digikam"]=".config/digikamrc"
-
-# positron: Positron IDE — solo settings, snippets y keybindings
-# NO: cache, gpu cache, crashpad, session storage, machine id, cookies
-PACKAGE_FILES["positron"]=\
-".config/Positron/User/settings.json|\
-.config/Positron/User/keybindings.json|\
-.config/Positron/User/snippets"
-
-# zotero: solo prefs.js — contiene tus preferencias de la app
-# NO: bases de datos SQLite (places.sqlite etc), cache, locks, credenciales
-# El ID de perfil 0xh8512f.default es específico de esta instalación.
-PACKAGE_FILES["zotero"]=".zotero/zotero/0xh8512f.default/prefs.js"
+# positron: Positron IDE — solo settings. Agregar keybindings.json y
+# snippets aquí cuando existan (hoy están vacíos/ausentes).
+# NO: cache, gpu cache, crashpad, session storage, machine id, History/
+PACKAGE_FILES["positron"]=".config/Positron/User/settings.json"
 
 # obsidian: configuración del vault en ~/Documents/.obsidian/
-# NO: workspace.json (estado de ventanas, no portable), vault-stats.json (estadísticas)
-# NO: plugins binarios — solo los JSON de configuración de cada plugin
-# NO: themes (grandes, se reinstalan) — solo appearance.json para saber cuál usar
+# NO: workspace.json (estado de ventanas), vault-stats.json,
+#     core-plugins-migration.json (estado de migración regenerable),
+#     binarios de plugins (main.js/manifest.json se reinstalan),
+#     themes/ (se reinstalan; appearance.json registra cuál usar)
 PACKAGE_FILES["obsidian"]=\
 "Documents/.obsidian/app.json|\
 Documents/.obsidian/appearance.json|\
 Documents/.obsidian/community-plugins.json|\
 Documents/.obsidian/core-plugins.json|\
-Documents/.obsidian/core-plugins-migration.json|\
 Documents/.obsidian/hotkeys.json|\
 Documents/.obsidian/snippets|\
 Documents/.obsidian/plugins/dataview/data.json|\
-Documents/.obsidian/plugins/obsidian-linter/settings.json|\
 Documents/.obsidian/plugins/obsidian-minimal-settings/data.json|\
-Documents/.obsidian/plugins/obsidian-style-settings/data.json|\
 Documents/.obsidian/plugins/templater-obsidian/data.json|\
 Documents/.obsidian/plugins/quickadd/data.json|\
 Documents/.obsidian/plugins/obsidian-zotero-desktop-connector/data.json"
 
-# calibre: configuración principal de la interfaz y comportamiento
-# NO: caché de fonts (scanner_cache.json), historial, metadata-sources-cache
-# NO: plugins binarios, store/, caches/
+# meta: recursos de trabajo del vault (~/Documents/meta) — plantillas,
+# scripts de automatización, dashboards y documentación del sistema.
+# Se gestionan como symlinks de DIRECTORIO (el contenido evoluciona dentro).
+# EXCLUIDOS: attachments/ (binarios), archivo/ (material archivado),
+#            .claude/ (config local de Claude), templates/ (vacío hoy).
+PACKAGE_FILES["meta"]=\
+"Documents/meta/dataview|\
+Documents/meta/javascript|\
+Documents/meta/longform|\
+Documents/meta/quickadd|\
+Documents/meta/sistema|\
+Documents/meta/tablero|\
+Documents/meta/templater|\
+Documents/meta/zotero|\
+Documents/meta/readme.md"
+
+# calibre: solo las preferencias estables de personalización.
+# NO: caches/, conversion/, fonts/, plugins binarios, server-users.sqlite,
+#     dynamic.pickle.json (estado interno)
+# EXCLUIDOS tras auditoría: gui.json (geometría de ventanas + modelo del
+# monitor = hardware) y gui.py.json (historial de búsquedas). Además calibre
+# reescribe esos archivos de forma atómica y ROMPE los symlinks al usarlos.
 PACKAGE_FILES["calibre"]=\
-".config/calibre/gui.json|\
-.config/calibre/gui.py.json|\
-.config/calibre/tweaks.json|\
-.config/calibre/viewer.json|\
-.config/calibre/viewer-webengine.json|\
-.config/calibre/tts.json|\
+".config/calibre/global.py.json|\
 .config/calibre/tweak_book_gui.json|\
-.config/calibre/save_to_disk.py.json|\
-.config/calibre/customize.py.json|\
-.config/calibre/global.py.json"
+.config/calibre/viewer-webengine.json"
 
-# libreoffice: solo registrymodifications (tus personalizaciones de UI)
-# NO: backup/, extensiones, uno_packages, temp, gallery, pack, basic, database
-PACKAGE_FILES["libreoffice"]=\
-".config/libreoffice/4/user/registrymodifications.xcu|\
-.config/libreoffice/4/user/config/autotbl.fmt"
-
-# xournalpp: solo settings.xml
-PACKAGE_FILES["xournalpp"]=".config/xournalpp/settings.xml"
-
-# kate: configuración del editor y tools externos
-# NO: lspclient caché automático
+# kate: configuración del editor, LSP y herramientas externas
 PACKAGE_FILES["kate"]=\
 ".config/katerc|\
 .config/kate/lspclient/settings.json|\
 .config/kate/externaltools"
 
-# texstudio: solo texstudio.ini (tu configuración del editor)
-# NO: cache/ (enorme), completion/, templates/, packageCache.dat, lastSession, wordCount
+# texstudio: texstudio.ini es un archivo HÍBRIDO: contiene toda la
+# configuración del editor (atajos, toolbars, compilación) pero también
+# algo de estado (último documento, geometría). Se versiona porque las
+# preferencias dominan y no hay forma de separarlas. Churn menor esperado.
+# NO: cache/, completion/, packageCache.dat, lastSession
 PACKAGE_FILES["texstudio"]=".config/texstudio/texstudio.ini"
 
-# lyx: solo preferences
-PACKAGE_FILES["lyx"]=".config/lyx/preferences"
+# okular: SOLO okularpartrc (preferencias de visualización).
+# EXCLUIDO: okularrc (dominado por "Recent Files" y geometría de ventana).
+PACKAGE_FILES["okular"]=".config/okularpartrc"
 
-# okular: configuración del visor PDF
-PACKAGE_FILES["okular"]=\
-".config/okularrc|\
-.config/okularpartrc"
-
-# rstudio: solo rstudio-prefs.json (tus preferencias de editor)
+# rstudio: solo rstudio-prefs.json (preferencias del editor)
 # NO: cache, blobs, cookies, sessions, crashpad, GPU cache
 PACKAGE_FILES["rstudio"]=".config/rstudio/rstudio-prefs.json"
 
-# vlc: configuración del reproductor
-PACKAGE_FILES["vlc"]=".config/vlc/vlcrc"
+# xournalpp: solo settings.xml. palettes/ y plugins/ están vacíos hoy;
+# agregarlos aquí si algún día contienen material propio.
+PACKAGE_FILES["xournalpp"]=".config/xournalpp/settings.xml"
 
-# krusader: configuración del file manager
-PACKAGE_FILES["krusader"]=".config/krusaderrc"
-
-# koreader: lector de ebooks — solo configuración de lectura personal
-# NO: cache/ (enorme), history.lua (historial), screenshots/, ota/, data/dict
-# NO: settings/statistics.sqlite3, vocabulary_builder.sqlite3
+# koreader: lector de ebooks — solo configuración de lectura personal.
+# defaults.custom.lua es el mecanismo oficial de KOReader para overrides
+# persistentes del usuario: eso es lo que se versiona.
+# EXCLUIDO tras auditoría: settings.reader.lua (lastfile/MRU + geometría;
+# KOReader lo reescribe en cada uso y rompe el symlink).
+# NO: cache/, history.lua, screenshots/, ota/, data/dict,
+#     settings/statistics.sqlite3, vocabulary_builder.sqlite3
 PACKAGE_FILES["koreader"]=\
-".config/koreader/settings.reader.lua|\
-.config/koreader/defaults.custom.lua|\
+".config/koreader/defaults.custom.lua|\
 .config/koreader/settings/gestures.lua|\
 .config/koreader/settings/hotkeys.lua|\
 .config/koreader/settings/directory_defaults.lua"
 
 # --- Patrones de datos sensibles a revisar antes de push --------------------
+# Patrones tipo clave=valor para reducir falsos positivos: buscan la palabra
+# seguida de separador y un valor no vacío, no la palabra suelta.
 readonly SENSITIVE_PATTERNS=(
-    "password"
-    "secretKey"
-    "apiKey"
-    "api_key"
-    "secret"
-    "token"
-    "passwd"
-    "private_key"
+    '(password|passwd|contrasena)[[:space:]"'"'"']*[=:][[:space:]"'"'"']*[^[:space:]"'"'"']{4,}'
+    '(api[_-]?key|secret[_-]?key|access[_-]?token|auth[_-]?token)[[:space:]"'"'"']*[=:][[:space:]"'"'"']*[A-Za-z0-9_/+.-]{8,}'
+    'BEGIN[[:space:]](RSA|OPENSSH|EC|DSA|PGP)[[:space:]]PRIVATE[[:space:]]KEY'
+    'ghp_[A-Za-z0-9]{20,}'
+    'sk-[A-Za-z0-9_-]{20,}'
 )
 
-# --- Archivos a revisar por datos sensibles -----------------------------------
-# Rutas verificadas contra la estructura real del repo en Kubuntu 26.04.
-# vscode renombrado a positron (Positron IDE, config en ~/.config/Positron/).
-# zotero: el perfil 25vfdnq5.default es específico de esta instalación;
-#         si cambia de máquina, actualizar el ID de perfil aquí.
-readonly SENSITIVE_FILES_TO_CHECK=(
-    "${DOTFILES_DIR}/zotero/.zotero/zotero/0xh8512f.default/prefs.js"  # ID de perfil de esta instalación
-    "${DOTFILES_DIR}/git/.gitconfig"
-    "${DOTFILES_DIR}/vscode/.config/Code/User/settings.json"
-    "${DOTFILES_DIR}/positron/.config/Positron/User/settings.json"
+# Archivos versionados que NUNCA deben disparar el escáner (falsos positivos
+# conocidos y revisados manualmente). Rutas relativas al repo.
+readonly SENSITIVE_SCAN_ALLOWLIST=(
+    # ejemplo: "kate/.config/katerc"
 )
 
 # --- Colores para output (solo si el terminal los soporta) --------------------
-# Se usan solo en funciones de UI, nunca en logs de archivo.
 if tput colors &>/dev/null && [ "$(tput colors)" -ge 8 ]; then
     readonly COLOR_RESET='\033[0m'
     readonly COLOR_GREEN='\033[0;32m'

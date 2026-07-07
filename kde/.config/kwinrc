@@ -1,11 +1,34 @@
 [Desktops]
 Id_1=e70342c1-cfa0-40ff-a778-734baf959823
-Number=1
+Id_2=c124d96a-bf52-41cd-9f35-4891fe0d5f66
+Number=2
 Rows=1
 
 [Effect-overview]
-BorderActivate=0
-GridBorderActivate=7
+BorderActivate=0,4
+
+[Effect-windowview]
+TouchBorderActivateAll=2
+
+[TabBox]
+TouchBorderActivate=9
+TouchBorderAlternativeActivate=9
+
+[Tiling][c124d96a-bf52-41cd-9f35-4891fe0d5f66][77df8b14-1329-415a-83ed-f5cd47399b63]
+padding=4
+tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}
+
+[Tiling][c124d96a-bf52-41cd-9f35-4891fe0d5f66][8937b6b1-15f6-4ed4-ad91-7ec3e6a0b25d]
+padding=4
+tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}
+
+[Tiling][c124d96a-bf52-41cd-9f35-4891fe0d5f66][97c3e8d2-2c5f-40f7-919e-37386b285e2f]
+padding=4
+tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}
+
+[Tiling][c124d96a-bf52-41cd-9f35-4891fe0d5f66][f737d426-5809-4bab-b5ff-4f896b427820]
+padding=4
+tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}
 
 [Tiling][e70342c1-cfa0-40ff-a778-734baf959823][77df8b14-1329-415a-83ed-f5cd47399b63]
 padding=4
@@ -19,11 +42,12 @@ tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"wi
 padding=4
 tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}
 
+[Tiling][e70342c1-cfa0-40ff-a778-734baf959823][f737d426-5809-4bab-b5ff-4f896b427820]
+padding=4
+tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}
+
 [Wayland]
 InputMethod[$e]=/usr/share/applications/org.kde.plasma.keyboard.desktop
 
 [Xwayland]
 Scale=1
-
-[org.kde.kdecoration2]
-library=org.kde.kwin.aurorae.v2

@@ -19,7 +19,7 @@
             "name": "workspace-load-work-with-notes",
             "type": "UserScript",
             "id": "d172a8b6-27f8-463c-8818-3a5c6c6c51c4",
-            "path": "meta/javascript/workspace-load-work-with-notes.js",
+            "path": "meta/quickadd/workspace-load-work-with-notes.js",
             "settings": {}
           },
           {
@@ -32,7 +32,7 @@
             "name": "load-current-note",
             "type": "UserScript",
             "id": "f51d44d3-688d-4a45-9e49-68e50aa1ee4a",
-            "path": "meta/javascript/load-current-note.js",
+            "path": "meta/quickadd/load-current-note.js",
             "settings": {}
           }
         ]
@@ -52,7 +52,7 @@
             "name": "workspace-load-Search-research-notes",
             "type": "UserScript",
             "id": "4bce144e-b091-449e-b419-b2313c7422bb",
-            "path": "meta/javascript/workspace-load-Search-research-notes.js",
+            "path": "meta/quickadd/workspace-load-Search-research-notes.js",
             "settings": {}
           }
         ]
@@ -78,7 +78,7 @@
             "name": "workspace-load-Write-with-Longform",
             "type": "UserScript",
             "id": "2f718357-87fb-41bf-8342-09d98a642974",
-            "path": "meta/javascript/workspace-load-Write-with-Longform.js",
+            "path": "meta/quickadd/workspace-load-Write-with-Longform.js",
             "settings": {}
           },
           {
@@ -91,8 +91,104 @@
             "name": "load-current-note",
             "type": "UserScript",
             "id": "dcf25890-5c07-4101-b7d2-9f357d8d9a1b",
-            "path": "meta/javascript/load-current-note.js",
+            "path": "meta/quickadd/load-current-note.js",
             "settings": {}
+          }
+        ]
+      },
+      "runOnStartup": false
+    },
+    {
+      "id": "8a53bac6-0166-4b88-94cf-c5b499943ecf",
+      "name": "📥 Captura rápida",
+      "type": "Macro",
+      "command": true,
+      "macro": {
+        "id": "549e0799-b1f1-4d8f-943c-734e2a3de1d0",
+        "name": "📥 Captura rápida",
+        "commands": [
+          {
+            "name": "captura_diaria",
+            "type": "UserScript",
+            "id": "91f5e52c-ca4e-4ca9-9306-91331bac23c0",
+            "path": "meta/quickadd/captura_diaria.js",
+            "settings": {
+              "Carpeta": "01 notes/00-bandeja",
+              "Nombre": "Capturas",
+              "Tipo": "capturas",
+              "Estado": "bandeja",
+              "Checklist": false
+            }
+          }
+        ]
+      },
+      "runOnStartup": false
+    },
+    {
+      "id": "b4236352-4a2e-4be7-badd-dc7433b660fb",
+      "name": "✅ Captura tarea",
+      "type": "Macro",
+      "command": true,
+      "macro": {
+        "id": "549f67a9-5839-4b15-9866-f212bf9f73d3",
+        "name": "✅ Captura tarea",
+        "commands": [
+          {
+            "name": "captura_diaria",
+            "type": "UserScript",
+            "id": "a2b96684-416c-4112-80cb-0b69bdc50f70",
+            "path": "meta/quickadd/captura_diaria.js",
+            "settings": {
+              "Carpeta": "05 tasks",
+              "Nombre": "Tareas",
+              "Tipo": "tareas",
+              "Estado": "activo",
+              "Checklist": true
+            }
+          }
+        ]
+      },
+      "runOnStartup": false
+    },
+    {
+      "id": "2f00c8f7-cccd-42f7-8eea-b25dd1d78281",
+      "name": "🏠 Abrir inicio",
+      "type": "Macro",
+      "command": true,
+      "macro": {
+        "id": "94179fd4-a131-4232-895b-12fd453f6db0",
+        "name": "🏠 Abrir inicio",
+        "commands": [
+          {
+            "name": "abrir_nota",
+            "type": "UserScript",
+            "id": "78190982-b0bf-49cd-9c9b-8d0911e4e98b",
+            "path": "meta/quickadd/abrir_nota.js",
+            "settings": {
+              "Ruta": "meta/tablero/inicio.md"
+            }
+          }
+        ]
+      },
+      "runOnStartup": false
+    },
+    {
+      "id": "1f9be7a8-7f5c-46a9-a510-e8e58c4d2afe",
+      "name": "📥 Abrir bandeja",
+      "type": "Macro",
+      "command": true,
+      "macro": {
+        "id": "3d8bcd72-892f-41ae-9977-0287d0838641",
+        "name": "📥 Abrir bandeja",
+        "commands": [
+          {
+            "name": "abrir_nota",
+            "type": "UserScript",
+            "id": "0a958dc3-2726-4e50-b540-c364877036d6",
+            "path": "meta/quickadd/abrir_nota.js",
+            "settings": {
+              "Ruta": "meta/tablero/bandeja.md"
+            }
           }
         ]
       },

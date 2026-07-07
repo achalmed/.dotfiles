@@ -17,8 +17,5 @@ Places Icons Static Size=22
 [PreviewSettings]
 Plugins=
 
-[UiSettings]
-ColorScheme=Nothing
-
 [VersionControl]
 enabledPlugins=Git

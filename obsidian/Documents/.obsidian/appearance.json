@@ -1,7 +1,7 @@
 {
   "baseFontSize": 17,
   "theme": "system",
-  "cssTheme": "Border",
+  "cssTheme": "Minimal",
   "enabledCssSnippets": [
     "my font",
     "hidecitations",
@@ -9,5 +9,7 @@
   ],
   "baseFontSizeAction": false,
   "accentColor": "",
-  "nativeMenus": false
+  "nativeMenus": false,
+  "showRibbon": true,
+  "showViewHeader": true
 }

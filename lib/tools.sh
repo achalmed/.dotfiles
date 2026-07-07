@@ -28,10 +28,12 @@ _resolve_package_paths() {
     # Iterar sobre cada archivo del paquete y calcular su ruta en HOME
     find "$pkg_dir" -type f ! -name ".gitkeep" ! -name ".directory" 2>/dev/null | \
     while IFS= read -r repo_file; do
-        local relative="${repo_file#${pkg_dir}/}"
+        local relative="${repo_file#"${pkg_dir}"/}"
         local home_path="${HOME}/${relative}"
         # Emitir la ruta solo si existe en HOME (sea archivo real o symlink)
-        [ -e "$home_path" ] || [ -L "$home_path" ] && echo "$home_path"
+        if [ -e "$home_path" ] || [ -L "$home_path" ]; then
+            echo "$home_path"
+        fi
     done
 }
 
@@ -148,11 +150,11 @@ _create_full_backup() {
     local dirs_to_backup=()
     local candidates=(
         "$HOME/.config"
-        "$HOME/.zotero"
         "$HOME/.gitconfig"
         "$HOME/.zshrc"
-        "$HOME/.lyx"
-        "$HOME/starship.toml"
+        "$HOME/.local/share/konsole"
+        "$HOME/Documents/meta"
+        "$HOME/Documents/.obsidian"
     )
     for d in "${candidates[@]}"; do
         [ -e "$d" ] && dirs_to_backup+=("$d")
@@ -288,7 +290,7 @@ _install_deps_apt() {
     local packages=("stow" "git" "zsh" "curl")
     local to_install=()
     for pkg in "${packages[@]}"; do
-        if ! dpkg -l "$pkg" &>/dev/null; then
+        if ! dpkg -s "$pkg" &>/dev/null; then
             to_install+=("$pkg")
             log_info "  → pendiente: ${pkg}"
         else

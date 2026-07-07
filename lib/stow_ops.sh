@@ -1,20 +1,42 @@
 #!/usr/bin/env bash
 # =============================================================================
-# lib/stow_ops.sh — Gestión inteligente de dotfiles con archivos explícitos
+# lib/stow_ops.sh — Gestión de dotfiles con archivos explícitos
 # =============================================================================
-# Este módulo NO depende de stow para decidir qué archivos gestionar.
-# En su lugar usa el mapa PACKAGE_FILES de config.sh para saber exactamente
+# Este módulo usa el mapa PACKAGE_FILES de config.sh para saber exactamente
 # qué archivos sincronizar, dando control total sobre qué se versiona.
 #
-# Stow se sigue usando para crear/eliminar symlinks, pero la selección
-# de archivos es nuestra, no automática.
+# Los symlinks se crean directamente (ln -sfn), archivo por archivo, según
+# la lista explícita. El binario de GNU Stow NO es necesario: el layout de
+# los paquetes es 100% compatible con stow (rutas relativas a $HOME dentro
+# de cada paquete), así que 'stow <paquete>' también funcionaría, pero
+# enlazaría TODO el paquete sin el control archivo-por-archivo de este módulo.
 #
 # FLUJOS:
 #   adoptar   → laptop → repo (con resolución interactiva de conflictos)
-#   instalar  → repo   → laptop (via stow o symlinks directos)
+#   instalar  → repo   → laptop (symlinks explícitos)
 #   actualizar → re-sincronizar symlinks
 #   eliminar  → quitar symlinks sin tocar el repo
 # =============================================================================
+
+# _read_choice()
+# Lee una opción del usuario desde la terminal. Si no hay TTY disponible
+# (ejecución no interactiva, CI, pipes), devuelve el valor por defecto
+# para no colgar ni abortar el script.
+#
+# Arguments:
+#   $1 - Valor por defecto si no hay TTY
+#
+# Output (stdout): la opción elegida (o el default)
+_read_choice() {
+    local default="$1"
+    local choice
+    if [ -r /dev/tty ] && [ -w /dev/tty ]; then
+        read -r choice </dev/tty || choice="$default"
+        echo "${choice:-$default}"
+    else
+        echo "$default"
+    fi
+}
 
 # _get_package_files()
 # Devuelve la lista de archivos de un paquete desde PACKAGE_FILES.
@@ -106,12 +128,13 @@ _create_symlink() {
     mkdir -p "$parent_dir"
 
     [ "$DRY_RUN" = true ] && {
-        log_info "  [dry-run] ln -sf ${repo_file} → ${home_file}"
+        log_info "  [dry-run] ln -sfn ${repo_file} → ${home_file}"
         return 0
     }
 
-    # Crear symlink (fuerza sobreescritura si ya existe)
-    ln -sf "$repo_file" "$home_file"
+    # Crear symlink. -n evita que, si el destino es un symlink a directorio,
+    # el enlace se cree DENTRO del directorio en lugar de reemplazarlo.
+    ln -sfn "$repo_file" "$home_file"
 }
 
 # =============================================================================
@@ -129,7 +152,6 @@ _create_symlink() {
 # Punto de entrada para adoptar un conjunto de paquetes.
 adopt_configs() {
     log_section "Adoptando configuraciones: laptop → repo"
-    validate_stow_installed || return 1
     validate_dotfiles_dir   || return 1
 
     local total_adopted=0
@@ -178,8 +200,12 @@ _adopt_package() {
         repo_file="$(_repo_path "$pkg" "$rel_path")"
 
         local home_exists=false repo_exists=false
-        [ -e "$home_file" ] || [ -L "$home_file" ] && home_exists=true
-        [ -e "$repo_file" ] && repo_exists=true
+        if [ -e "$home_file" ] || [ -L "$home_file" ]; then
+            home_exists=true
+        fi
+        if [ -e "$repo_file" ]; then
+            repo_exists=true
+        fi
 
         _is_our_symlink "$home_file" && {
             # Ya es nuestro symlink → todo OK
@@ -235,12 +261,11 @@ _adopt_laptop_only() {
         return 0
     fi
 
-    # Si es un directorio, copiar recursivamente; si es archivo, mover
-    if [ -d "$home_file" ]; then
-        cp -r "$home_file" "$repo_file"
+    # mv preserva atributos y es atómico en el mismo filesystem.
+    # Fallback a cp -a + rm para casos cross-filesystem.
+    if ! mv "$home_file" "$repo_file" 2>/dev/null; then
+        cp -a "$home_file" "$repo_file"
         rm -rf "$home_file"
-    else
-        mv "$home_file" "$repo_file"
     fi
 
     _create_symlink "$repo_file" "$home_file"
@@ -297,7 +322,7 @@ _resolve_conflict() {
     printf "  ${COLOR_CYAN}[r]${COLOR_RESET} Repo   → laptop (mantiene el repo, crea symlink)\n"
     printf "  ${COLOR_YELLOW}[s]${COLOR_RESET} Saltar este archivo\n"
     printf "  Opción [l/r/s]: "
-    read -r choice </dev/tty
+    choice="$(_read_choice "s")"
 
     case "$choice" in
         [lL])
@@ -380,7 +405,7 @@ _clean_repo_orphans() {
             printf "  ${COLOR_RED}  ✗${COLOR_RESET} %s\n" "$display"
         done
         printf "  ¿Eliminar estos archivos del repo? [s/N]: "
-        read -r choice </dev/tty
+        choice="$(_read_choice "n")"
         if [[ "$choice" =~ ^[sS] ]]; then
             for orphan in "${orphans[@]}"; do
                 [ "$DRY_RUN" = false ] && rm -f "$orphan" && \
@@ -465,12 +490,17 @@ _install_package() {
 
         # Si existe archivo real en HOME → conflicto
         if [ -e "$home_file" ]; then
-            printf "\n  ${COLOR_YELLOW}⚠  Archivo real existe:${COLOR_RESET} ~/%s\n" "$rel_path"
-            printf "  ¿Qué hacer?\n"
-            printf "  ${COLOR_GREEN}[r]${COLOR_RESET} Reemplazar con versión del repo (backup automático)\n"
-            printf "  ${COLOR_YELLOW}[s]${COLOR_RESET} Saltar\n"
-            printf "  Opción [r/s]: "
-            read -r choice </dev/tty
+            if [ "$FORCE" = true ]; then
+                # --force: reemplazar sin preguntar (ya se hizo backup)
+                choice="r"
+            else
+                printf "\n  ${COLOR_YELLOW}⚠  Archivo real existe:${COLOR_RESET} ~/%s\n" "$rel_path"
+                printf "  ¿Qué hacer?\n"
+                printf "  ${COLOR_GREEN}[r]${COLOR_RESET} Reemplazar con versión del repo (backup automático)\n"
+                printf "  ${COLOR_YELLOW}[s]${COLOR_RESET} Saltar\n"
+                printf "  Opción [r/s]: "
+                choice="$(_read_choice "s")"
+            fi
             case "$choice" in
                 [rR])
                     [ "$DRY_RUN" = false ] && {

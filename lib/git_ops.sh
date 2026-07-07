@@ -49,13 +49,17 @@ sync_push() {
     fi
 
     # Pedir mensaje de commit descriptivo
-    local commit_message
+    local commit_message=""
     if [ "$DRY_RUN" = true ]; then
         commit_message="[dry-run] Simulación de commit"
     else
-        echo ""
-        printf "  Mensaje de commit (Enter para mensaje automático): "
-        read -r commit_message
+        # Solo preguntar si hay terminal disponible; en modo no interactivo
+        # se usa el mensaje automático directamente.
+        if [ -r /dev/tty ] && [ -w /dev/tty ]; then
+            echo ""
+            printf "  Mensaje de commit (Enter para mensaje automático): "
+            read -r commit_message </dev/tty || commit_message=""
+        fi
         if [ -z "$commit_message" ]; then
             commit_message="dotfiles: actualizar configuraciones - $(date '+%Y-%m-%d %H:%M')"
         fi
@@ -118,7 +122,6 @@ sync_pull() {
 
     validate_git_installed || return 1
     validate_dotfiles_dir  || return 1
-    validate_stow_installed || return 1
 
     cd "$DOTFILES_DIR" || return 1
 
@@ -155,8 +158,8 @@ sync_pull() {
 
     log_success "Cambios descargados de GitHub."
 
-    # Re-stow para aplicar nuevos archivos del repo a la laptop
-    log_step "2/2" "Aplicando cambios con stow -R (re-stow)"
+    # Re-aplicar symlinks para que los nuevos archivos del repo queden activos
+    log_step "2/2" "Actualizando symlinks de todos los paquetes"
     TARGET_PACKAGES=("${STOW_PACKAGES[@]}")
     if ! update_configs; then
         log_warn "Algunos symlinks no se actualizaron. Revisa el estado con 'estado'."

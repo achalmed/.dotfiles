@@ -72,5 +72,53 @@
       ],
       "key": "6"
     }
+  ],
+  "quickadd:choice:8a53bac6-0166-4b88-94cf-c5b499943ecf": [
+    {
+      "modifiers": [
+        "Alt"
+      ],
+      "key": "C"
+    }
+  ],
+  "quickadd:choice:b4236352-4a2e-4be7-badd-dc7433b660fb": [
+    {
+      "modifiers": [
+        "Alt"
+      ],
+      "key": "T"
+    }
+  ],
+  "quickadd:choice:2f00c8f7-cccd-42f7-8eea-b25dd1d78281": [
+    {
+      "modifiers": [
+        "Alt"
+      ],
+      "key": "I"
+    }
+  ],
+  "quickadd:choice:1f9be7a8-7f5c-46a9-a510-e8e58c4d2afe": [
+    {
+      "modifiers": [
+        "Alt"
+      ],
+      "key": "B"
+    }
+  ],
+  "templater-obsidian:create-new-note-from-template": [
+    {
+      "modifiers": [
+        "Alt"
+      ],
+      "key": "N"
+    }
+  ],
+  "daily-notes": [
+    {
+      "modifiers": [
+        "Alt"
+      ],
+      "key": "D"
+    }
   ]
 }
