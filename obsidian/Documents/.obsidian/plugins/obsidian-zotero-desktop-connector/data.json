@@ -11,7 +11,7 @@
       "outputPathTemplate": "01 notes/{{citekey}}.md",
       "imageOutputPathTemplate": "meta/attachments/{{citekey}}/",
       "imageBaseNameTemplate": "image",
-      "templatePath": "meta/zotero/research note.md",
+      "templatePath": "meta/integrations/zotero/research note.md",
       "cslStyle": "chicago-fullnote-bibliography"
     }
   ],

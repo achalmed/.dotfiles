@@ -1,6 +1,6 @@
 {
   "command_timeout": 5,
-  "templates_folder": "meta/templater",
+  "templates_folder": "meta/plantillas",
   "templates_pairs": [
     [
       "",
@@ -11,18 +11,18 @@
   "auto_jump_to_cursor": true,
   "enable_system_commands": false,
   "shell_path": "",
-  "user_scripts_folder": "meta/javascript",
+  "user_scripts_folder": "meta/core/scripts",
   "enable_folder_templates": true,
   "folder_templates": [
     {
       "folder": "07 diary",
-      "template": "meta/templater/planes/plan-diario.md"
+      "template": "meta/plantillas/planes/plan-diario.md"
     }
   ],
   "syntax_highlighting": true,
   "enabled_templates_hotkeys": [
-    "meta/templater/extract research note from selection.md",
-    "meta/templater/extract bibliography task from selection.md"
+    "meta/plantillas/extract research note from selection.md",
+    "meta/plantillas/extract bibliography task from selection.md"
   ],
   "startup_templates": [
     ""

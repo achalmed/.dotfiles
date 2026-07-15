@@ -1,0 +1,200 @@
+{
+  "trigger_auto_manual": "Automatic",
+  "use_regex_to_check_for_tags": true,
+  "statusBar_trigger_indicator": true,
+  "folder_tag_pattern": [
+    {
+      "folder": "05 tasks",
+      "tag": "^#project",
+      "pattern": ""
+    },
+    {
+      "folder": "01 notes",
+      "tag": "",
+      "pattern": ""
+    },
+    {
+      "folder": "02 analysis",
+      "tag": "^#analysis",
+      "pattern": ""
+    },
+    {
+      "folder": "04 index",
+      "tag": "^#place",
+      "pattern": ""
+    },
+    {
+      "folder": "04 index",
+      "tag": "^#event",
+      "pattern": ""
+    },
+    {
+      "folder": "04 index",
+      "tag": "^#person",
+      "pattern": ""
+    },
+    {
+      "folder": "04 index",
+      "tag": "^#institution",
+      "pattern": ""
+    },
+    {
+      "folder": "04 index",
+      "tag": "^#work",
+      "pattern": ""
+    },
+    {
+      "folder": "05 tasks",
+      "tag": "^#task",
+      "pattern": ""
+    },
+    {
+      "folder": "06 archives",
+      "tag": "^#archive",
+      "pattern": ""
+    },
+    {
+      "folder": "07 diary",
+      "tag": "^#diary",
+      "pattern": ""
+    },
+    {
+      "folder": "01 notes/10-investigacion",
+      "tag": "^#investigacion",
+      "pattern": ""
+    },
+    {
+      "folder": "01 notes/20-universidad",
+      "tag": "^#clase",
+      "pattern": ""
+    },
+    {
+      "folder": "01 notes/30-trabajo-y-negocios",
+      "tag": "^#reunion",
+      "pattern": ""
+    },
+    {
+      "folder": "01 notes/60-guias-y-referencias",
+      "tag": "^#referencia",
+      "pattern": ""
+    },
+    {
+      "folder": "02 analysis",
+      "tag": "^#decision",
+      "pattern": ""
+    },
+    {
+      "folder": "02 analysis",
+      "tag": "^#problema",
+      "pattern": ""
+    },
+    {
+      "folder": "02 analysis",
+      "tag": "^#hipotesis",
+      "pattern": ""
+    },
+    {
+      "folder": "02 analysis",
+      "tag": "^#experimento",
+      "pattern": ""
+    },
+    {
+      "folder": "02 analysis",
+      "tag": "^#aprendizaje",
+      "pattern": ""
+    },
+    {
+      "folder": "02 analysis",
+      "tag": "^#error",
+      "pattern": ""
+    },
+    {
+      "folder": "02 analysis",
+      "tag": "^#bitacora",
+      "pattern": ""
+    },
+    {
+      "folder": "05 tasks",
+      "tag": "^#objetivo",
+      "pattern": ""
+    },
+    {
+      "folder": "05 tasks",
+      "tag": "^#rutina",
+      "pattern": ""
+    },
+    {
+      "folder": "05 tasks",
+      "tag": "^#habito",
+      "pattern": ""
+    },
+    {
+      "folder": "05 tasks",
+      "tag": "^#checklist",
+      "pattern": ""
+    }
+  ],
+  "use_regex_to_check_for_excluded_folder": true,
+  "excluded_folder": [
+    {
+      "folder": "^(?!01 notes/00-bandeja$)"
+    },
+    {
+      "folder": "^meta"
+    },
+    {
+      "folder": "^01 notes/10-investigacion"
+    },
+    {
+      "folder": "^01 notes/20-universidad"
+    },
+    {
+      "folder": "^01 notes/30-trabajo-y-negocios"
+    },
+    {
+      "folder": "^01 notes/40-cursos-y-formacion"
+    },
+    {
+      "folder": "^01 notes/50-examenes-y-practicas"
+    },
+    {
+      "folder": "^01 notes/60-guias-y-referencias"
+    },
+    {
+      "folder": "^01 notes/70-recursos"
+    },
+    {
+      "folder": "^02 analysis"
+    },
+    {
+      "folder": "^03 writing"
+    },
+    {
+      "folder": "^08 personal"
+    },
+    {
+      "folder": "^pub_"
+    },
+    {
+      "folder": "^git-"
+    },
+    {
+      "folder": "^scripts_"
+    },
+    {
+      "folder": "^Academic_"
+    },
+    {
+      "folder": "^CampusTeX"
+    },
+    {
+      "folder": "^biblioteca"
+    },
+    {
+      "folder": "^website-achalma"
+    },
+    {
+      "folder": "^doc_"
+    }
+  ]
+}
