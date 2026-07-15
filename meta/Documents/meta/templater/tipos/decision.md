@@ -1,6 +1,7 @@
 <%*
 const titulo = await tp.user.titular(tp, "Decisión");
 tR += tp.user.frontmatter(tp, { tipo: "decision", estado: "activo", tags: ["decision"], extra: {fecha_limite: ""} });
+await tp.user.archivar(tp, "decision");
 -%>
 # ⚖️ <% titulo %>
 

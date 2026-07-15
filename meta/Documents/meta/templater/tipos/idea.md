@@ -1,6 +1,7 @@
 <%*
 const titulo = await tp.user.titular(tp, "Idea");
 tR += tp.user.frontmatter(tp, { tipo: "idea", estado: "bandeja", tags: ["idea"], extra: {} });
+await tp.user.archivar(tp, "idea");
 -%>
 # 💡 <% titulo %>
 

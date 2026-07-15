@@ -318,6 +318,7 @@ TIPOS = {
 PLANTILLA = """<%*
 const titulo = await tp.user.titular(tp, "{etiqueta}");
 tR += tp.user.frontmatter(tp, {{ tipo: "{nombre}", estado: "{estado}", tags: [{tags}], extra: {{{extra}}} }});
+await tp.user.archivar(tp, "{nombre}");
 -%>
 # {emoji} <% titulo %>
 

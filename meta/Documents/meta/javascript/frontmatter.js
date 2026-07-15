@@ -24,6 +24,10 @@ function frontmatter(tp, opciones = {}) {
         `creado: ${tp.date.now("YYYY-MM-DD[T]HH:mm")}`,
         `tags: [${(opciones.tags ?? []).join(", ")}]`,
         "aliases: []",
+        // La organización manual manda: ninguna nota nacida de una plantilla
+        // puede ser movida por Auto Note Mover. El archivado de notas tipadas
+        // lo decide el usuario vía archivar.js al crearlas.
+        "AutoNoteMover: disable",
     ];
     for (const [clave, valor] of Object.entries(opciones.extra ?? {})) {
         lineas.push(`${clave}: ${valor ?? ""}`);
