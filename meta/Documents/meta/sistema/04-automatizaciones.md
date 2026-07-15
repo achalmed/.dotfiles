@@ -9,7 +9,7 @@ lo controla. Si algo deja de funcionar, esta tabla dice dónde mirar.
 | --- | --- | --- |
 | `Alt+C` | 📥 Captura → diario `AAAA-MM-DD Capturas.md` (bandeja) | QuickAdd → macro `quickadd/captura_diaria.js` |
 | `Alt+T` | ✅ Tarea(s) → diario `05 tasks/AAAA-MM-DD Tareas.md` | QuickAdd → misma macro, ajustes con Checklist |
-| `Alt+N` | Nueva nota tipada (elige plantilla de `tipos/`) | Templater: *Create new note from template* |
+| `Alt+N` | Nueva nota tipada (elige plantilla de `tipos/`); v3: sugiere destino y **pregunta antes de archivar** (`archivar.js`) | Templater: *Create new note from template* |
 | `Alt+D` | Plan de hoy (se crea solo si no existe) | Daily notes + plantilla de carpeta |
 | `Alt+I` | Abrir tablero [[inicio]] | QuickAdd → macro `abrir_nota.js` |
 | `Alt+B` | Abrir tablero [[bandeja]] | QuickAdd → macro `abrir_nota.js` |
@@ -37,8 +37,12 @@ y Templater le aplica sola la plantilla `planes/plan-diario.md`
 `trigger_on_file_creation: true`). La fecha se lee del nombre del archivo.
 
 **Al etiquetar una nota** (procesándola en Properties): Auto Note Mover la
-lleva a su carpeta según el tag (`auto-note-mover/data.json`). `meta/` está
-excluida con la regla regex `^meta`.
+lleva a su carpeta según el tag (`auto-note-mover/data.json`) — **solo si
+la nota está en `01 notes/00-bandeja`**. Desde la v3 (2026-07-15) su
+`excluded_folder` es una whitelist (`^(?!01 notes/00-bandeja$)` + carpetas
+protegidas explícitas): el resto del vault es intocable. Las notas creadas
+por el sistema llevan además `AutoNoteMover: disable`; el archivado de
+notas tipadas lo confirma el usuario vía `meta/javascript/archivar.js`.
 
 **Al abrir un tablero:** las vistas de `meta/dataview/vistas/` recalculan
 todo (bandeja, proyectos, salud, exportación SP). No hay nada que refrescar.
@@ -48,7 +52,7 @@ todo (bandeja, proyectos, salud, exportación SP). No hay nada que refrescar.
 | Choice | Script | Ajustes |
 | --- | --- | --- |
 | 📥 Captura rápida | `meta/quickadd/captura_diaria.js` | Carpeta `01 notes/00-bandeja`, Nombre `Capturas`, estado `bandeja` |
-| ✅ Captura tarea | `meta/quickadd/captura_diaria.js` | Carpeta `05 tasks`, Nombre `Tareas`, Checklist ✔, estado `activo` |
+| ✅ Captura tarea | `meta/quickadd/captura_diaria.js` | Carpeta `05 tasks`, Nombre `Tareas`, Checklist ✔, estado `activo`, **Asistente ✔, Arrastre ✔** (v3: clasificación opcional Esc=defecto, relación con tareas existentes, arrastre de pendientes al día nuevo) |
 | 🏠 Abrir inicio | `meta/quickadd/abrir_nota.js` | Ruta `meta/tablero/inicio.md` |
 | 📥 Abrir bandeja | `meta/quickadd/abrir_nota.js` | Ruta `meta/tablero/bandeja.md` |
 | Work with notes / Search research notes / Write with Longform | `meta/quickadd/workspace-load-*.js` | — |

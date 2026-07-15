@@ -39,6 +39,7 @@ las plantillas del vault.
 | --- | --- | --- |
 | `javascript/frontmatter.js` | **Única fuente de verdad del esquema de metadata.** | todas las plantillas |
 | `javascript/titular.js` | Pedir título, aplicar el estándar de nombres, renombrar. Nunca "Untitled". | plantillas de `tipos/` |
+| `javascript/archivar.js` | Sugerir carpeta destino por tipo (`sistema/config.json`) y **preguntar antes de mover**. | plantillas de `tipos/` |
 | `javascript/encabezado.js` | Copiar encabezado al extraer anotación Zotero. | `Ctrl+Z` |
 | `javascript/etiqueta_proyecto.js` | Heredar tags #project al extraer tarea. | `Ctrl+T` |
 | `quickadd/captura_diaria.js` | Añadir capturas/tareas al diario del día (un archivo por día). | `Alt+C`, `Alt+T` |
@@ -66,7 +67,12 @@ Referenciados por ruta desde `.obsidian/` — renombrarlos rompe plugins:
 - Las rutas `meta/dataview/vistas/*` y `meta/tablero/*` → invocadas con
   `dv.view(...)` y enlaces desde plantillas y tableros.
 
-## Dónde viven las notas (el usuario no lo decide: es automático)
+## Dónde viven las notas (v3: sugerido por el sistema, confirmado por el usuario)
+
+> Desde 2026-07-15 Auto Note Mover solo actúa sobre `01 notes/00-bandeja`
+> (whitelist en su `excluded_folder`). Las notas tipadas se archivan al
+> crearlas vía `archivar.js`, que usa estos mismos destinos como sugerencia
+> (`meta/sistema/config.json → destinos`) y siempre pregunta.
 
 | Contenido | Carpeta | Quién lo pone ahí |
 | --- | --- | --- |
@@ -81,5 +87,6 @@ Referenciados por ruta desde `.obsidian/` — renombrarlos rompe plugins:
 | Plan diario | `07 diary/AÑO/` | plugin Daily notes (formato `YYYY/YYYY-MM-DD`) |
 | `idea`, `nota`, `algun-dia` | se quedan en la bandeja | (por diseño: son material sin procesar/incubando) |
 
-`meta/` está excluida de Auto Note Mover (regla regex `^meta`): nada de lo
-que hay aquí se mueve solo.
+`meta/` está excluida de Auto Note Mover (regla regex `^meta`) y, desde la
+v3, también todo lo que no sea la bandeja (whitelist
+`^(?!01 notes/00-bandeja$)`): nada ya organizado se mueve solo.

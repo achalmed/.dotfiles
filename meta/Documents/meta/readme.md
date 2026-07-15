@@ -5,30 +5,49 @@ memoria de trabajo quede libre para el contenido y la ejecución.** El
 sistema captura, titula, fecha, clasifica, archiva y revisa por ti; tú
 solo escribes y ejecutas.
 
-Construido el 2026-07-06; auditado y corregido tras las primeras pruebas
-reales el mismo día (v2). Lo reemplazado está en `meta/archivo/`.
-Auditoría integral de automatizaciones: 2026-07-15 (ver
-[Auditoría de automatizaciones](#auditoría-de-automatizaciones-2026-07-15)).
+Construido el 2026-07-06 (v2 tras las primeras pruebas reales).
+**Rediseñado el 2026-07-15 (v3)** a partir de la auditoría integral (ver
+[Auditoría](#auditoría-de-automatizaciones-2026-07-15)): la autoorganización
+dejó de ser un clasificador global y pasó a ser un asistente que **solo
+actúa sobre la bandeja, sugiere en vez de imponer y nunca toca lo que
+organizaste a mano**. Lo reemplazado está en `meta/archivo/`.
+
+## Principios de diseño (v3)
+
+1. **La organización manual siempre tiene prioridad** sobre cualquier
+   automatización.
+2. Las automatizaciones **sugieren, no imponen**.
+3. **Nunca mover archivos fuera de las carpetas de captura** sin
+   confirmación explícita o una regla claramente configurada.
+4. Toda automatización se ajusta desde **archivos de configuración**
+   (`meta/sistema/config.json` y los `data.json` de `.obsidian/`), nunca
+   editando código.
+5. Reducir la carga cognitiva en la **captura**; aumentar la capacidad de
+   **revisión, agrupación, priorización y ejecución** después.
+6. Cada vez que el usuario tiene que tomar una decisión innecesaria, el
+   sistema falló; cada vez que el sistema toma una decisión que era del
+   usuario, falló también.
 
 ## Uso diario (esto es todo lo que hay que recordar)
 
-| Atajo   | Qué hace                                                                                |
-| ------- | --------------------------------------------------------------------------------------- |
-| `Alt+C` | 📥 **Capturar**: se añade con su hora al diario `AAAA-MM-DD Capturas.md` (bandeja)      |
-| `Alt+T` | ✅ Capturar tarea(s): una casilla por línea en `05 tasks/AAAA-MM-DD Tareas.md`          |
-| `Alt+D` | 📅 Plan de hoy (se crea solo, con tus bloques y prioridades)                            |
-| `Alt+N` | 📝 Nota tipada (idea, proyecto, paper…): título, nombre, metadata y carpeta automáticos |
-| `Alt+I` | 🏠 Tablero de inicio (siguiente acción, prioridades, bandeja)                           |
-| `Alt+B` | 📥 Tablero bandeja (procesar lo capturado)                                              |
+| Atajo   | Qué hace                                                                                                                     |
+| ------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| `Alt+C` | 📥 **Capturar**: se añade con su hora al diario `AAAA-MM-DD Capturas.md` (bandeja). Cero preguntas.                            |
+| `Alt+T` | ✅ Capturar tarea(s) → `05 tasks/AAAA-MM-DD Tareas.md` + asistente opcional (estado/prioridad/urgencia/tipo/relación; Esc = defecto) |
+| `Alt+D` | 📅 Plan de hoy (se crea solo, con tus bloques y prioridades)                                                                   |
+| `Alt+N` | 📝 Nota tipada: título, nombre y metadata automáticos + **destino confirmado** (sugiere carpeta y pregunta antes de mover)     |
+| `Alt+I` | 🏠 Tablero de inicio (siguiente acción, prioridades, bandeja)                                                                  |
+| `Alt+B` | 📥 Tablero bandeja (procesar lo capturado + sugerencias de agrupación)                                                         |
 
-Ritmo: capturar todo el día (`Alt+C`/`Alt+T`) → procesar bandeja a las
-20:20 → ejecutar en Super Productivity → revisión semanal el domingo 18:00.
+Ritmo (el ciclo papel bond, ahora digital): **capturar** suelto todo el día
+(`Alt+C`/`Alt+T`) → **agrupar y relacionar** al procesar la bandeja a las
+20:20 (`Alt+B`) → **priorizar** → **ejecutar** en Super Productivity →
+revisión semanal el domingo 18:00.
 
-**Regla de oro:** clasificar durante la captura está prohibido. Las capturas
-van a UN diario por día (no cientos de archivos) y las notas tipadas se
-nombran solas. La organización manual del resto del vault es tuya y el
-sistema debe respetarla (ver auditoría más abajo: hoy esto no se cumple del
-todo — la autoorganización actúa sobre todo el vault).
+**Regla de oro:** clasificar durante la captura está prohibido (el
+asistente de `Alt+T` es opcional y Esc siempre significa "luego"). Y desde
+la v3, la inversa también es ley: **lo que ya organizaste a mano es
+intocable para el sistema.**
 
 ## Estándar único de nombres
 
@@ -36,7 +55,7 @@ todo — la autoorganización actúa sobre todo el vault).
 | ---------------- | ------------------------------------------------------------------------------------ | ------------------------------- |
 | Capturas del día | `2026-07-06 Capturas.md`                                                             | `01 notes/00-bandeja`           |
 | Tareas del día   | `2026-07-06 Tareas.md`                                                               | `05 tasks`                      |
-| Nota tipada      | `2026-07-06 Idea - Título.md`                                                        | carpeta según tipo (automático) |
+| Nota tipada      | `2026-07-06 Idea - Título.md`                                                        | carpeta confirmada al crearla   |
 | Plan diario      | `2026-07-06.md`                                                                      | `07 diary/2026`                 |
 | Revisiones       | `2026-W28 Revisión semanal.md`, `2026-07 Revisión mensual.md`, `2026-Q3 …`, `2026 …` | donde se creen                  |
 
@@ -46,12 +65,12 @@ Todo empieza por la fecha (o el período): ordena solo, se busca solo.
 
 | Carpeta        | Propósito                                                                                                                           |
 | -------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| `sistema/`     | Documentación: arquitectura, metadata, flujo, automatizaciones, SP, mantenimiento                                                   |
-| `tablero/`     | Tableros automáticos: inicio, bandeja, proyectos, ideas, fuentes, semana, mantenimiento                                             |
+| `sistema/`     | Documentación + **`config.json` (configuración central de v3)**                                                                     |
+| `tablero/`     | Tableros automáticos: inicio, bandeja (+ agrupación), proyectos, ideas, fuentes, semana, mantenimiento                              |
 | `templater/`   | Plantillas: `tipos/` (27 + `_generador.py`), `planes/`, `revisiones/`, extract Zotero                                               |
-| `javascript/`  | **Solo scripts de Templater** (deben exportar una función): `frontmatter.js`, `titular.js`, `encabezado.js`, `etiqueta_proyecto.js` |
+| `javascript/`  | **Solo scripts de Templater** (exportan una función): `frontmatter.js`, `titular.js`, `archivar.js`, `encabezado.js`, `etiqueta_proyecto.js` |
 | `quickadd/`    | **Solo macros de QuickAdd** (pueden exportar objetos): `captura_diaria.js`, `abrir_nota.js`, workspaces                             |
-| `dataview/`    | Buscador unificado (`buscar.js`), notas de búsqueda y `vistas/` reutilizables                                                       |
+| `dataview/`    | Buscador unificado (`buscar.js`), notas de búsqueda y `vistas/` (incluye `agrupar.js`)                                              |
 | `zotero/`      | Plantilla de importación de Zotero Integration                                                                                      |
 | `longform/`    | Paso de compilación de Longform                                                                                                     |
 | `attachments/` | Imágenes; Zotero exporta aquí                                                                                                       |
@@ -64,184 +83,189 @@ funciones. Un script de QuickAdd (que exporta `{entry, settings}`) colocado
 en `javascript/` rompe TODAS las plantillas del vault con el error
 "must contain only functions".
 
-## Funcionalidades y configuración, en detalle
+## Configuración central
 
-Cada automatismo, con el archivo exacto que lo controla. Si algo deja de
-funcionar o quieres ajustarlo, esta sección dice dónde mirar.
+Cambiar el comportamiento del sistema = editar un archivo de configuración.
+Nunca hay que tocar código.
+
+| Qué configura | Archivo |
+| --- | --- |
+| Destinos sugeridos por tipo de nota, opciones del asistente de tareas (estados, prioridades, urgencias, tipos), arrastre de pendientes, agrupación (stopwords, umbrales) | `meta/sistema/config.json` |
+| **Carpetas que la autoorganización debe ignorar** (`excluded_folder`, acepta regex) y las 26 reglas tag→carpeta | `.obsidian/plugins/auto-note-mover/data.json` |
+| Ajustes de cada choice de captura (Carpeta, Nombre, Checklist, **Asistente**, **Arrastre**) | `.obsidian/plugins/quickadd/data.json` |
+| Carpeta de notas nuevas, diario, hotkeys | `.obsidian/app.json`, `daily-notes.json`, `hotkeys.json` |
+
+**Para proteger una carpeta nueva de la autoorganización:** añade
+`{ "folder": "^ruta/de/la/carpeta" }` a `excluded_folder` en
+`auto-note-mover/data.json`. Desde la v3 en realidad no hace falta: la
+primera regla (`^(?!01 notes/00-bandeja$)`) es una **whitelist** que excluye
+todo lo que no sea la bandeja; las 19 entradas siguientes (10-investigacion,
+20-universidad, 30-trabajo-y-negocios, 40-cursos-y-formacion, `pub_*`,
+repos, etc.) son defensa en profundidad por si algún día quitas la
+whitelist.
+
+## Funcionalidades y configuración, en detalle
 
 ### Captura rápida (`Alt+C`) y captura de tareas (`Alt+T`)
 
 - **Código:** `meta/quickadd/captura_diaria.js` (una sola macro para ambos).
-- **Configuración:** `.obsidian/plugins/quickadd/data.json` — dos *choices*
-  con ajustes distintos:
+- **Configuración:** `.obsidian/plugins/quickadd/data.json` — dos *choices*:
   - «📥 Captura rápida»: Carpeta `01 notes/00-bandeja`, Nombre `Capturas`,
-    estado `bandeja`, Checklist desactivado.
+    estado `bandeja`. Sin asistente: escribir y listo.
   - «✅ Captura tarea»: Carpeta `05 tasks`, Nombre `Tareas`, estado
-    `activo`, Checklist activado (cada línea se vuelve `- [ ]`).
-- **Comportamiento:** añade `## HH:mm` + el texto al final del diario del
-  día; si es la primera captura del día, crea el archivo con el frontmatter
-  estándar. Nunca sobrescribe, nunca mueve, nunca pregunta nada.
+    `activo`, Checklist ✔, **Asistente ✔, Arrastre ✔**.
+- **Comportamiento base:** añade `## HH:mm` + el texto al final del diario
+  del día; si es la primera captura, crea el archivo con el frontmatter
+  estándar (incluye `AutoNoteMover: disable`). Nunca sobrescribe ni mueve.
+- **Asistente (solo `Alt+T`, opcional):** tras escribir aparecen selectores
+  rápidos — Estado (por hacer/en progreso/en espera/bloqueada/completada),
+  Prioridad (alta/media/baja), Urgencia y Tipo (idea, investigación,
+  escritura, programación, universidad, trabajo, personal). **Esc en
+  cualquiera = valor por defecto**: capturar nunca se vuelve lento. Se
+  guardan como campos inline de Dataview: `[prioridad:: alta]`, etc.
+  Opciones y valores editables en `config.json → tareas`.
+- **¿Pertenece a una tarea existente?** El asistente lista las tareas
+  abiertas de los últimos 14 días (`config.json → diasBusquedaRelacion`) y
+  ofrece: 🆕 nueva · 📎 subtarea (se inserta sangrada bajo la elegida, en su
+  archivo) · ➕ añadir detalle · 🔗 relacionar (`[rel:: …]`). Todo asistido,
+  jamás se escribe un ID a mano.
 
-### Nota tipada (`Alt+N`)
+### Persistencia de pendientes (arrastre)
 
-- **Plantillas:** `meta/templater/tipos/` — 27 tipos. No se editan una a
-  una: se regeneran con `meta/templater/tipos/_generador.py` (editar la
-  especificación ahí).
-- **Scripts de usuario (Templater):**
-  - `meta/javascript/titular.js` — pide el título y renombra la nota al
-    estándar `AAAA-MM-DD Tipo - Título.md` (nunca queda "Untitled"; si el
-    nombre choca, añade la hora). Renombra SOLO la nota recién creada.
-  - `meta/javascript/frontmatter.js` — única fuente de verdad del esquema
-    de metadata (`id`, `tipo`, `estado`, `creado`, `tags`, `aliases`).
-- **El archivado posterior NO lo hace Templater**: lo hace Auto Note Mover
-  al detectar el tag (ver más abajo).
+- **Código:** dentro de `captura_diaria.js`; ajuste «Arrastre» +
+  `config.json → arrastre`.
+- Al crear el `Tareas.md` de un día nuevo, las `- [ ]` no completadas del
+  diario anterior se copian bajo `## ⏭️ Arrastradas de <fecha>` conservando
+  estado, prioridad, campos y sangría. En el archivo viejo quedan marcadas
+  `- [>]` (arrastrada): **una tarea pendiente vive en un solo lugar**, sin
+  duplicados en los tableros. Las completadas descansan en paz donde se
+  hicieron.
+
+### Nota tipada (`Alt+N`) con destino confirmado
+
+- **Plantillas:** `meta/templater/tipos/` — 27 tipos, regeneradas con
+  `_generador.py` (editar la especificación ahí, nunca una a una).
+- **Scripts:** `titular.js` (título + nombre estándar), `frontmatter.js`
+  (metadata única, ahora incluye `AutoNoteMover: disable` en toda nota de
+  plantilla) y **`archivar.js` (nuevo, v3)**:
+  1. Lee el destino sugerido del tipo en `config.json → destinos`.
+  2. Pregunta: **✅ Guardar en `<sugerido>` (Enter/Esc) · 📁 Elegir otra
+     carpeta… · 📥 Dejar en la bandeja**.
+  3. Mueve solo con tu confirmación; y esa nota **no vuelve a moverse
+     nunca** (frontmatter + whitelist).
+- `idea`, `nota` y `algun-dia` sugieren quedarse en la bandeja (material
+  sin procesar/incubando).
 
 ### Plan diario (`Alt+D`)
 
 - **Plugin Daily notes:** `.obsidian/daily-notes.json` → carpeta
   `07 diary`, formato `YYYY/YYYY-MM-DD`.
-- **Plantilla automática:** `.obsidian/plugins/templater-obsidian/data.json`
-  → `folder_templates: 07 diary → meta/templater/planes/plan-diario.md`,
-  con `trigger_on_file_creation: true`. Ojo: cualquier archivo nuevo creado
-  en `07 diary` recibe esa plantilla, no solo el del día.
+- **Plantilla automática:** Templater `folder_templates: 07 diary →
+  meta/templater/planes/plan-diario.md` con `trigger_on_file_creation:
+  true`. Ojo: cualquier archivo nuevo creado en `07 diary` recibe esa
+  plantilla, no solo el del día.
 
-### Ubicación de notas nuevas
-
-- `.obsidian/app.json` → `newFileFolderPath: "01 notes/00-bandeja"`. Toda
-  nota creada por enlace o comando nace en la bandeja. No mueve nada; solo
-  decide dónde nace.
-
-### Autoorganización (Auto Note Mover) — cómo clasifica exactamente
+### Autoorganización (Auto Note Mover) — de clasificador a asistente
 
 - **Plugin:** `.obsidian/plugins/auto-note-mover/` (v1.2.0 + parche local).
-- **Configuración:** `.obsidian/plugins/auto-note-mover/data.json`.
-- **Criterio de clasificación: únicamente TAGS.** No mira el nombre del
-  archivo, ni el contenido, ni las propiedades `tipo:`/`estado:` del
-  frontmatter. Toma todos los tags de la nota (los del frontmatter `tags:`
-  **y** los `#inline` del cuerpo, vía `getAllTags`) y los compara contra 26
-  reglas `tag → carpeta`. Con `use_regex_to_check_for_tags: true`, cada
-  regla es una regex tipo `^#investigacion` — que también captura variantes
-  como `#investigacion-x` o `#investigacionfoo`. (El plugin soporta además
-  reglas por regex sobre el NOMBRE del archivo, pero ninguna está en uso:
-  todas las reglas actuales tienen `pattern: ""`.)
-- **Cuándo se dispara** (`main.js`, función `fileCheck`, con
-  `trigger_auto_manual: "Automatic"`):
-  1. al **crear** cualquier archivo (`vault.on("create")`) — incluye
-     archivos generados por scripts externos dentro del vault;
-  2. en **cada cambio de metadata** (`metadataCache.on("changed")`) — es
-     decir, cada vez que editas y guardas una nota, se reevalúa;
-  3. al **renombrar** (`vault.on("rename")`); mover un archivo sin
-     cambiarle el nombre no dispara el chequeo en ese momento… pero la
-     próxima edición sí (por eso una nota reubicada a mano "vuelve a
-     moverse sola" horas o días después).
-- **Ámbito: TODO el vault** (`~/Documents` completo — incluidos `pub_*`,
-  `website-achalma`, proyectos, repos). Única exclusión configurada: la
-  regex `^meta` en `excluded_folder`.
-- **Mecanismos de escape integrados en el plugin:**
-  - `AutoNoteMover: disable` en el frontmatter de una nota → esa nota no
-    se mueve nunca.
-  - `excluded_folder` (acepta regex) → carpetas enteras ignoradas.
-  - `trigger_auto_manual: "Manual"` → solo mueve al invocar el comando
-    *Move the note*.
+- **Criterio: únicamente TAGS** (frontmatter `tags:` + `#inline`, vía
+  `getAllTags`), comparados por regex (`^#investigacion`, …) contra 26
+  reglas tag→carpeta en su `data.json`. No mira nombre, contenido ni
+  propiedades `tipo:`/`estado:`.
+- **Disparadores:** crear archivo, cada cambio de metadata y renombrar.
+- **Ámbito desde v3: SOLO `01 notes/00-bandeja`.** La whitelist
+  `^(?!01 notes/00-bandeja$)` en `excluded_folder` excluye todo lo demás:
+  jamás vuelve a tocar `10-investigacion`, `20-universidad`, proyectos,
+  `pub_*`, repos ni nada que hayas organizado a mano. Su único trabajo
+  restante: cuando proceses una nota suelta de la bandeja etiquetándola en
+  Properties, llevarla a su carpeta. Eso es todo.
+- **Escapes adicionales:** `AutoNoteMover: disable` por nota (toda nota
+  creada por el sistema lo lleva de serie) y modo `Manual`.
 - **Parche local** en `main.js` (`isFmDisable`: `if (!fileCache) return
-  true;`): evita un TypeError cuando Obsidian aún no tiene cache de
-  metadata del archivo (típico con archivos recién generados por procesos
-  externos). **Se pierde si el plugin se actualiza** — reaplicar si
+  true;`): evita el TypeError con archivos recién generados por procesos
+  externos. **Se pierde si el plugin se actualiza** — reaplicar si
   reaparece el error.
+- Respaldos de su config: `data.json.bak-metaos` (original),
+  `.bak-metaos2` (v2), `.bak-metaos3` (pre-v3).
+
+### Agrupación sugerida de ideas (tablero bandeja)
+
+- **Código:** `meta/dataview/vistas/agrupar.js`; config en
+  `config.json → agrupacion`; visible en [[bandeja]].
+- Analiza las tareas pendientes de los últimos 7 días, detecta palabras
+  significativas compartidas (sin acentos, sin stopwords) y sugiere:
+  *«Estas 4 tareas parecen del mismo tema: “latex” — ¿agruparlas?»* con
+  botones **✅ Agrupar** (añade `[tema:: palabra]` a esas líneas — nada se
+  mueve) · **🚫 No** (no vuelve a sugerir esa palabra) · **⏰ Más tarde**.
+  **Solo sugiere; agrupar siempre es decisión tuya.**
 
 ### Tableros y vistas (Dataview)
 
 - `meta/tablero/*` + `meta/dataview/vistas/*.js` (`bandeja`, `proyectos`,
-  `salud`, `exportar-sp`, `aleatoria`) y el buscador `dataview/buscar.js`.
-- **Solo lectura:** calculan y muestran; no modifican, mueven ni renombran
-  ningún archivo.
+  `salud`, `exportar-sp`, `aleatoria`, `agrupar`) y `buscar.js`. Solo
+  lectura, salvo el botón «Agrupar» descrito arriba (acción explícita).
 
 ### Zotero, extracciones y workspaces
 
-- `Ctrl+R` nota de investigación (Zotero Integration, plantilla
-  `meta/zotero/`); `Ctrl+Z` extraer anotación (Templater +
-  `encabezado.js`); `Ctrl+T` extraer tarea bibliográfica (Templater +
-  `etiqueta_proyecto.js`); `Ctrl+N/S/L` workspaces (QuickAdd +
-  `workspace-load-*.js`). Crean o abren notas; no mueven las existentes.
+- `Ctrl+R` nota de investigación (Zotero Integration); `Ctrl+Z` extraer
+  anotación (Templater + `encabezado.js`); `Ctrl+T` extraer tarea
+  bibliográfica (`etiqueta_proyecto.js`); `Ctrl+N/S/L` workspaces
+  (QuickAdd). Crean o abren notas; no mueven las existentes.
 
 ### Revisiones periódicas
 
-- `meta/templater/revisiones/*.md`: al insertarlas se **renombra la nota
-  actual** al período (`2026-W28 Revisión semanal`, etc.) con
-  `tp.file.rename`. Acción única, sobre la nota en la que las invocas.
+- `meta/templater/revisiones/*.md`: al insertarlas renombran la nota
+  actual al período (`2026-W28 Revisión semanal`, …). Acción única, sobre
+  la nota en la que las invocas.
 
 ## Auditoría de automatizaciones (2026-07-15)
 
-Inventario completo de todo lo que actúa solo, con su nivel de riesgo para
-la integridad de la organización manual del vault.
+Inventario completo de todo lo que actúa solo. Columna «Riesgo»: antes →
+después del rediseño v3.
 
 | Automatización | Archivo responsable | Función/mecanismo | Cuándo se ejecuta | Qué modifica | Riesgo |
 | --- | --- | --- | --- | --- | --- |
-| **Autoorganización** | `.obsidian/plugins/auto-note-mover/main.js` + `data.json` | `fileCheck()` → `fileMove()` | Al crear archivos, en cada cambio de metadata y al renombrar, en todo el vault salvo `^meta` | **MUEVE archivos** de carpeta (renameFile) | 🔴 **ALTO** |
-| Renombrado de nota tipada | `meta/javascript/titular.js` | `tp.file.rename` | Solo al crear la nota con `Alt+N` | Renombra la nota recién creada | 🟢 Bajo |
-| Renombrado de revisiones | `meta/templater/revisiones/*.md` | `tp.file.rename` | Solo al insertar la plantilla | Renombra la nota actual | 🟢 Bajo |
-| Captura diaria | `meta/quickadd/captura_diaria.js` | `entry()` | `Alt+C` / `Alt+T` | Crea el diario del día o añade al final; nunca sobrescribe ni mueve | 🟢 Bajo |
-| Plantilla de carpeta del diario | Templater `data.json` (`folder_templates`) | `trigger_on_file_creation` | Al crear CUALQUIER archivo en `07 diary` | Inserta la plantilla plan-diario en el archivo nuevo | 🟡 Medio-bajo |
-| Ubicación de notas nuevas | `.obsidian/app.json` | `newFileFolderPath` | Al crear nota por enlace/comando | Solo decide dónde nace la nota | 🟢 Nulo |
+| **Autoorganización** | `auto-note-mover/main.js` + `data.json` | `fileCheck()` → `fileMove()` | Crear / cambio de metadata / renombrar | **MUEVE archivos** | 🔴 ALTO → 🟢 **contenido**: whitelist solo-bandeja + `disable` de serie |
+| Archivado de nota tipada | `meta/javascript/archivar.js` (v3) | `tp.user.archivar` | Solo al crear con `Alt+N` | Mueve la nota recién creada **con confirmación** | 🟢 Bajo (pregunta siempre) |
+| Renombrado de nota tipada | `meta/javascript/titular.js` | `tp.file.rename` | Solo al crear con `Alt+N` | Renombra la nota recién creada | 🟢 Bajo |
+| Renombrado de revisiones | `meta/templater/revisiones/*.md` | `tp.file.rename` | Al insertar la plantilla | Renombra la nota actual | 🟢 Bajo |
+| Captura diaria | `meta/quickadd/captura_diaria.js` | `entry()` | `Alt+C` / `Alt+T` | Crea/añade al diario del día; con relación asistida inserta bajo la tarea elegida | 🟢 Bajo |
+| Arrastre de pendientes (v3) | `captura_diaria.js` (ajuste Arrastre) | al crear diario nuevo | Primera captura del día | Copia `- [ ]` al día nuevo y marca `- [>]` en el anterior | 🟡 Medio-bajo (solo diarios de tareas) |
+| Agrupación sugerida (v3) | `meta/dataview/vistas/agrupar.js` | botón «Agrupar» | Solo clic del usuario | Añade `[tema:: …]` a líneas elegidas | 🟢 Bajo (acción explícita) |
+| Plantilla de carpeta del diario | Templater `data.json` | `folder_templates` | Al crear CUALQUIER archivo en `07 diary` | Inserta plan-diario en el archivo nuevo | 🟡 Medio-bajo |
+| Ubicación de notas nuevas | `.obsidian/app.json` | `newFileFolderPath` | Al crear nota por enlace/comando | Solo decide dónde nace | 🟢 Nulo |
 | Tableros/vistas Dataview | `meta/dataview/`, `meta/tablero/` | `dv.view(...)` | Al abrir un tablero | Nada (solo lectura) | 🟢 Nulo |
-| Abrir notas / workspaces | `meta/quickadd/abrir_nota.js`, `workspace-load-*.js` | macros QuickAdd | `Alt+I/B`, `Ctrl+N/S/L` | Nada (solo navegación) | 🟢 Nulo |
+| Abrir notas / workspaces | `abrir_nota.js`, `workspace-load-*.js` | macros QuickAdd | `Alt+I/B`, `Ctrl+N/S/L` | Nada | 🟢 Nulo |
 | Parche local del mover | `auto-note-mover/main.js` (`isFmDisable`) | guard `!fileCache` | — | — | 🟡 Mantenimiento: se pierde al actualizar el plugin |
 
-### Diagnóstico del riesgo ALTO (autoorganización)
+### Diagnóstico original (por qué era ALTO) y cómo quedó resuelto
 
-La única automatización peligrosa es Auto Note Mover, por la combinación de
-cuatro factores de su configuración actual:
-
-1. **Reevalúa en cada edición** (`metadataCache.on("changed")`): una nota
-   que archivaste a mano en una carpeta permanente vuelve a moverse la
-   próxima vez que la editas, si conserva un tag que coincide con alguna
-   regla. La organización manual pierde siempre.
-2. **Ámbito = todo el vault**: `~/Documents` entero es el vault, así que
-   las reglas alcanzan `pub_*`, `website-achalma`, proyectos y repos. Un
-   `.md` de una publicación con `tags: [investigacion]` es arrancado de su
-   repo y llevado a `01 notes/10-investigacion`, rompiendo el repositorio.
-3. **Archivos generados**: procesos externos (Quarto, scripts) crean `.md`
-   dentro del vault; `vault.on("create")` los evalúa al instante. De ahí
-   los errores («A file with the same name exists», «destination folder
-   does not exist») y el TypeError de cache nula que obligó al parche.
-4. **Regex abiertas**: `^#investigacion` también matchea
-   `#investigacion-de-mercado`, etc. — movimientos "inexplicables".
-
-**Mitigaciones disponibles sin tocar código** (las usa el rediseño):
-`excluded_folder` con regex (lista de carpetas protegidas o whitelist por
-regex negativa), `AutoNoteMover: disable` por nota, y modo `Manual`.
+1. **Reevaluaba en cada edición** → una nota archivada a mano volvía a
+   moverse al editarla. *Resuelto:* fuera de la bandeja el plugin no puede
+   actuar (whitelist), y toda nota del sistema lleva `AutoNoteMover:
+   disable`.
+2. **Ámbito = todo `~/Documents`** → arrancaba `.md` de `pub_*` y repos.
+   *Resuelto:* whitelist + 19 carpetas protegidas explícitas.
+3. **Archivos generados** (Quarto, scripts) disparaban movimientos y
+   errores. *Resuelto:* sus carpetas están excluidas; el parche local cubre
+   la cache nula.
+4. **Regex abiertas** (`^#investigacion` matchea `#investigacion-x`).
+   *Mitigado:* irrelevante fuera de la bandeja; dentro, sigue siendo el
+   comportamiento deseado de procesamiento.
 
 ## Documentación
 
 1. [[01-arquitectura]] — mapa de módulos, nombres fijos, quién mueve qué.
 2. [[02-metadata]] — esquema único de Properties, catálogo de tipos, estándar de nombres.
-3. [[03-flujo-gtd]] — capturar → procesar → ejecutar → revisar → archivar,
-   y dónde vive cada mecanismo anti-procrastinación.
+3. [[03-flujo-gtd]] — capturar → procesar → ejecutar → revisar → archivar.
 4. [[04-automatizaciones]] — cada atajo/automatismo y su archivo de config.
 5. [[05-super-productivity]] — exportar tareas: copiar y pegar, sin fechas a mano.
 6. [[06-mantenimiento]] — cómo ampliar el sistema sin romperlo.
 
 ## Copias de seguridad de la configuración
 
-Cada archivo de `.obsidian/` modificado el 2026-07-06 tiene un respaldo
-`*.bak-metaos` al lado (app.json, daily-notes.json, hotkeys.json y los
-data.json de Templater, QuickAdd y Auto Note Mover). Para revertir un
-cambio: reemplazar el archivo por su `.bak-metaos` y reiniciar Obsidian.
-
-## Principios de diseño
-
-> Cada vez que el usuario tiene que tomar una decisión innecesaria, el
-> sistema falló. La mejor interfaz es aquella donde solo se escribe el
-> contenido; todo lo demás lo hace el sistema.
-
-Y, con el mismo peso desde la auditoría 2026-07-15:
-
-1. **La organización manual siempre tiene prioridad** sobre cualquier
-   automatización.
-2. Las automatizaciones **sugieren, no imponen**.
-3. Nunca mover archivos fuera de las carpetas de captura sin confirmación
-   explícita o una regla claramente configurada.
-4. Toda automatización se ajusta desde **archivos de configuración**, no
-   editando código.
-5. Reducir la carga cognitiva en la captura; aumentar la capacidad de
-   revisión, planificación y ejecución después.
+Cada archivo de `.obsidian/` modificado tiene respaldos al lado:
+`*.bak-metaos` (original), `*.bak-metaos2` (v2) y `*.bak-metaos3`
+(pre-v3: auto-note-mover y quickadd, 2026-07-15). Para revertir: reemplaza
+el archivo por su respaldo y reinicia Obsidian. El código de `meta/` está
+versionado en git (`~/.dotfiles`): `git log meta/` para el historial.
