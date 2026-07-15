@@ -21,7 +21,7 @@ sortby:: start-date
 sortorder:: desc
 
 ```dataviewjs
-await dv.view("meta/dataview/buscar", {
+await dv.view("meta/search/buscar", {
     fuentes: '"01 notes"',
     detalle: true,
     mensaje: "   Escribe criterios en uno o más campos para buscar notas de investigación.",

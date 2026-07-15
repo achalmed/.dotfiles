@@ -5,7 +5,7 @@
  * (definiciones `[^x]:` y llamadas `[^x]`), útil al unir escenas cuyas
  * notas al pie se numeraron por separado.
  *
- * Nombre de archivo fijo: Longform carga los pasos desde meta/longform
+ * Nombre de archivo fijo: Longform carga los pasos desde meta/integrations/longform
  * (userScriptFolder) — no renombrar.
  */
 module.exports = {

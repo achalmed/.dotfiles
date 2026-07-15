@@ -5,7 +5,7 @@
  * (más de 30 días sin modificar). Sirve para revisar ideas viejas sin tener
  * que "ponerse a revisar": cada vez que abres el tablero aparecen otras.
  *
- * Uso: await dv.view("meta/dataview/vistas/aleatoria", { tipo: "idea", n: 3 });
+ * Uso: await dv.view("meta/review/aleatoria", { tipo: "idea", n: 3 });
  *   - tipo (opcional): filtra por `tipo:` del frontmatter. Sin tipo = todas.
  *   - n    (opcional): cuántas mostrar. Por defecto 3.
  *

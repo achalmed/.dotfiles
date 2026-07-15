@@ -22,7 +22,7 @@
  *    "¿pertenece a una tarea existente?" (nueva / subtarea / añadir detalle /
  *    relacionar) con la lista de tareas abiertas — sin escribir IDs jamás.
  *    Se guardan como campos inline de Dataview: [prioridad:: alta] …
- *    Opciones y valores: meta/sistema/config.json → tareas.
+ *    Opciones y valores: meta/core/config/config.json → tareas.
  *
  *  - "Arrastre": al crear el diario de un día nuevo, las `- [ ]` pendientes
  *    del diario anterior se copian bajo "## ⏭️ Arrastradas de <fecha>"
@@ -31,7 +31,7 @@
  *
  * Nombre de archivo fijo: referenciado por su ruta en
  * .obsidian/plugins/quickadd/data.json — no renombrar.
- * IMPORTANTE: vive en meta/quickadd/ (NO moverlo a meta/javascript/:
+ * IMPORTANTE: vive en meta/capture/ (NO moverlo a meta/core/scripts/:
  * Templater carga esa carpeta y exige que todo exporte funciones; este
  * script exporta un objeto {entry, settings} para QuickAdd).
  */
@@ -51,7 +51,7 @@ module.exports = {
         // Configuración central (opcional: sin ella todo sigue funcionando).
         let config = {};
         try {
-            config = JSON.parse(await app.vault.adapter.read("meta/sistema/config.json"));
+            config = JSON.parse(await app.vault.adapter.read("meta/core/config/config.json"));
         } catch (e) { /* sin config → valores por defecto */ }
 
         const aviso = checklist
@@ -219,7 +219,7 @@ module.exports = {
             }
 
             // Primer uso del día: crear el diario con el frontmatter estándar
-            // (mismo esquema que meta/javascript/frontmatter.js).
+            // (mismo esquema que meta/core/scripts/frontmatter.js).
             if (!app.vault.getAbstractFileByPath(carpeta)) {
                 await app.vault.createFolder(carpeta).catch(() => {});
             }

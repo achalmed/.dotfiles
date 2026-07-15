@@ -10,7 +10,7 @@
   ],
 
   "destinos": {
-    "_doc": "Carpeta sugerida por tipo de nota (Alt+N). null = quedarse en la bandeja. El script meta/javascript/archivar.js SIEMPRE pregunta antes de mover.",
+    "_doc": "Carpeta sugerida por tipo de nota (Alt+N). null = quedarse en la bandeja. El script meta/core/scripts/archivar.js SIEMPRE pregunta antes de mover.",
     "idea": null,
     "nota": null,
     "algun-dia": null,

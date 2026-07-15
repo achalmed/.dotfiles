@@ -10,7 +10,7 @@
  *   2. En espera — estado "espera" (delegado / esperando algo externo).
  *   3. Algún día — estado "algun-dia" (incubación).
  *
- * Uso: await dv.view("meta/dataview/vistas/proyectos", { wip: 3 });
+ * Uso: await dv.view("meta/tasks/proyectos", { wip: 3 });
  *
  * Usado por: meta/tablero/proyectos.md, meta/tablero/inicio.md
  * (con { soloSiguiente: true } muestra solo las siguientes acciones).

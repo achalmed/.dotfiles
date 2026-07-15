@@ -9,7 +9,7 @@
  *   - Bandeja envejecida (estado bandeja con más de 7 días)
  *   - Huérfanas recientes (sin enlaces entrantes ni salientes)
  *
- * Uso: await dv.view("meta/dataview/vistas/salud", { desde: "2026-07-06" });
+ * Uso: await dv.view("meta/organization/salud", { desde: "2026-07-06" });
  *
  * Usado por: meta/tablero/mantenimiento.md.
  */

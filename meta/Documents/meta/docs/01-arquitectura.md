@@ -27,9 +27,9 @@ meta/
 ```
 
 **Regla arquitectónica crítica:** Templater carga TODOS los `.js` de
-`meta/javascript` (incluidas subcarpetas) y exige que cada uno exporte una
+`meta/core/scripts` (incluidas subcarpetas) y exige que cada uno exporte una
 función. Las macros de QuickAdd exportan objetos `{entry, settings}` —
-por eso viven en `meta/quickadd`, fuera de su alcance. Mezclarlos produce
+por eso viven en `meta/capture`, fuera de su alcance. Mezclarlos produce
 el error "Exported object … must contain only functions" y rompe todas
 las plantillas del vault.
 
@@ -56,7 +56,7 @@ las plantillas del vault.
 
 Referenciados por ruta desde `.obsidian/` — renombrarlos rompe plugins:
 
-- Todo `meta/quickadd/*.js` (`captura_diaria.js`, `abrir_nota.js`,
+- Todo `meta/capture/*.js` (`captura_diaria.js`, `abrir_nota.js`,
   `load-current-note.js`, `workspace-load-*.js`) → QuickAdd.
 - `templater/extract research note from selection.md`,
   `templater/extract bibliography task from selection.md` → hotkeys de Templater.
@@ -64,7 +64,7 @@ Referenciados por ruta desde `.obsidian/` — renombrarlos rompe plugins:
 - `zotero/research note.md` → Zotero Integration.
 - Las notas de `dataview/` (`Search Research Notes.md`, etc.) → workspaces.
 - Las subcarpetas de `meta/` → configuración de Templater, Longform, Zotero.
-- Las rutas `meta/dataview/vistas/*` y `meta/tablero/*` → invocadas con
+- Las rutas `meta/search/*` y `meta/tablero/*` → invocadas con
   `dv.view(...)` y enlaces desde plantillas y tableros.
 
 ## Dónde viven las notas (v3: sugerido por el sistema, confirmado por el usuario)
@@ -72,7 +72,7 @@ Referenciados por ruta desde `.obsidian/` — renombrarlos rompe plugins:
 > Desde 2026-07-15 Auto Note Mover solo actúa sobre `01 notes/00-bandeja`
 > (whitelist en su `excluded_folder`). Las notas tipadas se archivan al
 > crearlas vía `archivar.js`, que usa estos mismos destinos como sugerencia
-> (`meta/sistema/config.json → destinos`) y siempre pregunta.
+> (`meta/core/config/config.json → destinos`) y siempre pregunta.
 
 | Contenido | Carpeta | Quién lo pone ahí |
 | --- | --- | --- |

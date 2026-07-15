@@ -14,7 +14,7 @@ aliases: [Inicio, Home]
 > Regla de oro: elige UNA y empieza. No sigas leyendo el tablero.
 
 ```dataviewjs
-await dv.view("meta/dataview/vistas/proyectos", { soloSiguiente: true, wip: 3 });
+await dv.view("meta/tasks/proyectos", { soloSiguiente: true, wip: 3 });
 ```
 
 ## 🎯 Prioridades de hoy

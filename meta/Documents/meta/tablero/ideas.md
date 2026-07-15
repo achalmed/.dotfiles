@@ -27,7 +27,7 @@ WHERE tipo = "idea" AND estado = "algun-dia"
 > Cada vez que abres este tablero salen otras. Cero esfuerzo de revisión.
 
 ```dataviewjs
-await dv.view("meta/dataview/vistas/aleatoria", { tipo: "idea", n: 3 });
+await dv.view("meta/review/aleatoria", { tipo: "idea", n: 3 });
 ```
 
 ← [[inicio]]

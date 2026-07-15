@@ -11,7 +11,7 @@ aliases: [Proyectos]
 > sin marcar; si no la tiene, está bloqueado aunque no lo parezca.
 
 ```dataviewjs
-await dv.view("meta/dataview/vistas/proyectos", { wip: 3 });
+await dv.view("meta/tasks/proyectos", { wip: 3 });
 ```
 
 ## ✅ Tareas sueltas por estado

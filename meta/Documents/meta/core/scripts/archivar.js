@@ -2,7 +2,7 @@
  * archivar.js — Script de usuario de Templater (tp.user.archivar).
  *
  * Archivado CONFIRMADO de notas tipadas: muestra el destino sugerido para
- * el tipo (leído de meta/sistema/config.json → destinos) y pregunta antes
+ * el tipo (leído de meta/core/config/config.json → destinos) y pregunta antes
  * de mover. El usuario siempre tiene la última palabra:
  *
  *     ✅ Guardar en <sugerido>     (Enter o Esc = esta opción)
@@ -16,11 +16,11 @@
  * Uso desde una plantilla (después de titular y frontmatter):
  *   <%* await tp.user.archivar(tp, "investigacion"); %>
  *
- * Usado por: todas las plantillas de meta/templater/tipos (via _generador.py).
+ * Usado por: todas las plantillas de meta/plantillas/tipos (via _generador.py).
  */
 async function archivar(tp, tipo) {
     const app = window.app;
-    const RUTA_CONFIG = "meta/sistema/config.json";
+    const RUTA_CONFIG = "meta/core/config/config.json";
 
     let config = {};
     try {

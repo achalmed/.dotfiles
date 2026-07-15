@@ -14,15 +14,15 @@
  *   - No        → no volver a sugerir esa palabra (localStorage).
  *   - Más tarde → oculta la sugerencia durante esta sesión (sessionStorage).
  *
- * Configuración: meta/sistema/config.json → agrupacion
+ * Configuración: meta/core/config/config.json → agrupacion
  * (días analizados, stopwords, tamaño mínimo de grupo, máx. sugerencias).
  *
- * Uso: await dv.view("meta/dataview/vistas/agrupar", {});
+ * Uso: await dv.view("meta/tasks/agrupar", {});
  * Usado por: meta/tablero/bandeja.md.
  */
 let config = {};
 try {
-    config = JSON.parse(await dv.io.load("meta/sistema/config.json")) ?? {};
+    config = JSON.parse(await dv.io.load("meta/core/config/config.json")) ?? {};
 } catch (e) { /* sin config → valores por defecto */ }
 const cfg = config.agrupacion ?? {};
 const DIAS = cfg.diasAnalisis ?? 7;

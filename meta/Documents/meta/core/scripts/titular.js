@@ -2,7 +2,7 @@
  * titular.js — Script de usuario de Templater (tp.user.titular).
  *
  * Pide un título y renombra la nota siguiendo el ESTÁNDAR ÚNICO de nombres
- * del vault (ver meta/sistema/02-metadata.md):
+ * del vault (ver meta/docs/02-metadata.md):
  *
  *     AAAA-MM-DD <Tipo> - <Título>.md      (con título)
  *     AAAA-MM-DD <Tipo> HHmm.md            (sin título / Esc)
@@ -18,7 +18,7 @@
  *   <%* const titulo = await tp.user.titular(tp, "Idea"); %>
  *   # 💡 <% titulo %>
  *
- * Usado por: todas las plantillas de meta/templater/tipos.
+ * Usado por: todas las plantillas de meta/plantillas/tipos.
  */
 async function titular(tp, etiqueta = "Nota") {
     const fecha = tp.date.now("YYYY-MM-DD");

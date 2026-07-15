@@ -6,7 +6,7 @@
 
 ## Cómo añadir un nuevo TIPO de nota (3 pasos, ~2 minutos)
 
-1. Añade el tipo a `meta/templater/tipos/_generador.py` (diccionarios
+1. Añade el tipo a `meta/plantillas/tipos/_generador.py` (diccionarios
    `TIPOS` y `ETIQUETAS`) y ejecútalo (`python3 _generador.py`) — así TODAS
    las plantillas siguen saliendo del mismo molde. Para un experimento
    rápido también puedes copiar una plantilla a mano:
@@ -32,9 +32,9 @@ Ya aparece en `Alt+N`. No hay paso 4.
 
 - **Tablero:** nueva nota en `meta/tablero/` con frontmatter `tipo: tablero`
   y consultas Dataview. Enlázala desde `inicio.md`.
-- **Vista reutilizable:** nuevo archivo en `meta/dataview/vistas/` con el
+- **Vista reutilizable:** nuevo archivo en `meta/search/` con el
   encabezado de comentario estándar (qué hace, parámetros, quién la usa).
-  Se invoca con `await dv.view("meta/dataview/vistas/<nombre>", {...})`.
+  Se invoca con `await dv.view("meta/search/<nombre>", {...})`.
 - **Regla:** la lógica va en `vistas/*.js` (reutilizable y con un solo
   dueño); los tableros solo la invocan. No copies código entre tableros.
 
@@ -48,7 +48,7 @@ Ya aparece en `Alt+N`. No hay paso 4.
 
 ## Cambios de esquema
 
-- Campo nuevo en TODAS las notas → `meta/javascript/frontmatter.js` (una línea).
+- Campo nuevo en TODAS las notas → `meta/core/scripts/frontmatter.js` (una línea).
 - Campo nuevo de UN tipo → su plantilla en `tipos/` (parámetro `extra`).
 - Las notas viejas no se migran solas: el tablero [[mantenimiento]] las
   irá mostrando cuando les falte algo. Migra solo lo que uses.
@@ -65,19 +65,19 @@ Ya aparece en `Alt+N`. No hay paso 4.
 
 0. **Error "Exported object … must contain only functions"** → hay un
    script de QuickAdd (exporta `{entry, settings}`) dentro de
-   `meta/javascript/`, la carpeta de user-scripts de Templater. Muévelo a
-   `meta/quickadd/` y corrige su ruta en Ajustes → QuickAdd. Este error
+   `meta/core/scripts/`, la carpeta de user-scripts de Templater. Muévelo a
+   `meta/capture/` y corrige su ruta en Ajustes → QuickAdd. Este error
    rompe TODAS las plantillas mientras exista (fue la causa del fallo
    general del 2026-07-06).
 1. **Un atajo no responde** → Ajustes → Hotkeys: ¿sigue asignado? ¿Obsidian
    se reinició tras el último cambio de configuración?
 2. **La captura no crea notas** → Ajustes → QuickAdd → el choice existe y
-   su user script apunta a `meta/javascript/qa_captura.js`.
+   su user script apunta a `meta/core/scripts/qa_captura.js`.
 3. **La nota diaria sale vacía** → Ajustes → Templater: *Trigger on new
    file creation* activado y folder template `07 diary` →
-   `meta/templater/planes/plan-diario.md`.
+   `meta/plantillas/planes/plan-diario.md`.
 4. **Un tablero muestra error** → el mensaje de Dataview dice qué vista
-   falló; ábrela en `meta/dataview/vistas/` (cada una es pequeña y tiene
+   falló; ábrela en `meta/search/` (cada una es pequeña y tiene
    su propósito comentado arriba).
 5. **Las notas no se mueven solas** → Ajustes → Auto Note Mover: trigger
    "Automatic" y reglas tag→carpeta intactas.

@@ -27,7 +27,7 @@ aliases: [Bandeja, Inbox]
 ## Pendiente de procesar
 
 ```dataviewjs
-await dv.view("meta/dataview/vistas/bandeja", {});
+await dv.view("meta/capture/bandeja", {});
 ```
 
 ## 🧩 Ideas que parecen relacionadas (sugerencias)
@@ -36,7 +36,7 @@ await dv.view("meta/dataview/vistas/bandeja", {});
 > ideas que pertenecen al mismo tema. El sistema solo sugiere; tú decides.
 
 ```dataviewjs
-await dv.view("meta/dataview/vistas/agrupar", {});
+await dv.view("meta/tasks/agrupar", {});
 ```
 
 ← [[inicio]]

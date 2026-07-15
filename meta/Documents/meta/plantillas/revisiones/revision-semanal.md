@@ -26,7 +26,7 @@ tR += tp.user.frontmatter(tp, {
 ### 📥 Bandeja a cero
 
 ```dataviewjs
-await dv.view("meta/dataview/vistas/bandeja", {});
+await dv.view("meta/capture/bandeja", {});
 ```
 
 > Por cada elemento, UNA decisión: hacer ya (<2 min) · `tarea` · `proyecto` ·
@@ -67,7 +67,7 @@ GROUP BY file.link
 ## 3 · Proyectos (10 min)
 
 ```dataviewjs
-await dv.view("meta/dataview/vistas/proyectos", { wip: 3 });
+await dv.view("meta/tasks/proyectos", { wip: 3 });
 ```
 
 > Proyecto 😴 detenido: decide — reactivar (define siguiente acción),

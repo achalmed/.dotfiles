@@ -8,7 +8,7 @@
  * Uso desde una nota de búsqueda:
  *
  *   ```dataviewjs
- *   await dv.view("meta/dataview/buscar", {
+ *   await dv.view("meta/search/buscar", {
  *     fuentes: '"01 notes"',   // carpetas a consultar (sintaxis de dv.pages)
  *     detalle: true,           // true = tabla completa; false = solo títulos
  *     mensaje: "Escribe criterios para buscar…", // aviso si no hay criterios

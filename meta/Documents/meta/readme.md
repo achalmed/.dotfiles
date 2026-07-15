@@ -20,7 +20,7 @@ organizaste a mano**. Lo reemplazado está en `meta/archivo/`.
 3. **Nunca mover archivos fuera de las carpetas de captura** sin
    confirmación explícita o una regla claramente configurada.
 4. Toda automatización se ajusta desde **archivos de configuración**
-   (`meta/sistema/config.json` y los `data.json` de `.obsidian/`), nunca
+   (`meta/core/config/config.json` y los `data.json` de `.obsidian/`), nunca
    editando código.
 5. Reducir la carga cognitiva en la **captura**; aumentar la capacidad de
    **revisión, agrupación, priorización y ejecución** después.
@@ -90,7 +90,7 @@ Nunca hay que tocar código.
 
 | Qué configura | Archivo |
 | --- | --- |
-| Destinos sugeridos por tipo de nota, opciones del asistente de tareas (estados, prioridades, urgencias, tipos), arrastre de pendientes, agrupación (stopwords, umbrales) | `meta/sistema/config.json` |
+| Destinos sugeridos por tipo de nota, opciones del asistente de tareas (estados, prioridades, urgencias, tipos), arrastre de pendientes, agrupación (stopwords, umbrales) | `meta/core/config/config.json` |
 | **Carpetas que la autoorganización debe ignorar** (`excluded_folder`, acepta regex) y las 26 reglas tag→carpeta | `.obsidian/plugins/auto-note-mover/data.json` |
 | Ajustes de cada choice de captura (Carpeta, Nombre, Checklist, **Asistente**, **Arrastre**) | `.obsidian/plugins/quickadd/data.json` |
 | Carpeta de notas nuevas, diario, hotkeys | `.obsidian/app.json`, `daily-notes.json`, `hotkeys.json` |
@@ -108,7 +108,7 @@ whitelist.
 
 ### Captura rápida (`Alt+C`) y captura de tareas (`Alt+T`)
 
-- **Código:** `meta/quickadd/captura_diaria.js` (una sola macro para ambos).
+- **Código:** `meta/capture/captura_diaria.js` (una sola macro para ambos).
 - **Configuración:** `.obsidian/plugins/quickadd/data.json` — dos *choices*:
   - «📥 Captura rápida»: Carpeta `01 notes/00-bandeja`, Nombre `Capturas`,
     estado `bandeja`. Sin asistente: escribir y listo.
@@ -143,7 +143,7 @@ whitelist.
 
 ### Nota tipada (`Alt+N`) con destino confirmado
 
-- **Plantillas:** `meta/templater/tipos/` — 27 tipos, regeneradas con
+- **Plantillas:** `meta/plantillas/tipos/` — 27 tipos, regeneradas con
   `_generador.py` (editar la especificación ahí, nunca una a una).
 - **Scripts:** `titular.js` (título + nombre estándar), `frontmatter.js`
   (metadata única, ahora incluye `AutoNoteMover: disable` en toda nota de
@@ -161,7 +161,7 @@ whitelist.
 - **Plugin Daily notes:** `.obsidian/daily-notes.json` → carpeta
   `07 diary`, formato `YYYY/YYYY-MM-DD`.
 - **Plantilla automática:** Templater `folder_templates: 07 diary →
-  meta/templater/planes/plan-diario.md` con `trigger_on_file_creation:
+  meta/plantillas/planes/plan-diario.md` con `trigger_on_file_creation:
   true`. Ojo: cualquier archivo nuevo creado en `07 diary` recibe esa
   plantilla, no solo el del día.
 
@@ -190,7 +190,7 @@ whitelist.
 
 ### Agrupación sugerida de ideas (tablero bandeja)
 
-- **Código:** `meta/dataview/vistas/agrupar.js`; config en
+- **Código:** `meta/tasks/agrupar.js`; config en
   `config.json → agrupacion`; visible en [[bandeja]].
 - Analiza las tareas pendientes de los últimos 7 días, detecta palabras
   significativas compartidas (sin acentos, sin stopwords) y sugiere:
@@ -201,7 +201,7 @@ whitelist.
 
 ### Tableros y vistas (Dataview)
 
-- `meta/tablero/*` + `meta/dataview/vistas/*.js` (`bandeja`, `proyectos`,
+- `meta/tablero/*` + `meta/search/*.js` (`bandeja`, `proyectos`,
   `salud`, `exportar-sp`, `aleatoria`, `agrupar`) y `buscar.js`. Solo
   lectura, salvo el botón «Agrupar» descrito arriba (acción explícita).
 
@@ -214,7 +214,7 @@ whitelist.
 
 ### Revisiones periódicas
 
-- `meta/templater/revisiones/*.md`: al insertarlas renombran la nota
+- `meta/plantillas/revisiones/*.md`: al insertarlas renombran la nota
   actual al período (`2026-W28 Revisión semanal`, …). Acción única, sobre
   la nota en la que las invocas.
 
@@ -226,15 +226,15 @@ después del rediseño v3.
 | Automatización | Archivo responsable | Función/mecanismo | Cuándo se ejecuta | Qué modifica | Riesgo |
 | --- | --- | --- | --- | --- | --- |
 | **Autoorganización** | `auto-note-mover/main.js` + `data.json` | `fileCheck()` → `fileMove()` | Crear / cambio de metadata / renombrar | **MUEVE archivos** | 🔴 ALTO → 🟢 **contenido**: whitelist solo-bandeja + `disable` de serie |
-| Archivado de nota tipada | `meta/javascript/archivar.js` (v3) | `tp.user.archivar` | Solo al crear con `Alt+N` | Mueve la nota recién creada **con confirmación** | 🟢 Bajo (pregunta siempre) |
-| Renombrado de nota tipada | `meta/javascript/titular.js` | `tp.file.rename` | Solo al crear con `Alt+N` | Renombra la nota recién creada | 🟢 Bajo |
-| Renombrado de revisiones | `meta/templater/revisiones/*.md` | `tp.file.rename` | Al insertar la plantilla | Renombra la nota actual | 🟢 Bajo |
-| Captura diaria | `meta/quickadd/captura_diaria.js` | `entry()` | `Alt+C` / `Alt+T` | Crea/añade al diario del día; con relación asistida inserta bajo la tarea elegida | 🟢 Bajo |
+| Archivado de nota tipada | `meta/core/scripts/archivar.js` (v3) | `tp.user.archivar` | Solo al crear con `Alt+N` | Mueve la nota recién creada **con confirmación** | 🟢 Bajo (pregunta siempre) |
+| Renombrado de nota tipada | `meta/core/scripts/titular.js` | `tp.file.rename` | Solo al crear con `Alt+N` | Renombra la nota recién creada | 🟢 Bajo |
+| Renombrado de revisiones | `meta/plantillas/revisiones/*.md` | `tp.file.rename` | Al insertar la plantilla | Renombra la nota actual | 🟢 Bajo |
+| Captura diaria | `meta/capture/captura_diaria.js` | `entry()` | `Alt+C` / `Alt+T` | Crea/añade al diario del día; con relación asistida inserta bajo la tarea elegida | 🟢 Bajo |
 | Arrastre de pendientes (v3) | `captura_diaria.js` (ajuste Arrastre) | al crear diario nuevo | Primera captura del día | Copia `- [ ]` al día nuevo y marca `- [>]` en el anterior | 🟡 Medio-bajo (solo diarios de tareas) |
-| Agrupación sugerida (v3) | `meta/dataview/vistas/agrupar.js` | botón «Agrupar» | Solo clic del usuario | Añade `[tema:: …]` a líneas elegidas | 🟢 Bajo (acción explícita) |
+| Agrupación sugerida (v3) | `meta/tasks/agrupar.js` | botón «Agrupar» | Solo clic del usuario | Añade `[tema:: …]` a líneas elegidas | 🟢 Bajo (acción explícita) |
 | Plantilla de carpeta del diario | Templater `data.json` | `folder_templates` | Al crear CUALQUIER archivo en `07 diary` | Inserta plan-diario en el archivo nuevo | 🟡 Medio-bajo |
 | Ubicación de notas nuevas | `.obsidian/app.json` | `newFileFolderPath` | Al crear nota por enlace/comando | Solo decide dónde nace | 🟢 Nulo |
-| Tableros/vistas Dataview | `meta/dataview/`, `meta/tablero/` | `dv.view(...)` | Al abrir un tablero | Nada (solo lectura) | 🟢 Nulo |
+| Tableros/vistas Dataview | `meta/search/`, `meta/tablero/` | `dv.view(...)` | Al abrir un tablero | Nada (solo lectura) | 🟢 Nulo |
 | Abrir notas / workspaces | `abrir_nota.js`, `workspace-load-*.js` | macros QuickAdd | `Alt+I/B`, `Ctrl+N/S/L` | Nada | 🟢 Nulo |
 | Parche local del mover | `auto-note-mover/main.js` (`isFmDisable`) | guard `!fileCache` | — | — | 🟡 Mantenimiento: se pierde al actualizar el plugin |
 

@@ -3,7 +3,7 @@
  *
  * ÚNICA FUENTE DE VERDAD del esquema de metadata del vault.
  * Toda plantilla genera su frontmatter llamando a este script; si algún
- * día cambias el esquema, lo cambias SOLO aquí (ver meta/sistema/metadata.md).
+ * día cambias el esquema, lo cambias SOLO aquí (ver meta/docs/metadata.md).
  *
  * Uso desde una plantilla:
  *   <%* tR += tp.user.frontmatter(tp, {
@@ -13,7 +13,7 @@
  *     extra: { autor: "" },      // opcional: campos propios del tipo
  *   }); %>
  *
- * Usado por: todas las plantillas de meta/templater/tipos, planes y revisiones.
+ * Usado por: todas las plantillas de meta/plantillas/tipos, planes y revisiones.
  */
 function frontmatter(tp, opciones = {}) {
     const lineas = [

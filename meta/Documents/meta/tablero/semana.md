@@ -33,7 +33,7 @@ WHERE estado = "espera"
 ## 📤 Exportar tareas activas a Super Productivity
 
 ```dataviewjs
-await dv.view("meta/dataview/vistas/exportar-sp", { origen: "tareas" });
+await dv.view("meta/integrations/super-productivity/exportar-sp", { origen: "tareas" });
 ```
 
 ## 📅 Planes diarios de esta semana

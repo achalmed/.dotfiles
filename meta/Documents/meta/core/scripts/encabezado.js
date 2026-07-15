@@ -6,7 +6,7 @@
  * actual y actualiza el campo `page-no::` con la página de la anotación
  * seleccionada (tomada del parámetro `?page=` del enlace de Zotero).
  *
- * Usado por: meta/templater/extract research note from selection.md
+ * Usado por: meta/plantillas/extract research note from selection.md
  * (Sustituye a header.js, conservado en meta/archivo/javascript/.)
  */
 function encabezado(tp) {

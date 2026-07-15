@@ -1,10 +1,10 @@
-# Genera las plantillas de tipos de meta/templater/tipos/ desde una sola
+# Genera las plantillas de tipos de meta/plantillas/tipos/ desde una sola
 # especificación, garantizando estructura y metadata idénticas en todas.
 import os
 
 ETIQUETAS = {'idea': 'Idea', 'nota': 'Nota', 'investigacion': 'Investigación', 'proyecto': 'Proyecto', 'persona': 'Persona', 'libro': 'Libro', 'articulo': 'Artículo', 'paper': 'Paper', 'video': 'Video', 'clase': 'Clase', 'reunion': 'Reunión', 'sueno': 'Sueño', 'reflexion': 'Reflexión', 'decision': 'Decisión', 'problema': 'Problema', 'hipotesis': 'Hipótesis', 'experimento': 'Experimento', 'aprendizaje': 'Aprendizaje', 'error': 'Error', 'checklist': 'Checklist', 'objetivo': 'Objetivo', 'rutina': 'Rutina', 'habito': 'Hábito', 'bitacora': 'Bitácora', 'tarea': 'Tarea', 'algun-dia': 'Algún día', 'referencia': 'Referencia'}
 
-DESTINO = "/home/achalmaedison/Documents/meta/templater/tipos"
+DESTINO = "/home/achalmaedison/Documents/meta/plantillas/tipos"
 
 # nombre → (emoji, estado, tags, extra_dict, cuerpo)
 TIPOS = {

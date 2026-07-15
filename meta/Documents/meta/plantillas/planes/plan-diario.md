@@ -35,7 +35,7 @@ tR += tp.user.frontmatter(tp, {
 ### 📤 Exportar a Super Productivity (automático)
 
 ```dataviewjs
-await dv.view("meta/dataview/vistas/exportar-sp", { origen: "actual" });
+await dv.view("meta/integrations/super-productivity/exportar-sp", { origen: "actual" });
 ```
 
 ---
@@ -53,7 +53,7 @@ WHERE tipo = "plan-diario" AND fecha = date(this.fecha) - dur(1 day) AND !comple
 ### 📥 Bandeja (si hay algo urgente, súbelo a prioridad; el resto espera a las 20:20)
 
 ```dataviewjs
-await dv.view("meta/dataview/vistas/bandeja", { limite: 10 });
+await dv.view("meta/capture/bandeja", { limite: 10 });
 ```
 
 ---

@@ -12,7 +12,7 @@ aliases: [Mantenimiento]
 > no pide atención.
 
 ```dataviewjs
-await dv.view("meta/dataview/vistas/salud", { desde: "2026-07-06" });
+await dv.view("meta/organization/salud", { desde: "2026-07-06" });
 ```
 
 ## 📊 Notas recientes (últimos 7 días)

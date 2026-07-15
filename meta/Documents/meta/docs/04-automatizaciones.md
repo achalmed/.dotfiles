@@ -42,23 +42,23 @@ la nota está en `01 notes/00-bandeja`**. Desde la v3 (2026-07-15) su
 `excluded_folder` es una whitelist (`^(?!01 notes/00-bandeja$)` + carpetas
 protegidas explícitas): el resto del vault es intocable. Las notas creadas
 por el sistema llevan además `AutoNoteMover: disable`; el archivado de
-notas tipadas lo confirma el usuario vía `meta/javascript/archivar.js`.
+notas tipadas lo confirma el usuario vía `meta/core/scripts/archivar.js`.
 
-**Al abrir un tablero:** las vistas de `meta/dataview/vistas/` recalculan
+**Al abrir un tablero:** las vistas de `meta/search/` recalculan
 todo (bandeja, proyectos, salud, exportación SP). No hay nada que refrescar.
 
 ## Choices de QuickAdd (`.obsidian/plugins/quickadd/data.json`)
 
 | Choice | Script | Ajustes |
 | --- | --- | --- |
-| 📥 Captura rápida | `meta/quickadd/captura_diaria.js` | Carpeta `01 notes/00-bandeja`, Nombre `Capturas`, estado `bandeja` |
-| ✅ Captura tarea | `meta/quickadd/captura_diaria.js` | Carpeta `05 tasks`, Nombre `Tareas`, Checklist ✔, estado `activo`, **Asistente ✔, Arrastre ✔** (v3: clasificación opcional Esc=defecto, relación con tareas existentes, arrastre de pendientes al día nuevo) |
-| 🏠 Abrir inicio | `meta/quickadd/abrir_nota.js` | Ruta `meta/tablero/inicio.md` |
-| 📥 Abrir bandeja | `meta/quickadd/abrir_nota.js` | Ruta `meta/tablero/bandeja.md` |
-| Work with notes / Search research notes / Write with Longform | `meta/quickadd/workspace-load-*.js` | — |
+| 📥 Captura rápida | `meta/capture/captura_diaria.js` | Carpeta `01 notes/00-bandeja`, Nombre `Capturas`, estado `bandeja` |
+| ✅ Captura tarea | `meta/capture/captura_diaria.js` | Carpeta `05 tasks`, Nombre `Tareas`, Checklist ✔, estado `activo`, **Asistente ✔, Arrastre ✔** (v3: clasificación opcional Esc=defecto, relación con tareas existentes, arrastre de pendientes al día nuevo) |
+| 🏠 Abrir inicio | `meta/tablero/abrir_nota.js` | Ruta `meta/tablero/inicio.md` |
+| 📥 Abrir bandeja | `meta/tablero/abrir_nota.js` | Ruta `meta/tablero/bandeja.md` |
+| Work with notes / Search research notes / Write with Longform | `meta/workspaces/workspace-load-*.js` | — |
 
-⚠️ Los scripts de QuickAdd viven en `meta/quickadd/`, NUNCA en
-`meta/javascript/` (carpeta de user-scripts de Templater, que exige que
+⚠️ Los scripts de QuickAdd viven en `meta/capture/`, NUNCA en
+`meta/core/scripts/` (carpeta de user-scripts de Templater, que exige que
 todo exporte funciones). Ver [[01-arquitectura]].
 
 ## URI útiles (para lanzadores externos, Super Productivity, etc.)

@@ -15,9 +15,9 @@
  *                 + notas tipo "tarea" con estado "siguiente" o "activo"
  *                 (usa sus campos: proyecto, sp_est, fecha_limite).
  *
- * Uso: await dv.view("meta/dataview/vistas/exportar-sp", { origen: "actual" });
+ * Uso: await dv.view("meta/integrations/super-productivity/exportar-sp", { origen: "actual" });
  *
- * Usado por: meta/templater/planes/plan-diario.md, meta/tablero/semana.md.
+ * Usado por: meta/plantillas/planes/plan-diario.md, meta/tablero/semana.md.
  */
 const origen = input?.origen ?? "actual";
 let lineas = [];

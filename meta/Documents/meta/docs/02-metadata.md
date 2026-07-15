@@ -1,6 +1,6 @@
 # Estándar de metadata (Properties)
 
-**Una sola fuente de verdad:** `meta/javascript/frontmatter.js`. Todas las
+**Una sola fuente de verdad:** `meta/core/scripts/frontmatter.js`. Todas las
 plantillas lo llaman; si quieres cambiar el esquema, cámbialo SOLO ahí y
 todas las notas futuras lo heredan.
 
@@ -69,8 +69,8 @@ bandeja → siguiente/activo → espera → hecho → archivado
 
 ## Estándar único de nombres de archivo
 
-Lo aplica `meta/javascript/titular.js` (notas tipadas) y
-`meta/quickadd/captura_diaria.js` (diarios). Nunca se escribe a mano:
+Lo aplica `meta/core/scripts/titular.js` (notas tipadas) y
+`meta/capture/captura_diaria.js` (diarios). Nunca se escribe a mano:
 
 | Qué | Patrón | Ejemplo |
 | --- | --- | --- |

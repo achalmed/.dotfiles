@@ -5,7 +5,7 @@
  * cualquier nota del vault con `estado: bandeja`. Muestra la edad de cada
  * elemento y marca en rojo lo que lleva más de 7 días sin procesar.
  *
- * Uso: await dv.view("meta/dataview/vistas/bandeja", { limite: 50 });
+ * Uso: await dv.view("meta/capture/bandeja", { limite: 50 });
  *   - limite (opcional): máximo de filas a mostrar. Por defecto 100.
  *
  * Usado por: meta/tablero/bandeja.md, meta/tablero/inicio.md.

@@ -20,7 +20,7 @@ tR += tp.user.frontmatter(tp, {
 - Si solo pudiera conservar 3 proyectos, ¿cuáles?
 
 ```dataviewjs
-await dv.view("meta/dataview/vistas/proyectos", { wip: 3 });
+await dv.view("meta/tasks/proyectos", { wip: 3 });
 ```
 
 ## 2 · Poda dura
