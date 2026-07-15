@@ -23,8 +23,10 @@
    ```
 
 2. Documenta el tipo en la tabla de [[02-metadata]].
-3. Añade la regla tag→carpeta en Auto Note Mover (Ajustes → Auto Note
-   Mover) para que la nota se archive sola.
+3. Añade el destino sugerido en `meta/core/config/config.json → destinos`
+   (lo usa `archivar.js` al preguntar dónde guardar). Si además quieres que
+   el tag mueva notas sueltas de la bandeja, añade la regla tag→carpeta en
+   Auto Note Mover (solo actúa sobre la bandeja).
 
 Ya aparece en `Alt+N`. No hay paso 4.
 
@@ -32,16 +34,18 @@ Ya aparece en `Alt+N`. No hay paso 4.
 
 - **Tablero:** nueva nota en `meta/tablero/` con frontmatter `tipo: tablero`
   y consultas Dataview. Enlázala desde `inicio.md`.
-- **Vista reutilizable:** nuevo archivo en `meta/search/` con el
-  encabezado de comentario estándar (qué hace, parámetros, quién la usa).
-  Se invoca con `await dv.view("meta/search/<nombre>", {...})`.
-- **Regla:** la lógica va en `vistas/*.js` (reutilizable y con un solo
-  dueño); los tableros solo la invocan. No copies código entre tableros.
+- **Vista reutilizable:** nuevo `.js` en el módulo cuya responsabilidad
+  cubre (`capture/`, `tasks/`, `organization/`, `search/`, `review/`…) con
+  el encabezado de comentario estándar (qué hace, parámetros, quién la usa).
+  Se invoca con `await dv.view("meta/<modulo>/<nombre>", {...})`.
+- **Regla:** la lógica va en el `.js` del módulo (reutilizable y con un
+  solo dueño); los tableros solo la invocan. No copies código entre tableros.
 
 ## Cómo añadir una CAPTURA con atajo propio
 
 1. Ajustes → QuickAdd → Manage Macros → nueva macro → añade el user script
-   `qa_captura.js` y configura sus ajustes (Tipo/Carpeta/Etiqueta).
+   `meta/capture/captura_diaria.js` y configura sus ajustes
+   (Carpeta/Nombre/Tipo/Estado/Checklist/Asistente/Arrastre).
 2. Crea un choice tipo Macro que la lance y actívale el icono de rayo
    (command) para poder asignarle hotkey.
 3. Ajustes → Hotkeys → busca el choice → asigna tecla.

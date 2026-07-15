@@ -10,7 +10,10 @@ Construido el 2026-07-06 (v2 tras las primeras pruebas reales).
 [Auditoría](#auditoría-de-automatizaciones-2026-07-15)): la autoorganización
 dejó de ser un clasificador global y pasó a ser un asistente que **solo
 actúa sobre la bandeja, sugiere en vez de imponer y nunca toca lo que
-organizaste a mano**. Lo reemplazado está en `meta/archivo/`.
+organizaste a mano**. El mismo día se migró a la **arquitectura v4 por
+responsabilidad** (SRP: cada carpeta responde "¿qué problema resuelve?",
+no "¿con qué plugin está hecho?" — ver [[07-arquitectura-v4]]). Lo
+reemplazado está en `meta/archivo/`.
 
 ## Principios de diseño (v3)
 
@@ -63,24 +66,33 @@ Todo empieza por la fecha (o el período): ordena solo, se busca solo.
 
 ## Estructura
 
-| Carpeta        | Propósito                                                                                                                           |
-| -------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| `sistema/`     | Documentación + **`config.json` (configuración central de v3)**                                                                     |
-| `tablero/`     | Tableros automáticos: inicio, bandeja (+ agrupación), proyectos, ideas, fuentes, semana, mantenimiento                              |
-| `templater/`   | Plantillas: `tipos/` (27 + `_generador.py`), `planes/`, `revisiones/`, extract Zotero                                               |
-| `javascript/`  | **Solo scripts de Templater** (exportan una función): `frontmatter.js`, `titular.js`, `archivar.js`, `encabezado.js`, `etiqueta_proyecto.js` |
-| `quickadd/`    | **Solo macros de QuickAdd** (pueden exportar objetos): `captura_diaria.js`, `abrir_nota.js`, workspaces                             |
-| `dataview/`    | Buscador unificado (`buscar.js`), notas de búsqueda y `vistas/` (incluye `agrupar.js`)                                              |
-| `zotero/`      | Plantilla de importación de Zotero Integration                                                                                      |
-| `longform/`    | Paso de compilación de Longform                                                                                                     |
-| `attachments/` | Imágenes; Zotero exporta aquí                                                                                                       |
-| `templates/`   | (vacía; reservada para el plugin core Templates)                                                                                    |
-| `archivo/`     | Código y plantillas reemplazados — se conserva, no se ejecuta                                                                       |
+Arquitectura v4: **cada carpeta = una responsabilidad**, la tecnología es
+un detalle interno. Ningún módulo depende de otro módulo: todos dependen
+solo de `core/` (configuración y servicios compartidos).
 
-⚠️ **La separación `javascript/` vs `quickadd/` no es cosmética:** Templater
-carga todos los `.js` de su carpeta de user-scripts y exige que exporten
-funciones. Un script de QuickAdd (que exporta `{entry, settings}`) colocado
-en `javascript/` rompe TODAS las plantillas del vault con el error
+| Módulo         | Responsabilidad (una sola)                                                                                        |
+| -------------- | ------------------------------------------------------------------------------------------------------------------ |
+| `core/`        | **Servicios y configuración compartidos**: `config/config.json` (única config) y `scripts/` (frontmatter, titular, archivar, encabezado, etiqueta_proyecto) |
+| `capture/`     | Capturar: macro `Alt+C`/`Alt+T` (`captura_diaria.js`) + vista de la bandeja (`bandeja.js`)                          |
+| `tasks/`       | Tareas: agrupación sugerida (`agrupar.js`) y proyectos/siguiente acción (`proyectos.js`)                            |
+| `organization/`| Salud del estándar (`salud.js`); la autoorganización vive en el plugin Auto Note Mover + `core/scripts/archivar.js` |
+| `search/`      | Buscar: `buscar.js` + notas de búsqueda (Quick Search, Research Notes, …)                                           |
+| `review/`      | Revisión: resurrección de notas antiguas (`aleatoria.js`); las plantillas de revisión viven en `plantillas/revisiones` |
+| `plantillas/`  | TODAS las plantillas (única carpeta que Templater admite): `tipos/` (27, notas), `planes/` (planificación), `revisiones/` (revisión), extract (Zotero) |
+| `tablero/`     | Dashboards: inicio, bandeja, proyectos, ideas, fuentes, semana, mantenimiento + `abrir_nota.js`                     |
+| `workspaces/`  | Cambio de espacios de trabajo (`workspace-load-*.js`, `load-current-note.js`)                                       |
+| `integrations/`| Zotero (plantilla de importación), Longform (compilación), Super Productivity (`exportar-sp.js`)                    |
+| `docs/`        | Documentación del sistema (01–07)                                                                                   |
+| `attachments/` | Imágenes; Zotero exporta aquí                                                                                       |
+| `templates/`   | (vacía; reservada para el plugin core Templates)                                                                    |
+| `archivo/`     | Código y plantillas reemplazados — se conserva, no se ejecuta                                                       |
+
+⚠️ **Regla técnica que la arquitectura debe respetar:** Templater carga
+todos los `.js` de `core/scripts/` (su única carpeta de user-scripts) y
+exige que cada uno exporte UNA función. Las macros de QuickAdd (exportan
+objetos `{entry, settings}`) viven en su módulo de responsabilidad
+(`capture/`, `tablero/`, `workspaces/`) — **jamás dentro de
+`core/scripts/`**, o se rompen TODAS las plantillas del vault con el error
 "must contain only functions".
 
 ## Configuración central
@@ -261,6 +273,8 @@ después del rediseño v3.
 4. [[04-automatizaciones]] — cada atajo/automatismo y su archivo de config.
 5. [[05-super-productivity]] — exportar tareas: copiar y pegar, sin fechas a mano.
 6. [[06-mantenimiento]] — cómo ampliar el sistema sin romperlo.
+7. [[07-arquitectura-v4]] — la migración a arquitectura por responsabilidad:
+   mapa de responsabilidades, dependencias, riesgos y commits.
 
 ## Copias de seguridad de la configuración
 
