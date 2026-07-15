@@ -30,4 +30,13 @@ aliases: [Bandeja, Inbox]
 await dv.view("meta/dataview/vistas/bandeja", {});
 ```
 
+## 🧩 Ideas que parecen relacionadas (sugerencias)
+
+> Como en la hoja de papel bond: al final del día, unir con líneas las
+> ideas que pertenecen al mismo tema. El sistema solo sugiere; tú decides.
+
+```dataviewjs
+await dv.view("meta/dataview/vistas/agrupar", {});
+```
+
 ← [[inicio]]
