@@ -1,7 +1,156 @@
+# ~/.gitconfig
+# Configuración completa de Git — achalmaedison
+# ------------------------------------------------------------
+
 [user]
-	name = achalmed
+	name = achalmaedison
 	email = achalmed.18@gmail.com
+	# Si en el futuro firmas commits con SSH, descomenta y ajusta:
+	# signingkey = ~/.ssh/id_ed25519.pub
+
 [init]
 	defaultBranch = main
+
+# ------------------------------------------------------------
+# CORE: comportamiento base
+# ------------------------------------------------------------
+[core]
+	# Si no defines editor aquí, Git usa la variable $EDITOR de tu shell.
+	# Descomenta solo si quieres forzar uno específico:
+	# editor = nvim
+	pager = less -FRX
+	excludesfile = ~/.gitignore_global
+	whitespace = trailing-space,space-before-tab
+	autocrlf = input
+
+[rerere]
+	# Reutiliza automáticamente cómo resolviste un conflicto la última vez
+	enabled = true
+
+# ------------------------------------------------------------
+# COLORES: mejora la lectura en terminal (kitty soporta true color)
+# ------------------------------------------------------------
+[color]
+	ui = auto
+
+[color "branch"]
+	current = yellow reverse
+	local = yellow
+	remote = green
+
+[color "diff"]
+	meta = yellow
+	frag = magenta bold
+	old = red
+	new = green
+	whitespace = red reverse
+
+[color "status"]
+	added = green
+	changed = yellow
+	untracked = red
+
+# ------------------------------------------------------------
+# DIFF Y MERGE
+# ------------------------------------------------------------
+[diff]
+	algorithm = histogram
+	colorMoved = default
+
+[merge]
+	conflictstyle = diff3
+	tool = vimdiff
+
+# ------------------------------------------------------------
+# FLUJO CON REMOTOS (pull/push/fetch)
+# ------------------------------------------------------------
+[pull]
+	rebase = true
+	# Evita el "merge commit" automático al hacer pull; mantiene historial lineal
+
+[push]
+	autoSetupRemote = true
+	# Ya no necesitas "-u origin rama" la primera vez que subes una rama nueva
+	default = current
+	followTags = true
+
+[fetch]
+	prune = true
+	prunetags = true
+	# Limpia referencias a ramas remotas que ya fueron borradas en GitHub
+
+[rebase]
+	autoStash = true
+	autoSquash = true
+
+[commit]
+	verbose = true
+	# Muestra el diff dentro del editor al escribir el mensaje de commit
+
+[status]
+	short = true
+	branch = true
+
+[log]
+	date = iso
+
+[help]
+	autocorrect = 10
+	# Si escribes "get status", Git lo corrige y ejecuta "status" tras 1 segundo
+
+# ------------------------------------------------------------
+# CREDENCIALES
+# ------------------------------------------------------------
+[credential]
+	helper = cache --timeout=3600
+	# Recomendado para GitHub: usa autenticación SSH en vez de HTTPS+token.
+	# Así evitas tener que autenticarte en cada push.
+
+# ------------------------------------------------------------
+# ALIAS: atajos para el día a día
+# ------------------------------------------------------------
 [alias]
+	# Básicos abreviados
+	st = status
+	co = checkout
+	br = branch
+	ci = commit
+	df = diff
+
+	# Tu alias original, mejorado con colores
 	tree = log --graph --decorate --all --oneline
+
+	# Historial visual con más contexto (autor, fecha relativa)
+	lg = log --graph --pretty=format:'%C(yellow)%h%Creset -%C(auto)%d%Creset %s %C(green)(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+
+	# Deshacer cosas (los "control+z" de git)
+	undo = reset --soft HEAD~1
+	unstage = restore --staged
+	discard = checkout --
+	amend = commit --amend --no-edit
+
+	# Información rápida
+	last = log -1 HEAD --stat
+	contributors = shortlog --summary --numbered
+	branches = branch -a
+	remotes = remote -v
+
+	# Limpieza de ramas locales ya fusionadas a main
+	cleanup = "!git branch --merged | grep -v '\\*\\|main\\|master' | xargs -n 1 git branch -d"
+
+	# Buscar un texto en los mensajes de commit
+	find = "!git log --pretty=format:'%C(yellow)%h%Creset %s' --name-status --grep"
+
+# ------------------------------------------------------------
+# OPCIONAL AVANZADO: identidades distintas según carpeta
+# ------------------------------------------------------------
+# Como trabajas con varias instituciones (ONPE, INEI, PRONABEC, etc.),
+# puedes tener un correo/nombre distinto según el directorio del proyecto.
+# Ejemplo: todo lo que esté en ~/trabajo/onpe/ usa otro email automáticamente.
+#
+# [includeIf "gitdir:~/trabajo/onpe/"]
+# 	path = ~/.gitconfig-onpe
+#
+# Y en ~/.gitconfig-onpe pondrías solo:
+# [user]
+# 	email = tu_correo_institucional@onpe.gob.pe
