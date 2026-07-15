@@ -1,0 +1,99 @@
+{
+  "_doc": [
+    "config.json — Configuración central del sistema META (v3).",
+    "Todos los scripts nuevos leen de aquí: cambiar comportamiento = editar",
+    "este archivo, nunca el código. Documentación: meta/readme.md.",
+    "OJO: las carpetas que la autoorganización debe IGNORAR se configuran en",
+    ".obsidian/plugins/auto-note-mover/data.json → excluded_folder (el plugin",
+    "solo lee su propio archivo). Regla actual: whitelist — solo actúa sobre",
+    "01 notes/00-bandeja."
+  ],
+
+  "destinos": {
+    "_doc": "Carpeta sugerida por tipo de nota (Alt+N). null = quedarse en la bandeja. El script meta/javascript/archivar.js SIEMPRE pregunta antes de mover.",
+    "idea": null,
+    "nota": null,
+    "algun-dia": null,
+    "investigacion": "01 notes/10-investigacion",
+    "clase": "01 notes/20-universidad",
+    "reunion": "01 notes/30-trabajo-y-negocios",
+    "referencia": "01 notes/60-guias-y-referencias",
+    "libro": "01 notes/70-recursos",
+    "articulo": "01 notes/70-recursos",
+    "paper": "01 notes/70-recursos",
+    "video": "01 notes/70-recursos",
+    "decision": "02 analysis",
+    "problema": "02 analysis",
+    "hipotesis": "02 analysis",
+    "experimento": "02 analysis",
+    "aprendizaje": "02 analysis",
+    "error": "02 analysis",
+    "bitacora": "02 analysis",
+    "persona": "04 index",
+    "proyecto": "05 tasks",
+    "tarea": "05 tasks",
+    "objetivo": "05 tasks",
+    "rutina": "05 tasks",
+    "habito": "05 tasks",
+    "checklist": "05 tasks",
+    "sueno": "07 diary",
+    "reflexion": "07 diary"
+  },
+
+  "carpetasOcultasAlElegir": ["meta", "biblioteca", "attachments", "assets"],
+
+  "tareas": {
+    "_doc": "Asistente de captura de tareas (Alt+T). Esc en cualquier pregunta = valor por defecto (primera opción), sin fricción. Los valores se guardan como campos inline de Dataview: [prioridad:: alta] etc. El valor por defecto no se escribe (línea limpia).",
+    "estados": [
+      { "etiqueta": "⬜ Por hacer (defecto)", "valor": "" },
+      { "etiqueta": "🔄 En progreso", "valor": "en-progreso" },
+      { "etiqueta": "⏳ En espera", "valor": "en-espera" },
+      { "etiqueta": "🚧 Bloqueada", "valor": "bloqueada" },
+      { "etiqueta": "✅ Completada", "valor": "completada" }
+    ],
+    "prioridades": [
+      { "etiqueta": "➖ Sin prioridad (defecto)", "valor": "" },
+      { "etiqueta": "🔴 Alta", "valor": "alta" },
+      { "etiqueta": "🟡 Media", "valor": "media" },
+      { "etiqueta": "🟢 Baja", "valor": "baja" }
+    ],
+    "urgencias": [
+      { "etiqueta": "➖ Normal (defecto)", "valor": "" },
+      { "etiqueta": "🔥 Urgente", "valor": "urgente" },
+      { "etiqueta": "🌤️ Sin urgencia", "valor": "sin-urgencia" }
+    ],
+    "tipos": [
+      { "etiqueta": "➖ Sin tipo (defecto)", "valor": "" },
+      { "etiqueta": "💡 Idea", "valor": "idea" },
+      { "etiqueta": "🔬 Investigación", "valor": "investigacion" },
+      { "etiqueta": "✍️ Escritura", "valor": "escritura" },
+      { "etiqueta": "💻 Programación", "valor": "programacion" },
+      { "etiqueta": "🎓 Universidad", "valor": "universidad" },
+      { "etiqueta": "💼 Trabajo", "valor": "trabajo" },
+      { "etiqueta": "🏠 Personal", "valor": "personal" }
+    ],
+    "diasBusquedaRelacion": 14
+  },
+
+  "arrastre": {
+    "_doc": "Persistencia de pendientes: al crear el Tareas.md de un día nuevo se copian las '- [ ]' del diario anterior y en el archivo viejo se marcan '- [>]' (arrastrada) para que no haya duplicados en los tableros.",
+    "activado": true,
+    "encabezado": "## ⏭️ Arrastradas de {fecha}"
+  },
+
+  "agrupacion": {
+    "_doc": "Sugerencias de agrupación en el tablero bandeja. SOLO sugiere; agrupar añade [tema:: palabra] a las tareas elegidas. 'No' se recuerda y no vuelve a sugerirse.",
+    "diasAnalisis": 7,
+    "minLetrasPalabra": 4,
+    "minTareasPorGrupo": 2,
+    "maxSugerencias": 5,
+    "stopwords": [
+      "para", "como", "este", "esta", "esto", "estos", "estas", "sobre",
+      "donde", "cuando", "porque", "entre", "hasta", "desde", "hacer",
+      "tarea", "tareas", "nota", "notas", "revisar", "crear", "nueva",
+      "nuevo", "mejorar", "cambiar", "agregar", "añadir", "terminar",
+      "empezar", "seguir", "buscar", "tiene", "tengo", "debe", "puede",
+      "quiero", "falta", "cosas", "algo", "todo", "todos", "todas"
+    ]
+  }
+}
