@@ -1,4 +1,4 @@
--- /home/achalmaedison/Documents/biblioteca/Yulino, Anastacio Clemente/Introduccion conceptos basicos (3694)/Introduccion conceptos basicos - Yulino, Anastacio Clemente.sdr/metadata.pdf.lua
+-- /home/achalmaedison/.config/koreader/hashdocsettings/8e/8e70ba08f721cd81b6c7b8ff5b119a29.sdr/metadata.pdf.lua
 return {
     ["annotations"] = {},
     ["bbox"] = {},
@@ -51,14 +51,14 @@ return {
     ["kopt_zoom_overlap_h"] = 36,
     ["kopt_zoom_overlap_v"] = 36,
     ["kopt_zoom_range_number"] = 2,
-    ["last_page"] = 13,
+    ["last_page"] = 11,
     ["normal_zoom_mode"] = "content",
     ["page_overlap_style"] = "dim",
     ["page_positions"] = {},
     ["panel_zoom_enabled"] = false,
     ["partial_md5_checksum"] = "8e70ba08f721cd81b6c7b8ff5b119a29",
-    ["percent_finished"] = 0.92857142857143,
-    ["readermenu_tab_index"] = 1,
+    ["percent_finished"] = 0.78571428571429,
+    ["readermenu_tab_index"] = 7,
     ["show_overlap_enable"] = false,
     ["stats"] = {
         ["authors"] = "Yuliño Anastacio Clemente",
