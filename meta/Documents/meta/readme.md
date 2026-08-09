@@ -70,22 +70,22 @@ Arquitectura v4: **cada carpeta = una responsabilidad**, la tecnología es
 un detalle interno. Ningún módulo depende de otro módulo: todos dependen
 solo de `core/` (configuración y servicios compartidos).
 
-| Módulo         | Responsabilidad (una sola)                                                                                        |
-| -------------- | ------------------------------------------------------------------------------------------------------------------ |
-| `core/`        | **Servicios y configuración compartidos**: `config/config.json` (única config) y `scripts/` (frontmatter, titular, archivar, encabezado, etiqueta_proyecto) |
-| `capture/`     | Capturar: macro `Alt+C`/`Alt+T` (`captura_diaria.js`) + vista de la bandeja (`bandeja.js`)                          |
-| `tasks/`       | Tareas: agrupación sugerida (`agrupar.js`) y proyectos/siguiente acción (`proyectos.js`)                            |
-| `organization/`| Salud del estándar (`salud.js`); la autoorganización vive en el plugin Auto Note Mover + `core/scripts/archivar.js` |
-| `search/`      | Buscar: `buscar.js` + notas de búsqueda (Quick Search, Research Notes, …)                                           |
-| `review/`      | Revisión: resurrección de notas antiguas (`aleatoria.js`); las plantillas de revisión viven en `plantillas/revisiones` |
-| `plantillas/`  | TODAS las plantillas (única carpeta que Templater admite): `tipos/` (27, notas), `planes/` (planificación), `revisiones/` (revisión), extract (Zotero) |
-| `tablero/`     | Dashboards: inicio, bandeja, proyectos, ideas, fuentes, semana, mantenimiento + `abrir_nota.js`                     |
-| `workspaces/`  | Cambio de espacios de trabajo (`workspace-load-*.js`, `load-current-note.js`)                                       |
-| `integrations/`| Zotero (plantilla de importación), Longform (compilación), Super Productivity (`exportar-sp.js`)                    |
-| `docs/`        | Documentación del sistema (01–07)                                                                                   |
-| `attachments/` | Imágenes; Zotero exporta aquí                                                                                       |
-| `templates/`   | (vacía; reservada para el plugin core Templates)                                                                    |
-| `archivo/`     | Código y plantillas reemplazados — se conserva, no se ejecuta                                                       |
+| Módulo          | Responsabilidad (una sola)                                                                                                                                  |
+| --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `core/`         | **Servicios y configuración compartidos**: `config/config.json` (única config) y `scripts/` (frontmatter, titular, archivar, encabezado, etiqueta_proyecto) |
+| `capture/`      | Capturar: macro `Alt+C`/`Alt+T` (`captura_diaria.js`) + vista de la bandeja (`bandeja.js`)                                                                  |
+| `tasks/`        | Tareas: agrupación sugerida (`agrupar.js`) y proyectos/siguiente acción (`proyectos.js`)                                                                    |
+| `organization/` | Salud del estándar (`salud.js`); la autoorganización vive en el plugin Auto Note Mover + `core/scripts/archivar.js`                                         |
+| `search/`       | Buscar: `buscar.js` + notas de búsqueda (Quick Search, Research Notes, …)                                                                                   |
+| `review/`       | Revisión: resurrección de notas antiguas (`aleatoria.js`); las plantillas de revisión viven en `plantillas/revisiones`                                      |
+| `plantillas/`   | TODAS las plantillas (única carpeta que Templater admite): `tipos/` (27, notas), `planes/` (planificación), `revisiones/` (revisión), extract (Zotero)      |
+| `tablero/`      | Dashboards: inicio, bandeja, proyectos, ideas, fuentes, semana, mantenimiento + `abrir_nota.js`                                                             |
+| `workspaces/`   | Cambio de espacios de trabajo (`workspace-load-*.js`, `load-current-note.js`)                                                                               |
+| `integrations/` | Zotero (plantilla de importación), Longform (compilación), Super Productivity (`exportar-sp.js`)                                                            |
+| `docs/`         | Documentación del sistema (01–07)                                                                                                                           |
+| `attachments/`  | Imágenes; Zotero exporta aquí                                                                                                                               |
+| `templates/`    | (vacía; reservada para el plugin core Templates)                                                                                                            |
+| `archivo/`      | Código y plantillas reemplazados — se conserva, no se ejecuta                                                                                               |
 
 ⚠️ **Regla técnica que la arquitectura debe respetar:** Templater carga
 todos los `.js` de `core/scripts/` (su única carpeta de user-scripts) y
@@ -283,3 +283,18 @@ Cada archivo de `.obsidian/` modificado tiene respaldos al lado:
 (pre-v3: auto-note-mover y quickadd, 2026-07-15). Para revertir: reemplaza
 el archivo por su respaldo y reinicia Obsidian. El código de `meta/` está
 versionado en git (`~/.dotfiles`): `git log meta/` para el historial.
+
+## Ecosistema de aprendizaje (piezas hermanas)
+
+`meta/` gestiona el vault (captura, tareas, revisión); **no** define el formato
+de los apuntes de estudio ni de las fichas de investigación — esas funciones
+tienen dueño propio: los apuntes son del `learning-skill`
+(`git-awesome-ai-prompts/learning-skill/`, bóveda `Academic_Class-*`), las
+fichas y la catalogación de `prompts_for_zotero`, y la sync
+Calibre ⇄ KOReader ⇄ Zotero de `scripts_for_calibre/`. El contrato de
+integración (funciones únicas, claves compartidas, enlaces recíprocos,
+checklist de propagación) vive en un solo lugar:
+[mapa del ecosistema](../git-awesome-ai-prompts/ECOSISTEMA_APRENDIZAJE.md).
+Nota: `Academic_Class-*` y las fichas usan enlaces markdown puros
+`[texto](<ruta>)` — las 19 carpetas protegidas y la whitelist de la bandeja ya
+excluyen esas rutas de la autoorganización.
