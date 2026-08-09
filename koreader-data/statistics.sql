@@ -96,12 +96,16 @@ INSERT INTO book VALUES(78,'Matrices especiales de la tabla insumo producto','In
 INSERT INTO book VALUES(79,'Resumen metodologico para la medicion del pbi por departamentos','Instituto Nacional de Estadística e Informática',0,1786159118,0,234,'N/A','N/A','ba27b827f453faf7a29421552080d8fc',28,2);
 INSERT INTO book VALUES(80,'Dolarizacion financiera','Adrian Armas; Alain Ize; Eduardo Levy Yeyati',0,1786220460,0,25,'N/A','N/A','e5b7f99a4a8b30187dd07be9c719d7e7',47,4);
 INSERT INTO book VALUES(81,'Medir la economia de los paises segun el sistema de cuentas nacionales','Michel Séruzier',0,1786252605,0,733,'N/A','N/A','a4e1b38f7f33781854f44f2a0f37159a',1065,15);
-INSERT INTO book VALUES(82,'Introduccion conceptos basicos','Yuliño Anastacio Clemente',0,1786251162,0,14,'N/A','N/A','8e70ba08f721cd81b6c7b8ff5b119a29',1123,12);
-INSERT INTO book VALUES(83,'Teoria del consumo i','Yuliño Anastacio Clemente',0,1786251194,0,23,'N/A','N/A','17599de4086b4264a7ee8ee7ae5aa2d6',473,12);
+INSERT INTO book VALUES(82,'Introduccion conceptos basicos','Yuliño Anastacio Clemente',0,1786291316,0,14,'N/A','N/A','8e70ba08f721cd81b6c7b8ff5b119a29',1995,13);
+INSERT INTO book VALUES(83,'Teoria del consumo i','Yuliño Anastacio Clemente',0,1786291374,0,23,'N/A','N/A','17599de4086b4264a7ee8ee7ae5aa2d6',473,12);
 INSERT INTO book VALUES(84,'Teoria del consumo ii','Yuliño Anastacio Clemente',0,1786251242,0,23,'N/A','N/A','05438f8bff887c27f1acc2fdc903260c',14,2);
 INSERT INTO book VALUES(85,'Teoria del consumo iii','Yuliño Anastacio Clemente',0,1786251288,0,55,'N/A','N/A','904068c105b4668997d3dd00888d703c',144,3);
 INSERT INTO book VALUES(86,'Teoria de la inversion i','Yuliño Anastacio Clemente',0,1786251312,0,18,'N/A','N/A','0b8ccdc8ec59c0f06b057d1d45819f5c',6,1);
 INSERT INTO book VALUES(87,'KOReader Quickstart Guide','N/A',0,1786253463,0,8,'N/A','N/A','efeadae4fa3b06adbd84bf4f292be12c',NULL,0);
+INSERT INTO book VALUES(88,'Crecimiento economico i','Yuliño Anastacio Clemente',0,1786291535,0,33,'N/A','N/A','cf0fbd8739ecd0f037720dbad5976f5a',90,9);
+INSERT INTO book VALUES(89,'Economia monetaria i','Yuliño Anastacio Clemente',0,1786292052,0,43,'N/A','N/A','dd4a515e91210b068903c6bddc247e13',NULL,0);
+INSERT INTO book VALUES(90,'Economia monetaria i','Yuliño Anastacio Clemente',0,1786292060,0,66,'N/A','N/A','cff215d8f925a30d1a04935daf09a801',NULL,0);
+INSERT INTO book VALUES(91,'Metodologia de la cuentas nacionales anuales para el calculo de pbi','Instituto Nacional de Estadística e Informática',0,1786304072,0,20,'N/A','N/A','91c75ba256209d430042fcb09871a233',507,4);
 CREATE TABLE page_stat_data
         (
             id_book     integer,
@@ -307,6 +311,40 @@ INSERT INTO page_stat_data VALUES(85,2,1786251248,9,55);
 INSERT INTO page_stat_data VALUES(85,3,1786251257,8,55);
 INSERT INTO page_stat_data VALUES(86,2,1786251291,6,18);
 INSERT INTO page_stat_data VALUES(81,6,1786238221,120,733);
+INSERT INTO page_stat_data VALUES(82,5,1786257884,120,14);
+INSERT INTO page_stat_data VALUES(82,5,1786258031,16,14);
+INSERT INTO page_stat_data VALUES(82,6,1786258047,120,14);
+INSERT INTO page_stat_data VALUES(82,7,1786258254,58,14);
+INSERT INTO page_stat_data VALUES(82,8,1786258312,11,14);
+INSERT INTO page_stat_data VALUES(82,8,1786258369,120,14);
+INSERT INTO page_stat_data VALUES(82,10,1786258324,38,14);
+INSERT INTO page_stat_data VALUES(82,10,1786258553,16,14);
+INSERT INTO page_stat_data VALUES(82,10,1786258589,13,14);
+INSERT INTO page_stat_data VALUES(82,11,1786258569,8,14);
+INSERT INTO page_stat_data VALUES(82,11,1786258583,6,14);
+INSERT INTO page_stat_data VALUES(82,11,1786258602,50,14);
+INSERT INTO page_stat_data VALUES(82,11,1786258654,120,14);
+INSERT INTO page_stat_data VALUES(82,12,1786286454,120,14);
+INSERT INTO page_stat_data VALUES(82,13,1786291251,56,14);
+INSERT INTO page_stat_data VALUES(88,2,1786291397,6,33);
+INSERT INTO page_stat_data VALUES(88,2,1786291408,10,33);
+INSERT INTO page_stat_data VALUES(88,3,1786291418,19,33);
+INSERT INTO page_stat_data VALUES(88,6,1786291451,9,33);
+INSERT INTO page_stat_data VALUES(88,7,1786291460,8,33);
+INSERT INTO page_stat_data VALUES(88,9,1786291473,14,33);
+INSERT INTO page_stat_data VALUES(88,10,1786291487,6,33);
+INSERT INTO page_stat_data VALUES(88,28,1786291512,7,33);
+INSERT INTO page_stat_data VALUES(88,29,1786291519,5,33);
+INSERT INTO page_stat_data VALUES(88,13,1786291529,6,33);
+INSERT INTO page_stat_data VALUES(91,1,1786292860,5,20);
+INSERT INTO page_stat_data VALUES(91,1,1786292910,18,20);
+INSERT INTO page_stat_data VALUES(91,1,1786295593,13,20);
+INSERT INTO page_stat_data VALUES(91,2,1786292928,120,20);
+INSERT INTO page_stat_data VALUES(91,17,1786292892,5,20);
+INSERT INTO page_stat_data VALUES(91,1,1786295615,120,20);
+INSERT INTO page_stat_data VALUES(91,2,1786295785,97,20);
+INSERT INTO page_stat_data VALUES(91,1,1786301962,120,20);
+INSERT INTO page_stat_data VALUES(91,5,1786301952,9,20);
 CREATE TABLE numbers
         (
             number INTEGER PRIMARY KEY
@@ -1314,7 +1352,7 @@ INSERT INTO numbers VALUES(1000);
 PRAGMA writable_schema=ON;
 CREATE TABLE IF NOT EXISTS sqlite_sequence(name,seq);
 DELETE FROM sqlite_sequence;
-INSERT INTO sqlite_sequence VALUES('book',87);
+INSERT INTO sqlite_sequence VALUES('book',91);
 CREATE VIEW page_stat AS
         SELECT id_book, first_page + idx - 1 AS page, start_time, duration / (last_page - first_page + 1) AS duration
         FROM (
