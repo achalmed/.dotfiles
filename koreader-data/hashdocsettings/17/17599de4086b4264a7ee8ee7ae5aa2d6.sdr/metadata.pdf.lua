@@ -1,4 +1,4 @@
--- /home/achalmaedison/Documents/biblioteca/Yulino, Anastacio Clemente/Teoria del consumo i (3695)/Teoria del consumo i - Yulino, Anastacio Clemente.sdr/metadata.pdf.lua
+-- /home/achalmaedison/.config/koreader/hashdocsettings/17/17599de4086b4264a7ee8ee7ae5aa2d6.sdr/metadata.pdf.lua
 return {
     ["annotations"] = {},
     ["bbox"] = {},
@@ -51,13 +51,13 @@ return {
     ["kopt_zoom_overlap_h"] = 36,
     ["kopt_zoom_overlap_v"] = 36,
     ["kopt_zoom_range_number"] = 2,
-    ["last_page"] = 16,
+    ["last_page"] = 9,
     ["normal_zoom_mode"] = "content",
     ["page_overlap_style"] = "dim",
     ["page_positions"] = {},
     ["panel_zoom_enabled"] = false,
     ["partial_md5_checksum"] = "17599de4086b4264a7ee8ee7ae5aa2d6",
-    ["percent_finished"] = 0.69565217391304,
+    ["percent_finished"] = 0.39130434782609,
     ["readermenu_tab_index"] = 1,
     ["show_overlap_enable"] = false,
     ["stats"] = {
