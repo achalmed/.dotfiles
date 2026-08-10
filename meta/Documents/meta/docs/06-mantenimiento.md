@@ -75,8 +75,10 @@ Ya aparece en `Alt+N`. No hay paso 4.
    general del 2026-07-06).
 1. **Un atajo no responde** → Ajustes → Hotkeys: ¿sigue asignado? ¿Obsidian
    se reinició tras el último cambio de configuración?
-2. **La captura no crea notas** → Ajustes → QuickAdd → el choice existe y
-   su user script apunta a `meta/core/scripts/qa_captura.js`.
+2. **La captura no crea notas** → Ajustes → QuickAdd → el choice (Macro)
+   existe y su macro carga el user script `meta/capture/captura_diaria.js`
+   (es una macro de QuickAdd, no un user script de Templater; el antiguo
+   `qa_captura.js` quedó archivado en la migración a v4).
 3. **La nota diaria sale vacía** → Ajustes → Templater: *Trigger on new
    file creation* activado y folder template `07 diary` →
    `meta/plantillas/planes/plan-diario.md`.

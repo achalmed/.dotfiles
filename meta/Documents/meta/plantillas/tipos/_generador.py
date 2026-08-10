@@ -1,10 +1,14 @@
 # Genera las plantillas de tipos de meta/plantillas/tipos/ desde una sola
 # especificación, garantizando estructura y metadata idénticas en todas.
-import os
+from pathlib import Path
 
 ETIQUETAS = {'idea': 'Idea', 'nota': 'Nota', 'investigacion': 'Investigación', 'proyecto': 'Proyecto', 'persona': 'Persona', 'libro': 'Libro', 'articulo': 'Artículo', 'paper': 'Paper', 'video': 'Video', 'clase': 'Clase', 'reunion': 'Reunión', 'sueno': 'Sueño', 'reflexion': 'Reflexión', 'decision': 'Decisión', 'problema': 'Problema', 'hipotesis': 'Hipótesis', 'experimento': 'Experimento', 'aprendizaje': 'Aprendizaje', 'error': 'Error', 'checklist': 'Checklist', 'objetivo': 'Objetivo', 'rutina': 'Rutina', 'habito': 'Hábito', 'bitacora': 'Bitácora', 'tarea': 'Tarea', 'algun-dia': 'Algún día', 'referencia': 'Referencia'}
 
-DESTINO = "/home/achalmaedison/Documents/meta/plantillas/tipos"
+# Ruta relativa al propio archivo, no absoluta: este script YA vive en
+# plantillas/tipos/, así que Path(__file__).parent es esa misma carpeta (destino
+# de las plantillas). Funciona igual desde el repo (~/.dotfiles/meta/…) o desde
+# el vault (~/Documents/meta/…) sin editar nada.
+DESTINO = Path(__file__).resolve().parent
 
 # nombre → (emoji, estado, tags, extra_dict, cuerpo)
 TIPOS = {
@@ -325,7 +329,7 @@ await tp.user.archivar(tp, "{nombre}");
 {cuerpo}
 """
 
-os.makedirs(DESTINO, exist_ok=True)
+DESTINO.mkdir(parents=True, exist_ok=True)
 for nombre, (emoji, estado, tags, extra, cuerpo) in TIPOS.items():
     contenido = PLANTILLA.format(
         nombre=nombre,
@@ -336,7 +340,6 @@ for nombre, (emoji, estado, tags, extra, cuerpo) in TIPOS.items():
         extra=", ".join(f'{k}: {v}' for k, v in extra.items()),
         cuerpo=cuerpo,
     )
-    with open(os.path.join(DESTINO, f"{nombre}.md"), "w") as f:
-        f.write(contenido)
+    (DESTINO / f"{nombre}.md").write_text(contenido)
     print(f"✓ {nombre}.md")
 print(f"\n{len(TIPOS)} plantillas generadas en {DESTINO}")

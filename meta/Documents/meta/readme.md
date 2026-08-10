@@ -275,6 +275,8 @@ después del rediseño v3.
 6. [[06-mantenimiento]] — cómo ampliar el sistema sin romperlo.
 7. [[07-arquitectura-v4]] — la migración a arquitectura por responsabilidad:
    mapa de responsabilidades, dependencias, riesgos y commits.
+8. Arquitectura global del ecosistema y auditoría: `~/Documents/ecosistema/`
+   (ARQUITECTURA.md, doctor).
 
 ## Copias de seguridad de la configuración
 
