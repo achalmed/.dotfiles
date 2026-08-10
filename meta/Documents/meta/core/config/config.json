@@ -40,7 +40,13 @@
     "reflexion": "07 diary"
   },
 
-  "carpetasOcultasAlElegir": ["meta", "biblioteca", "attachments", "assets"],
+  "_doc_carpetasOcultasAlElegir": "Carpetas que archivar.js NO ofrece al 'Elegir otra carpeta…'. Se tratan como PREFIJOS (startsWith): oculta la carpeta y todo lo que cuelga de ella. Primero, almacenes internos del vault; luego, prefijos de sistemas externos que viven en ~/Documents pero NO son del vault (repos de scripts, blogs pub_*, frameworks, docs administrativos, índices y la capa de ecosistema).",
+  "carpetasOcultasAlElegir": [
+    "meta", "biblioteca", "attachments", "assets",
+    "Academic_Class", "Academic_Writing_Framework", "git-awesome-ai-prompts",
+    "scripts_for", "pub_", "CampusTeX", "website-achalma", "doc_",
+    "04 index", "ecosistema"
+  ],
 
   "tareas": {
     "_doc": "Asistente de captura de tareas (Alt+T). Esc en cualquier pregunta = valor por defecto (primera opción), sin fricción. Los valores se guardan como campos inline de Dataview: [prioridad:: alta] etc. El valor por defecto no se escribe (línea limpia).",

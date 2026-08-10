@@ -52,11 +52,16 @@ async function archivar(tp, tipo) {
     eleccion = eleccion ?? valores[0];
 
     if (eleccion === OTRA) {
+        // Las entradas de `ocultas` son PREFIJOS: ocultan una carpeta y todo lo
+        // que cuelga de ella (p === o o p empieza por "o/"), y también cualquier
+        // carpeta cuyo NOMBRE empiece por el prefijo (p empieza por "o") — así
+        // "scripts_for", "pub_", "doc_" o "Academic_Class" tapan scripts_for_*,
+        // pub_*, doc_* y Academic_Class-* aunque sean sistemas externos a este vault.
         const carpetas = app.vault
             .getAllLoadedFiles()
             .filter((f) => f instanceof tp.obsidian.TFolder && f.path !== "/")
             .map((f) => f.path)
-            .filter((p) => !ocultas.some((o) => p === o || p.startsWith(o + "/")))
+            .filter((p) => !ocultas.some((o) => p === o || p.startsWith(o + "/") || p.startsWith(o)))
             .sort();
         const destino = await tp.system.suggester(carpetas, carpetas, false, "Carpeta destino");
         eleccion = destino ?? BANDEJA; // Esc aquí = no mover.
@@ -65,7 +70,19 @@ async function archivar(tp, tipo) {
     if (eleccion === BANDEJA) return "";
 
     try {
+        // Crear una carpeta nueva no es silencioso: pide confirmación explícita
+        // (misma API de suggester que usa el resto del script). Esc/“No” = no se
+        // crea nada y la nota se queda en la bandeja. Evita que un destino mal
+        // escrito o un sistema externo genere carpetas fantasma en el vault.
         if (!app.vault.getAbstractFileByPath(eleccion)) {
+            const CREAR = "__crear__";
+            const confirmar = await tp.system.suggester(
+                [`✅ Sí, crear «${eleccion}» y mover aquí`, "📥 No: dejar en la bandeja"],
+                [CREAR, BANDEJA],
+                false,
+                `La carpeta «${eleccion}» no existe. ¿Crearla?`,
+            );
+            if (confirmar !== CREAR) return ""; // Esc o “No” = no mover.
             await app.vault.createFolder(eleccion).catch(() => {});
         }
         await tp.file.move(`${eleccion}/${tp.file.title}`);

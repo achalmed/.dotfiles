@@ -18,7 +18,14 @@
 const wip = input?.wip ?? 3;
 const soloSiguiente = input?.soloSiguiente ?? false;
 
-const todos = dv.pages().where((p) => p.tipo === "proyecto");
+// Acotado a las carpetas de contenido del vault: sin argumento, dv.pages()
+// indexaría TODO ~/Documents (biblioteca, pub_*, repos) — lentísimo e
+// irrelevante. Los proyectos (tipo: proyecto) viven en estas carpetas: se
+// crean en la bandeja (01 notes) y se archivan a 05 tasks (ver
+// core/config/config.json → destinos.proyecto); 02 analysis y 07 diary se
+// incluyen por si una nota tipada acaba allí.
+const CARPETAS = '"01 notes" or "02 analysis" or "05 tasks" or "07 diary"';
+const todos = dv.pages(CARPETAS).where((p) => p.tipo === "proyecto");
 const activos = todos.where((p) => p.estado === "activo").sort((p) => p.file.mtime, "desc");
 const espera = todos.where((p) => p.estado === "espera");
 const algunDia = todos.where((p) => p.estado === "algun-dia");

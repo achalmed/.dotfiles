@@ -22,6 +22,13 @@
 const origen = input?.origen ?? "actual";
 let lineas = [];
 
+// Acotado a las carpetas de contenido del vault: sin argumento, dv.pages()
+// indexaría TODO ~/Documents (biblioteca, pub_*, repos). Las notas tipo
+// "tarea" se archivan a 05 tasks (core/config/config.json → destinos.tarea)
+// pero pueden estar aún en la bandeja (01 notes); 02 analysis y 07 diary se
+// incluyen por si una tarea tipada acaba allí.
+const CARPETAS = '"01 notes" or "02 analysis" or "05 tasks" or "07 diary"';
+
 const limpiar = (texto) =>
     texto.replace(/\[\[([^\]|]+\|)?([^\]]+)\]\]/g, "$2") // [[enlaces]] → texto
          .replace(/\s+/g, " ")
@@ -44,7 +51,7 @@ if (origen === "actual") {
         .array();
 
     // 2) Notas de tarea individuales (con proyecto/estimado/fecha).
-    const deNotas = dv.pages()
+    const deNotas = dv.pages(CARPETAS)
         .where((p) => p.tipo === "tarea" && ["siguiente", "activo"].includes(p.estado))
         .sort((p) => p.fecha_limite ?? p.file.ctime, "asc")
         .map((p) => {
