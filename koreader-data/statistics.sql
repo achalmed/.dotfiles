@@ -105,7 +105,7 @@ INSERT INTO book VALUES(87,'KOReader Quickstart Guide','N/A',0,1786253463,0,8,'N
 INSERT INTO book VALUES(88,'Crecimiento economico i','Yuliño Anastacio Clemente',0,1786291535,0,33,'N/A','N/A','cf0fbd8739ecd0f037720dbad5976f5a',90,9);
 INSERT INTO book VALUES(89,'Economia monetaria i','Yuliño Anastacio Clemente',0,1786292052,0,43,'N/A','N/A','dd4a515e91210b068903c6bddc247e13',NULL,0);
 INSERT INTO book VALUES(90,'Economia monetaria i','Yuliño Anastacio Clemente',0,1786292060,0,66,'N/A','N/A','cff215d8f925a30d1a04935daf09a801',NULL,0);
-INSERT INTO book VALUES(91,'Metodologia de la cuentas nacionales anuales para el calculo de pbi','Instituto Nacional de Estadística e Informática',0,1786304072,0,20,'N/A','N/A','91c75ba256209d430042fcb09871a233',507,4);
+INSERT INTO book VALUES(91,'Metodologia de la cuentas nacionales anuales para el calculo de pbi','Instituto Nacional de Estadística e Informática',0,1786399859,0,20,'N/A','N/A','91c75ba256209d430042fcb09871a233',764,4);
 CREATE TABLE page_stat_data
         (
             id_book     integer,
@@ -345,6 +345,10 @@ INSERT INTO page_stat_data VALUES(91,1,1786295615,120,20);
 INSERT INTO page_stat_data VALUES(91,2,1786295785,97,20);
 INSERT INTO page_stat_data VALUES(91,1,1786301962,120,20);
 INSERT INTO page_stat_data VALUES(91,5,1786301952,9,20);
+INSERT INTO page_stat_data VALUES(91,1,1786390075,7,20);
+INSERT INTO page_stat_data VALUES(91,2,1786390082,10,20);
+INSERT INTO page_stat_data VALUES(91,2,1786390110,120,20);
+INSERT INTO page_stat_data VALUES(91,2,1786391726,120,20);
 CREATE TABLE numbers
         (
             number INTEGER PRIMARY KEY
