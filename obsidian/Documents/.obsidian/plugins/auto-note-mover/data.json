@@ -9,37 +9,32 @@
       "pattern": ""
     },
     {
-      "folder": "01 notes",
-      "tag": "",
-      "pattern": ""
-    },
-    {
       "folder": "02 analysis",
       "tag": "^#analysis",
       "pattern": ""
     },
     {
-      "folder": "04 index",
+      "folder": "01 notes/80-entidades",
       "tag": "^#place",
       "pattern": ""
     },
     {
-      "folder": "04 index",
+      "folder": "01 notes/80-entidades",
       "tag": "^#event",
       "pattern": ""
     },
     {
-      "folder": "04 index",
+      "folder": "01 notes/80-entidades",
       "tag": "^#person",
       "pattern": ""
     },
     {
-      "folder": "04 index",
+      "folder": "01 notes/80-entidades",
       "tag": "^#institution",
       "pattern": ""
     },
     {
-      "folder": "04 index",
+      "folder": "01 notes/80-entidades",
       "tag": "^#work",
       "pattern": ""
     },
@@ -131,6 +126,11 @@
     {
       "folder": "05 tasks",
       "tag": "^#checklist",
+      "pattern": ""
+    },
+    {
+      "folder": "01 notes",
+      "tag": "",
       "pattern": ""
     }
   ],

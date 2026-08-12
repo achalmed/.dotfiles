@@ -82,3 +82,4 @@ koreader/**/statistics.sqlite3
 # Kate/KDE: sesiones
 **/sessions/
 **/lspclient/hover*
+*.bak-doctor
