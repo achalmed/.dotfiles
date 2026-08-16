@@ -106,6 +106,7 @@ INSERT INTO book VALUES(88,'Crecimiento economico i','Yuliño Anastacio Clemente
 INSERT INTO book VALUES(89,'Economia monetaria i','Yuliño Anastacio Clemente',0,1786292052,0,43,'N/A','N/A','dd4a515e91210b068903c6bddc247e13',NULL,0);
 INSERT INTO book VALUES(90,'Economia monetaria i','Yuliño Anastacio Clemente',0,1786292060,0,66,'N/A','N/A','cff215d8f925a30d1a04935daf09a801',NULL,0);
 INSERT INTO book VALUES(91,'Metodologia de la cuentas nacionales anuales para el calculo de pbi','Instituto Nacional de Estadística e Informática',0,1786399859,0,20,'N/A','N/A','91c75ba256209d430042fcb09871a233',764,4);
+INSERT INTO book VALUES(92,'Constancia de Recepción','N/A',0,1786857032,0,1,'N/A','N/A','aaa1062344b4ccc86f5a6da06c25fd76',NULL,0);
 CREATE TABLE page_stat_data
         (
             id_book     integer,
@@ -1356,7 +1357,7 @@ INSERT INTO numbers VALUES(1000);
 PRAGMA writable_schema=ON;
 CREATE TABLE IF NOT EXISTS sqlite_sequence(name,seq);
 DELETE FROM sqlite_sequence;
-INSERT INTO sqlite_sequence VALUES('book',91);
+INSERT INTO sqlite_sequence VALUES('book',92);
 CREATE VIEW page_stat AS
         SELECT id_book, first_page + idx - 1 AS page, start_time, duration / (last_page - first_page + 1) AS duration
         FROM (
