@@ -109,6 +109,7 @@ INSERT INTO book VALUES(91,'Metodologia de la cuentas nacionales anuales para el
 INSERT INTO book VALUES(92,'Constancia de Recepción','N/A',0,1786857032,0,1,'N/A','N/A','aaa1062344b4ccc86f5a6da06c25fd76',NULL,0);
 INSERT INTO book VALUES(93,'TARECO-1-LINEA_NOMBRE','N/A',0,1787166086,0,0,'N/A','N/A','8d462cf923cb83df6520f172a4545c69',NULL,0);
 INSERT INTO book VALUES(94,'5s','Pelayo Hilario Valenzuela',0,1787186770,0,39,'N/A','N/A','3b589c95a21051ace1eab443cb1f41b2',NULL,0);
+INSERT INTO book VALUES(95,'Teorías de la inflación','Richard Roca',0,1787360474,0,44,'N/A','N/A','c44b58dc32477adf28f4c8c99aaeee33',1302,5);
 CREATE TABLE page_stat_data
         (
             id_book     integer,
@@ -352,6 +353,25 @@ INSERT INTO page_stat_data VALUES(91,1,1786390075,7,20);
 INSERT INTO page_stat_data VALUES(91,2,1786390082,10,20);
 INSERT INTO page_stat_data VALUES(91,2,1786390110,120,20);
 INSERT INTO page_stat_data VALUES(91,2,1786391726,120,20);
+INSERT INTO page_stat_data VALUES(95,2,1787357265,16,44);
+INSERT INTO page_stat_data VALUES(95,2,1787357292,120,44);
+INSERT INTO page_stat_data VALUES(95,2,1787357945,58,44);
+INSERT INTO page_stat_data VALUES(95,2,1787358041,79,44);
+INSERT INTO page_stat_data VALUES(95,3,1787357504,120,44);
+INSERT INTO page_stat_data VALUES(95,3,1787358003,38,44);
+INSERT INTO page_stat_data VALUES(95,2,1787358191,46,44);
+INSERT INTO page_stat_data VALUES(95,3,1787358237,65,44);
+INSERT INTO page_stat_data VALUES(95,3,1787358303,120,44);
+INSERT INTO page_stat_data VALUES(95,3,1787358936,62,44);
+INSERT INTO page_stat_data VALUES(95,3,1787358999,25,44);
+INSERT INTO page_stat_data VALUES(95,4,1787359024,120,44);
+INSERT INTO page_stat_data VALUES(95,5,1787358123,67,44);
+INSERT INTO page_stat_data VALUES(95,4,1787359362,5,44);
+INSERT INTO page_stat_data VALUES(95,4,1787359368,49,44);
+INSERT INTO page_stat_data VALUES(95,4,1787359418,73,44);
+INSERT INTO page_stat_data VALUES(95,5,1787359495,112,44);
+INSERT INTO page_stat_data VALUES(95,6,1787359354,7,44);
+INSERT INTO page_stat_data VALUES(95,6,1787359607,120,44);
 CREATE TABLE numbers
         (
             number INTEGER PRIMARY KEY
@@ -1359,7 +1379,7 @@ INSERT INTO numbers VALUES(1000);
 PRAGMA writable_schema=ON;
 CREATE TABLE IF NOT EXISTS sqlite_sequence(name,seq);
 DELETE FROM sqlite_sequence;
-INSERT INTO sqlite_sequence VALUES('book',94);
+INSERT INTO sqlite_sequence VALUES('book',95);
 CREATE VIEW page_stat AS
         SELECT id_book, first_page + idx - 1 AS page, start_time, duration / (last_page - first_page + 1) AS duration
         FROM (
