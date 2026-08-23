@@ -1,4 +1,4 @@
--- /home/achalmaedison/Documents/biblioteca/N. Gregory, Mankiw/Macroeconomia (1052)/Macroeconomia - N. Gregory, Mankiw.sdr/metadata.pdf.lua
+-- /home/achalmaedison/.config/koreader/hashdocsettings/3c/3ca432e4757b97e5e477fea716a230f2.sdr/metadata.pdf.lua
 return {
     ["annotations"] = {
         [1] = {
@@ -32,6 +32,43 @@ return {
                 ["zoom"] = 3.9613806519972,
             },
             ["text"] = "La ciencia no es más que el refinamiento de reflexiones cotidianas.",
+        },
+        [2] = {
+            ["chapter"] = "2 Los datos macroeconómicos",
+            ["color"] = "yellow",
+            ["datetime"] = "2026-08-22 21:44:36",
+            ["drawer"] = "lighten",
+            ["page"] = 66,
+            ["pageno"] = 66,
+            ["pboxes"] = {
+                [1] = {
+                    ["h"] = 12.251190185547,
+                    ["w"] = 24.752014160156,
+                    ["x"] = 401.29541015625,
+                    ["y"] = 329.20471191406,
+                },
+                [2] = {
+                    ["h"] = 12.251190185547,
+                    ["w"] = 259.25128936768,
+                    ["x"] = 57.512901306152,
+                    ["y"] = 342.81829833984,
+                },
+            },
+            ["pos0"] = {
+                ["page"] = 66,
+                ["rotation"] = 0,
+                ["x"] = 300.90570807361,
+                ["y"] = 351.2721512676,
+                ["zoom"] = 1.4652768107082,
+            },
+            ["pos1"] = {
+                ["page"] = 66,
+                ["rotation"] = 0,
+                ["x"] = 403.78462668363,
+                ["y"] = 336.12996117911,
+                ["zoom"] = 1.4652768107082,
+            },
+            ["text"] = "todos quieren averiguar qué ocurre en el mundo que los rodea.",
         },
     },
     ["bbox"] = {},
@@ -86,23 +123,18 @@ return {
     ["kopt_zoom_overlap_h"] = 36,
     ["kopt_zoom_overlap_v"] = 36,
     ["kopt_zoom_range_number"] = 2,
-    ["last_page"] = 73,
+    ["last_page"] = 119,
     ["normal_zoom_mode"] = "content",
     ["page_overlap_style"] = "dim",
-    ["page_positions"] = {
-        [1] = 0.70110701107011,
-        [2] = 0.39926199261993,
-        [3] = 0.79852398523985,
-        [4] = 0.37047970479705,
-    },
+    ["page_positions"] = {},
     ["panel_zoom_enabled"] = false,
     ["partial_md5_checksum"] = "3ca432e4757b97e5e477fea716a230f2",
-    ["percent_finished"] = 0.084490740740741,
-    ["readermenu_tab_index"] = 5,
+    ["percent_finished"] = 0.13773148148148,
+    ["readermenu_tab_index"] = 7,
     ["show_overlap_enable"] = false,
     ["stats"] = {
         ["authors"] = "N. Gregory Mankiw",
-        ["highlights"] = 1,
+        ["highlights"] = 2,
         ["language"] = "N/A",
         ["notes"] = 0,
         ["pages"] = 864,
@@ -114,7 +146,7 @@ return {
         ["modified"] = "2026-03-03",
         ["status"] = "reading",
     },
-    ["tile_cache_validity_ts"] = 1772549099,
+    ["tile_cache_validity_ts"] = 1787453076,
     ["toc_ticks_ignored_levels"] = {},
     ["zoom_mode"] = "content",
 }
