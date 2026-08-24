@@ -114,6 +114,7 @@ INSERT INTO book VALUES(96,'Estado macroeconomia y cuestiones basicas','José Lu
 INSERT INTO book VALUES(97,'Syllabus 04 macroeconomia i','Miguel Casares',0,1787453261,0,6,'N/A','N/A','286534d69df960bfd3100513db56a2c9',20,2);
 INSERT INTO book VALUES(98,'El corto plazo introduccion','Miguel Casares',0,1787453308,0,32,'N/A','N/A','2d0952caa8a5fda306a53883d1dc0e9b',19,2);
 INSERT INTO book VALUES(99,'Oficio N°0039-2026-2027-AJMP-CD/CRP','Alejandro José Manay Pillaca — Diputado de la República',0,1787578837,0,1,'N/A','N/A','9e09f20a49999cc87b3b7847f219e7d3',NULL,0);
+INSERT INTO book VALUES(100,'AAQkADdiMDk3NjFjLTc4MzMtNGRjZC1hMTA1LTUxOGFlMmQ4MDg0NgAQAHQ5vpBdBFtLsSdSAYb6LPg=','N/A',0,1787593066,0,1,'N/A','N/A','6e93181d0c4f4f3b026ae22a3d146fab',NULL,0);
 CREATE TABLE page_stat_data
         (
             id_book     integer,
@@ -1395,7 +1396,7 @@ INSERT INTO numbers VALUES(1000);
 PRAGMA writable_schema=ON;
 CREATE TABLE IF NOT EXISTS sqlite_sequence(name,seq);
 DELETE FROM sqlite_sequence;
-INSERT INTO sqlite_sequence VALUES('book',99);
+INSERT INTO sqlite_sequence VALUES('book',100);
 CREATE VIEW page_stat AS
         SELECT id_book, first_page + idx - 1 AS page, start_time, duration / (last_page - first_page + 1) AS duration
         FROM (
