@@ -122,6 +122,7 @@ INSERT INTO book VALUES(104,'Gerencia social en el perú','Jose Carlos Navarro L
 INSERT INTO book VALUES(105,'Gerencia social en el perú','Jose Carlos Navarro Lévano',0,1787676738,0,30,'N/A','N/A','5ae4c686bbb4eddb6ce127461346e8a4',173,7);
 INSERT INTO book VALUES(106,'Gerencia social en el perú','Jose Carlos Navarro Lévano',0,1787676785,0,21,'N/A','N/A','b6350773697cd44a25641c4d8b2057a5',38,3);
 INSERT INTO book VALUES(107,'Introduccion','Leonardo Gasparini',0,1787679771,0,14,'N/A','N/A','c886bfe3e86d1ffeb558a58ff84c1a24',724,7);
+INSERT INTO book VALUES(108,'El libro rojo','Mao Tse-Tung',0,1787682134,0,137,'N/A','N/A','c3b4da467e48d2d9f32bdcf493b0f07c',12,2);
 CREATE TABLE page_stat_data
         (
             id_book     integer,
@@ -444,6 +445,8 @@ INSERT INTO page_stat_data VALUES(107,7,1787677976,120,14);
 INSERT INTO page_stat_data VALUES(107,6,1787678911,18,14);
 INSERT INTO page_stat_data VALUES(107,8,1787678961,10,14);
 INSERT INTO page_stat_data VALUES(107,10,1787678984,120,14);
+INSERT INTO page_stat_data VALUES(108,1,1787682109,6,137);
+INSERT INTO page_stat_data VALUES(108,21,1787682128,6,137);
 CREATE TABLE numbers
         (
             number INTEGER PRIMARY KEY
@@ -1451,7 +1454,7 @@ INSERT INTO numbers VALUES(1000);
 PRAGMA writable_schema=ON;
 CREATE TABLE IF NOT EXISTS sqlite_sequence(name,seq);
 DELETE FROM sqlite_sequence;
-INSERT INTO sqlite_sequence VALUES('book',107);
+INSERT INTO sqlite_sequence VALUES('book',108);
 CREATE VIEW page_stat AS
         SELECT id_book, first_page + idx - 1 AS page, start_time, duration / (last_page - first_page + 1) AS duration
         FROM (
