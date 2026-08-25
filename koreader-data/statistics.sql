@@ -115,6 +115,13 @@ INSERT INTO book VALUES(97,'Syllabus 04 macroeconomia i','Miguel Casares',0,1787
 INSERT INTO book VALUES(98,'El corto plazo introduccion','Miguel Casares',0,1787453308,0,32,'N/A','N/A','2d0952caa8a5fda306a53883d1dc0e9b',19,2);
 INSERT INTO book VALUES(99,'Oficio N°0039-2026-2027-AJMP-CD/CRP','Alejandro José Manay Pillaca — Diputado de la República',0,1787578837,0,1,'N/A','N/A','9e09f20a49999cc87b3b7847f219e7d3',NULL,0);
 INSERT INTO book VALUES(100,'AAQkADdiMDk3NjFjLTc4MzMtNGRjZC1hMTA1LTUxOGFlMmQ4MDg0NgAQAHQ5vpBdBFtLsSdSAYb6LPg=','N/A',0,1787593066,0,1,'N/A','N/A','6e93181d0c4f4f3b026ae22a3d146fab',NULL,0);
+INSERT INTO book VALUES(101,'Introduccion a la macroeconomia','Richard Roca',0,1787665388,0,50,'N/A','N/A','8d56a5f49d726db2585319f34018c826',32,2);
+INSERT INTO book VALUES(102,'Fase de programación multianual de inversiones','Ministerio de Economía y Finanzas',0,1787665684,0,28,'N/A','N/A','0f7170636a71c8d2f83938c2d0fe93cf',7,1);
+INSERT INTO book VALUES(103,'Critica de la microeconomia politica teorias del valor y cierre categorial','Santiago Armesilla Conde',0,1787665864,0,343,'N/A','N/A','f0f03d625e100d3111911a760ecea9cc',97,6);
+INSERT INTO book VALUES(104,'Gerencia social en el perú','Jose Carlos Navarro Lévano',0,1787676547,0,43,'N/A','N/A','ff816f800c2fe23bd326ee9926df7d1f',389,17);
+INSERT INTO book VALUES(105,'Gerencia social en el perú','Jose Carlos Navarro Lévano',0,1787676738,0,30,'N/A','N/A','5ae4c686bbb4eddb6ce127461346e8a4',173,7);
+INSERT INTO book VALUES(106,'Gerencia social en el perú','Jose Carlos Navarro Lévano',0,1787676785,0,21,'N/A','N/A','b6350773697cd44a25641c4d8b2057a5',38,3);
+INSERT INTO book VALUES(107,'Introduccion','Leonardo Gasparini',0,1787679771,0,14,'N/A','N/A','c886bfe3e86d1ffeb558a58ff84c1a24',724,7);
 CREATE TABLE page_stat_data
         (
             id_book     integer,
@@ -389,6 +396,54 @@ INSERT INTO page_stat_data VALUES(97,3,1787453235,8,6);
 INSERT INTO page_stat_data VALUES(97,6,1787453249,12,6);
 INSERT INTO page_stat_data VALUES(98,2,1787453269,7,32);
 INSERT INTO page_stat_data VALUES(98,4,1787453277,12,32);
+INSERT INTO page_stat_data VALUES(101,2,1787665332,5,50);
+INSERT INTO page_stat_data VALUES(101,33,1787665352,27,50);
+INSERT INTO page_stat_data VALUES(102,22,1787665677,7,28);
+INSERT INTO page_stat_data VALUES(103,6,1787665734,8,343);
+INSERT INTO page_stat_data VALUES(103,12,1787665748,43,343);
+INSERT INTO page_stat_data VALUES(103,14,1787665792,23,343);
+INSERT INTO page_stat_data VALUES(103,15,1787665815,13,343);
+INSERT INTO page_stat_data VALUES(103,44,1787665854,5,343);
+INSERT INTO page_stat_data VALUES(103,45,1787665859,5,343);
+INSERT INTO page_stat_data VALUES(104,2,1787676112,14,43);
+INSERT INTO page_stat_data VALUES(104,8,1787676134,8,43);
+INSERT INTO page_stat_data VALUES(104,9,1787676142,28,43);
+INSERT INTO page_stat_data VALUES(104,10,1787676170,26,43);
+INSERT INTO page_stat_data VALUES(104,11,1787676196,36,43);
+INSERT INTO page_stat_data VALUES(104,12,1787676232,53,43);
+INSERT INTO page_stat_data VALUES(104,14,1787676286,10,43);
+INSERT INTO page_stat_data VALUES(104,17,1787676298,15,43);
+INSERT INTO page_stat_data VALUES(104,17,1787676315,5,43);
+INSERT INTO page_stat_data VALUES(104,26,1787676328,27,43);
+INSERT INTO page_stat_data VALUES(104,27,1787676355,28,43);
+INSERT INTO page_stat_data VALUES(104,28,1787676383,20,43);
+INSERT INTO page_stat_data VALUES(104,29,1787676403,27,43);
+INSERT INTO page_stat_data VALUES(104,30,1787676430,7,43);
+INSERT INTO page_stat_data VALUES(104,31,1787676437,34,43);
+INSERT INTO page_stat_data VALUES(104,33,1787676480,20,43);
+INSERT INTO page_stat_data VALUES(104,34,1787676500,21,43);
+INSERT INTO page_stat_data VALUES(104,36,1787676523,10,43);
+INSERT INTO page_stat_data VALUES(105,3,1787676550,59,30);
+INSERT INTO page_stat_data VALUES(105,4,1787676609,45,30);
+INSERT INTO page_stat_data VALUES(105,5,1787676654,16,30);
+INSERT INTO page_stat_data VALUES(105,6,1787676670,27,30);
+INSERT INTO page_stat_data VALUES(105,7,1787676697,7,30);
+INSERT INTO page_stat_data VALUES(105,8,1787676704,8,30);
+INSERT INTO page_stat_data VALUES(105,22,1787676721,11,30);
+INSERT INTO page_stat_data VALUES(106,3,1787676746,18,21);
+INSERT INTO page_stat_data VALUES(106,4,1787676764,15,21);
+INSERT INTO page_stat_data VALUES(106,6,1787676780,5,21);
+INSERT INTO page_stat_data VALUES(107,3,1787676861,120,14);
+INSERT INTO page_stat_data VALUES(107,4,1787677076,120,14);
+INSERT INTO page_stat_data VALUES(107,5,1787677276,120,14);
+INSERT INTO page_stat_data VALUES(107,3,1787677797,63,14);
+INSERT INTO page_stat_data VALUES(107,5,1787677920,10,14);
+INSERT INTO page_stat_data VALUES(107,6,1787677907,10,14);
+INSERT INTO page_stat_data VALUES(107,7,1787677934,13,14);
+INSERT INTO page_stat_data VALUES(107,7,1787677976,120,14);
+INSERT INTO page_stat_data VALUES(107,6,1787678911,18,14);
+INSERT INTO page_stat_data VALUES(107,8,1787678961,10,14);
+INSERT INTO page_stat_data VALUES(107,10,1787678984,120,14);
 CREATE TABLE numbers
         (
             number INTEGER PRIMARY KEY
@@ -1396,7 +1451,7 @@ INSERT INTO numbers VALUES(1000);
 PRAGMA writable_schema=ON;
 CREATE TABLE IF NOT EXISTS sqlite_sequence(name,seq);
 DELETE FROM sqlite_sequence;
-INSERT INTO sqlite_sequence VALUES('book',100);
+INSERT INTO sqlite_sequence VALUES('book',107);
 CREATE VIEW page_stat AS
         SELECT id_book, first_page + idx - 1 AS page, start_time, duration / (last_page - first_page + 1) AS duration
         FROM (
