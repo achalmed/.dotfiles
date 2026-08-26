@@ -1,4 +1,4 @@
--- /home/achalmaedison/Documents/biblioteca/Richard, Roca/Indice (3393)/Indice - Richard, Roca.sdr/metadata.pdf.lua
+-- /home/achalmaedison/.config/koreader/hashdocsettings/1d/1d32c6b697b9678c13dedfe112aac2a0.sdr/metadata.pdf.lua
 return {
     ["annotations"] = {},
     ["bbox"] = {},
@@ -58,7 +58,7 @@ return {
     ["panel_zoom_enabled"] = false,
     ["partial_md5_checksum"] = "1d32c6b697b9678c13dedfe112aac2a0",
     ["percent_finished"] = 0.66666666666667,
-    ["readermenu_tab_index"] = 1,
+    ["readermenu_tab_index"] = 7,
     ["show_overlap_enable"] = false,
     ["stats"] = {
         ["authors"] = "Richard Roca",

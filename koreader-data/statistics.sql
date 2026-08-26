@@ -43,7 +43,7 @@ INSERT INTO book VALUES(25,'Evaluacion de un seguro agrario por opciones reales'
 INSERT INTO book VALUES(26,'Money and money income an essay on the trasmission mechanism','David Laidler',0,1782014849,0,71,'N/A','N/A','75a1e56a7e9f83ae013021b0f9dcd230',6,1);
 INSERT INTO book VALUES(27,'Metodologia de calculo del indice de precios al consumidor de lima metropolitana','Instituto Nacional de Estadística e Informática',0,1782014893,0,85,'N/A','N/A','4a238c184fafe6b2d4a3ce55b61671bf',5,1);
 INSERT INTO book VALUES(28,'Guia de práctica','Matias Hisgen',0,1782014922,0,3,'N/A','N/A','768709f7375d8db8c0e3f3ca4644cc90',5,1);
-INSERT INTO book VALUES(29,'Indice','Richard Roca',0,1782015892,0,3,'N/A','N/A','1d32c6b697b9678c13dedfe112aac2a0',NULL,0);
+INSERT INTO book VALUES(29,'Indice','Richard Roca',0,1787703281,0,3,'N/A','N/A','1d32c6b697b9678c13dedfe112aac2a0',29,2);
 INSERT INTO book VALUES(30,'Trilce','César Vallejo',0,1782015961,0,119,'N/A','N/A','2d62ae75d9500bbe01ffc7365fde6b25',NULL,0);
 INSERT INTO book VALUES(31,'Poemas humanos','César Vallejo',0,1782016193,0,162,'N/A','N/A','90e5b0f53617fa3f954e38660ad0b1e2',NULL,0);
 INSERT INTO book VALUES(32,'La economía del cambio climático en América Latina y el Caribe Paradojas y desafíos del desarrollo sostenible','Alicia Bárcena',0,1782016226,0,98,'N/A','N/A','c5346f9947c023e09512ed18d46a4b24',5,1);
@@ -123,6 +123,10 @@ INSERT INTO book VALUES(105,'Gerencia social en el perú','Jose Carlos Navarro L
 INSERT INTO book VALUES(106,'Gerencia social en el perú','Jose Carlos Navarro Lévano',0,1787676785,0,21,'N/A','N/A','b6350773697cd44a25641c4d8b2057a5',38,3);
 INSERT INTO book VALUES(107,'Introduccion','Leonardo Gasparini',0,1787679771,0,14,'N/A','N/A','c886bfe3e86d1ffeb558a58ff84c1a24',724,7);
 INSERT INTO book VALUES(108,'El libro rojo','Mao Tse-Tung',0,1787682134,0,137,'N/A','N/A','c3b4da467e48d2d9f32bdcf493b0f07c',12,2);
+INSERT INTO book VALUES(109,'Modelos macroeconomicos estaticos','Domenech',0,1787702017,1,31,'N/A','N/A','18ebe7b249c8f6f344c8c37fcf5e2dc0',10,1);
+INSERT INTO book VALUES(110,'Syllabus macroeconomia','Hugo Perea',0,1787703223,0,3,'N/A','N/A','d31bda542cba784205e8244952351dc3',227,2);
+INSERT INTO book VALUES(111,'Indice','Richard Roca',0,1787703294,0,3,'N/A','N/A','8f0660db2ad0d2c2f220a40b109e415e',6,1);
+INSERT INTO book VALUES(112,'Macroeconomia avanzada','Richard Roca',0,1787703321,0,126,'N/A','N/A','a29ed4be9eb3846e58d068bfbe4a4be5',NULL,0);
 CREATE TABLE page_stat_data
         (
             id_book     integer,
@@ -447,6 +451,16 @@ INSERT INTO page_stat_data VALUES(107,8,1787678961,10,14);
 INSERT INTO page_stat_data VALUES(107,10,1787678984,120,14);
 INSERT INTO page_stat_data VALUES(108,1,1787682109,6,137);
 INSERT INTO page_stat_data VALUES(108,21,1787682128,6,137);
+INSERT INTO page_stat_data VALUES(29,2,1787701983,5,3);
+INSERT INTO page_stat_data VALUES(109,4,1787702005,10,31);
+INSERT INTO page_stat_data VALUES(110,1,1787702116,120,3);
+INSERT INTO page_stat_data VALUES(110,3,1787702297,8,3);
+INSERT INTO page_stat_data VALUES(110,1,1787703121,79,3);
+INSERT INTO page_stat_data VALUES(110,1,1787703204,10,3);
+INSERT INTO page_stat_data VALUES(110,3,1787703115,5,3);
+INSERT INTO page_stat_data VALUES(110,3,1787703216,5,3);
+INSERT INTO page_stat_data VALUES(29,3,1787703252,24,3);
+INSERT INTO page_stat_data VALUES(111,3,1787703288,6,3);
 CREATE TABLE numbers
         (
             number INTEGER PRIMARY KEY
@@ -1454,7 +1468,7 @@ INSERT INTO numbers VALUES(1000);
 PRAGMA writable_schema=ON;
 CREATE TABLE IF NOT EXISTS sqlite_sequence(name,seq);
 DELETE FROM sqlite_sequence;
-INSERT INTO sqlite_sequence VALUES('book',108);
+INSERT INTO sqlite_sequence VALUES('book',112);
 CREATE VIEW page_stat AS
         SELECT id_book, first_page + idx - 1 AS page, start_time, duration / (last_page - first_page + 1) AS duration
         FROM (
