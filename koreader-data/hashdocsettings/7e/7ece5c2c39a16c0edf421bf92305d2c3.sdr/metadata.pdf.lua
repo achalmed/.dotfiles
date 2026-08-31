@@ -1,4 +1,4 @@
--- /home/achalmaedison/Documents/biblioteca/Jose, De Gregorio/Macroeconomia teoria y politica (182)/Macroeconomia teoria y politica - Jose, De Gregorio.sdr/metadata.pdf.lua
+-- /home/achalmaedison/.config/koreader/hashdocsettings/7e/7ece5c2c39a16c0edf421bf92305d2c3.sdr/metadata.pdf.lua
 return {
     ["annotations"] = {},
     ["bbox"] = {},
@@ -51,13 +51,13 @@ return {
     ["kopt_zoom_overlap_h"] = 36,
     ["kopt_zoom_overlap_v"] = 36,
     ["kopt_zoom_range_number"] = 2,
-    ["last_page"] = 180,
+    ["last_page"] = 6,
     ["normal_zoom_mode"] = "content",
     ["page_overlap_style"] = "dim",
     ["page_positions"] = {},
     ["panel_zoom_enabled"] = false,
     ["partial_md5_checksum"] = "7ece5c2c39a16c0edf421bf92305d2c3",
-    ["percent_finished"] = 0.23047375160051,
+    ["percent_finished"] = 0.0076824583866837,
     ["readermenu_tab_index"] = 7,
     ["show_overlap_enable"] = false,
     ["stats"] = {

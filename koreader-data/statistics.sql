@@ -86,12 +86,12 @@ INSERT INTO book VALUES(68,'Gestion publica','Unknown',0,1785230787,0,141,'N/A',
 INSERT INTO book VALUES(69,'Tristes tropicos','Claude Levi-Strauss',0,1785426172,0,404,'N/A','N/A','77d0995d5e6d2f4056a3b7f3ae75d990',19,3);
 INSERT INTO book VALUES(70,'Introduccion','Banco Interamericano de Desarrollo',0,1785426534,8,20,'N/A','N/A','c82be95cf24c1168ea94f747426445d7',82,3);
 INSERT INTO book VALUES(71,'Software dynare','Andres Eliana Barrera Ardilla',0,1785426868,0,64,'N/A','N/A','3750c72390ee7248c645a241ba2e6d48',47,3);
-INSERT INTO book VALUES(72,'Macroeconomia teoria y politica','José De Gregorio',0,1786157819,0,781,'N/A','N/A','7ece5c2c39a16c0edf421bf92305d2c3',41,5);
+INSERT INTO book VALUES(72,'Macroeconomia teoria y politica','José De Gregorio',0,1788146516,0,781,'N/A','N/A','7ece5c2c39a16c0edf421bf92305d2c3',84,9);
 INSERT INTO book VALUES(73,'Linear algebra - Stephen H., Friedberg','N/A',0,1785427121,0,612,'N/A','N/A','f7356a8da38960f0d5afc874708df133',9,1);
 INSERT INTO book VALUES(74,'Date functions','EViews',0,1785427167,0,36,'N/A','N/A','84c540b9f262c0a5b308c7c0d6b96459',10,2);
 INSERT INTO book VALUES(75,'Dinero e inflacion','Hugo Perea',0,1785442320,0,63,'N/A','N/A','7f2469c8851bad556ebdcf154cebc1c0',NULL,0);
 INSERT INTO book VALUES(76,'Oficio S/N-AJMP-2026-L','Alejandro José Manay Pillaca — Diputado de la República',0,1785875908,0,1,'N/A','N/A','e21eab4a1710401e99cb163dfd8a3ea0',NULL,0);
-INSERT INTO book VALUES(77,'Macroeconomía','N. Gregory Mankiw',0,1787453157,2,864,'N/A','N/A','3ca432e4757b97e5e477fea716a230f2',394,12);
+INSERT INTO book VALUES(77,'Macroeconomía','N. Gregory Mankiw',0,1788146889,2,864,'N/A','N/A','3ca432e4757b97e5e477fea716a230f2',685,18);
 INSERT INTO book VALUES(78,'Matrices especiales de la tabla insumo producto','Instituto Nacional de Estadística e Informática',0,1786159045,0,211,'N/A','N/A','ccc830758f2fc6a6151e3ad61527c643',17,3);
 INSERT INTO book VALUES(79,'Resumen metodologico para la medicion del pbi por departamentos','Instituto Nacional de Estadística e Informática',0,1786159118,0,234,'N/A','N/A','ba27b827f453faf7a29421552080d8fc',28,2);
 INSERT INTO book VALUES(80,'Dolarizacion financiera','Adrian Armas; Alain Ize; Eduardo Levy Yeyati',0,1786220460,0,25,'N/A','N/A','e5b7f99a4a8b30187dd07be9c719d7e7',47,4);
@@ -111,8 +111,8 @@ INSERT INTO book VALUES(93,'TARECO-1-LINEA_NOMBRE','N/A',0,1787166086,0,0,'N/A',
 INSERT INTO book VALUES(94,'5s','Pelayo Hilario Valenzuela',0,1787186770,0,39,'N/A','N/A','3b589c95a21051ace1eab443cb1f41b2',NULL,0);
 INSERT INTO book VALUES(95,'Teorías de la inflación','Richard Roca',0,1787360474,0,44,'N/A','N/A','c44b58dc32477adf28f4c8c99aaeee33',1302,5);
 INSERT INTO book VALUES(96,'Estado macroeconomia y cuestiones basicas','José Luis Torres',0,1787452846,0,101,'N/A','N/A','4d21e9e43bea67e73b64de5aad1330f9',6,1);
-INSERT INTO book VALUES(97,'Syllabus 04 macroeconomia i','Miguel Casares',0,1787453261,0,6,'N/A','N/A','286534d69df960bfd3100513db56a2c9',20,2);
-INSERT INTO book VALUES(98,'El corto plazo introduccion','Miguel Casares',0,1787453308,0,32,'N/A','N/A','2d0952caa8a5fda306a53883d1dc0e9b',19,2);
+INSERT INTO book VALUES(97,'Syllabus 04 macroeconomia i','Miguel Casares',0,1788146992,0,6,'N/A','N/A','286534d69df960bfd3100513db56a2c9',87,4);
+INSERT INTO book VALUES(98,'El corto plazo introduccion','Miguel Casares',0,1788147101,0,32,'N/A','N/A','2d0952caa8a5fda306a53883d1dc0e9b',60,6);
 INSERT INTO book VALUES(99,'Oficio N°0039-2026-2027-AJMP-CD/CRP','Alejandro José Manay Pillaca — Diputado de la República',0,1787578837,0,1,'N/A','N/A','9e09f20a49999cc87b3b7847f219e7d3',NULL,0);
 INSERT INTO book VALUES(100,'AAQkADdiMDk3NjFjLTc4MzMtNGRjZC1hMTA1LTUxOGFlMmQ4MDg0NgAQAHQ5vpBdBFtLsSdSAYb6LPg=','N/A',0,1787593066,0,1,'N/A','N/A','6e93181d0c4f4f3b026ae22a3d146fab',NULL,0);
 INSERT INTO book VALUES(101,'Introduccion a la macroeconomia','Richard Roca',0,1787665388,0,50,'N/A','N/A','8d56a5f49d726db2585319f34018c826',32,2);
@@ -127,7 +127,9 @@ INSERT INTO book VALUES(109,'Modelos macroeconomicos estaticos','Domenech',0,178
 INSERT INTO book VALUES(110,'Syllabus macroeconomia','Hugo Perea',0,1787703223,0,3,'N/A','N/A','d31bda542cba784205e8244952351dc3',227,2);
 INSERT INTO book VALUES(111,'Indice','Richard Roca',0,1787703294,0,3,'N/A','N/A','8f0660db2ad0d2c2f220a40b109e415e',6,1);
 INSERT INTO book VALUES(112,'Macroeconomia avanzada','Richard Roca',0,1787703321,0,126,'N/A','N/A','a29ed4be9eb3846e58d068bfbe4a4be5',NULL,0);
-INSERT INTO book VALUES(113,'Macroeconomía','Olivier Blanchard; Alessia Amighini; Francesco Giavazzi',0,1788138304,0,683,'N/A','N/A','15c97dc26413223c12896dc199183d0f',397,18);
+INSERT INTO book VALUES(113,'Macroeconomía','Olivier Blanchard; Alessia Amighini; Francesco Giavazzi',0,1788148452,0,683,'N/A','N/A','15c97dc26413223c12896dc199183d0f',554,19);
+INSERT INTO book VALUES(114,'Macroeconomía intermedia para américa latina','Waldo Mendoza Bellido',0,1788148459,0,535,'N/A','N/A','27c782c63b44f02da6b17581ac02b17b',8,1);
+INSERT INTO book VALUES(115,'Macroeconomía','Olivier Blanchard',0,1788153629,0,574,'N/A','N/A','d493fedba9baeb4e3a01c4a2b7c7f325',240,2);
 CREATE TABLE page_stat_data
         (
             id_book     integer,
@@ -481,6 +483,42 @@ INSERT INTO page_stat_data VALUES(113,70,1788138170,5,683);
 INSERT INTO page_stat_data VALUES(113,74,1788138178,14,683);
 INSERT INTO page_stat_data VALUES(113,77,1788138195,5,683);
 INSERT INTO page_stat_data VALUES(113,253,1788138299,5,683);
+INSERT INTO page_stat_data VALUES(72,8,1788146463,22,781);
+INSERT INTO page_stat_data VALUES(72,9,1788146485,10,781);
+INSERT INTO page_stat_data VALUES(72,10,1788146495,6,781);
+INSERT INTO page_stat_data VALUES(72,13,1788146504,5,781);
+INSERT INTO page_stat_data VALUES(77,119,1788146532,7,864);
+INSERT INTO page_stat_data VALUES(77,18,1788146555,10,864);
+INSERT INTO page_stat_data VALUES(77,26,1788146568,12,864);
+INSERT INTO page_stat_data VALUES(77,28,1788146582,30,864);
+INSERT INTO page_stat_data VALUES(77,29,1788146612,16,864);
+INSERT INTO page_stat_data VALUES(77,30,1788146628,6,864);
+INSERT INTO page_stat_data VALUES(77,40,1788146649,8,864);
+INSERT INTO page_stat_data VALUES(77,46,1788146662,6,864);
+INSERT INTO page_stat_data VALUES(77,66,1788146681,7,864);
+INSERT INTO page_stat_data VALUES(77,68,1788146689,118,864);
+INSERT INTO page_stat_data VALUES(77,74,1788146811,58,864);
+INSERT INTO page_stat_data VALUES(77,67,1788146884,5,864);
+INSERT INTO page_stat_data VALUES(77,59,1788146874,8,864);
+INSERT INTO page_stat_data VALUES(97,1,1788146939,7,6);
+INSERT INTO page_stat_data VALUES(97,2,1788146946,13,6);
+INSERT INTO page_stat_data VALUES(97,3,1788146959,6,6);
+INSERT INTO page_stat_data VALUES(97,6,1788146915,17,6);
+INSERT INTO page_stat_data VALUES(97,6,1788146968,24,6);
+INSERT INTO page_stat_data VALUES(98,4,1788147027,12,32);
+INSERT INTO page_stat_data VALUES(98,6,1788147043,7,32);
+INSERT INTO page_stat_data VALUES(98,21,1788147010,6,32);
+INSERT INTO page_stat_data VALUES(98,1,1788147095,6,32);
+INSERT INTO page_stat_data VALUES(98,32,1788147083,10,32);
+INSERT INTO page_stat_data VALUES(113,253,1788147135,7,683);
+INSERT INTO page_stat_data VALUES(113,1,1788147164,7,683);
+INSERT INTO page_stat_data VALUES(113,1,1788147277,9,683);
+INSERT INTO page_stat_data VALUES(113,4,1788147288,9,683);
+INSERT INTO page_stat_data VALUES(113,6,1788147298,5,683);
+INSERT INTO page_stat_data VALUES(113,6,1788147304,120,683);
+INSERT INTO page_stat_data VALUES(114,1,1788148446,8,535);
+INSERT INTO page_stat_data VALUES(115,12,1788152147,120,574);
+INSERT INTO page_stat_data VALUES(115,16,1788152988,120,574);
 CREATE TABLE numbers
         (
             number INTEGER PRIMARY KEY
@@ -1488,7 +1526,7 @@ INSERT INTO numbers VALUES(1000);
 PRAGMA writable_schema=ON;
 CREATE TABLE IF NOT EXISTS sqlite_sequence(name,seq);
 DELETE FROM sqlite_sequence;
-INSERT INTO sqlite_sequence VALUES('book',113);
+INSERT INTO sqlite_sequence VALUES('book',115);
 CREATE VIEW page_stat AS
         SELECT id_book, first_page + idx - 1 AS page, start_time, duration / (last_page - first_page + 1) AS duration
         FROM (

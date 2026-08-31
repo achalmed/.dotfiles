@@ -58,7 +58,7 @@ return {
     ["panel_zoom_enabled"] = false,
     ["partial_md5_checksum"] = "286534d69df960bfd3100513db56a2c9",
     ["percent_finished"] = 1,
-    ["readermenu_tab_index"] = 1,
+    ["readermenu_tab_index"] = 7,
     ["show_overlap_enable"] = false,
     ["stats"] = {
         ["authors"] = "Miguel Casares",
