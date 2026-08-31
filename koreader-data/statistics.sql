@@ -127,6 +127,7 @@ INSERT INTO book VALUES(109,'Modelos macroeconomicos estaticos','Domenech',0,178
 INSERT INTO book VALUES(110,'Syllabus macroeconomia','Hugo Perea',0,1787703223,0,3,'N/A','N/A','d31bda542cba784205e8244952351dc3',227,2);
 INSERT INTO book VALUES(111,'Indice','Richard Roca',0,1787703294,0,3,'N/A','N/A','8f0660db2ad0d2c2f220a40b109e415e',6,1);
 INSERT INTO book VALUES(112,'Macroeconomia avanzada','Richard Roca',0,1787703321,0,126,'N/A','N/A','a29ed4be9eb3846e58d068bfbe4a4be5',NULL,0);
+INSERT INTO book VALUES(113,'Macroeconomía','Olivier Blanchard; Alessia Amighini; Francesco Giavazzi',0,1788138304,0,683,'N/A','N/A','15c97dc26413223c12896dc199183d0f',397,18);
 CREATE TABLE page_stat_data
         (
             id_book     integer,
@@ -461,6 +462,25 @@ INSERT INTO page_stat_data VALUES(110,3,1787703115,5,3);
 INSERT INTO page_stat_data VALUES(110,3,1787703216,5,3);
 INSERT INTO page_stat_data VALUES(29,3,1787703252,24,3);
 INSERT INTO page_stat_data VALUES(111,3,1787703288,6,3);
+INSERT INTO page_stat_data VALUES(113,1,1788137741,30,683);
+INSERT INTO page_stat_data VALUES(113,6,1788137777,23,683);
+INSERT INTO page_stat_data VALUES(113,8,1788137801,34,683);
+INSERT INTO page_stat_data VALUES(113,22,1788137843,21,683);
+INSERT INTO page_stat_data VALUES(113,22,1788137866,45,683);
+INSERT INTO page_stat_data VALUES(113,32,1788137921,7,683);
+INSERT INTO page_stat_data VALUES(113,34,1788137929,30,683);
+INSERT INTO page_stat_data VALUES(113,36,1788137967,33,683);
+INSERT INTO page_stat_data VALUES(113,37,1788138000,12,683);
+INSERT INTO page_stat_data VALUES(113,38,1788138012,6,683);
+INSERT INTO page_stat_data VALUES(113,39,1788138018,6,683);
+INSERT INTO page_stat_data VALUES(113,41,1788138025,6,683);
+INSERT INTO page_stat_data VALUES(113,42,1788138031,6,683);
+INSERT INTO page_stat_data VALUES(113,49,1788138042,99,683);
+INSERT INTO page_stat_data VALUES(113,51,1788138143,10,683);
+INSERT INTO page_stat_data VALUES(113,70,1788138170,5,683);
+INSERT INTO page_stat_data VALUES(113,74,1788138178,14,683);
+INSERT INTO page_stat_data VALUES(113,77,1788138195,5,683);
+INSERT INTO page_stat_data VALUES(113,253,1788138299,5,683);
 CREATE TABLE numbers
         (
             number INTEGER PRIMARY KEY
@@ -1468,7 +1488,7 @@ INSERT INTO numbers VALUES(1000);
 PRAGMA writable_schema=ON;
 CREATE TABLE IF NOT EXISTS sqlite_sequence(name,seq);
 DELETE FROM sqlite_sequence;
-INSERT INTO sqlite_sequence VALUES('book',112);
+INSERT INTO sqlite_sequence VALUES('book',113);
 CREATE VIEW page_stat AS
         SELECT id_book, first_page + idx - 1 AS page, start_time, duration / (last_page - first_page + 1) AS duration
         FROM (
