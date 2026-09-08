@@ -60,7 +60,7 @@
       "id": "enlace",
       "type": "security",
       "label": "Tailscale Funnel",
-      "sublabel": "https://<laptop>.ts.net",
+      "sublabel": "publica :5173",
       "tag": "sgdp.service",
       "pos": [
         290,
@@ -162,9 +162,9 @@
     },
     {
       "id": "marco",
-      "type": "external",
+      "type": "backend",
       "label": "marco_documental",
-      "sublabel": "scripts/build.sh · LuaLaTeX",
+      "sublabel": "hereda del AWF",
       "pos": [
         290,
         430
@@ -172,7 +172,8 @@
       "size": [
         155,
         66
-      ]
+      ],
+      "tag": "build.sh · LuaLaTeX"
     },
     {
       "id": "generador",
@@ -220,14 +221,14 @@
       "id": "enlace-web",
       "from": "enlace",
       "to": "web",
-      "label": "publica el sitio",
+      "label": "funnel a la web",
       "labelDy": -30
     },
     {
       "id": "web-equipos",
       "from": "web",
       "to": "equipos",
-      "label": "copia PDF y adjuntos",
+      "label": "sync incremental",
       "variant": "dashed",
       "labelDy": -30
     },
@@ -245,7 +246,7 @@
       "id": "bookmarks-api",
       "from": "bookmarks",
       "to": "api",
-      "label": "siembra el directorio",
+      "label": "POST /directorio/importar",
       "variant": "dashed"
     },
     {
@@ -283,7 +284,7 @@
       "dot": "cyan",
       "title": "Entrada",
       "items": [
-        "Enlace fijo con Tailscale Funnel, publicado al encender la laptop",
+        "Tailscale Funnel publica :5173; túnel Cloudflare efímero como respaldo",
         "React + TipTap; con service worker la bandeja abre aun sin servidor"
       ]
     },
@@ -299,7 +300,7 @@
       "dot": "amber",
       "title": "Documento",
       "items": [
-        "El cuerpo TipTap se serializa a LaTeX y build.sh compila con LuaLaTeX",
+        "marco_documental hereda la arquitectura del AWF",
         "Postgres guarda los metadatos; el .tex y el PDF viven en disco"
       ]
     }

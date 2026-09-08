@@ -6,9 +6,9 @@
   "status": "pass",
   "visualReview": "pending",
   "artifact": {
-    "path": "/home/achalmaedison/Documents/meta/docs/diagramas/05-sgdp/produccion-del-documento/produccion-del-documento.html",
-    "sha256": "d200c555b89febedfab914abf5700c44e477ab311395f4455c4b6721cdba0c06",
-    "bytes": 718303
+    "path": "/home/achalmaedison/.dotfiles/meta/Documents/meta/docs/diagramas/05-sgdp/produccion-del-documento/produccion-del-documento.html",
+    "sha256": "7318ae8ba07185229bdd2848c2d0a844f69f17957ba3e7b964581d4703e1db7e",
+    "bytes": 718281
   },
   "state": {
     "detail": "read",

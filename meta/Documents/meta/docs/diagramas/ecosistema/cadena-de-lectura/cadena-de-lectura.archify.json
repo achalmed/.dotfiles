@@ -162,7 +162,7 @@
     },
     {
       "id": "vault",
-      "type": "frontend",
+      "type": "database",
       "label": "Vault Obsidian",
       "sublabel": "01 notes … 07 diary",
       "tag": "fichas y apuntes",
@@ -282,7 +282,7 @@
       "id": "calibre-a-sync",
       "from": "calibre",
       "to": "sync",
-      "label": "metadata.db",
+      "label": "lee metadata.db",
       "variant": "emphasis"
     },
     {
@@ -332,6 +332,15 @@
       "from": "vault",
       "to": "quarto",
       "label": "posts .qmd"
+    },
+    {
+      "id": "sync-escribe-calibre",
+      "from": "sync",
+      "to": "calibre",
+      "label": "escribe ko_* · zot_*",
+      "variant": "emphasis",
+      "fromSide": "top",
+      "toSide": "top"
     }
   ],
   "cards": [
@@ -340,8 +349,7 @@
       "title": "Adquisición",
       "items": [
         "datafw trae DATOS; scripts_for_fuentes trae DOCUMENTOS",
-        "Ambos registran procedencia: URL, fecha y SHA-256",
-        "Única dependencia admitida: _lib se importa, no se copia"
+        "_lib se importa, no se copia; datafw importa de vuelta el manifiesto"
       ]
     },
     {
@@ -350,7 +358,7 @@
       "items": [
         "Calibre es la autoridad; Zotero es su espejo diario",
         "KOReader solo emite: nunca recibe escrituras",
-        "El sincronizador devuelve las columnas ko_* y zot_* a Calibre"
+        "El sincronizador lee metadata.db y devuelve las columnas ko_* y zot_*"
       ]
     },
     {
@@ -358,8 +366,7 @@
       "title": "Contratos",
       "items": [
         "core/env.sh y env.py: única resolución de rutas",
-        "Cada herramienta declara su suite.yml; el doctor la valida",
-        "Toda reorganización deja backup y UNDO.sh"
+        "Cada herramienta declara su suite.yml; el doctor la valida"
       ]
     }
   ]

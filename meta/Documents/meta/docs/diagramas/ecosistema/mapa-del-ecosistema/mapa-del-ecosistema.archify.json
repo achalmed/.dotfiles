@@ -1,0 +1,417 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Ecosistema ~/Documents — mapa de sistemas (N1)",
+    "output": "mapa-del-ecosistema.html",
+    "quality_profile": "showcase",
+    "viewBox": [
+      1380,
+      660
+    ],
+    "views": [
+      {
+        "id": "conocimiento",
+        "label": "Cadena de conocimiento",
+        "focus": [
+          "fuentesOficiales",
+          "biblioteca",
+          "vault",
+          "escritura"
+        ],
+        "note": "Fuente → biblioteca → nota y ficha en el vault → documento LuaLaTeX. Es la columna vertebral."
+      },
+      {
+        "id": "datos",
+        "label": "Datos y publicación",
+        "focus": [
+          "fuentesOficiales",
+          "datos",
+          "escritura",
+          "publicacion",
+          "hosting"
+        ],
+        "note": "Series oficiales → datafw → informes sobre AWF; posts y cursos → familia Quarto → Netlify."
+      },
+      {
+        "id": "infraestructura",
+        "label": "Infraestructura común",
+        "focus": [
+          "core",
+          "gobierno",
+          "automatizacion",
+          "herramientas"
+        ],
+        "note": "core/ da rutas y librerías; meta/ audita; los timers invocan a las suites."
+      },
+      {
+        "id": "trabajo",
+        "label": "Sistemas auxiliares",
+        "focus": [
+          "despacho",
+          "trabajo",
+          "biblioteca"
+        ],
+        "note": "El despacho (SGDP · CIL) es satélite: consume la biblioteca, no gobierna nada."
+      }
+    ]
+  },
+  "components": [
+    {
+      "id": "fuentesOficiales",
+      "type": "external",
+      "label": "Fuentes oficiales",
+      "sublabel": "BCRP · INEI · MEF · normas",
+      "tag": "fuera del workspace",
+      "pos": [
+        30,
+        210
+      ],
+      "size": [
+        170,
+        72
+      ]
+    },
+    {
+      "id": "despacho",
+      "type": "external",
+      "label": "Despacho parlamentario",
+      "sublabel": "diputado · asesores",
+      "pos": [
+        30,
+        460
+      ],
+      "size": [
+        170,
+        72
+      ]
+    },
+    {
+      "id": "gobierno",
+      "type": "security",
+      "label": "meta/ + prompts/",
+      "sublabel": "doctor · Método Documental",
+      "tag": "gobierno · solo lectura",
+      "pos": [
+        30,
+        570
+      ],
+      "size": [
+        170,
+        60
+      ]
+    },
+    {
+      "id": "datos",
+      "type": "backend",
+      "label": "D · 02 analysis (datafw)",
+      "sublabel": "26 conectores · pipeline",
+      "tag": "adquiere DATOS",
+      "pos": [
+        320,
+        90
+      ],
+      "size": [
+        190,
+        72
+      ]
+    },
+    {
+      "id": "biblioteca",
+      "type": "database",
+      "label": "E · Biblioteca y fuentes",
+      "sublabel": "Calibre · Zotero · KOReader",
+      "tag": "adquiere DOCUMENTOS",
+      "pos": [
+        320,
+        210
+      ],
+      "size": [
+        190,
+        72
+      ]
+    },
+    {
+      "id": "trabajo",
+      "type": "frontend",
+      "label": "G · 09 trabajo",
+      "sublabel": "CIL · SGDP · correo · cv",
+      "tag": "sensible · sin publicar",
+      "pos": [
+        320,
+        460
+      ],
+      "size": [
+        190,
+        72
+      ]
+    },
+    {
+      "id": "core",
+      "type": "backend",
+      "label": "core/",
+      "sublabel": "env · shell-lib · py-common",
+      "tag": "L1 · núcleo común",
+      "pos": [
+        320,
+        570
+      ],
+      "size": [
+        190,
+        60
+      ]
+    },
+    {
+      "id": "vault",
+      "type": "database",
+      "label": "F · Vault Obsidian",
+      "sublabel": "01 notes … 07 diary · meta/",
+      "tag": "notas · fichas · apuntes",
+      "pos": [
+        640,
+        210
+      ],
+      "size": [
+        190,
+        72
+      ]
+    },
+    {
+      "id": "docencia",
+      "type": "backend",
+      "label": "B · 10 Class · 11 Book",
+      "sublabel": "estándar 00–09 · 23 áreas",
+      "tag": "cursos",
+      "pos": [
+        640,
+        340
+      ],
+      "size": [
+        190,
+        72
+      ]
+    },
+    {
+      "id": "herramientas",
+      "type": "backend",
+      "label": "H · scripts_*",
+      "sublabel": "fuentes · calibre · quarto…",
+      "tag": "35 suites",
+      "pos": [
+        640,
+        570
+      ],
+      "size": [
+        190,
+        60
+      ]
+    },
+    {
+      "id": "escritura",
+      "type": "backend",
+      "label": "C · 03 writing (AWF)",
+      "sublabel": "tesis · monografía · artículo",
+      "tag": "LuaLaTeX + Biber",
+      "pos": [
+        960,
+        90
+      ],
+      "size": [
+        190,
+        72
+      ]
+    },
+    {
+      "id": "publicacion",
+      "type": "frontend",
+      "label": "A · 04 index + 11 pub_*",
+      "sublabel": "familia Quarto",
+      "tag": "12 sitios",
+      "pos": [
+        960,
+        340
+      ],
+      "size": [
+        190,
+        72
+      ]
+    },
+    {
+      "id": "automatizacion",
+      "type": "messagebus",
+      "label": "Automatización",
+      "sublabel": "3 timers systemd · sgdp.service",
+      "pos": [
+        960,
+        570
+      ],
+      "size": [
+        190,
+        60
+      ]
+    },
+    {
+      "id": "hosting",
+      "type": "cloud",
+      "label": "Netlify · GitHub",
+      "sublabel": "12 sitios · remotes",
+      "pos": [
+        1210,
+        340
+      ],
+      "size": [
+        150,
+        72
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "Vault Obsidian: 01–07 + meta/ (02, 03 y 04 son a la vez repos)",
+      "wraps": [
+        "datos",
+        "biblioteca",
+        "vault",
+        "escritura"
+      ],
+      "pad": 20
+    },
+    {
+      "kind": "region",
+      "label": "Infraestructura común (L1) y gobierno (L5)",
+      "wraps": [
+        "gobierno",
+        "core",
+        "herramientas",
+        "automatizacion"
+      ],
+      "pad": 14
+    }
+  ],
+  "connections": [
+    {
+      "id": "fuentes-datos",
+      "from": "fuentesOficiales",
+      "to": "datos",
+      "label": "series · APIs",
+      "fromSide": "top",
+      "toSide": "left"
+    },
+    {
+      "id": "fuentes-docs",
+      "from": "fuentesOficiales",
+      "to": "biblioteca",
+      "label": "documentos",
+      "variant": "emphasis"
+    },
+    {
+      "id": "biblioteca-vault",
+      "from": "biblioteca",
+      "to": "vault",
+      "label": "notas y fichas",
+      "variant": "emphasis"
+    },
+    {
+      "id": "vault-escritura",
+      "from": "vault",
+      "to": "escritura",
+      "label": "fichas + .bib",
+      "variant": "emphasis"
+    },
+    {
+      "id": "datos-escritura",
+      "from": "datos",
+      "to": "escritura",
+      "label": "reportes --perfil academico"
+    },
+    {
+      "id": "biblioteca-datos",
+      "from": "biblioteca",
+      "to": "datos",
+      "label": "ruta_real()",
+      "variant": "dashed"
+    },
+    {
+      "id": "docencia-publicacion",
+      "from": "docencia",
+      "to": "publicacion",
+      "label": "hardlink cursos"
+    },
+    {
+      "id": "herramientas-publicacion",
+      "from": "herramientas",
+      "to": "publicacion",
+      "label": "render · publish",
+      "fromSide": "right",
+      "toSide": "bottom"
+    },
+    {
+      "id": "publicacion-hosting",
+      "from": "publicacion",
+      "to": "hosting",
+      "label": "deploy"
+    },
+    {
+      "id": "despacho-trabajo",
+      "from": "despacho",
+      "to": "trabajo",
+      "label": "HTTPS"
+    },
+    {
+      "id": "trabajo-biblioteca",
+      "from": "trabajo",
+      "to": "biblioteca",
+      "label": "fichas por calibre_id",
+      "variant": "dashed"
+    },
+    {
+      "id": "gobierno-core",
+      "from": "gobierno",
+      "to": "core",
+      "label": "valida suite.yml",
+      "variant": "security"
+    },
+    {
+      "id": "core-herramientas",
+      "from": "core",
+      "to": "herramientas",
+      "label": "env · librerías",
+      "variant": "dashed"
+    },
+    {
+      "id": "automatizacion-herramientas",
+      "from": "automatizacion",
+      "to": "herramientas",
+      "label": "invoca suites",
+      "variant": "dashed"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Sistema principal",
+      "items": [
+        "La cadena de conocimiento: fuente → biblioteca (Calibre · Zotero) → vault (notas, fichas, apuntes) → documento",
+        "Ocho dominios: A publicación · B docencia · C escritura · D datos · E biblioteca · F vault · G trabajo · H herramientas"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Infraestructura común",
+      "items": [
+        "core/: única resolución de rutas y librerías compartidas; 35 suites bajo contrato suite.yml",
+        "meta/: diagnóstico, doctor de solo lectura y reparaciones con UNDO.sh",
+        "prompts/: Método Documental (pasos 00-09) y skills"
+      ]
+    },
+    {
+      "dot": "slate",
+      "title": "Auxiliares y desacoplados",
+      "items": [
+        "09 trabajo (SGDP · CIL · correo) y 08 personal: sensibles, sin publicar",
+        "bookmarks · job-hunter-pro · scripts_for_facebook: desacoplados a propósito"
+      ]
+    }
+  ]
+}

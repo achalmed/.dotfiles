@@ -259,12 +259,6 @@
   ],
   "connections": [
     {
-      "id": "datos-a-calibre",
-      "from": "datafw",
-      "to": "calibre",
-      "label": "ingesta · enlaza data/raw"
-    },
-    {
       "id": "docs-a-calibre",
       "from": "fuentes",
       "to": "calibre",
@@ -287,7 +281,7 @@
       "id": "espejo-ris",
       "from": "calibre",
       "to": "zotero",
-      "label": ".ris + espejo diario",
+      "label": "espejo 04:30",
       "labelDy": 46
     },
     {
@@ -308,7 +302,8 @@
       "from": "zotero",
       "to": "sync",
       "label": "lee anotaciones",
-      "labelDx": 20
+      "fromSide": "right",
+      "toSide": "left"
     },
     {
       "id": "escribe-columnas",
@@ -366,16 +361,16 @@
       "dot": "cyan",
       "title": "Adquisición",
       "items": [
-        "datafw/connectors trae DATOS oficiales a data/raw + catalogo.sqlite",
-        "scripts_for_fuentes trae DOCUMENTOS a entrada/ + ledger"
+        "datafw trae DATOS a data/raw; scripts_for_fuentes trae DOCUMENTOS y cataloga",
+        "datafw no cataloga: su data/raw es además bandeja de la ingesta"
       ]
     },
     {
       "dot": "emerald",
-      "title": "Almacenes y sincronización",
+      "title": "Almacenes",
       "items": [
-        "Calibre es la autoridad bibliográfica; Zotero es su espejo",
-        "KOReader solo se lee: aporta ko_* a Calibre"
+        "Calibre es la autoridad; el espejo con Zotero corre a las 04:30",
+        "El .ris de alta lo genera la ingesta y se importa a mano: son dos mecanismos"
       ]
     },
     {

@@ -5037,10 +5037,10 @@
         <!-- Connection paths (before components for correct z-order) -->
         <path data-edge-from="vault" data-edge-to="hub" data-edge-label="notas → posts · _indice/" data-edge-key="0" data-composition-points="236,122;356,122" d="M 236 122 L 356 122" class="a-emphasis" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
         <path data-edge-from="hub" data-edge-to="qstudio" data-edge-label=".qmd + YAML ⇄ Excel" data-edge-key="1" data-composition-points="532,122;652,122" d="M 532 122 L 652 122" class="a-emphasis" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
-        <path data-edge-from="qstudio" data-edge-to="netlify" data-edge-label="render · publish ×12" data-edge-key="2" data-composition-points="828,122;948,122" d="M 828 122 L 948 122" class="a-emphasis" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
+        <path data-edge-from="qstudio" data-edge-to="netlify" data-edge-label="quarto publish ×12" data-edge-key="2" data-composition-points="828,122;948,122" d="M 828 122 L 948 122" class="a-emphasis" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
         <path data-edge-from="vault" data-edge-to="writing" data-edge-label="notas → fichas" data-edge-key="3" data-composition-points="148,154;148,300" d="M 148 154 L 148 300" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         <path data-edge-from="analysis" data-edge-to="writing" data-edge-label="reportes --perfil academico" data-edge-key="4" data-composition-points="356,332;236,332" d="M 356 332 L 236 332" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
-        <path data-edge-from="class" data-edge-to="hub" data-edge-label="publish-web.sh · hardlinks" data-edge-key="5" data-composition-points="1124,332;1160,332;1160,44;444,44;444,90" d="M 1124 332 L 1152 332 Q 1160 332 1160 324 L 1160 52 Q 1160 44 1152 44 L 452 44 Q 444 44 444 52 L 444 90" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+        <path data-edge-from="class" data-edge-to="hub" data-edge-label="publicar-web.py → cursos/" data-edge-key="5" data-composition-points="1124,332;1160,332;1160,44;444,44;444,90" d="M 1124 332 L 1152 332 Q 1160 332 1160 324 L 1160 52 Q 1160 44 1152 44 L 452 44 Q 444 44 444 52 L 444 90" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         <path data-edge-from="core" data-edge-to="qstudio" data-edge-label="env.sh · shell-lib" data-edge-key="6" data-composition-points="740,300;740,154" d="M 740 300 L 740 154" class="a-dashed" stroke-width="1.5" marker-end="url(#arrowhead-dashed)"/>
         <path data-edge-from="core" data-edge-to="calibre" data-edge-label="env.py · py-common" data-edge-key="7" data-composition-points="740,364;740,510" d="M 740 364 L 740 510" class="a-dashed" stroke-width="1.5" marker-end="url(#arrowhead-dashed)"/>
         <path data-edge-from="meta" data-edge-to="core" data-edge-label="doctor · INDICE_SCRIPTS.md" data-edge-key="8" data-composition-points="532,542;592,542;592,332;652,332" d="M 532 542 L 584 542 Q 592 542 592 534 L 592 340 Q 592 332 600 332 L 652 332" class="a-security" stroke-width="1.5" marker-end="url(#arrowhead-security)"/>
@@ -5048,19 +5048,17 @@
         <path data-edge-from="class" data-edge-to="lectura" data-edge-label="ingesta_recursos → Calibre" data-edge-key="10" data-composition-points="1036,364;1036,510" d="M 1036 364 L 1036 510" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
 
         <!-- Components -->
-        <g id="node-vault" data-node-id="vault" data-node-label="Vault Obsidian" tabindex="0" role="button" aria-label="Focus Vault Obsidian, 01 notes … 07 diary, Vault Obsidian · ~/Documents (01–07 + meta/)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="01 notes … 07 diary" data-node-tag="sin git" data-node-context="Vault Obsidian · ~/Documents (01–07 + meta/)">
+        <g id="node-vault" data-node-id="vault" data-node-label="Vault Obsidian" tabindex="0" role="button" aria-label="Focus Vault Obsidian, 01 notes … 07 diary, Vault Obsidian · ~/Documents (01–07 + meta/)" aria-pressed="false" data-node-kind="database" data-node-sublabel="01 notes … 07 diary" data-node-tag="sin git" data-node-context="Vault Obsidian · ~/Documents (01–07 + meta/)">
           <title>Vault Obsidian · 01 notes … 07 diary · Vault Obsidian · ~/Documents (01–07 + meta/) · sin git</title>
           <rect x="60" y="90" width="176" height="64" rx="6" class="c-mask"/>
-          <rect x="60" y="90" width="176" height="64" rx="6" class="c-frontend" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="frontend" class="semantic-sigil s-frontend" transform="translate(66 96) scale(0.6875)">
-            <rect x="2" y="3" width="12" height="10" rx="2"/>
-            <path d="M2 6.5h12"/>
-            <circle cx="4.1" cy="4.8" r=".7" class="sigil-fill"/>
-            <circle cx="6.3" cy="4.8" r=".7" class="sigil-fill"/>
+          <rect x="60" y="90" width="176" height="64" rx="6" class="c-database" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="database" class="semantic-sigil s-database" transform="translate(66 96) scale(0.6875)">
+            <ellipse cx="8" cy="4" rx="5" ry="2"/>
+            <path d="M3 4v8c0 1.1 2.2 2 5 2s5-.9 5-2V4M3 8c0 1.1 2.2 2 5 2s5-.9 5-2"/>
           </g>
           <text data-node-label="" data-detail-anchor="" x="148" y="120" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Vault Obsidian</text>
         <text data-detail="context" x="148" y="136" class="t-muted" font-size="9" text-anchor="middle">01 notes … 07 diary</text>
-        <text data-detail="fine" x="148" y="146" class="t-frontend" font-size="7" text-anchor="middle">sin git</text>
+        <text data-detail="fine" x="148" y="146" class="t-database" font-size="7" text-anchor="middle">sin git</text>
         </g>
 
         <g id="node-hub" data-node-id="hub" data-node-label="04 index · website" tabindex="0" role="button" aria-label="Focus 04 index · website, hub Quarto + 11 pub_*, Vault Obsidian · ~/Documents (01–07 + meta/)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="hub Quarto + 11 pub_*" data-node-tag="website-achalma" data-node-context="Vault Obsidian · ~/Documents (01–07 + meta/)">
@@ -5195,9 +5193,9 @@
           <rect x="541.4" y="102" width="101.2" height="14" rx="3" class="c-mask"/>
           <text x="592" y="112" class="t-backend" font-size="8" text-anchor="middle">.qmd + YAML ⇄ Excel</text>
         </g>
-        <g data-detail="context" data-edge-from="qstudio" data-edge-to="netlify" data-edge-label="render · publish ×12" data-edge-key="2">
-          <rect x="835" y="102" width="106" height="14" rx="3" class="c-mask"/>
-          <text x="888" y="112" class="t-backend" font-size="8" text-anchor="middle">render · publish ×12</text>
+        <g data-detail="context" data-edge-from="qstudio" data-edge-to="netlify" data-edge-label="quarto publish ×12" data-edge-key="2">
+          <rect x="839.8" y="102" width="96.39999999999999" height="14" rx="3" class="c-mask"/>
+          <text x="888" y="112" class="t-backend" font-size="8" text-anchor="middle">quarto publish ×12</text>
         </g>
         <g data-detail="context" data-edge-from="vault" data-edge-to="writing" data-edge-label="notas → fichas" data-edge-key="3">
           <rect x="109.4" y="158" width="77.2" height="14" rx="3" class="c-mask"/>
@@ -5207,9 +5205,9 @@
           <rect x="226.2" y="286" width="139.6" height="14" rx="3" class="c-mask"/>
           <text x="296" y="296" class="t-muted" font-size="8" text-anchor="middle">reportes --perfil academico</text>
         </g>
-        <g data-detail="context" data-edge-from="class" data-edge-to="hub" data-edge-label="publish-web.sh · hardlinks" data-edge-key="5">
-          <rect x="734.6" y="24" width="134.8" height="14" rx="3" class="c-mask"/>
-          <text x="802" y="34" class="t-muted" font-size="8" text-anchor="middle">publish-web.sh · hardlinks</text>
+        <g data-detail="context" data-edge-from="class" data-edge-to="hub" data-edge-label="publicar-web.py → cursos/" data-edge-key="5">
+          <rect x="737" y="24" width="130" height="14" rx="3" class="c-mask"/>
+          <text x="802" y="34" class="t-muted" font-size="8" text-anchor="middle">publicar-web.py → cursos/</text>
         </g>
         <g data-detail="context" data-edge-from="core" data-edge-to="qstudio" data-edge-label="env.sh · shell-lib" data-edge-key="6">
           <rect x="691.8" y="280" width="96.39999999999999" height="14" rx="3" class="c-mask"/>

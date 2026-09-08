@@ -48,7 +48,7 @@
   "components": [
     {
       "id": "vault",
-      "type": "frontend",
+      "type": "database",
       "label": "Vault Obsidian",
       "sublabel": "01 notes … 07 diary",
       "tag": "sin git",
@@ -251,7 +251,7 @@
     {
       "from": "qstudio",
       "to": "netlify",
-      "label": "render · publish ×12",
+      "label": "quarto publish ×12",
       "variant": "emphasis"
     },
     {
@@ -269,7 +269,7 @@
     {
       "from": "class",
       "to": "hub",
-      "label": "publish-web.sh · hardlinks",
+      "label": "publicar-web.py → cursos/",
       "fromSide": "right",
       "toSide": "top",
       "via": [

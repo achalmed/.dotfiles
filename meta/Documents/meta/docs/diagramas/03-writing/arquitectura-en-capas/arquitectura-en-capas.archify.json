@@ -92,7 +92,7 @@
       "id": "apaestilo",
       "type": "backend",
       "label": "core/styles/apa + core/apa",
-      "sublabel": "Estilo APA 7",
+      "sublabel": "base → style → core/apa",
       "tag": "biblatex style=apa",
       "pos": [
         740,
@@ -150,8 +150,8 @@
     {
       "id": "uni",
       "type": "backend",
-      "label": "universities/unsch",
-      "sublabel": "márgenes, paginación, preliminares",
+      "label": "universities/",
+      "sublabel": "unsch · pnp · _template",
       "tag": "\\usaruniversidad",
       "pos": [
         740,
@@ -166,7 +166,7 @@
       "id": "presentacion",
       "type": "frontend",
       "label": "covers + structures + themes",
-      "sublabel": "portada, esqueleto, paleta",
+      "sublabel": "4 portadas · 11 esqueletos · 3 temas",
       "tag": "\\usarportada",
       "pos": [
         405,
@@ -195,8 +195,8 @@
     {
       "id": "bib",
       "type": "database",
-      "label": "bib/references.bib",
-      "sublabel": "Biblioteca BibLaTeX",
+      "label": "<proyecto>/references.bib",
+      "sublabel": "uno por documento",
       "tag": "\\addbibresource",
       "pos": [
         405,
@@ -212,7 +212,7 @@
       "type": "cloud",
       "label": "scripts/build.sh",
       "sublabel": "config.sh + lib/",
-      "tag": "TEXINPUTS = core/",
+      "tag": "TEXINPUTS = raíz + //",
       "pos": [
         70,
         532
@@ -225,8 +225,8 @@
     {
       "id": "pdf",
       "type": "frontend",
-      "label": "build/<job>.pdf",
-      "sublabel": "Único criterio de corrección",
+      "label": "<proyecto>/<job>.pdf",
+      "sublabel": "junto al .tex maestro",
       "pos": [
         1075,
         532
@@ -343,7 +343,7 @@
       "id": "salida",
       "from": "build",
       "to": "pdf",
-      "label": "LuaLaTeX ×3"
+      "label": "pasada 1 → Biber → 2 y 3"
     }
   ],
   "cards": [
@@ -351,9 +351,8 @@
       "dot": "cyan",
       "title": "Núcleo",
       "items": [
-        "La base es article: no hay \\chapter, los capítulos se arman sobre \\section",
-        "polyglossia se fija antes de biblatex; hyperref se carga temprano",
-        "core/config: 24 archivos, un tema por archivo, nada hardcodeado en lib/"
+        "La base es article: los capítulos se arman sobre \\section",
+        "core/config: 24 archivos .tex, cargados al final por config.tex"
       ]
     },
     {
@@ -361,17 +360,16 @@
       "title": "Selección",
       "items": [
         "El documento solo llama \\usaruniversidad, \\usarportada, \\usarestructura y \\usartema",
-        "Ningún estilo se define en theses/, monographs/, essays/ ni articles/",
-        "Las clases de tipo son delgadas: cargan academic.cls y fijan defaults sobrescribibles"
+        "Las cinco macros de selección se definen en core/academic.cls"
       ]
     },
     {
       "dot": "amber",
       "title": "Compilación",
       "items": [
-        "LuaLaTeX + Biber es el único motor soportado; sin latexmk ni pdfLaTeX",
-        "build.sh exporta TEXINPUTS para que el motor encuentre core/",
-        "No hay test suite: la regresión es compilar la tesis de referencia y mirar el PDF"
+        "build.sh exporta TEXINPUTS con la raíz del framework y búsqueda recursiva",
+        "El PDF se escribe junto al .tex maestro; build/ del repo está vacío",
+        "Cada proyecto lleva su propio references.bib"
       ]
     }
   ]

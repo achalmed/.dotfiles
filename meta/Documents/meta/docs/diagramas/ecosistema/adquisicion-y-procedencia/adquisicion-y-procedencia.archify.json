@@ -288,7 +288,7 @@
       "id": "sync-zotero",
       "from": "sync",
       "to": "zotero",
-      "label": "espejo diario 04:30",
+      "label": "espejo 04:30",
       "labelDy": 30
     },
     {
@@ -348,6 +348,7 @@
       "items": [
         "Calibre manda sobre los campos bibliograficos (politica calibre)",
         "KOReader es origen puro: se lee, jamas se le escribe",
+        "El .ris de alta a Zotero se importa a mano; el espejo diario es automatico",
         "Claves comunes: calibre_id · zotero_key · clave_bibtex · ko_md5"
       ]
     },

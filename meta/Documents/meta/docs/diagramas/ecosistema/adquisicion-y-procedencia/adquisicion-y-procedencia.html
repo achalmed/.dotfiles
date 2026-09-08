@@ -5041,7 +5041,7 @@
         <path data-edge-from="adqDatos" data-edge-to="catalogo" data-edge-label="procedencia SHA-256" data-edge-key="3" data-edge-id="datos-catalogo" data-composition-points="620,90;760,90" d="M 620 90 L 760 90" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         <path data-edge-from="adqDocs" data-edge-to="calibre" data-edge-label="ingesta → alta" data-edge-key="4" data-edge-id="docs-calibre" data-composition-points="620,218;760,218" d="M 620 218 L 760 218" class="a-emphasis" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
         <path data-edge-from="sync" data-edge-to="calibre" data-edge-label="columnas ko_* · zot_*" data-edge-key="5" data-edge-id="sync-calibre" data-composition-points="620,353;690,353;690,232;760,232" d="M 620 353 L 682 353 Q 690 353 690 345 L 690 240 Q 690 232 698 232 L 760 232" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
-        <path data-edge-from="sync" data-edge-to="zotero" data-edge-label="espejo diario 04:30" data-edge-key="6" data-edge-id="sync-zotero" data-composition-points="620,367;760,367" d="M 620 367 L 760 367" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+        <path data-edge-from="sync" data-edge-to="zotero" data-edge-label="espejo 04:30" data-edge-key="6" data-edge-id="sync-zotero" data-composition-points="620,367;760,367" d="M 620 367 L 760 367" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         <path data-edge-from="zotero" data-edge-to="vault" data-edge-label="Zotero Integration → 01 notes" data-edge-key="7" data-edge-id="zotero-vault" data-composition-points="870,395;870,460" d="M 870 395 L 870 460" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         <path data-edge-from="catalogo" data-edge-to="frameworks" data-edge-label="reportes academicos" data-edge-key="8" data-edge-id="catalogo-frameworks" data-composition-points="980,90;1055,90;1055,153;1130,153" d="M 980 90 L 1047 90 Q 1055 90 1055 98 L 1055 145 Q 1055 153 1063 153 L 1130 153" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         <path data-edge-from="vault" data-edge-to="frameworks" data-edge-label="fichas + .bib" data-edge-key="9" data-edge-id="vault-frameworks" data-composition-points="980,488;1055,488;1055,167;1130,167" d="M 980 488 L 1047 488 Q 1055 488 1055 480 L 1055 175 Q 1055 167 1063 167 L 1130 167" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
@@ -5217,9 +5217,9 @@
           <rect x="634.6" y="272.5" width="110.8" height="14" rx="3" class="c-mask"/>
           <text x="690" y="282.5" class="t-muted" font-size="8" text-anchor="middle">columnas ko_* · zot_*</text>
         </g>
-        <g data-detail="context" data-edge-from="sync" data-edge-to="zotero" data-edge-label="espejo diario 04:30" data-edge-key="6" data-edge-id="sync-zotero">
-          <rect x="639.4" y="377" width="101.2" height="14" rx="3" class="c-mask"/>
-          <text x="690" y="387" class="t-muted" font-size="8" text-anchor="middle">espejo diario 04:30</text>
+        <g data-detail="context" data-edge-from="sync" data-edge-to="zotero" data-edge-label="espejo 04:30" data-edge-key="6" data-edge-id="sync-zotero">
+          <rect x="656.2" y="377" width="67.6" height="14" rx="3" class="c-mask"/>
+          <text x="690" y="387" class="t-muted" font-size="8" text-anchor="middle">espejo 04:30</text>
         </g>
         <g data-detail="context" data-edge-from="zotero" data-edge-to="vault" data-edge-label="Zotero Integration → 01 notes" data-edge-key="7" data-edge-id="zotero-vault">
           <rect x="795.4" y="399" width="149.2" height="14" rx="3" class="c-mask"/>
@@ -5465,6 +5465,7 @@
         <ul>
           <li>&bull; Calibre manda sobre los campos bibliograficos (politica calibre)</li>
           <li>&bull; KOReader es origen puro: se lee, jamas se le escribe</li>
+          <li>&bull; El .ris de alta a Zotero se importa a mano; el espejo diario es automatico</li>
           <li>&bull; Claves comunes: calibre_id · zotero_key · clave_bibtex · ko_md5</li>
         </ul>
       </div>

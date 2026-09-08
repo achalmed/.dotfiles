@@ -75,7 +75,7 @@
       "id": "sources",
       "type": "database",
       "label": "sources/",
-      "sublabel": "40 YAML, fuente de verdad",
+      "sublabel": "40 fuentes declaradas",
       "pos": [
         320,
         83
@@ -89,7 +89,7 @@
       "id": "conectores",
       "type": "backend",
       "label": "26 conectores",
-      "sublabel": "uno por institución",
+      "sublabel": "26 de 40 fuentes",
       "pos": [
         320,
         300
@@ -118,7 +118,7 @@
       "id": "catalogo",
       "type": "database",
       "label": "catalogo.sqlite",
-      "sublabel": "datasets · descargas",
+      "sublabel": "9 tablas",
       "pos": [
         615,
         83
@@ -126,7 +126,8 @@
       "size": [
         150,
         72
-      ]
+      ],
+      "tag": "datasets + fases"
     },
     {
       "id": "raw",
@@ -146,7 +147,7 @@
       "id": "biblioteca",
       "type": "external",
       "label": "biblioteca Calibre",
-      "sublabel": "documentos de consulta",
+      "sublabel": "vía core/py-common",
       "pos": [
         615,
         517
@@ -160,7 +161,7 @@
       "id": "pipeline",
       "type": "backend",
       "label": "pipeline/",
-      "sublabel": "12 fases: audit → modelo",
+      "sublabel": "10 módulos (fases 02-11)",
       "pos": [
         910,
         300
@@ -202,7 +203,7 @@
       "id": "capas",
       "type": "database",
       "label": "capas derivadas",
-      "sublabel": "cuatro capas inmutables",
+      "sublabel": "nueve, inmutables",
       "pos": [
         1205,
         300
@@ -298,7 +299,7 @@
       "id": "resuelve-doc",
       "from": "biblioteca",
       "to": "libproc",
-      "label": "ruta_real() por manifiesto",
+      "label": "fuentes.yml → calibre_id",
       "variant": "security"
     },
     {
@@ -327,20 +328,17 @@
       "dot": "cyan",
       "title": "Adquisición — Fase 01",
       "items": [
-        "Un conector = una institución, nunca un mecanismo",
-        "Protocolo estándar: motor en _lib + config.py por agencia",
+        "Un conector = una institución; el motor vive en _lib y no se copia",
         "connectors/_lib solo usa la stdlib: corre sin instalar nada",
-        "institution es vocabulario controlado en _lib/instituciones.py"
+        "14 de las 40 fuentes declaradas aún no tienen conector"
       ]
     },
     {
       "dot": "emerald",
-      "title": "Procesamiento — Fases 02 a 12",
+      "title": "Procesamiento — Fases 02 a 11",
       "items": [
-        "Cadena de capas: raw → audited → clean → harmonized → integrated",
-        "Ninguna fase sobrescribe la capa anterior",
-        "La Fase 03 escribe la tabla metadatos en el mismo catálogo",
-        "Requiere pandas · numpy · scipy · statsmodels"
+        "raw → audited → metadata → clean → harmonized → analytical → eda → integrated → modelos",
+        "Ninguna fase sobrescribe la anterior; cada una escribe su tabla en el catálogo"
       ]
     },
     {
@@ -348,9 +346,8 @@
       "title": "Reglas duras",
       "items": [
         "El archivo original en data/raw es sagrado",
-        "Los documentos de consulta viven en Calibre, no en data/raw",
-        "No redistribuir microdatos restringidos: data/ nunca es público",
-        "Ninguna cifra sin fuente, periodo, unidad y publicación de respaldo"
+        "Los documentos de consulta viven en Calibre; replicacion es la única excepción",
+        "No redistribuir microdatos restringidos: data/ nunca es público"
       ]
     }
   ]
