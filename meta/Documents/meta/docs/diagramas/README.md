@@ -35,7 +35,7 @@ Fuente conceptual: `meta/ARQUITECTURA.md` y `meta/DIAGNOSTICO_INTEGRAL_2026-09.m
 | `cadena-de-lectura/` | Ecosistema ~/Documents — arquitectura | 12 | 11 | 9/9, 0 err / 0 warn | pass |
 | `adquisicion-y-procedencia/` | Ecosistema ~/Documents — Edison Achalma | 12 | 13 | 9/9, 0 err / 0 warn | pass |
 | `pipeline-quarto/` | Ecosistema ~/Documents | 11 | 11 | 9/9, 0 err / 0 warn | pass |
-| `plano-de-control/` | Ecosistema ~/Documents — arquitectura | 12 | 13 | 9/9, 0 err / 0 warn | pass |
+| `arquitectura-general/` | Ecosistema ~/Documents — arquitectura | 12 | 13 | 9/9, 0 err / 0 warn | pass |
 
 ### `03-writing/` — Academic Writing Framework
 
@@ -70,13 +70,13 @@ Fuente conceptual: el propio código (`connectors/_lib/marco.py`, `registro.py`,
 
 Nodos en común sobre 12 (11 en `pipeline-quarto`), por identificador:
 
-|  | cadena-de-lectura | pipeline-quarto | plano-de-control |
+|  | cadena-de-lectura | pipeline-quarto | arquitectura-general |
 |---|---:|---:|---:|
 | **adquisicion-y-procedencia** | 7 | 2 | 9 |
 | **cadena-de-lectura** | — | 4 | 10 |
 | **pipeline-quarto** | — | — | 3 |
 
-Lectura: `plano-de-control`, `cadena-de-lectura` y `adquisicion-y-procedencia`
+Lectura: `arquitectura-general`, `cadena-de-lectura` y `adquisicion-y-procedencia`
 son **variantes del mismo diagrama** (75–83 % de nodos compartidos entre las dos
 más próximas). `pipeline-quarto` es un diagrama distinto: comparte 2–4 nodos con
 las demás porque cambia de plano, del almacenamiento a la publicación.
@@ -100,7 +100,7 @@ distingue la carpeta. Por eso el énfasis va en el slug y no en el título.
   nodos. Única con tarjeta **«Fuera del diagrama»**, que declara explícitamente
   el alcance (09 trabajo, 08 personal, prompts, bookmarks, job-hunter-pro,
   scripts_for_*).
-- **`ecosistema/plano-de-control/`** — Única que dibuja la **escritura de
+- **`ecosistema/arquitectura-general/`** — Única que dibuja la **escritura de
   vuelta** `sync → calibre` (`ko_*` · `zot_*`) y el índice `quarto → vault`
   (`_indice/`, symlinks). Separa herramienta (`scripts_quarto_studio`) de
   artefacto (`website-achalma`).
@@ -137,11 +137,11 @@ Las cuatro lecturas del ecosistema no dicen lo mismo. Antes de tomar una como
 canónica, resolver esto:
 
 1. **Quién escribe en Calibre.** `cadena-de-lectura` dibuja `calibre → sync` y
-   relega la escritura de vuelta a una tarjeta; `plano-de-control` y
+   relega la escritura de vuelta a una tarjeta; `arquitectura-general` y
    `adquisicion-y-procedencia` dibujan `sync → calibre`. La segunda lectura es la
    fiel a `ARQUITECTURA.md`, que atribuye al sincronizador las «columnas
    ko_*/zot_*» como producto.
-2. **Calibre → Zotero.** `plano-de-control` lo dibuja como una sola arista
+2. **Calibre → Zotero.** `arquitectura-general` lo dibuja como una sola arista
    (`.ris + espejo diario`). Son **dos mecanismos distintos**: el `.ris` de alta
    lo genera `scripts_for_fuentes/ingesta` y el espejo lo mantiene
    `script_sincronizar_zotero` (timer diario). Fundirlos pierde información.

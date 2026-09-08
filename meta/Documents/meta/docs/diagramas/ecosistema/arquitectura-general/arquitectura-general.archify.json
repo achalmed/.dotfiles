@@ -54,7 +54,7 @@
         "note": "core/ es la única detección de raíz y librería común; doctor audita en solo lectura."
       }
     ],
-    "output": "plano-de-control.html"
+    "output": "arquitectura-general.html"
   },
   "components": [
     {
