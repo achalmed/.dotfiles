@@ -1,0 +1,307 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "SGDP — Sistema de Gestión Documental Parlamentario",
+    "output": "produccion-del-documento.html",
+    "quality_profile": "showcase",
+    "views": [
+      {
+        "id": "camino-documento",
+        "label": "Camino del documento",
+        "focus": [
+          "web",
+          "api",
+          "generador",
+          "marco",
+          "archivo"
+        ],
+        "note": "Del cuerpo TipTap al PDF oficial: se genera el .tex y LuaLaTeX lo compila."
+      },
+      {
+        "id": "datos-y-numero",
+        "label": "Datos y numeración",
+        "focus": [
+          "api",
+          "db",
+          "archivo"
+        ],
+        "note": "Postgres guarda metadatos y el correlativo; los archivos viven en disco."
+      },
+      {
+        "id": "acceso-equipo",
+        "label": "Acceso del equipo",
+        "focus": [
+          "despacho",
+          "enlace",
+          "web",
+          "equipos"
+        ],
+        "note": "Enlace fijo permanente y copia local de los PDF en cada equipo."
+      }
+    ]
+  },
+  "components": [
+    {
+      "id": "despacho",
+      "type": "external",
+      "label": "Despacho AJMP-CD",
+      "sublabel": "Diputado, asesores y secretaría",
+      "pos": [
+        30,
+        30
+      ],
+      "size": [
+        155,
+        66
+      ]
+    },
+    {
+      "id": "enlace",
+      "type": "security",
+      "label": "Tailscale Funnel",
+      "sublabel": "https://<laptop>.ts.net",
+      "tag": "sgdp.service",
+      "pos": [
+        290,
+        30
+      ],
+      "size": [
+        155,
+        66
+      ]
+    },
+    {
+      "id": "web",
+      "type": "frontend",
+      "label": "Web SGDP",
+      "sublabel": "React + TipTap · Vite :5173",
+      "tag": "modo sin conexión",
+      "pos": [
+        550,
+        30
+      ],
+      "size": [
+        155,
+        66
+      ]
+    },
+    {
+      "id": "equipos",
+      "type": "external",
+      "label": "Equipos del despacho",
+      "sublabel": "carpeta local del navegador",
+      "tag": "File System Access",
+      "pos": [
+        810,
+        30
+      ],
+      "size": [
+        155,
+        66
+      ]
+    },
+    {
+      "id": "bookmarks",
+      "type": "external",
+      "label": "bookmarks/",
+      "sublabel": "directorio institucional del Perú",
+      "pos": [
+        30,
+        230
+      ],
+      "size": [
+        155,
+        66
+      ]
+    },
+    {
+      "id": "api",
+      "type": "backend",
+      "label": "API SGDP",
+      "sublabel": "FastAPI · uvicorn :8000",
+      "tag": "JWT + matriz de flujo",
+      "pos": [
+        550,
+        230
+      ],
+      "size": [
+        155,
+        66
+      ]
+    },
+    {
+      "id": "db",
+      "type": "database",
+      "label": "PostgreSQL 16",
+      "sublabel": "Docker · 127.0.0.1:5432",
+      "tag": "contadores ACID",
+      "pos": [
+        810,
+        230
+      ],
+      "size": [
+        155,
+        66
+      ]
+    },
+    {
+      "id": "archivo",
+      "type": "database",
+      "label": "documentos/",
+      "sublabel": "SERIE-NNNN-fecha-slug",
+      "tag": ".tex · PDF · adjuntos",
+      "pos": [
+        30,
+        430
+      ],
+      "size": [
+        155,
+        66
+      ]
+    },
+    {
+      "id": "marco",
+      "type": "external",
+      "label": "marco_documental",
+      "sublabel": "scripts/build.sh · LuaLaTeX",
+      "pos": [
+        290,
+        430
+      ],
+      "size": [
+        155,
+        66
+      ]
+    },
+    {
+      "id": "generador",
+      "type": "backend",
+      "label": "Generador LaTeX",
+      "sublabel": "TipTap → .tex + metadata.tex",
+      "pos": [
+        550,
+        430
+      ],
+      "size": [
+        155,
+        66
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "security-group",
+      "label": "solo loopback :8000 y :5432",
+      "wraps": [
+        "api",
+        "db"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "Cadena de compilación en la laptop",
+      "wraps": [
+        "archivo",
+        "marco",
+        "generador"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "despacho-enlace",
+      "from": "despacho",
+      "to": "enlace",
+      "label": "HTTPS",
+      "variant": "emphasis"
+    },
+    {
+      "id": "enlace-web",
+      "from": "enlace",
+      "to": "web",
+      "label": "publica el sitio",
+      "labelDy": -30
+    },
+    {
+      "id": "web-equipos",
+      "from": "web",
+      "to": "equipos",
+      "label": "copia PDF y adjuntos",
+      "variant": "dashed",
+      "labelDy": -30
+    },
+    {
+      "id": "web-api",
+      "from": "web",
+      "to": "api",
+      "label": "REST /api · JWT",
+      "variant": "emphasis",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelDy": 40
+    },
+    {
+      "id": "bookmarks-api",
+      "from": "bookmarks",
+      "to": "api",
+      "label": "siembra el directorio",
+      "variant": "dashed"
+    },
+    {
+      "id": "api-db",
+      "from": "api",
+      "to": "db",
+      "label": "SQL asyncpg",
+      "variant": "emphasis"
+    },
+    {
+      "id": "api-generador",
+      "from": "api",
+      "to": "generador",
+      "label": "campos + cuerpo",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelDy": 40
+    },
+    {
+      "id": "generador-marco",
+      "from": "generador",
+      "to": "marco",
+      "label": "build.sh"
+    },
+    {
+      "id": "marco-archivo",
+      "from": "marco",
+      "to": "archivo",
+      "label": "escribe .tex y PDF",
+      "labelDy": 34
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Entrada",
+      "items": [
+        "Enlace fijo con Tailscale Funnel, publicado al encender la laptop",
+        "React + TipTap; con service worker la bandeja abre aun sin servidor"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Núcleo",
+      "items": [
+        "FastAPI resuelve tipos, estados del trámite y permisos por rol",
+        "El correlativo oficial solo lo asigna POST /generar, nunca a mano"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Documento",
+      "items": [
+        "El cuerpo TipTap se serializa a LaTeX y build.sh compila con LuaLaTeX",
+        "Postgres guarda los metadatos; el .tex y el PDF viven en disco"
+      ]
+    }
+  ]
+}

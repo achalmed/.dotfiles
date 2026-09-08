@@ -1,0 +1,398 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Ecosistema ~/Documents — arquitectura",
+    "quality_profile": "showcase",
+    "viewBox": [
+      1380,
+      600
+    ],
+    "views": [
+      {
+        "id": "adquisicion",
+        "label": "Adquisición y procedencia",
+        "focus": [
+          "datafw",
+          "fuentes",
+          "calibre",
+          "zotero"
+        ],
+        "note": "Dos sistemas de adquisición con la misma maquinaria y destinos distintos: datos frente a documentos."
+      },
+      {
+        "id": "cadena-lectura",
+        "label": "Cadena de lectura",
+        "focus": [
+          "koreader",
+          "sync",
+          "calibre",
+          "zotero"
+        ],
+        "note": "KOReader es origen y nunca recibe escrituras; los timers serializan por .lock_calibre_write."
+      },
+      {
+        "id": "produccion",
+        "label": "Producción y publicación",
+        "focus": [
+          "vault",
+          "frameworks",
+          "quarto",
+          "web"
+        ],
+        "note": "Del vault salen fichas y apuntes hacia LuaLaTeX; scripts_quarto_studio opera los 12 sitios Quarto."
+      },
+      {
+        "id": "plano-control",
+        "label": "Plano de control",
+        "focus": [
+          "core",
+          "doctor",
+          "datafw",
+          "sync"
+        ],
+        "note": "core/ es la única detección de raíz y librería común; doctor audita en solo lectura."
+      }
+    ],
+    "output": "plano-de-control.html"
+  },
+  "components": [
+    {
+      "id": "core",
+      "type": "backend",
+      "label": "core/",
+      "sublabel": "shell-lib · py-common",
+      "tag": "35 suites · suite.yml",
+      "pos": [
+        820,
+        26
+      ],
+      "size": [
+        195,
+        70
+      ]
+    },
+    {
+      "id": "doctor",
+      "type": "security",
+      "label": "meta/ · ecosistema",
+      "sublabel": "doctor + contratos",
+      "tag": "solo lectura",
+      "pos": [
+        1125,
+        26
+      ],
+      "size": [
+        195,
+        70
+      ]
+    },
+    {
+      "id": "datafw",
+      "type": "backend",
+      "label": "datafw · 02 analysis",
+      "sublabel": "26 conectores → data/raw",
+      "tag": "adquiere DATOS",
+      "pos": [
+        60,
+        160
+      ],
+      "size": [
+        195,
+        70
+      ]
+    },
+    {
+      "id": "calibre",
+      "type": "database",
+      "label": "Calibre · biblioteca/",
+      "sublabel": "metadata.db + OPF",
+      "tag": "autoridad bibliográfica",
+      "pos": [
+        475,
+        160
+      ],
+      "size": [
+        195,
+        70
+      ]
+    },
+    {
+      "id": "sync",
+      "type": "backend",
+      "label": "scripts_for_calibre",
+      "sublabel": "sincronización · timers",
+      "tag": ".lock_calibre_write",
+      "pos": [
+        820,
+        228
+      ],
+      "size": [
+        195,
+        70
+      ]
+    },
+    {
+      "id": "koreader",
+      "type": "external",
+      "label": "KOReader",
+      "sublabel": "statistics.sqlite3",
+      "tag": "origen · solo lectura",
+      "pos": [
+        1125,
+        228
+      ],
+      "size": [
+        195,
+        70
+      ]
+    },
+    {
+      "id": "fuentes",
+      "type": "backend",
+      "label": "scripts_for_fuentes",
+      "sublabel": "entrada/ + ledger",
+      "tag": "adquiere DOCUMENTOS",
+      "pos": [
+        60,
+        296
+      ],
+      "size": [
+        195,
+        70
+      ]
+    },
+    {
+      "id": "zotero",
+      "type": "database",
+      "label": "Zotero",
+      "sublabel": "zotero.sqlite + storage/",
+      "tag": "referencias · anotaciones",
+      "pos": [
+        475,
+        296
+      ],
+      "size": [
+        195,
+        70
+      ]
+    },
+    {
+      "id": "vault",
+      "type": "database",
+      "label": "Vault Obsidian",
+      "sublabel": "01 notes … 07 diary",
+      "pos": [
+        475,
+        414
+      ],
+      "size": [
+        195,
+        70
+      ]
+    },
+    {
+      "id": "frameworks",
+      "type": "backend",
+      "label": "AWF · Class · Book",
+      "sublabel": "LuaLaTeX + Biber → PDF",
+      "tag": "tesis · cursos · libros",
+      "pos": [
+        820,
+        414
+      ],
+      "size": [
+        195,
+        70
+      ]
+    },
+    {
+      "id": "quarto",
+      "type": "backend",
+      "label": "scripts_quarto_studio",
+      "sublabel": "metadatos · render",
+      "pos": [
+        820,
+        500
+      ],
+      "size": [
+        195,
+        70
+      ]
+    },
+    {
+      "id": "web",
+      "type": "frontend",
+      "label": "website-achalma",
+      "sublabel": "hub + 11 pub_* → Netlify",
+      "tag": "submódulos git",
+      "pos": [
+        1125,
+        500
+      ],
+      "size": [
+        195,
+        70
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "Capa 1 · almacenes = fuente de verdad",
+      "wraps": [
+        "calibre",
+        "zotero",
+        "vault"
+      ],
+      "pad": 26
+    },
+    {
+      "kind": "region",
+      "label": "Adquisición · procedencia (URL · fecha · SHA-256)",
+      "wraps": [
+        "datafw",
+        "fuentes"
+      ],
+      "pad": 22
+    }
+  ],
+  "connections": [
+    {
+      "id": "datos-a-calibre",
+      "from": "datafw",
+      "to": "calibre",
+      "label": "ingesta · enlaza data/raw"
+    },
+    {
+      "id": "docs-a-calibre",
+      "from": "fuentes",
+      "to": "calibre",
+      "label": "ingesta · mueve entrada/",
+      "variant": "emphasis",
+      "fromSide": "right",
+      "toSide": "left",
+      "via": [
+        [
+          288,
+          331
+        ],
+        [
+          288,
+          195
+        ]
+      ]
+    },
+    {
+      "id": "espejo-ris",
+      "from": "calibre",
+      "to": "zotero",
+      "label": ".ris + espejo diario",
+      "labelDy": 46
+    },
+    {
+      "id": "notas-citekey",
+      "from": "zotero",
+      "to": "vault",
+      "label": "01 notes/{{citekey}}.md",
+      "labelDy": 37
+    },
+    {
+      "id": "lee-koreader",
+      "from": "koreader",
+      "to": "sync",
+      "label": "lee progreso"
+    },
+    {
+      "id": "lee-zotero",
+      "from": "zotero",
+      "to": "sync",
+      "label": "lee anotaciones",
+      "labelDx": 20
+    },
+    {
+      "id": "escribe-columnas",
+      "from": "sync",
+      "to": "calibre",
+      "label": "escribe ko_* · zot_*",
+      "variant": "emphasis"
+    },
+    {
+      "id": "fichas-a-latex",
+      "from": "vault",
+      "to": "frameworks",
+      "label": "fichas y apuntes"
+    },
+    {
+      "id": "indice-symlinks",
+      "from": "quarto",
+      "to": "vault",
+      "label": "_indice/ (symlinks)",
+      "variant": "dashed"
+    },
+    {
+      "id": "publica",
+      "from": "quarto",
+      "to": "web",
+      "label": "render · publish"
+    },
+    {
+      "id": "core-a-sync",
+      "from": "core",
+      "to": "sync",
+      "label": "env · logger común",
+      "variant": "dashed",
+      "labelDy": 79
+    },
+    {
+      "id": "core-a-datafw",
+      "from": "core",
+      "to": "datafw",
+      "label": "core/env · raíz única",
+      "variant": "dashed",
+      "fromSide": "left",
+      "toSide": "top"
+    },
+    {
+      "id": "audita",
+      "from": "doctor",
+      "to": "core",
+      "label": "valida suite.yml",
+      "variant": "security"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Adquisición",
+      "items": [
+        "datafw/connectors trae DATOS oficiales a data/raw + catalogo.sqlite",
+        "scripts_for_fuentes trae DOCUMENTOS a entrada/ + ledger"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Almacenes y sincronización",
+      "items": [
+        "Calibre es la autoridad bibliográfica; Zotero es su espejo",
+        "KOReader solo se lee: aporta ko_* a Calibre"
+      ]
+    },
+    {
+      "dot": "violet",
+      "title": "Producción",
+      "items": [
+        "Del vault salen fichas y apuntes a LuaLaTeX (AWF · Class · Book)",
+        "scripts_quarto_studio opera hub + 11 pub_* (submódulos)"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Plano de control",
+      "items": [
+        "core/env es la única detección de raíz y librería común",
+        "Cada suite declara su contrato en suite.yml"
+      ]
+    }
+  ]
+}

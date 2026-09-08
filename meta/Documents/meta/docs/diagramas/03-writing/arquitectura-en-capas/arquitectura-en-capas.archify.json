@@ -1,0 +1,378 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Academic Writing Framework — arquitectura en capas",
+    "quality_profile": "showcase",
+    "viewBox": [
+      1375,
+      680
+    ],
+    "views": [
+      {
+        "id": "cadena-de-carga",
+        "label": "Orden de carga",
+        "focus": [
+          "latex",
+          "academic",
+          "apaestilo",
+          "config",
+          "classes"
+        ],
+        "note": "De la clase estándar de LaTeX al tipo documental: cada capa solo mira hacia abajo."
+      },
+      {
+        "id": "seleccion",
+        "label": "Selección declarativa",
+        "focus": [
+          "classes",
+          "uni",
+          "presentacion",
+          "documento"
+        ],
+        "note": "Lo único que hace el documento: seleccionar universidad, portada y estructura, y rellenar."
+      },
+      {
+        "id": "citacion-apa",
+        "label": "Citación APA 7",
+        "focus": [
+          "apaestilo",
+          "config",
+          "bib",
+          "documento"
+        ],
+        "note": "Dónde vive la citación: biblatex style=apa más los ajustes de core/config."
+      },
+      {
+        "id": "compilacion",
+        "label": "Compilación",
+        "focus": [
+          "documento",
+          "bib",
+          "build",
+          "pdf"
+        ],
+        "note": "LuaLaTeX y Biber son el único motor soportado."
+      }
+    ],
+    "output": "arquitectura-en-capas.html"
+  },
+  "components": [
+    {
+      "id": "latex",
+      "type": "external",
+      "label": "article.cls",
+      "sublabel": "LaTeX2e estándar",
+      "tag": "sin \\chapter",
+      "pos": [
+        70,
+        56
+      ],
+      "size": [
+        230,
+        84
+      ]
+    },
+    {
+      "id": "academic",
+      "type": "backend",
+      "label": "core/academic.cls",
+      "sublabel": "Núcleo compartido",
+      "tag": "orden de carga fijo",
+      "pos": [
+        405,
+        56
+      ],
+      "size": [
+        230,
+        84
+      ]
+    },
+    {
+      "id": "apaestilo",
+      "type": "backend",
+      "label": "core/styles/apa + core/apa",
+      "sublabel": "Estilo APA 7",
+      "tag": "biblatex style=apa",
+      "pos": [
+        740,
+        56
+      ],
+      "size": [
+        230,
+        84
+      ]
+    },
+    {
+      "id": "config",
+      "type": "database",
+      "label": "core/config",
+      "sublabel": "24 ajustes editables",
+      "tag": "1 archivo = 1 tema",
+      "pos": [
+        1075,
+        56
+      ],
+      "size": [
+        230,
+        84
+      ]
+    },
+    {
+      "id": "lib",
+      "type": "backend",
+      "label": "core/lib + macros + environments",
+      "sublabel": "metadata, docparts, macros",
+      "pos": [
+        405,
+        176
+      ],
+      "size": [
+        230,
+        68
+      ]
+    },
+    {
+      "id": "classes",
+      "type": "backend",
+      "label": "classes/*.cls",
+      "sublabel": "tesis, monografía, ensayo, artículo",
+      "tag": "clase delgada",
+      "pos": [
+        1075,
+        306
+      ],
+      "size": [
+        230,
+        84
+      ]
+    },
+    {
+      "id": "uni",
+      "type": "backend",
+      "label": "universities/unsch",
+      "sublabel": "márgenes, paginación, preliminares",
+      "tag": "\\usaruniversidad",
+      "pos": [
+        740,
+        306
+      ],
+      "size": [
+        230,
+        84
+      ]
+    },
+    {
+      "id": "presentacion",
+      "type": "frontend",
+      "label": "covers + structures + themes",
+      "sublabel": "portada, esqueleto, paleta",
+      "tag": "\\usarportada",
+      "pos": [
+        405,
+        306
+      ],
+      "size": [
+        230,
+        84
+      ]
+    },
+    {
+      "id": "documento",
+      "type": "frontend",
+      "label": "Documento maestro",
+      "sublabel": "theses/2026-07-06-.../borrador.tex",
+      "tag": "solo selecciona y rellena",
+      "pos": [
+        70,
+        306
+      ],
+      "size": [
+        230,
+        84
+      ]
+    },
+    {
+      "id": "bib",
+      "type": "database",
+      "label": "bib/references.bib",
+      "sublabel": "Biblioteca BibLaTeX",
+      "tag": "\\addbibresource",
+      "pos": [
+        405,
+        414
+      ],
+      "size": [
+        230,
+        78
+      ]
+    },
+    {
+      "id": "build",
+      "type": "cloud",
+      "label": "scripts/build.sh",
+      "sublabel": "config.sh + lib/",
+      "tag": "TEXINPUTS = core/",
+      "pos": [
+        70,
+        532
+      ],
+      "size": [
+        230,
+        96
+      ]
+    },
+    {
+      "id": "pdf",
+      "type": "frontend",
+      "label": "build/<job>.pdf",
+      "sublabel": "Único criterio de corrección",
+      "pos": [
+        1075,
+        532
+      ],
+      "size": [
+        230,
+        86
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "Núcleo compartido: core/ (no se edita desde el documento)",
+      "wraps": [
+        "academic",
+        "apaestilo",
+        "config",
+        "lib"
+      ],
+      "pad": 16
+    },
+    {
+      "kind": "region",
+      "label": "Capas seleccionables (\\usar...)",
+      "wraps": [
+        "classes",
+        "uni",
+        "presentacion"
+      ],
+      "pad": 12
+    }
+  ],
+  "connections": [
+    {
+      "id": "base-latex",
+      "from": "latex",
+      "to": "academic",
+      "label": "\\LoadClass",
+      "variant": "emphasis"
+    },
+    {
+      "id": "carga-estilo",
+      "from": "academic",
+      "to": "apaestilo",
+      "label": "carga estilo",
+      "variant": "emphasis"
+    },
+    {
+      "id": "ajusta-estilo",
+      "from": "apaestilo",
+      "to": "config",
+      "label": "sobrescribe",
+      "variant": "emphasis"
+    },
+    {
+      "id": "defaults-tipo",
+      "from": "config",
+      "to": "classes",
+      "label": "defaults",
+      "variant": "emphasis",
+      "labelDy": 100
+    },
+    {
+      "id": "fija-universidad",
+      "from": "classes",
+      "to": "uni",
+      "label": "normas",
+      "variant": "emphasis"
+    },
+    {
+      "id": "fija-presentacion",
+      "from": "uni",
+      "to": "presentacion",
+      "label": "formato",
+      "variant": "emphasis"
+    },
+    {
+      "id": "rellena",
+      "from": "presentacion",
+      "to": "documento",
+      "label": "rellena",
+      "variant": "emphasis"
+    },
+    {
+      "id": "partes-y-macros",
+      "from": "academic",
+      "to": "lib",
+      "label": "partes y macros",
+      "labelDy": 38
+    },
+    {
+      "id": "declara-bib",
+      "from": "documento",
+      "to": "bib",
+      "label": "declara fuentes",
+      "variant": "dashed"
+    },
+    {
+      "id": "compila",
+      "from": "documento",
+      "to": "build",
+      "label": "build.sh",
+      "labelDy": 90
+    },
+    {
+      "id": "resuelve-citas",
+      "from": "bib",
+      "to": "build",
+      "label": "Biber a .bbl",
+      "variant": "dashed"
+    },
+    {
+      "id": "salida",
+      "from": "build",
+      "to": "pdf",
+      "label": "LuaLaTeX ×3"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Núcleo",
+      "items": [
+        "La base es article: no hay \\chapter, los capítulos se arman sobre \\section",
+        "polyglossia se fija antes de biblatex; hyperref se carga temprano",
+        "core/config: 24 archivos, un tema por archivo, nada hardcodeado en lib/"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Selección",
+      "items": [
+        "El documento solo llama \\usaruniversidad, \\usarportada, \\usarestructura y \\usartema",
+        "Ningún estilo se define en theses/, monographs/, essays/ ni articles/",
+        "Las clases de tipo son delgadas: cargan academic.cls y fijan defaults sobrescribibles"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Compilación",
+      "items": [
+        "LuaLaTeX + Biber es el único motor soportado; sin latexmk ni pdfLaTeX",
+        "build.sh exporta TEXINPUTS para que el motor encuentre core/",
+        "No hay test suite: la regresión es compilar la tesis de referencia y mirar el PDF"
+      ]
+    }
+  ]
+}
