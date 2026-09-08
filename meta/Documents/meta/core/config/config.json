@@ -8,7 +8,6 @@
     "solo lee su propio archivo). Regla actual: whitelist — solo actúa sobre",
     "01 notes/00-bandeja."
   ],
-
   "destinos": {
     "_doc": "Carpeta sugerida por tipo de nota (Alt+N). null = quedarse en la bandeja. El script meta/core/scripts/archivar.js SIEMPRE pregunta antes de mover.",
     "idea": null,
@@ -39,54 +38,118 @@
     "sueno": "07 diary",
     "reflexion": "07 diary"
   },
-
   "_doc_carpetasOcultasAlElegir": "Carpetas que archivar.js NO ofrece al 'Elegir otra carpeta…'. Se tratan como PREFIJOS (startsWith): oculta la carpeta y todo lo que cuelga de ella. Primero, almacenes internos del vault; luego, prefijos de sistemas externos que viven en ~/Documents pero NO son del vault (repos de scripts, blogs pub_*, frameworks, docs administrativos, índices y la capa de ecosistema).",
   "carpetasOcultasAlElegir": [
-    "meta", "biblioteca", "attachments", "assets",
-    "Academic_Class", "Academic_Writing_Framework", "git-awesome-ai-prompts",
-    "scripts_for", "pub_", "CampusTeX", "website-achalma", "doc_",
-    "04 index", "ecosistema"
+    "meta",
+    "biblioteca",
+    "attachments",
+    "assets",
+    "scripts_for",
+    "pub_",
+    "doc_",
+    "04 index",
+    "10 Class",
+    "11 Book",
+    "prompts",
+    "scripts_"
   ],
-
   "tareas": {
     "_doc": "Asistente de captura de tareas (Alt+T). Esc en cualquier pregunta = valor por defecto (primera opción), sin fricción. Los valores se guardan como campos inline de Dataview: [prioridad:: alta] etc. El valor por defecto no se escribe (línea limpia).",
     "estados": [
-      { "etiqueta": "⬜ Por hacer (defecto)", "valor": "" },
-      { "etiqueta": "🔄 En progreso", "valor": "en-progreso" },
-      { "etiqueta": "⏳ En espera", "valor": "en-espera" },
-      { "etiqueta": "🚧 Bloqueada", "valor": "bloqueada" },
-      { "etiqueta": "✅ Completada", "valor": "completada" }
+      {
+        "etiqueta": "⬜ Por hacer (defecto)",
+        "valor": ""
+      },
+      {
+        "etiqueta": "🔄 En progreso",
+        "valor": "en-progreso"
+      },
+      {
+        "etiqueta": "⏳ En espera",
+        "valor": "en-espera"
+      },
+      {
+        "etiqueta": "🚧 Bloqueada",
+        "valor": "bloqueada"
+      },
+      {
+        "etiqueta": "✅ Completada",
+        "valor": "completada"
+      }
     ],
     "prioridades": [
-      { "etiqueta": "➖ Sin prioridad (defecto)", "valor": "" },
-      { "etiqueta": "🔴 Alta", "valor": "alta" },
-      { "etiqueta": "🟡 Media", "valor": "media" },
-      { "etiqueta": "🟢 Baja", "valor": "baja" }
+      {
+        "etiqueta": "➖ Sin prioridad (defecto)",
+        "valor": ""
+      },
+      {
+        "etiqueta": "🔴 Alta",
+        "valor": "alta"
+      },
+      {
+        "etiqueta": "🟡 Media",
+        "valor": "media"
+      },
+      {
+        "etiqueta": "🟢 Baja",
+        "valor": "baja"
+      }
     ],
     "urgencias": [
-      { "etiqueta": "➖ Normal (defecto)", "valor": "" },
-      { "etiqueta": "🔥 Urgente", "valor": "urgente" },
-      { "etiqueta": "🌤️ Sin urgencia", "valor": "sin-urgencia" }
+      {
+        "etiqueta": "➖ Normal (defecto)",
+        "valor": ""
+      },
+      {
+        "etiqueta": "🔥 Urgente",
+        "valor": "urgente"
+      },
+      {
+        "etiqueta": "🌤️ Sin urgencia",
+        "valor": "sin-urgencia"
+      }
     ],
     "tipos": [
-      { "etiqueta": "➖ Sin tipo (defecto)", "valor": "" },
-      { "etiqueta": "💡 Idea", "valor": "idea" },
-      { "etiqueta": "🔬 Investigación", "valor": "investigacion" },
-      { "etiqueta": "✍️ Escritura", "valor": "escritura" },
-      { "etiqueta": "💻 Programación", "valor": "programacion" },
-      { "etiqueta": "🎓 Universidad", "valor": "universidad" },
-      { "etiqueta": "💼 Trabajo", "valor": "trabajo" },
-      { "etiqueta": "🏠 Personal", "valor": "personal" }
+      {
+        "etiqueta": "➖ Sin tipo (defecto)",
+        "valor": ""
+      },
+      {
+        "etiqueta": "💡 Idea",
+        "valor": "idea"
+      },
+      {
+        "etiqueta": "🔬 Investigación",
+        "valor": "investigacion"
+      },
+      {
+        "etiqueta": "✍️ Escritura",
+        "valor": "escritura"
+      },
+      {
+        "etiqueta": "💻 Programación",
+        "valor": "programacion"
+      },
+      {
+        "etiqueta": "🎓 Universidad",
+        "valor": "universidad"
+      },
+      {
+        "etiqueta": "💼 Trabajo",
+        "valor": "trabajo"
+      },
+      {
+        "etiqueta": "🏠 Personal",
+        "valor": "personal"
+      }
     ],
     "diasBusquedaRelacion": 14
   },
-
   "arrastre": {
     "_doc": "Persistencia de pendientes: al crear el Tareas.md de un día nuevo se copian las '- [ ]' del diario anterior y en el archivo viejo se marcan '- [>]' (arrastrada) para que no haya duplicados en los tableros.",
     "activado": true,
     "encabezado": "## ⏭️ Arrastradas de {fecha}"
   },
-
   "agrupacion": {
     "_doc": "Sugerencias de agrupación en el tablero bandeja. SOLO sugiere; agrupar añade [tema:: palabra] a las tareas elegidas. 'No' se recuerda y no vuelve a sugerirse.",
     "diasAnalisis": 7,
@@ -94,12 +157,48 @@
     "minTareasPorGrupo": 2,
     "maxSugerencias": 5,
     "stopwords": [
-      "para", "como", "este", "esta", "esto", "estos", "estas", "sobre",
-      "donde", "cuando", "porque", "entre", "hasta", "desde", "hacer",
-      "tarea", "tareas", "nota", "notas", "revisar", "crear", "nueva",
-      "nuevo", "mejorar", "cambiar", "agregar", "añadir", "terminar",
-      "empezar", "seguir", "buscar", "tiene", "tengo", "debe", "puede",
-      "quiero", "falta", "cosas", "algo", "todo", "todos", "todas"
+      "para",
+      "como",
+      "este",
+      "esta",
+      "esto",
+      "estos",
+      "estas",
+      "sobre",
+      "donde",
+      "cuando",
+      "porque",
+      "entre",
+      "hasta",
+      "desde",
+      "hacer",
+      "tarea",
+      "tareas",
+      "nota",
+      "notas",
+      "revisar",
+      "crear",
+      "nueva",
+      "nuevo",
+      "mejorar",
+      "cambiar",
+      "agregar",
+      "añadir",
+      "terminar",
+      "empezar",
+      "seguir",
+      "buscar",
+      "tiene",
+      "tengo",
+      "debe",
+      "puede",
+      "quiero",
+      "falta",
+      "cosas",
+      "algo",
+      "todo",
+      "todos",
+      "todas"
     ]
   }
 }
