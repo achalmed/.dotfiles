@@ -133,6 +133,7 @@ INSERT INTO book VALUES(115,'Macroeconomía','Olivier Blanchard',0,1788153629,0,
 INSERT INTO book VALUES(116,'Oficio N°0052-2026-2027-AJMP-CD/CRP','Alejandro José Manay Pillaca — Diputado de la República',0,1788197780,0,3,'N/A','N/A','9eb375c6453380efe228887890fdb60f',NULL,0);
 INSERT INTO book VALUES(117,'EM_PL_Presupuesto_SP_2027','Monroy Pasapera, Hugo Eduardo',0,1788455310,0,137,'N/A','N/A','ea473fbfa5d95c3db8c9443bff5ec61d',NULL,0);
 INSERT INTO book VALUES(118,'proyecto de Ley derogando el D.S 009-2026-EM.[R][R][R][R][R]','N/A',0,1788556600,0,6,'N/A','N/A','6259253da6a7d753f3935663d28efb5f',NULL,0);
+INSERT INTO book VALUES(119,'Marco Macroeconómico Multianual 2027-2030','DGPMACDF',0,1788843123,0,295,'N/A','N/A','a89a0608e01a9a6b11d57e7043dcd7d0',5,1);
 CREATE TABLE page_stat_data
         (
             id_book     integer,
@@ -522,6 +523,7 @@ INSERT INTO page_stat_data VALUES(113,6,1788147304,120,683);
 INSERT INTO page_stat_data VALUES(114,1,1788148446,8,535);
 INSERT INTO page_stat_data VALUES(115,12,1788152147,120,574);
 INSERT INTO page_stat_data VALUES(115,16,1788152988,120,574);
+INSERT INTO page_stat_data VALUES(119,1,1788843078,5,295);
 CREATE TABLE numbers
         (
             number INTEGER PRIMARY KEY
@@ -1529,7 +1531,7 @@ INSERT INTO numbers VALUES(1000);
 PRAGMA writable_schema=ON;
 CREATE TABLE IF NOT EXISTS sqlite_sequence(name,seq);
 DELETE FROM sqlite_sequence;
-INSERT INTO sqlite_sequence VALUES('book',118);
+INSERT INTO sqlite_sequence VALUES('book',119);
 CREATE VIEW page_stat AS
         SELECT id_book, first_page + idx - 1 AS page, start_time, duration / (last_page - first_page + 1) AS duration
         FROM (
