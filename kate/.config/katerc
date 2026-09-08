@@ -62,7 +62,12 @@ RunPrefix=
 SetEditor=false
 
 [MainWindow]
-3 screens: Window-Maximized=true
+1920x1080 screen: Height=1006
+1920x1080 screen: Width=960
+2 screens: Height=978
+2 screens: Width=960
+3 screens: Height=1006
+3 screens: Width=960
 
 [UiSettings]
 ColorScheme=Nothing

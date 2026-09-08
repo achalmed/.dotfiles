@@ -134,9 +134,10 @@ ForegroundVisited=155,89,182
 
 [General]
 BrowserApplication=google-chrome.desktop
-ColorSchemeHash=2c3f86428c11011a7c64ee1e7f47c274d498ff10
+ColorSchemeHash=9f63c7711a13123582e720791ea0f8c0172977d2
 
 [KDE]
+AnimationDurationFactor=0.17677669529663687
 AutomaticLookAndFeel=true
 LookAndFeelPackage=org.kubuntudark.desktop
 ShowDeleteCommand=false
@@ -144,25 +145,25 @@ ShowDeleteCommand=false
 [KFileDialog Settings]
 Allow Expansion=false
 Automatically select filename extension=true
-Breadcrumb Navigation=true
-Decoration position=2
-Preview Width=261
+Breadcrumb Navigation=false
+Decoration position=0
+Preview Width=222
 Show Full Path=false
 Show Inline Previews=true
 Show Preview=true
 Show Speedbar=true
 Show hidden files=false
-Sort by=Name
+Sort by=Date
 Sort directories first=true
 Sort hidden files last=false
 Sort reversed=false
-Speedbar Width=140
-View Style=DetailTree
+Speedbar Width=289
+View Style=Detail
 
 [PreviewSettings]
 EnableRemoteFolderThumbnail=false
-MaximumRemoteSize=5242880
-MaximumSize=1048576
+MaximumRemoteSize=10485760
+MaximumSize=20971520
 
 [WM]
 activeBackground=39,44,49

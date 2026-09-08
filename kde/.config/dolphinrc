@@ -4,8 +4,11 @@ ShowCopyMoveMenu=true
 [DetailsMode]
 IconSize=32
 PreviewSize=32
+RightPadding=0
 
 [General]
+GlobalViewProps=false
+OpenExternallyCalledFolderInNewTab=true
 RememberOpenedTabs=false
 Version=202
 ViewPropsTimestamp=2026,6,18,9,3,51.21

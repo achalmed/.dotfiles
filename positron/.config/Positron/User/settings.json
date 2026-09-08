@@ -66,9 +66,7 @@
         "other": true, //  | "inline"
         "comments": false, //  | "inline"
         "strings": false //  | "inline"
-    },
-    // ── 5. Workbench ──
-    "workbench.colorTheme": "Default Positron Dark", // nombre de tema
+    }, // nombre de tema
     "workbench.iconTheme": "material-icon-theme", // "vs-minimal" | "material-icon-theme" | etc.
     "workbench.productIconTheme": "material-product-icons", // nombre de tema de iconos
     "workbench.activityBar.location": "bottom", // "default" | "top" | "bottom" | "hidden"
@@ -256,5 +254,14 @@
     "indenticator.width": 0.5, // número decimal en píxeles
     "indenticator.color.dark": "rgba(255,255,255,0.1)", // color CSS (rgba/hex)
     // ── 23. Gitignore ──
-    "gitignore.cacheExpirationInterval": 3600 // número en segundos
+    "gitignore.cacheExpirationInterval": 3600,
+    "claudeCode.preferredLocation": "panel",
+    "workbench.editorAssociations": {
+        "*.copilotmd": "vscode.markdown.preview.editor",
+        "*.pdf": "positronPdfServer.previewEditor"
+    },
+    "vscode-office.editMode": "ir",
+    "vscode-office.editorTheme": "Dim Light",
+    "vscode-office.codeMirrorTheme": "Dracula",
+    "python.languageServer": "None" // número en segundos
 }

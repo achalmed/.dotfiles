@@ -8,14 +8,14 @@
   <property name="selectedToolbar" value="Xournal++"/>
   <property name="lastSavePath" value="/home/achalmaedison/Downloads"/>
   <property name="lastOpenPath" value="/home/achalmaedison/Downloads"/>
-  <property name="lastImagePath" value=""/>
+  <property name="lastImagePath" value="/home/achalmaedison/Documents/08 personal/01_identidad_y_registro_civil/firmas_fotos_huellas"/>
   <property name="edgePanSpeed" value="20"/>
   <property name="edgePanMaxMult" value="5"/>
   <property name="zoomStep" value="10"/>
   <property name="zoomStepScroll" value="2"/>
   <property name="displayDpi" value="-1"/>
-  <property name="mainWndWidth" value="800"/>
-  <property name="mainWndHeight" value="600"/>
+  <property name="mainWndWidth" value="960"/>
+  <property name="mainWndHeight" value="1023"/>
   <property name="maximized" value="true"/>
   <property name="showToolbar" value="true"/>
   <property name="showSidebar" value="true"/>
@@ -191,6 +191,10 @@
       <attribute name="deviceClass" type="int" value="0"/>
       <attribute name="deviceSource" type="int" value="0"/>
     </data>
+    <data name="Wayland Finger Scrolling">
+      <attribute name="deviceClass" type="int" value="1"/>
+      <attribute name="deviceSource" type="int" value="6"/>
+    </data>
     <data name="Wayland Pointer">
       <attribute name="deviceClass" type="int" value="1"/>
       <attribute name="deviceSource" type="int" value="0"/>
@@ -201,7 +205,7 @@
     </data>
   </data>
   <data name="tools">
-    <attribute name="current" type="string" value="pen"/>
+    <attribute name="current" type="string" value="text"/>
     <data name="drawArrow"/>
     <data name="drawCoordinateSystem"/>
     <data name="drawDoubleArrow"/>
