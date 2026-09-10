@@ -134,6 +134,7 @@ INSERT INTO book VALUES(116,'Oficio N°0052-2026-2027-AJMP-CD/CRP','Alejandro Jo
 INSERT INTO book VALUES(117,'EM_PL_Presupuesto_SP_2027','Monroy Pasapera, Hugo Eduardo',0,1788455310,0,137,'N/A','N/A','ea473fbfa5d95c3db8c9443bff5ec61d',NULL,0);
 INSERT INTO book VALUES(118,'proyecto de Ley derogando el D.S 009-2026-EM.[R][R][R][R][R]','N/A',0,1788556600,0,6,'N/A','N/A','6259253da6a7d753f3935663d28efb5f',NULL,0);
 INSERT INTO book VALUES(119,'Marco Macroeconómico Multianual 2027-2030','DGPMACDF',0,1788843123,0,295,'N/A','N/A','a89a0608e01a9a6b11d57e7043dcd7d0',5,1);
+INSERT INTO book VALUES(120,'Panorama Social de América Latina y el Caribe, 2025','CEPAL',0,1789008101,0,207,'N/A','N/A','6c5ede1cc02327d34eccb19f85c614e6',NULL,0);
 CREATE TABLE page_stat_data
         (
             id_book     integer,
@@ -1531,7 +1532,7 @@ INSERT INTO numbers VALUES(1000);
 PRAGMA writable_schema=ON;
 CREATE TABLE IF NOT EXISTS sqlite_sequence(name,seq);
 DELETE FROM sqlite_sequence;
-INSERT INTO sqlite_sequence VALUES('book',119);
+INSERT INTO sqlite_sequence VALUES('book',120);
 CREATE VIEW page_stat AS
         SELECT id_book, first_page + idx - 1 AS page, start_time, duration / (last_page - first_page + 1) AS duration
         FROM (
