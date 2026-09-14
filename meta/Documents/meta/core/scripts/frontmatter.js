@@ -1,7 +1,8 @@
 /**
  * frontmatter.js — Script de usuario de Templater (tp.user.frontmatter).
  *
- * ÚNICA FUENTE DE VERDAD del esquema de metadata del vault.
+ * ÚNICA FUENTE DE VERDAD del esquema de metadata del vault (instancia de
+ * meta/NORMATIVA_ARCHIVOS.md §6.2 y §10, desde 2026-09-13).
  * Toda plantilla genera su frontmatter llamando a este script; si algún
  * día cambias el esquema, lo cambias SOLO aquí (ver meta/docs/metadata.md).
  *
@@ -20,8 +21,9 @@ function frontmatter(tp, opciones = {}) {
         "---",
         `id: ${tp.date.now("YYYYMMDDHHmmss")}`,
         `tipo: ${opciones.tipo ?? "nota"}`,
+        `titulo: ${opciones.titulo ?? ""}`,
         `estado: ${opciones.estado ?? "bandeja"}`,
-        `creado: ${tp.date.now("YYYY-MM-DD[T]HH:mm")}`,
+        `creado: ${tp.date.now("YYYY-MM-DD")}`,   // fecha; la hora vive en `id` (NORMATIVA_ARCHIVOS §3)
         `tags: [${(opciones.tags ?? []).join(", ")}]`,
         "aliases: []",
         // La organización manual manda: ninguna nota nacida de una plantilla

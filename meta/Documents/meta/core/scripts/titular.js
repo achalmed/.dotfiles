@@ -4,11 +4,14 @@
  * Pide un título y renombra la nota siguiendo el ESTÁNDAR ÚNICO de nombres
  * del vault (ver meta/docs/02-metadata.md):
  *
- *     AAAA-MM-DD <Tipo> - <Título>.md      (con título)
- *     AAAA-MM-DD <Tipo> HHmm.md            (sin título / Esc)
+ *     AAAA-MM-DD-<titulo-en-kebab>.md      (con título)
+ *     AAAA-MM-DD-<tipo>-HHmm.md            (sin título / Esc)
  *
- * Ejemplos: "2026-07-06 Idea - Sistema de tareas.md",
- *           "2026-07-06 Paper - Acemoglu instituciones.md".
+ * Ejemplos: "2026-07-06-sistema-de-tareas.md",
+ *           "2026-07-06-acemoglu-instituciones.md".
+ * Desde 2026-09-13 (meta/NORMATIVA_ARCHIVOS.md §4): kebab, sin espacios, sin
+ * el tipo en el nombre (va en `tipo:` del frontmatter); el título humano se
+ * devuelve para el H1 y para `titulo:`.
  *
  * Garantiza que nunca quede un archivo "Untitled" y que dos notas nunca
  * choquen de nombre (añade la hora exacta si hace falta). Devuelve el
@@ -33,14 +36,16 @@ async function titular(tp, etiqueta = "Nota") {
         .replace(/\s+/g, " ")
         .trim();
 
+    const kebab = (t) => t.normalize("NFKD").replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
     const nombre = titulo
-        ? `${fecha} ${etiqueta} - ${titulo}`
-        : `${fecha} ${etiqueta} ${tp.date.now("HHmm")}`;
+        ? `${fecha}-${kebab(titulo)}`
+        : `${fecha}-${kebab(etiqueta)}-${tp.date.now("HHmm")}`;
     try {
         await tp.file.rename(nombre);
     } catch (e) {
         // Ya existe una nota con ese nombre: añadir hora exacta.
-        await tp.file.rename(`${nombre} ${tp.date.now("HHmmss")}`);
+        await tp.file.rename(`${nombre}-${tp.date.now("HHmmss")}`);
     }
     return titulo || `${etiqueta} ${tp.date.now("HHmm")}`;
 }

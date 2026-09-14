@@ -4,14 +4,23 @@
 plantillas lo llaman; si quieres cambiar el esquema, cámbialo SOLO ahí y
 todas las notas futuras lo heredan.
 
+> **Desde 2026-09-13 este estándar es una instancia de `meta/NORMATIVA_ARCHIVOS.md`**
+> (§6.2 «nota del vault», §10). Cambios que esa normativa introduce aquí: `titulo`
+> en el esquema base; `creado` como fecha (`AAAA-MM-DD`, la hora ya está en `id`);
+> nombre de archivo `AAAA-MM-DD-titulo-en-kebab.md` (el tipo va en `tipo:`, no en el
+> nombre); `estado` con el ciclo universal (`bandeja · borrador · activo · en_espera ·
+> hecho · archivado · retirado`; `siguiente` y `algun_dia` como extensiones de tarea e
+> idea); etiquetas solo `tipo` (la pone el generador), `tema/<slug>` y `proyecto/<id>`.
+
 ## Esquema base (todas las notas)
 
 ```yaml
 ---
 id: 20260706134501        # timestamp de creación = UUID legible. No se edita.
 tipo: idea                # qué es la nota (catálogo abajo)
-estado: bandeja           # dónde está en el flujo (ciclo de vida abajo)
-creado: 2026-07-06T13:45  # fecha y hora de creación. No se edita.
+titulo: Sistema de tareas # título humano (el nombre de archivo es kebab)
+estado: bandeja           # ciclo de vida universal (NORMATIVA_ARCHIVOS §2.1)
+creado: 2026-07-06        # fecha de creación (la hora está en `id`). No se edita.
 tags: [idea]              # etiquetas; algunas disparan Auto Note Mover
 aliases: []               # nombres alternativos para enlazar
 ---
@@ -74,12 +83,12 @@ Lo aplica `meta/core/scripts/titular.js` (notas tipadas) y
 
 | Qué | Patrón | Ejemplo |
 | --- | --- | --- |
-| Diario de capturas | `AAAA-MM-DD Capturas` | `2026-07-06 Capturas` |
-| Diario de tareas | `AAAA-MM-DD Tareas` | `2026-07-06 Tareas` |
-| Nota tipada con título | `AAAA-MM-DD <Tipo> - <Título>` | `2026-07-06 Paper - Acemoglu instituciones` |
-| Nota tipada sin título | `AAAA-MM-DD <Tipo> HHmm` | `2026-07-06 Idea 0913` |
+| Diario de capturas | `AAAA-MM-DD-capturas` | `2026-07-06-capturas` |
+| Diario de tareas | `AAAA-MM-DD-tareas` | `2026-07-06-tareas` |
+| Nota tipada con título | `AAAA-MM-DD-<titulo-kebab>` | `2026-07-06-acemoglu-instituciones` |
+| Nota tipada sin título | `AAAA-MM-DD-<tipo>-HHmm` | `2026-07-06-idea-0913` |
 | Plan diario | `AAAA-MM-DD` | `2026-07-06` |
-| Revisiones | `<período> Revisión <alcance>` | `2026-W28 Revisión semanal`, `2026-07 Revisión mensual` |
+| Revisiones | `<período>` | `2026-W28`, `2026-07`, `2026-Q3`, `2026` |
 
 Todo empieza por la fecha o el período: el explorador ordena solo y las
 búsquedas por fecha funcionan sin metadata.
