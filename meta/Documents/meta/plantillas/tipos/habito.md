@@ -1,6 +1,6 @@
 <%*
 const titulo = await tp.user.titular(tp, "Hábito");
-tR += tp.user.frontmatter(tp, { tipo: "habito", estado: "activo", tags: ["habito"], extra: {disparador: "", recompensa: ""} });
+tR += tp.user.frontmatter(tp, { tipo: "habito", titulo: titulo, estado: "activo", tags: [], extra: {disparador: "", recompensa: ""} });
 await tp.user.archivar(tp, "habito");
 -%>
 # 🌿 <% titulo %>

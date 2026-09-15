@@ -19,7 +19,7 @@ SORT creado ASC
 
 ```dataview
 LIST
-WHERE tipo = "idea" AND estado = "algun-dia"
+WHERE tipo = "idea" AND estado = "algun_dia"
 ```
 
 ## 🎲 Resucitar: 3 notas antiguas al azar

@@ -4,7 +4,7 @@
  * Detecta automáticamente las notas que rompen el estándar, para que el
  * usuario nunca tenga que "salir a buscar" desorden:
  *   - Sin título real (Untitled / "captura" / "entrada" automáticos)
- *   - Sin metadata (sin `tipo` o sin `estado`) — solo notas creadas desde
+ *   - Sin metadata (sin `tipo`, `estado`, `id` o `creado`; NORMATIVA_ARCHIVOS §6.2) — solo notas creadas desde
  *     la fecha `desde` (las históricas del vault no se auditan)
  *   - Bandeja envejecida (estado bandeja con más de 7 días)
  *   - Huérfanas recientes (sin enlaces entrantes ni salientes)
@@ -22,7 +22,7 @@ const recientes = dv
 
 const sinTitulo = recientes.where((p) =>
     /^(untitled|sin título|captura$|entrada \d)/i.test(p.file.name));
-const sinMetadata = recientes.where((p) => !p.tipo || !p.estado);
+const sinMetadata = recientes.where((p) => !p.tipo || !p.estado || !p.id || !p.creado);
 const hoy = dv.date("today");
 const envejecidas = recientes.where((p) =>
     p.estado === "bandeja" && hoy.diff(p.file.cday, "days").days > 7);
@@ -41,8 +41,8 @@ const seccion = (titulo, paginas, consejo) => {
 
 seccion("🏷️ Notas sin título real", sinTitulo,
     "Renómbralas con un título descriptivo (o bórralas si ya no aportan).");
-seccion("📇 Notas sin tipo o estado", sinMetadata,
-    "Añade `tipo:` y `estado:` en Properties, o recréalas desde una plantilla.");
+seccion("📇 Notas sin tipo, estado, id o creado", sinMetadata,
+    "Añade `tipo:`, `estado:`, `id:` y `creado:` en Properties, o recréalas desde una plantilla.");
 seccion("🧟 Bandeja envejecida (> 7 días)", envejecidas,
     "Decisión rápida por cada una: hacer, agendar, algún-día o borrar.");
 seccion("🔗 Huérfanas recientes", huerfanas,

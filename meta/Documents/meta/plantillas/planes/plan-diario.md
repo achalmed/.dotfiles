@@ -7,7 +7,8 @@ const fecha = valida ? tp.file.title : tp.date.now("YYYY-MM-DD");
 const f = window.moment(fecha, "YYYY-MM-DD");
 tR += tp.user.frontmatter(tp, {
   tipo: "plan-diario",
-  estado: "en-curso",
+  titulo: `Plan del día — ${f.format("dddd D [de] MMMM")}`,
+  estado: "activo",
   tags: ["plan"],
   extra: {
     fecha: fecha,
@@ -15,7 +16,7 @@ tR += tp.user.frontmatter(tp, {
     energia_manana: '""',
     energia_tarde: '""',
     energia_noche: '""',
-    "sueño_horas": '""',
+    sueno_horas: '""',
   },
 });
 -%>
@@ -110,5 +111,5 @@ await dv.view("meta/capture/bandeja", { limite: 10 });
 
 **Energía del día (1–10):**
 
-> Al terminar: cambia `estado: en-curso` → `estado: hecho` en Properties
-> y rellena `energia_*` y `sueño_horas`.
+> Al terminar: cambia `estado: activo` → `estado: hecho` en Properties
+> y rellena `energia_*` y `sueno_horas`.

@@ -2,12 +2,13 @@
 /* Revisión semanal — incluye el PLAN de la próxima semana (un solo ritual,
    no dos documentos). Calcula sola el rango lunes–domingo de la semana
    que termina: nada de fechas a mano. */
-await tp.file.rename(`${tp.date.now("YYYY")}-W${tp.date.now("ww")} Revisión semanal`);
+await tp.file.rename(`${tp.date.now("YYYY")}-W${tp.date.now("ww")}`);   // NORMATIVA_ARCHIVOS §4: AAAA-Www.md
 const inicio = window.moment().startOf("isoWeek").format("YYYY-MM-DD");
 const fin = window.moment().endOf("isoWeek").format("YYYY-MM-DD");
 tR += tp.user.frontmatter(tp, {
   tipo: "revision-semanal",
-  estado: "en-curso",
+  titulo: `Revisión semanal ${tp.date.now("YYYY")}-W${tp.date.now("ww")}`,
+  estado: "activo",
   tags: ["revision"],
   extra: {
     semana: `"${tp.date.now("YYYY")}-W${tp.date.now("ww")}"`,
@@ -30,7 +31,7 @@ await dv.view("meta/capture/bandeja", {});
 ```
 
 > Por cada elemento, UNA decisión: hacer ya (<2 min) · `tarea` · `proyecto` ·
-> `algun-dia` · referencia · **borrar**. Borrar es la opción por defecto.
+> `algun_dia` · referencia · **borrar**. Borrar es la opción por defecto.
 
 ## 2 · Mirar la semana que termina (10 min)
 
@@ -43,7 +44,7 @@ await dv.view("meta/capture/bandeja", {});
 ### 📈 Energía y sueño (automático)
 
 ```dataview
-TABLE WITHOUT ID file.link AS "Día", energia_manana AS "Mañana", energia_tarde AS "Tarde", energia_noche AS "Noche", sueño_horas AS "Sueño"
+TABLE WITHOUT ID file.link AS "Día", energia_manana AS "Mañana", energia_tarde AS "Tarde", energia_noche AS "Noche", sueno_horas AS "Sueño"
 FROM "07 diary"
 WHERE tipo = "plan-diario" AND fecha >= date(this.fecha_inicio) AND fecha <= date(this.fecha_fin)
 SORT fecha ASC
@@ -71,7 +72,7 @@ await dv.view("meta/tasks/proyectos", { wip: 3 });
 ```
 
 > Proyecto 😴 detenido: decide — reactivar (define siguiente acción),
-> `espera` o `algun-dia`. Proyecto 🚫 sin siguiente acción: defínela AHORA.
+> `en_espera` o `algun_dia`. Proyecto 🚫 sin siguiente acción: defínela AHORA.
 
 ## 4 · Elegir (10 min)
 

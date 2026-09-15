@@ -3,7 +3,7 @@
  *
  * Al extraer una anotación de Zotero hacia una nota nueva, copia el
  * encabezado (frontmatter + sección "### Note") de la nota de investigación
- * actual y actualiza el campo `page-no::` con la página de la anotación
+ * actual y actualiza el campo `pagina::` (antes `page-no::`, NORMATIVA_ARCHIVOS §1) con la página de la anotación
  * seleccionada (tomada del parámetro `?page=` del enlace de Zotero).
  *
  * Usado por: meta/plantillas/extract research note from selection.md
@@ -22,12 +22,12 @@ function encabezado(tp) {
         seleccion.indexOf("&annotation"));
 
     // Reemplaza el valor anterior de page-no:: por el de la selección.
-    const inicio = cabecera.indexOf("page-no:: ") + 10;
+    const inicio = cabecera.indexOf("pagina:: ") + 9;
     const paginaAnterior = cabecera.substring(
         inicio, cabecera.indexOf("\n", inicio));
 
     return cabecera.replace(
-        "page-no:: " + paginaAnterior + "\n",
-        "page-no:: " + pagina + "\n");
+        "pagina:: " + paginaAnterior + "\n",
+        "pagina:: " + pagina + "\n");
 }
 module.exports = encabezado;

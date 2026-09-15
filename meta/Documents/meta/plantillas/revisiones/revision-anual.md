@@ -1,11 +1,12 @@
 <%*
 const anio = tp.date.now("YYYY");
-await tp.file.rename(`${anio} Revisión anual`);
+await tp.file.rename(`${anio}`);   // NORMATIVA_ARCHIVOS §4: revisiones AAAA.md
 tR += tp.user.frontmatter(tp, {
   tipo: "revision-anual",
-  estado: "en-curso",
+  titulo: `Revisión anual ${anio}`,
+  estado: "activo",
   tags: ["revision"],
-  extra: { "año": anio },
+  extra: { anio: anio },
 });
 -%>
 # 🎇 Revisión anual — <% anio %>
@@ -30,7 +31,7 @@ tR += tp.user.frontmatter(tp, {
 
 ```dataview
 LIST
-WHERE (tipo = "aprendizaje" OR tipo = "error") AND dateformat(date(creado), "yyyy") = string(this.año)
+WHERE (tipo = "aprendizaje" OR tipo = "error") AND dateformat(date(creado), "yyyy") = string(this.anio)
 LIMIT 30
 ```
 
@@ -58,7 +59,7 @@ LIMIT 30
 ## 4 · Limpieza anual del sistema
 
 - [ ] Archivar proyectos muertos (estado → `archivado`)
-- [ ] Vaciar `algun-dia` de todo lo que ya no resuena
+- [ ] Vaciar `estado: algun_dia` de todo lo que ya no resuena
 - [ ] Revisar [[mantenimiento]] y dejar la bandeja a cero
 
 > Al terminar: `estado: hecho`.

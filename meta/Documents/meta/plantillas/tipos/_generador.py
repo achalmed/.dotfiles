@@ -1,5 +1,13 @@
-# Genera las plantillas de tipos de meta/plantillas/tipos/ desde una sola
-# especificación, garantizando estructura y metadata idénticas en todas.
+"""meta/plantillas/tipos/_generador.py — genera las 27 plantillas de tipo de nota desde una sola especificación.
+
+Objetivo: que las plantillas de meta/plantillas/tipos/ tengan estructura y metadata
+  idénticas: se escriben aquí una vez y se regeneran (`python3 _generador.py`).
+Método: un diccionario tipo → (emoji, estado, extra, cuerpo) y una plantilla Templater
+  común que llama a titular.js, frontmatter.js y archivar.js.
+Fundamento: meta/NORMATIVA_ARCHIVOS.md §1 (claves snake_case), §2.1 (estados), §10.4 (la
+  primera etiqueta es el tipo y la pone el generador); fase M3 2026-09-15.
+Límite: no toca planes/ ni revisiones/, que tienen lógica de fecha propia.
+"""
 from pathlib import Path
 
 ETIQUETAS = {'idea': 'Idea', 'nota': 'Nota', 'investigacion': 'Investigación', 'proyecto': 'Proyecto', 'persona': 'Persona', 'libro': 'Libro', 'articulo': 'Artículo', 'paper': 'Paper', 'video': 'Video', 'clase': 'Clase', 'reunion': 'Reunión', 'sueno': 'Sueño', 'reflexion': 'Reflexión', 'decision': 'Decisión', 'problema': 'Problema', 'hipotesis': 'Hipótesis', 'experimento': 'Experimento', 'aprendizaje': 'Aprendizaje', 'error': 'Error', 'checklist': 'Checklist', 'objetivo': 'Objetivo', 'rutina': 'Rutina', 'habito': 'Hábito', 'bitacora': 'Bitácora', 'tarea': 'Tarea', 'algun-dia': 'Algún día', 'referencia': 'Referencia'}
@@ -11,8 +19,12 @@ ETIQUETAS = {'idea': 'Idea', 'nota': 'Nota', 'investigacion': 'Investigación', 
 DESTINO = Path(__file__).resolve().parent
 
 # nombre → (emoji, estado, tags, extra_dict, cuerpo)
+# `tags` va vacío a propósito: frontmatter.js antepone el tipo (§10.4) y las demás
+# etiquetas (`tema/<slug>`, `proyecto/<id>`) las pone el autor. Se retiraron los
+# sinónimos en inglés (task, project, person, source, diary), que solo servían a
+# Auto Note Mover, y ninguna nota de plantilla se mueve sola (AutoNoteMover: disable).
 TIPOS = {
-    "idea": ("💡", "bandeja", ["idea"], {},
+    "idea": ("💡", "bandeja", [], {},
 """## La idea
 
 -
@@ -21,14 +33,14 @@ TIPOS = {
 
 -
 
-## Siguiente acción (si no hay ninguna, en la revisión pasa a `algun-dia`)
+## Siguiente acción (si no hay ninguna, en la revisión pasa a `estado: algun_dia`)
 
 - [ ] """),
 
-    "nota": ("📝", "bandeja", ["nota"], {},
+    "nota": ("📝", "bandeja", [], {},
 """- """),
 
-    "investigacion": ("🔬", "activo", ["investigacion"], {"pregunta": '""', "proyecto": '""'},
+    "investigacion": ("🔬", "activo", [], {"pregunta": '""', "proyecto": '""'},
 """## Pregunta de investigación
 
 -
@@ -45,7 +57,7 @@ TIPOS = {
 
 - [ ] """),
 
-    "proyecto": ("🗂️", "activo", ["project"], {"objetivo": '""', "fecha_limite": '""', "esperando": '""'},
+    "proyecto": ("🗂️", "activo", [], {"objetivo": '""', "fecha_limite": '""', "esperando": '""'},
 """## Objetivo (¿cómo se ve TERMINADO?)
 
 -
@@ -62,7 +74,7 @@ TIPOS = {
 
 - <% tp.date.now("YYYY-MM-DD") %> — creado."""),
 
-    "persona": ("👤", "activo", ["person"], {"relacion": '""', "contacto": '""'},
+    "persona": ("👤", "activo", [], {"relacion": '""', "contacto": '""'},
 """## Quién es
 
 -
@@ -71,7 +83,7 @@ TIPOS = {
 
 - [ ] """),
 
-    "libro": ("📖", "bandeja", ["source", "libro"], {"autor": '""', "año": '""', "estado_lectura": "por-leer"},
+    "libro": ("📖", "bandeja", [], {"autor": '""', "anio": '""', "estado_lectura": "por_leer"},
 """## ¿Por qué leerlo?
 
 -
@@ -84,7 +96,7 @@ TIPOS = {
 
 > """),
 
-    "articulo": ("📰", "bandeja", ["source", "articulo"], {"autor": '""', "url": '""'},
+    "articulo": ("📰", "bandeja", [], {"autor": '""', "url": '""'},
 """## Idea central
 
 -
@@ -93,7 +105,7 @@ TIPOS = {
 
 - """),
 
-    "paper": ("📄", "bandeja", ["source", "paper"], {"autor": '""', "año": '""', "doi": '""', "citekey": '""'},
+    "paper": ("📄", "bandeja", [], {"autor": '""', "anio": '""', "doi": '""', "clave_bibtex": '""'},
 """## Tesis / aporte
 
 -
@@ -110,7 +122,7 @@ TIPOS = {
 
 - """),
 
-    "video": ("🎬", "bandeja", ["source", "video"], {"canal": '""', "url": '""'},
+    "video": ("🎬", "bandeja", [], {"canal": '""', "url": '""'},
 """## Idea central
 
 -
@@ -119,7 +131,7 @@ TIPOS = {
 
 - """),
 
-    "clase": ("🎓", "activo", ["clase"], {"curso": '""', "fecha_clase": '""'},
+    "clase": ("🎓", "activo", [], {"curso": '""', "fecha_clase": '""'},
 """## Objetivo de la sesión
 
 -
@@ -136,7 +148,7 @@ TIPOS = {
 
 - [ ] """),
 
-    "reunion": ("🤝", "activo", ["reunion"], {"con": '""', "fecha_reunion": '""'},
+    "reunion": ("🤝", "activo", [], {"con": '""', "fecha_reunion": '""'},
 """## Agenda
 
 -
@@ -149,7 +161,7 @@ TIPOS = {
 
 - [ ] """),
 
-    "sueno": ("🌙", "hecho", ["diary", "sueño"], {},
+    "sueno": ("🌙", "hecho", [], {},
 """## El sueño
 
 -
@@ -158,7 +170,7 @@ TIPOS = {
 
 - """),
 
-    "reflexion": ("🪞", "hecho", ["diary", "reflexion"], {},
+    "reflexion": ("🪞", "hecho", [], {},
 """## ¿Qué pasó / qué estoy pensando?
 
 -
@@ -167,7 +179,7 @@ TIPOS = {
 
 - """),
 
-    "decision": ("⚖️", "activo", ["decision"], {"fecha_limite": '""'},
+    "decision": ("⚖️", "activo", [], {"fecha_limite": '""'},
 """## ¿Qué hay que decidir?
 
 -
@@ -188,7 +200,7 @@ TIPOS = {
 
 - """),
 
-    "problema": ("🧩", "activo", ["problema"], {"proyecto": '""'},
+    "problema": ("🧩", "activo", [], {"proyecto": '""'},
 """## Síntoma (qué se observa)
 
 -
@@ -205,7 +217,7 @@ TIPOS = {
 
 - [ ] """),
 
-    "hipotesis": ("🧪", "activo", ["hipotesis"], {},
+    "hipotesis": ("🧪", "activo", [], {},
 """## Enunciado (si X, entonces Y, porque Z)
 
 -
@@ -218,7 +230,7 @@ TIPOS = {
 
 - """),
 
-    "experimento": ("⚗️", "activo", ["experimento"], {"hipotesis": '""', "inicio": '""', "fin": '""'},
+    "experimento": ("⚗️", "activo", [], {"hipotesis": '""', "inicio": '""', "fin": '""'},
 """## Diseño (qué se cambia, qué se mide)
 
 -
@@ -231,7 +243,7 @@ TIPOS = {
 
 - """),
 
-    "aprendizaje": ("🌱", "hecho", ["aprendizaje"], {"fuente": '""'},
+    "aprendizaje": ("🌱", "hecho", [], {"fuente": '""'},
 """## ¿Qué aprendí?
 
 -
@@ -240,7 +252,7 @@ TIPOS = {
 
 - """),
 
-    "error": ("🐞", "hecho", ["error"], {"proyecto": '""'},
+    "error": ("🐞", "hecho", [], {"proyecto": '""'},
 """## ¿Qué salió mal?
 
 -
@@ -253,12 +265,12 @@ TIPOS = {
 
 - """),
 
-    "checklist": ("☑️", "activo", ["checklist"], {},
+    "checklist": ("☑️", "activo", [], {},
 """## Pasos
 
 - [ ] """),
 
-    "objetivo": ("🎯", "activo", ["objetivo"], {"plazo": '""', "metrica": '""'},
+    "objetivo": ("🎯", "activo", [], {"plazo": '""', "metrica": '""'},
 """## Resultado esperado (medible)
 
 -
@@ -271,12 +283,12 @@ TIPOS = {
 
 - [ ] """),
 
-    "rutina": ("🔁", "activo", ["rutina"], {"horario": '""'},
+    "rutina": ("🔁", "activo", [], {"horario": '""'},
 """## Pasos (en orden, sin decisiones)
 
 1. """),
 
-    "habito": ("🌿", "activo", ["habito"], {"disparador": '""', "recompensa": '""'},
+    "habito": ("🌿", "activo", [], {"disparador": '""', "recompensa": '""'},
 """## Hábito (versión mínima viable: tan fácil que no puedas fallar)
 
 -
@@ -285,12 +297,12 @@ TIPOS = {
 
 - <% tp.date.now("YYYY-MM-DD") %> — inicio."""),
 
-    "bitacora": ("📓", "activo", ["bitacora"], {"proyecto": '""'},
+    "bitacora": ("📓", "activo", [], {"proyecto": '""'},
 """## <% tp.date.now("YYYY-MM-DD") %>
 
 - """),
 
-    "tarea": ("✅", "siguiente", ["task"], {"proyecto": '""', "fecha_limite": '""', "sp_est": "30m"},
+    "tarea": ("✅", "siguiente", [], {"proyecto": '""', "fecha_limite": '""', "sp_est": "30m"},
 """## Descripción
 
 - [ ]
@@ -298,7 +310,7 @@ TIPOS = {
 > Para ejecutarla en Super Productivity: aparece en el exportador del
 > plan diario y de [[semana]] mientras `estado` sea `siguiente` o `activo`."""),
 
-    "algun-dia": ("🌤️", "algun-dia", ["algun-dia"], {},
+    "algun-dia": ("🌤️", "algun_dia", [], {},
 """## ¿Qué es?
 
 -
@@ -309,7 +321,7 @@ TIPOS = {
 
 > Se revisa solo: aparece en la revisión mensual. No pienses más en esto hoy."""),
 
-    "referencia": ("🔗", "activo", ["referencia"], {"url": '""', "fuente": '""'},
+    "referencia": ("🔗", "activo", [], {"url": '""', "fuente": '""'},
 """## ¿Para qué sirve?
 
 -
@@ -319,9 +331,13 @@ TIPOS = {
 - """),
 }
 
+# tipo que declara la nota (la plantilla algun-dia crea una `idea` en estado `algun_dia`,
+# porque §2.1 solo admite ese estado en idea|tarea; el destino de archivar sigue siendo el suyo)
+TIPO_DECLARADO = {"algun-dia": "idea"}
+
 PLANTILLA = """<%*
 const titulo = await tp.user.titular(tp, "{etiqueta}");
-tR += tp.user.frontmatter(tp, {{ tipo: "{nombre}", estado: "{estado}", tags: [{tags}], extra: {{{extra}}} }});
+tR += tp.user.frontmatter(tp, {{ tipo: "{tipo}", titulo: titulo, estado: "{estado}", tags: [{tags}], extra: {{{extra}}} }});
 await tp.user.archivar(tp, "{nombre}");
 -%>
 # {emoji} <% titulo %>
@@ -333,6 +349,7 @@ DESTINO.mkdir(parents=True, exist_ok=True)
 for nombre, (emoji, estado, tags, extra, cuerpo) in TIPOS.items():
     contenido = PLANTILLA.format(
         nombre=nombre,
+        tipo=TIPO_DECLARADO.get(nombre, nombre),
         etiqueta=ETIQUETAS[nombre],
         emoji=emoji,
         estado=estado,

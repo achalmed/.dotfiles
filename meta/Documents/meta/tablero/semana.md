@@ -27,7 +27,7 @@ SORT fecha_limite ASC
 
 ```dataview
 TABLE WITHOUT ID file.link AS "Qué", tipo AS "Tipo", esperando AS "Esperando a"
-WHERE estado = "espera"
+WHERE estado = "en_espera"
 ```
 
 ## 📤 Exportar tareas activas a Super Productivity

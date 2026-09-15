@@ -112,7 +112,7 @@ Referenciados por ruta desde `.obsidian/` — renombrarlos rompe plugins:
 | Notas con tag `diary` (sueño, reflexión) | `07 diary` | archivar.js / Auto Note Mover (solo bandeja) |
 | Notas con tag `archive` | `06 archives` | Auto Note Mover (solo bandeja) |
 | Plan diario | `07 diary/AÑO/` | plugin Daily notes (formato `YYYY/YYYY-MM-DD`) |
-| `idea`, `nota`, `algun-dia` | se quedan en la bandeja | (por diseño: material sin procesar/incubando) |
+| `idea`, `nota` (y la plantilla `algun-dia`, que crea una `idea` en `estado: algun_dia`) | se quedan en la bandeja | (por diseño: material sin procesar/incubando) |
 
 `meta/` está excluida de Auto Note Mover (regla regex `^meta`) y, desde la
 v3, también todo lo que no sea la bandeja (whitelist

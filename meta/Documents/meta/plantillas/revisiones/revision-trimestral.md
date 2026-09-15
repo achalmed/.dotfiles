@@ -1,9 +1,10 @@
 <%*
 const trimestre = `${tp.date.now("YYYY")}-Q${tp.date.now("Q")}`;
-await tp.file.rename(`${trimestre} Revisión trimestral`);
+await tp.file.rename(`${trimestre}`);   // NORMATIVA_ARCHIVOS §4: revisiones AAAA-Qn.md
 tR += tp.user.frontmatter(tp, {
   tipo: "revision-trimestral",
-  estado: "en-curso",
+  titulo: `Revisión trimestral ${trimestre}`,
+  estado: "activo",
   tags: ["revision"],
   extra: { trimestre: `"${trimestre}"` },
 });

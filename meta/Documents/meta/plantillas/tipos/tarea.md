@@ -1,6 +1,6 @@
 <%*
 const titulo = await tp.user.titular(tp, "Tarea");
-tR += tp.user.frontmatter(tp, { tipo: "tarea", estado: "siguiente", tags: ["task"], extra: {proyecto: "", fecha_limite: "", sp_est: 30m} });
+tR += tp.user.frontmatter(tp, { tipo: "tarea", titulo: titulo, estado: "siguiente", tags: [], extra: {proyecto: "", fecha_limite: "", sp_est: 30m} });
 await tp.user.archivar(tp, "tarea");
 -%>
 # ✅ <% titulo %>

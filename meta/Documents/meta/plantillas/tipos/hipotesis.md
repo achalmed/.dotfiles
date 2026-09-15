@@ -1,6 +1,6 @@
 <%*
 const titulo = await tp.user.titular(tp, "Hipótesis");
-tR += tp.user.frontmatter(tp, { tipo: "hipotesis", estado: "activo", tags: ["hipotesis"], extra: {} });
+tR += tp.user.frontmatter(tp, { tipo: "hipotesis", titulo: titulo, estado: "activo", tags: [], extra: {} });
 await tp.user.archivar(tp, "hipotesis");
 -%>
 # 🧪 <% titulo %>

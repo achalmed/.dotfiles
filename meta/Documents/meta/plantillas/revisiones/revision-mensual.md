@@ -1,10 +1,11 @@
 <%*
 /* Revisión mensual — incluye el plan del mes siguiente. */
 const mes = tp.date.now("YYYY-MM");
-await tp.file.rename(`${mes} Revisión mensual`);
+await tp.file.rename(`${mes}`);   // NORMATIVA_ARCHIVOS §4: revisiones AAAA-MM.md
 tR += tp.user.frontmatter(tp, {
   tipo: "revision-mensual",
-  estado: "en-curso",
+  titulo: `Revisión mensual ${mes}`,
+  estado: "activo",
   tags: ["revision"],
   extra: { mes: `"${mes}"` },
 });
@@ -26,7 +27,7 @@ WHERE tipo = "objetivo" AND estado != "archivado"
 
 ```dataview
 LIST
-WHERE estado = "algun-dia"
+WHERE estado = "algun_dia"
 ```
 
 > Activa como máximo UNO. El resto sigue durmiendo (o se borra).

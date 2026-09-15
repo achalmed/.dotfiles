@@ -78,6 +78,10 @@ const fFin      = filtroFecha(actual["end-date"]);
 const fCreada   = filtroFecha(actual["note-created"]);
 const fEditada  = filtroFecha(actual["note-modified"]);
 
+// Las notas de lectura nuevas usan claves en español (NORMATIVA_ARCHIVOS §1); las del
+// starter de Zotero conservan las inglesas: se leen las dos.
+const campo = (p, ...claves) => claves.map((k) => p[k]).find((v) => v !== undefined && v !== null);
+
 const hayCriterios = Boolean(
     actual.keyword || actual.author || actual.recipient || actual.title ||
     actual.publication || actual.date || actual.archive ||
@@ -90,17 +94,17 @@ if (!hayCriterios) {
     dv.paragraph(mensaje);
 } else {
     const pasa = (p) =>
-        contiene(p.author, actual.author) &&
+        contiene(campo(p, "autor", "author"), actual.author) &&
         contiene(p.recipient, actual.recipient) &&
-        contiene(p.title, actual.title) &&
-        contiene(p.publication, actual.publication) &&
-        contiene(p.archive, actual.archive) &&
-        contiene(p["archive-location"], actual["archive-location"]) &&
-        contiene(p.comment, actual.comment) &&
+        contiene(campo(p, "titulo", "title"), actual.title) &&
+        contiene(campo(p, "publicacion", "publication"), actual.publication) &&
+        contiene(campo(p, "archivo", "archive"), actual.archive) &&
+        contiene(campo(p, "archivo_ubicacion", "archive-location"), actual["archive-location"]) &&
+        contiene(campo(p, "comentario", "comment"), actual.comment) &&
         contiene(p.file.name, actual["note-title"]) &&
-        (!actual.date || pasaFecha(p.date, fDate)) &&
-        (!actual["start-date"] || pasaFecha(p["start-date"], fInicio)) &&
-        (!actual["end-date"] || pasaFecha(p["end-date"], fFin)) &&
+        (!actual.date || pasaFecha(campo(p, "publicado", "date"), fDate)) &&
+        (!actual["start-date"] || pasaFecha(campo(p, "fecha_inicio", "start-date"), fInicio)) &&
+        (!actual["end-date"] || pasaFecha(campo(p, "fecha_fin", "end-date"), fFin)) &&
         (!actual["note-created"] || pasaFecha(p.file.cday, fCreada)) &&
         (!actual["note-modified"] || pasaFecha(p.file.mday, fEditada)) &&
         (!actual.tags || coincidenEtiquetas(actual.file.tags, p.file.tags));
@@ -135,9 +139,11 @@ if (!hayCriterios) {
              "Título", "Publicación", "Fecha", "Páginas", "Archivo",
              "Ubicación", "Comentario"],
             paginas.map(p => [
-                p.file.link, p["start-date"], p["end-date"], p.author,
-                p.recipient, p.title, p.publication, p.date, p["page-no"],
-                p.archive, p["archive-location"], p.comment]));
+                p.file.link, campo(p, "fecha_inicio", "start-date"), campo(p, "fecha_fin", "end-date"),
+                campo(p, "autor", "author"), p.recipient, campo(p, "titulo", "title"),
+                campo(p, "publicacion", "publication"), campo(p, "publicado", "date"),
+                campo(p, "pagina", "page-no"), campo(p, "archivo", "archive"),
+                campo(p, "archivo_ubicacion", "archive-location"), campo(p, "comentario", "comment")]));
     } else {
         dv.table(["Nota"], paginas.map(p => [p.file.link]));
     }
