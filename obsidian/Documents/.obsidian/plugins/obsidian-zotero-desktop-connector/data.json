@@ -8,7 +8,7 @@
   "exportFormats": [
     {
       "name": "Create research note",
-      "outputPathTemplate": "01 notes/{{citekey}}.md",
+      "outputPathTemplate": "01 notes/{{citekey | lower}}.md",
       "imageOutputPathTemplate": "meta/attachments/{{citekey}}/",
       "imageBaseNameTemplate": "image",
       "templatePath": "meta/integrations/zotero/research note.md",
