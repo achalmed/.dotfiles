@@ -184,7 +184,7 @@ prompts usan la opción segura por defecto: saltar/no eliminar).
 | `kde`       | `kdeglobals`, `kglobalshortcutsrc`, `kwinrc`, `dolphinrc`, `plasmarc`, `plasma-localerc`, `mimeapps.list`                                                 |
 | `konsole`   | `konsolerc` + **perfiles y esquemas de color** (`~/.local/share/konsole/`)                                                                                |
 | `positron`  | `settings.json` del IDE Positron                                                                                                                          |
-| `obsidian`  | Config del vault: `app.json`, `appearance.json`, `hotkeys.json`, `community-plugins.json`, `core-plugins.json`, `snippets/`, `data.json` de plugins clave |
+| `obsidian`  | Config del vault: `app.json`, `appearance.json`, `hotkeys.json`, `community-plugins.json`, `core-plugins.json`, `snippets/`; 8 plugins como symlinks de directorio (`data.json` + `manifest.json`; `main.js`/`styles.css` ignorados) |
 | `calibre`   | `global.py.json`, `tweak_book_gui.json`, `viewer-webengine.json`                                                                                          |
 | `kate`      | `katerc`, `lspclient/settings.json`, `externaltools/`                                                                                                     |
 | `texstudio` | `texstudio.ini` (híbrido, ver notas)                                                                                                                      |
@@ -216,6 +216,7 @@ configuración (generaban commits enormes e inútiles en cada uso):
 | calibre     | `gui.py.json`                                   | Historial de búsquedas (MRU)                                                                                  |
 | KOReader    | `settings.reader.lua`                           | Último archivo abierto (MRU) y geometría; la app lo reescribe en cada uso                                     |
 | VSCode      | paquete completo                                | Reemplazado por Positron; la app ya no está instalada                                                         |
+| Obsidian    | `plugins/*/main.js`, `plugins/*/styles.css`    | Código del plugin, no configuración; se reinstala desde `community-plugins.json` (FG5, 2026-09-15)          |
 
 Las configuraciones de esas apps **no se pierden**: al excluirlas del repo
 se restauraron como archivos reales en `$HOME`. Simplemente ya no se
@@ -357,6 +358,17 @@ dotfiles sync-push                 # subir la versión de laptop
 
 4. **Portabilidad.** `DOTFILES_DIR` se deriva de `$HOME` (sobreescribible
    por variable de entorno). La detección de distro elige pacman o apt.
+
+5. **Autonomía respecto de `~/Documents`.** Este repo se instala antes de que
+   exista el workspace y nada aquí puede depender de él (salvo alias del
+   shell). Por eso `lib/logger.sh` y los backups de `lib/tools.sh` son
+   **duplicados deliberados** de `~/Documents/core/shell-lib` (mismo formato de
+   línea `[NIVEL] fecha - mensaje`): el gestor tiene que arrancar solo.
+
+6. **El mapa describe el disco.** `PACKAGE_FILES` es la verdad de lo que se
+   enlaza; un cambio de layout en `$HOME` (p. ej. un plugin nuevo de Obsidian)
+   se refleja aquí en el mismo commit. `dotfiles instalar --dry-run` en verde
+   es la prueba (FG5, 2026-09-15).
 
 ### Descripción de módulos
 

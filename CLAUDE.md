@@ -50,7 +50,7 @@ Key design decisions:
 
 ## Packages
 
-`git`, `shell` (zsh + starship at XDG path `.config/starship.toml`), `kde` (preference-dominated files only), `konsole` (konsolerc + profiles in `.local/share/konsole/`), `positron`, `obsidian` (vault config; vault = `~/Documents`), `calibre`, `kate`, `texstudio`, `okular` (`okularpartrc` only), `rstudio`, `xournalpp`, `koreader`.
+`git`, `shell` (zsh + starship at XDG path `.config/starship.toml`), `kde` (preference-dominated files only), `konsole` (konsolerc + profiles in `.local/share/konsole/`), `positron`, `obsidian` (vault config; vault = `~/Documents`; the 8 plugins are directory symlinks with `data.json`+`manifest.json` tracked and `main.js`/`styles.css` gitignored), `calibre`, `kate`, `texstudio`, `okular` (`okularpartrc` only), `rstudio`, `xournalpp`, `koreader`.
 
 ## Adding a new package
 
@@ -66,5 +66,6 @@ Key design decisions:
 - The Obsidian vault is `~/Documents` itself; the `obsidian` package assumes that path. This repo reproduces the machine, not the workspace: nothing here may depend on `~/Documents` (the former `meta` package and `koreader-data` moved out on 2026-09-15, phases FG2/FG3 of `~/Documents/meta/DIAGNOSTICO_CORE_META_DOTFILES_2026-09.md`).
 - starship config is versioned but inactive: `.zshrc` uses Oh My Zsh and doesn't init starship.
 - `.backups/` and `.logs/` are auto-managed by the tool; don't edit or commit them.
+- `lib/logger.sh` and the backups in `lib/tools.sh` are deliberate duplicates of `~/Documents/core/shell-lib` (same log-line format): this repo must bootstrap without the workspace. Do not import from `~/Documents`.
 - Historical note: old commits contain digiKam's encoded DB password (file no longer tracked). Rewriting history requires the user's explicit decision.
 - Commit messages follow conventional-commit style with Spanish descriptions, e.g. `feat(config): add explicit file mapping for all stow packages`.

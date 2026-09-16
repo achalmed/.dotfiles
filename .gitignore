@@ -76,6 +76,11 @@ cookies.sqlite
 **/.obsidian/workspace-mobile.json
 **/.obsidian/vault-stats.json
 **/.obsidian/core-plugins-migration.json
+# Obsidian: el código de los plugins no es configuración (FG5, 2026-09-15); se reinstala desde community-plugins.json
+**/.obsidian/plugins/*/main.js
+**/.obsidian/plugins/*/styles.css
+# copias de seguridad que dejan las herramientas del vault junto al archivo
+*.bak-*
 # KOReader: historial y estadísticas
 koreader/**/history.lua
 koreader/**/statistics.sqlite3

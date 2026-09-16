@@ -153,10 +153,12 @@ PACKAGE_FILES["konsole"]=\
 # NO: cache, gpu cache, crashpad, session storage, machine id, History/
 PACKAGE_FILES["positron"]=".config/Positron/User/settings.json"
 
-# obsidian: configuración del vault en ~/Documents/.obsidian/
+# obsidian: configuración del vault en ~/Documents/.obsidian/ (la app; el vault es ~/Documents).
+# Los plugins se gestionan como symlinks de DIRECTORIO (FG5, 2026-09-15: el mapa describe el
+# disco): dentro se versionan data.json y manifest.json; main.js y styles.css están en
+# .gitignore (código del plugin, se reinstala desde community-plugins.json).
 # NO: workspace.json (estado de ventanas), vault-stats.json,
 #     core-plugins-migration.json (estado de migración regenerable),
-#     binarios de plugins (main.js/manifest.json se reinstalan),
 #     themes/ (se reinstalan; appearance.json registra cuál usar)
 PACKAGE_FILES["obsidian"]=\
 "Documents/.obsidian/app.json|\
@@ -165,11 +167,14 @@ Documents/.obsidian/community-plugins.json|\
 Documents/.obsidian/core-plugins.json|\
 Documents/.obsidian/hotkeys.json|\
 Documents/.obsidian/snippets|\
-Documents/.obsidian/plugins/dataview/data.json|\
-Documents/.obsidian/plugins/obsidian-minimal-settings/data.json|\
-Documents/.obsidian/plugins/templater-obsidian/data.json|\
-Documents/.obsidian/plugins/quickadd/data.json|\
-Documents/.obsidian/plugins/obsidian-zotero-desktop-connector/data.json"
+Documents/.obsidian/plugins/auto-note-mover|\
+Documents/.obsidian/plugins/dataview|\
+Documents/.obsidian/plugins/longform|\
+Documents/.obsidian/plugins/obsidian-minimal-settings|\
+Documents/.obsidian/plugins/obsidian-zotero-desktop-connector|\
+Documents/.obsidian/plugins/quickadd|\
+Documents/.obsidian/plugins/tag-wrangler|\
+Documents/.obsidian/plugins/templater-obsidian"
 
 # meta (retirado en FG2, 2026-09-15): el vault OS de ~/Documents/meta se versiona en el
 # repo `ecosistema` (~/Documents/meta), no aquí. Este repo no conoce ~/Documents salvo
