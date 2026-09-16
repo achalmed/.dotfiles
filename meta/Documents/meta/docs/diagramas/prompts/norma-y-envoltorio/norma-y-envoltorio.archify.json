@@ -1,0 +1,334 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Repositorio de prompts — norma y envoltorio",
+    "quality_profile": "showcase",
+    "viewBox": [
+      1340,
+      672
+    ],
+    "views": [
+      {
+        "id": "cadena-normativa",
+        "label": "Cadena normativa",
+        "focus": [
+          "metodo",
+          "fuentes",
+          "objetivo"
+        ],
+        "note": "El normativo fija los diez pasos y 44 prompts de objetivo declaran cuáles exigen antes de empezar."
+      },
+      {
+        "id": "envoltorios",
+        "label": "Envoltorios",
+        "focus": [
+          "skills",
+          "objetivo",
+          "claudeskills"
+        ],
+        "note": "Los siete SKILL.md cargan la ruta del prompt numerado; no lo copian ni lo sustituyen."
+      },
+      {
+        "id": "readme-derivado",
+        "label": "README derivado",
+        "focus": [
+          "objetivo",
+          "generador",
+          "readme",
+          "github"
+        ],
+        "note": "El único ejecutable del repo lee el árbol real y reescribe el README y los siete de carpeta."
+      },
+      {
+        "id": "salida-al-ecosistema",
+        "label": "Salida al ecosistema",
+        "focus": [
+          "fuentes",
+          "comandos",
+          "docencia",
+          "mapas"
+        ],
+        "note": "Los diez pasos invocan herramientas que viven fuera de este repositorio."
+      }
+    ],
+    "output": "norma-y-envoltorio.html"
+  },
+  "components": [
+    {
+      "id": "metodo",
+      "type": "security",
+      "label": "00 metodo/",
+      "sublabel": "METODO · fichas · APA 7",
+      "tag": "normativo único",
+      "pos": [
+        60,
+        60
+      ],
+      "size": [
+        200,
+        100
+      ]
+    },
+    {
+      "id": "fuentes",
+      "type": "backend",
+      "label": "01 fuentes/",
+      "sublabel": "prompt_00 … prompt_09",
+      "tag": "los diez pasos",
+      "pos": [
+        400,
+        60
+      ],
+      "size": [
+        200,
+        100
+      ]
+    },
+    {
+      "id": "objetivo",
+      "type": "backend",
+      "label": "Prompts por objetivo",
+      "sublabel": "02 · 03 · 04 · 06 · 07",
+      "tag": "98 prompts",
+      "pos": [
+        740,
+        60
+      ],
+      "size": [
+        200,
+        100
+      ]
+    },
+    {
+      "id": "generador",
+      "type": "backend",
+      "label": "generar_readme.py",
+      "sublabel": "único ejecutable",
+      "tag": "lee el árbol real",
+      "pos": [
+        1080,
+        60
+      ],
+      "size": [
+        200,
+        100
+      ]
+    },
+    {
+      "id": "comandos",
+      "type": "external",
+      "label": "scripts_for_fuentes · _calibre",
+      "sublabel": "fuera del repositorio",
+      "tag": "«Comando asociado»",
+      "pos": [
+        60,
+        280
+      ],
+      "size": [
+        200,
+        100
+      ]
+    },
+    {
+      "id": "docencia",
+      "type": "backend",
+      "label": "05 docencia/learning-skill",
+      "sublabel": "motor FUAT · 6 capas",
+      "tag": "123 archivos",
+      "pos": [
+        400,
+        280
+      ],
+      "size": [
+        200,
+        100
+      ]
+    },
+    {
+      "id": "skills",
+      "type": "frontend",
+      "label": "skills/",
+      "sublabel": "7 envoltorios delgados",
+      "tag": "cargan, no copian",
+      "pos": [
+        740,
+        280
+      ],
+      "size": [
+        200,
+        100
+      ]
+    },
+    {
+      "id": "readme",
+      "type": "database",
+      "label": "README.md",
+      "sublabel": "+ 7 README de carpeta",
+      "tag": "derivado",
+      "pos": [
+        1080,
+        280
+      ],
+      "size": [
+        200,
+        100
+      ]
+    },
+    {
+      "id": "mapas",
+      "type": "database",
+      "label": "ECOSISTEMA_*.md",
+      "sublabel": "3 mapas de integración",
+      "tag": "dónde se ejecuta",
+      "pos": [
+        400,
+        500
+      ],
+      "size": [
+        200,
+        100
+      ]
+    },
+    {
+      "id": "claudeskills",
+      "type": "external",
+      "label": "~/.claude/skills/",
+      "sublabel": "no existe en disco",
+      "tag": "instalación pendiente",
+      "pos": [
+        740,
+        500
+      ],
+      "size": [
+        200,
+        100
+      ]
+    },
+    {
+      "id": "github",
+      "type": "cloud",
+      "label": "achalmed/awesome-ai-prompts",
+      "sublabel": "28 commits sin subir",
+      "tag": "origin/main",
+      "pos": [
+        1080,
+        500
+      ],
+      "size": [
+        200,
+        100
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "Fuente de verdad (FD1): manda el prompt numerado",
+      "wraps": [
+        "metodo",
+        "fuentes",
+        "objetivo"
+      ],
+      "pad": 14
+    }
+  ],
+  "connections": [
+    {
+      "id": "norma-los-pasos",
+      "from": "metodo",
+      "to": "fuentes",
+      "label": "norma los diez pasos",
+      "variant": "emphasis"
+    },
+    {
+      "id": "declaran-pasos",
+      "from": "fuentes",
+      "to": "objetivo",
+      "label": "44 declaran sus pasos",
+      "variant": "emphasis"
+    },
+    {
+      "id": "lee-cabecera",
+      "from": "objetivo",
+      "to": "generador",
+      "label": "lee H1 y cabecera"
+    },
+    {
+      "id": "regenera",
+      "from": "generador",
+      "to": "readme",
+      "label": "reescribe el README",
+      "variant": "emphasis",
+      "labelDy": 24
+    },
+    {
+      "id": "portada",
+      "from": "readme",
+      "to": "github",
+      "label": "portada del repo",
+      "labelDy": 24
+    },
+    {
+      "id": "comando-asociado",
+      "from": "fuentes",
+      "to": "comandos",
+      "label": "llaman a un comando",
+      "variant": "emphasis"
+    },
+    {
+      "id": "invoca-motor",
+      "from": "fuentes",
+      "to": "docencia",
+      "label": "4 pasos lo invocan",
+      "labelDy": 24
+    },
+    {
+      "id": "mapa-de-uso",
+      "from": "docencia",
+      "to": "mapas",
+      "label": "mapa de aprendizaje",
+      "labelDy": 24
+    },
+    {
+      "id": "cargan-ruta",
+      "from": "skills",
+      "to": "objetivo",
+      "label": "cargan la ruta"
+    },
+    {
+      "id": "instalacion",
+      "from": "skills",
+      "to": "claudeskills",
+      "label": "symlink (ausente)",
+      "variant": "dashed",
+      "labelDy": 24
+    }
+  ],
+  "cards": [
+    {
+      "dot": "rose",
+      "title": "Lo que no está",
+      "items": [
+        "~/.claude/skills/ no existe: ningún SKILL.md está instalado en Claude Code",
+        "07 producción, la carpeta mayor con 55 prompts, no declara ningún paso del Método"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "Derivados, no fuentes",
+      "items": [
+        "README.md y los siete de carpeta los reescribe generar_readme.py; no se editan a mano",
+        "AGENTS.md es un symlink a CLAUDE.md: un solo archivo de convenciones"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Convenciones verificadas",
+      "items": [
+        "6 de los 7 SKILL.md citan METODO_DOCUMENTAL.md; scientific-presentation no, y con 176 líneas rompe el límite de 40",
+        "MEJORA_CONTINUA.md: versión nueva es archivo -vX.Y.md y la anterior se conserva"
+      ]
+    }
+  ]
+}

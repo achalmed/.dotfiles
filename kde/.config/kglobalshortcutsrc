@@ -331,6 +331,7 @@ activate task manager entry 9=,Meta+9,Activate Task Manager Entry 9
 activate widget 111=,none,Activate Application Launcher Widget
 activate widget 167=,none,Activate Application Launcher Widget
 activate widget 206=,none,Activar el elemento gráfico Monitor del sistema
+activate widget 239=,none,Activate Application Launcher Widget
 activate widget 3=,none,Activate Application Launcher Widget
 activate widget 31=,none,Activate Application Launcher Widget
 activate widget 56=,none,Activate Application Launcher Widget

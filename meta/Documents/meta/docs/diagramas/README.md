@@ -20,7 +20,7 @@ conserva por lo que aporta.
 |---|---|---|
 | **N1 Ecosistema** | ¿Qué sistemas existen y cómo se agrupan? | [`ecosistema/mapa-del-ecosistema/`](ecosistema/mapa-del-ecosistema/) |
 | **N2 Arquitectura del sistema** | ¿Qué subsistemas, módulos e integraciones tiene? | las cuatro lecturas de [`ecosistema/`](ecosistema/) |
-| **N3 Arquitectura interna** | ¿Cómo es por dentro cada sistema? | [`02-analysis/`](02-analysis/), [`03-writing/`](03-writing/), [`05-sgdp/`](05-sgdp/) |
+| **N3 Arquitectura interna** | ¿Cómo es por dentro cada sistema? | [`01-notes/`](01-notes/), [`02-analysis/`](02-analysis/), [`03-writing/`](03-writing/), [`05-sgdp/`](05-sgdp/), [`10-class/`](10-class/) |
 | **N4 Flujos operativos** | ¿Qué pasa, paso a paso, con un documento? | [`ecosistema/metodo-documental/`](ecosistema/metodo-documental/) |
 | **N5 Datos e información** | ¿De dónde viene el dato, dónde queda y qué sale? | [`ecosistema/datos-y-procedencia/`](ecosistema/datos-y-procedencia/) |
 
@@ -62,6 +62,16 @@ y la verificación contra código de FD7.
 | N4 | [`metodo-documental/`](ecosistema/metodo-documental/) | workflow | 11 | 10 | Los diez pasos 00–09 como proceso, con la rama de excepción cuando el documento no se localiza |
 | N5 | [`datos-y-procedencia/`](ecosistema/datos-y-procedencia/) | dataflow | 13 | 12 | Fuentes → adquisición → almacenes → derivados → salidas, con las claves puente y las clasificaciones de cada flujo |
 
+### `01-notes/` — el vault de notas (N3)
+
+Fuente: `.obsidian/app.json`, `.obsidian/plugins/auto-note-mover/` (`data.json`
+y el `main.js` que lo interpreta), el connector de Zotero, `meta/consultar/config.sh`,
+los manifiestos de `06 archives/` y el disco de `01 notes/`.
+
+| Énfasis | Nodos | Aristas | Qué aporta |
+|---|---:|---:|---|
+| [`bandeja-y-archivo/`](01-notes/bandeja-y-archivo/) | 12 | 11 | Las **dos mitades con reglas distintas** bajo un mismo nombre: la enrutada, que un solo enrutador gobierna desde `00-bandeja/`, y la de material (`40 · 50 · 70`), 475 MB que ninguna de las 26 reglas toca. Único que dibuja el alcance real del Auto Note Mover y las dos vías por las que una nota acaba en la raíz |
+
 ### `02-analysis/` — datafw (N3)
 
 Fuente: código de `connectors/_lib/`, `pipeline/`, `sources/` y `02 analysis/CLAUDE.md`.
@@ -86,7 +96,16 @@ Fuente: `05_sgdp/CLAUDE.md` y el código (`backend/app/`, `frontend/src/`, `marc
 |---|---:|---:|---|
 | [`produccion-del-documento/`](05-sgdp/produccion-del-documento/) | 10 | 9 | La capa web (FastAPI + React) **sobre** el framework LaTeX, y el **reparto del estado** entre Postgres (metadatos y correlativo) y el disco (`.tex`, PDF, adjuntos) |
 
-**Estado de los diez:** `validate` 9/9 checks, composición showcase 0 errores /
+### `10-class/` — Academic_Class_Framework (N3)
+
+Fuente: el código del framework (`scripts/temario.py`, `publicar-web.py`,
+`build.sh`, `validate.sh`), los `temario.yml` de las áreas y `10 Class/CLAUDE.md`.
+
+| Énfasis | Nodos | Aristas | Qué aporta |
+|---|---:|---:|---|
+| [`curriculo-y-publicacion/`](10-class/curriculo-y-publicacion/) | 12 | 12 | El **currículo como fuente única**: `temario.yml` gobierna cinco vistas, dos de ellas fuera del repo (ficha web y temario del learning-skill). Y el único que dibuja las **dos mitades** del framework: un núcleo sin cursos dentro frente a `areas/`, 23 submódulos git |
+
+**Estado de los doce:** `validate` 9/9 checks, composición showcase 0 errores /
 0 avisos, `visual-check` `pass` en contención, legibilidad, chrome del visor y
 capturas a 1440×900, 1600×1000, 1920×1080 y 2048×1320, en claro y oscuro.
 
@@ -103,8 +122,9 @@ Estas son las cadenas completas:
 |---|---|---|---|---|
 | D · 02 analysis | `datafw · 02 analysis` | `zonas-de-dependencia` completo | — | `data/raw + catálogo` → `capas derivadas` |
 | C · 03 writing | `AWF · Class · Book` | `arquitectura-en-capas` completo | paso 09 → producto | `Informes y tesis` |
+| B · 10 Class | `AWF · Class · Book` | `curriculo-y-publicacion` completo | — | `temario.yml` → `04 index/cursos/` |
 | E · Biblioteca | `Calibre` · `Zotero` · `KOReader` | — | pasos 00–04 | `metadata.db` · `zotero.sqlite` |
-| F · Vault | `Vault Obsidian` | — | pasos 05–07 | `Vault Obsidian` |
+| F · Vault | `Vault Obsidian` | `bandeja-y-archivo` (01 notes) | pasos 05–07 | `Vault Obsidian` |
 | A · Publicación | `website-achalma` · `scripts_quarto_studio` | — | — | `Familia Quarto` |
 | G · 09 trabajo | fuera de las lecturas | `produccion-del-documento` | — | — |
 | H · scripts_* | `scripts_for_calibre` · `scripts_for_fuentes` | — | comandos de cada paso | `sincronizadores` |
@@ -276,6 +296,19 @@ dejan registrados aquí porque el doctor debería vigilarlos:
 - **Deriva documental**: `pipeline/codegen/config.py` se declara «Fase 11»
   contra su propio `main.py`; `INTEGRACION_ECOSISTEMA.md` describe `archivar`
   en modo enlace cuando el código usa modo manifiesto desde FD4.
+- **`10 Class/CLAUDE.md` cuenta mal los cursos**: dice «los **61/61** `course_*`
+  cumplen el 00–09»; en disco hay **54** (`find areas -maxdepth 2 -type d -name
+  'course_*'`), los 54 con `temario.yml`. El diagrama dibuja 54, no 61.
+- **`01 notes/readme.md` nombra mal la bandeja**: dice que «la raíz funciona como
+  bandeja de entrada»; `app.json` fija `newFileFolderPath: 01 notes/00-bandeja`
+  y el enrutador excluye toda carpeta salvo esa.
+- **El connector de Zotero escribe fuera del enrutador**: su formato
+  «Create research note» apunta a `01 notes/{{citekey}}.md`, en la raíz, que el
+  Auto Note Mover no vigila. Toda ficha importada se queda donde cae.
+- **El manifiesto de reorganización quedó obsoleto**: 432 de sus 459 destinos
+  bajo `01 notes` ya no existen en disco (la capa `<año>/` de `20-universidad`
+  nunca se creó y la tesis acabó en `03 writing/theses/`). Sirve como historia,
+  no como mapa.
 
 ---
 
@@ -314,9 +347,11 @@ diagramas/
 │   ├── pipeline-quarto/            N2 · lectura de publicación
 │   ├── metodo-documental/          N4 · flujo operativo
 │   └── datos-y-procedencia/        N5 · datos
+├── 01-notes/bandeja-y-archivo/          N3 · vault de notas
 ├── 02-analysis/zonas-de-dependencia/    N3 · datafw
 ├── 03-writing/arquitectura-en-capas/    N3 · AWF
-└── 05-sgdp/produccion-del-documento/    N3 · SGDP
+├── 05-sgdp/produccion-del-documento/    N3 · SGDP
+└── 10-class/curriculo-y-publicacion/    N3 · Academic_Class
 ```
 
 **Por dónde empezar a leer:** `mapa-del-ecosistema` (N1) → la lectura N2 que
@@ -330,7 +365,6 @@ Sistemas reales del workspace que ningún diagrama cubre por dentro:
 | Sujeto propuesto | Por qué hace falta |
 |---|---|
 | `04-index/` — familia Quarto | 12 sitios, 5 backends, un Excel de metadatos y un índice de symlinks. Hoy solo se ve desde fuera en `pipeline-quarto` |
-| `10-class/` — docencia | El estándar 00–09, 23 áreas como submódulos, `temario.yml`, la bibliografía por `calibre_id` y el hardlink a la web |
 | `scripts_for_calibre/` — sincronización | Siete suites, tres timers, el lock y la política de espejo. Es la pieza más automatizada y solo aparece como un nodo |
 | `core/` — contrato de suites | `suite.yml`, `suites.py`, `shell-lib`, `py-common` y los generadores de índice |
 | `09-trabajo/` — CIL y correo | El SGDP está dibujado; sus dos repos hermanos no |
@@ -403,6 +437,16 @@ versiona `~/.dotfiles`, no `ecosistema`.**
 
 ## Historial de la carpeta
 
+- **2026-09-08.** Entra el sujeto `01-notes/` con `bandeja-y-archivo/`,
+  generado contra la configuración de Obsidian y el `main.js` del Auto Note
+  Mover, no contra la documentación del vault. Cierra otro hueco de §G; quedan
+  tres. `validate` 9/9 y `visual-check` `pass`. Deja tres divergencias nuevas
+  en §E.6, todas del vault, ninguna del diagrama.
+- **2026-09-08.** Entra el sujeto `10-class/` con `curriculo-y-publicacion/`,
+  generado desde cero contra el código del framework docente. Cierra el primer
+  hueco que §G dejaba abierto; quedan cuatro. `validate` 9/9 y `visual-check`
+  `pass`. Corrige de paso un desfase documental: `10 Class/CLAUDE.md` afirma
+  «61/61 cursos» y el disco tiene **54** (§E.6).
 - **2026-09-08, FD7.** Auditoría integral: verificación de los siete diagramas
   contra el código con cuatro barridos independientes; 19 hechos corregidos, las
   cuatro divergencias resueltas y tres niveles nuevos (N1, N4, N5). Los diez

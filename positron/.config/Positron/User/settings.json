@@ -261,7 +261,8 @@
         "*.pdf": "positronPdfServer.previewEditor"
     },
     "vscode-office.editMode": "ir",
-    "vscode-office.editorTheme": "Dim Light",
     "vscode-office.codeMirrorTheme": "Dracula",
-    "python.languageServer": "None" // número en segundos
+    "python.languageServer": "None",
+    "vscode-office.editorTheme": "Warm Light",
+    "workbench.colorTheme": "One Dark Modern" // número en segundos
 }
