@@ -80,7 +80,6 @@ readonly STOW_PACKAGES=(
     konsole
     positron      # Positron IDE (fork de VSCode); config en ~/.config/Positron/
     obsidian      # config del vault (~/Documents es el vault)
-    meta          # recursos del vault: plantillas, scripts, dashboards (~/Documents/meta)
     calibre
     kate
     texstudio
@@ -172,21 +171,9 @@ Documents/.obsidian/plugins/templater-obsidian/data.json|\
 Documents/.obsidian/plugins/quickadd/data.json|\
 Documents/.obsidian/plugins/obsidian-zotero-desktop-connector/data.json"
 
-# meta: recursos de trabajo del vault (~/Documents/meta) — plantillas,
-# scripts de automatización, dashboards y documentación del sistema.
-# Se gestionan como symlinks de DIRECTORIO (el contenido evoluciona dentro).
-# EXCLUIDOS: attachments/ (binarios), archivo/ (material archivado),
-#            .claude/ (config local de Claude), templates/ (vacío hoy).
-PACKAGE_FILES["meta"]=\
-"Documents/meta/dataview|\
-Documents/meta/javascript|\
-Documents/meta/longform|\
-Documents/meta/quickadd|\
-Documents/meta/sistema|\
-Documents/meta/tablero|\
-Documents/meta/templater|\
-Documents/meta/zotero|\
-Documents/meta/readme.md"
+# meta (retirado en FG2, 2026-09-15): el vault OS de ~/Documents/meta se versiona en el
+# repo `ecosistema` (~/Documents/meta), no aquí. Este repo no conoce ~/Documents salvo
+# el paquete `obsidian` (configuración de la app) y los alias del shell.
 
 # calibre: solo las preferencias estables de personalización.
 # NO: caches/, conversion/, fonts/, plugins binarios, server-users.sqlite,

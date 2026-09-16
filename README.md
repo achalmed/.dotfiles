@@ -14,7 +14,7 @@
 - [Uso](#-uso)
 - [Paquetes gestionados](#-paquetes-gestionados)
 - [Exclusiones deliberadas](#-exclusiones-deliberadas)
-- [El paquete `meta` (Documents/meta)](#-el-paquete-meta-documentsmeta)
+- [Lo que este repo no gestiona: `~/Documents`](#-lo-que-este-repo-no-gestiona-documents)
 - [Arquitectura](#-arquitectura)
 - [Agregar un nuevo paquete](#-agregar-un-nuevo-paquete)
 - [Seguridad](#-seguridad)
@@ -185,7 +185,6 @@ prompts usan la opción segura por defecto: saltar/no eliminar).
 | `konsole`   | `konsolerc` + **perfiles y esquemas de color** (`~/.local/share/konsole/`)                                                                                |
 | `positron`  | `settings.json` del IDE Positron                                                                                                                          |
 | `obsidian`  | Config del vault: `app.json`, `appearance.json`, `hotkeys.json`, `community-plugins.json`, `core-plugins.json`, `snippets/`, `data.json` de plugins clave |
-| `meta`      | Recursos del vault en `~/Documents/meta` (ver sección propia)                                                                                             |
 | `calibre`   | `global.py.json`, `tweak_book_gui.json`, `viewer-webengine.json`                                                                                          |
 | `kate`      | `katerc`, `lspclient/settings.json`, `externaltools/`                                                                                                     |
 | `texstudio` | `texstudio.ini` (híbrido, ver notas)                                                                                                                      |
@@ -225,36 +224,22 @@ una vez a mano (o usa sus mecanismos propios, p. ej. el sync de Zotero).
 
 ---
 
-## 🗂️ El paquete `meta` (Documents/meta)
+## 🗂️ Lo que este repo no gestiona: `~/Documents`
 
-`~/Documents` es el vault de Obsidian y `~/Documents/meta` concentra los
-recursos reproducibles del sistema de trabajo:
+`~/Documents` es el workspace (vault de Obsidian + repos). **Este repo reproduce la
+máquina, no el workspace**: no conoce `~/Documents` salvo por el paquete `obsidian`
+(configuración de la app en `~/Documents/.obsidian/`) y por los alias de `.zshrc`.
 
-```
-meta/Documents/meta/
-├── dataview/    # consultas y vistas JS de Dataview
-├── javascript/  # scripts de soporte (frontmatter, encabezados…)
-├── longform/    # scripts para Longform
-├── quickadd/    # macros y capturas de QuickAdd
-├── sistema/     # documentación del sistema GTD/PKM
-├── tablero/     # dashboards (inicio, semana, proyectos…)
-├── templater/   # plantillas Templater (tipos/, planes/, revisiones/)
-├── zotero/      # plantillas de notas de investigación
-└── readme.md
-```
+Hasta el 2026-09-15 existió aquí un paquete `meta` con el «vault OS» de
+`~/Documents/meta` (plantillas Templater, vistas Dataview, tableros, scripts).
+Se retiró en la fase FG2 del diagnóstico de gobierno
+(`~/Documents/meta/DIAGNOSTICO_CORE_META_DOTFILES_2026-09.md`): ese código
+depende de `~/Documents/core`, instancia la normativa del ecosistema y solo tiene
+sentido con ese vault, así que se versiona con él en el repo `ecosistema`
+(`~/Documents/meta`, privado), con su historial completo. Lo mismo vale para los
+datos de lectura de KOReader (antes `koreader-data/`, hoy repo propio; ver FG3).
 
-Se gestionan como **symlinks de directorio** (el contenido evoluciona por
-dentro sin tocar `config.sh`). Quedaron fuera deliberadamente:
-
-- `attachments/` — binarios (imágenes) que no son configuración
-- `archivo/` — material archivado/obsoleto
-- `templates/` — vacío actualmente
-- `.claude/` — configuración local de Claude (permisos por máquina)
-
-Separación de responsabilidades: `~/.config` = configuración del sistema y
-apps (paquetes por app); `~/Documents/meta` = recursos de trabajo (paquete
-`meta`). El paquete `obsidian` gestiona la config del vault (`.obsidian/`),
-`meta` gestiona su contenido reproducible.
+Regla: si un archivo solo tiene sentido con `~/Documents`, no va aquí.
 
 ---
 
@@ -351,7 +336,7 @@ dotfiles sync-push                 # subir la versión de laptop
 │   └── tools.sh         # Backups quirúrgicos/completos, dependencias
 ├── .backups/            # Backups automáticos (ignorado por git)
 ├── .logs/               # Logs diarios (ignorado por git)
-└── <paquetes>/          # git/ shell/ kde/ konsole/ … meta/
+└── <paquetes>/          # git/ shell/ kde/ konsole/ … koreader/
 ```
 
 ### Decisiones de diseño
