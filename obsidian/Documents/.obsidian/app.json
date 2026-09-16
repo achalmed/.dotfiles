@@ -19,7 +19,7 @@
   "attachmentFolderPath": "./assets",
   "userIgnoreFilters": [
     "meta/capture/",
-    "meta/core/",
+    "meta/servicios/",
     "meta/docs/",
     "meta/integrations/",
     "meta/organization/",
