@@ -18,8 +18,6 @@
   "spellcheck": true,
   "attachmentFolderPath": "./assets",
   "userIgnoreFilters": [
-    "meta/archivo/",
-    "meta/attachments/",
     "meta/capture/",
     "meta/core/",
     "meta/docs/",
@@ -30,7 +28,6 @@
     "meta/search/",
     "meta/tablero/",
     "meta/tasks/",
-    "meta/templates/",
     "meta/workspaces/",
     "meta/consultar/",
     "meta/doctor/",
