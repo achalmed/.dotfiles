@@ -138,6 +138,7 @@ ${COLOR_BOLD}COMANDOS:${COLOR_RESET}
   ${COLOR_GREEN}backup${COLOR_RESET}         Crea backup de configs actuales antes de hacer cambios
   ${COLOR_GREEN}seguridad${COLOR_RESET}      Escanea archivos en busca de datos sensibles
   ${COLOR_GREEN}instalar-deps${COLOR_RESET}  Instala dependencias según la distro detectada
+  ${COLOR_GREEN}instalar-fuentes${COLOR_RESET} Instala las fuentes de usuario de USER_FONTS (sin sudo)
 
 ${COLOR_BOLD}OPCIONES:${COLOR_RESET}
   -p, --packages LISTA  Paquetes específicos separados por coma (ej: git,shell,kde)
@@ -190,6 +191,7 @@ ${COLOR_RESET}
   ${COLOR_GREEN}8)${COLOR_RESET} Crear backup de configuraciones actuales
   ${COLOR_GREEN}9)${COLOR_RESET} Escanear datos sensibles
   ${COLOR_GREEN}10)${COLOR_RESET} Instalar dependencias del sistema
+  ${COLOR_GREEN}11)${COLOR_RESET} Instalar fuentes de usuario (Source Serif 4…)
 
   ${COLOR_RED}0)${COLOR_RESET} Salir
 
@@ -208,6 +210,7 @@ EOF
             8) COMMAND="backup";     return 0 ;;
             9) COMMAND="seguridad";  return 0 ;;
             10) COMMAND="instalar-deps"; return 0 ;;
+            11) COMMAND="instalar-fuentes"; return 0 ;;
             0)
                 log_info "Saliendo del gestor de dotfiles."
                 exit 0

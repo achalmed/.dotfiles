@@ -78,6 +78,7 @@ main() {
        [ "$COMMAND" != "seguridad" ] && \
        [ "$COMMAND" != "backup" ] && \
        [ "$COMMAND" != "instalar-deps" ] && \
+       [ "$COMMAND" != "instalar-fuentes" ] && \
        [ ${#TARGET_PACKAGES[@]} -eq "${#STOW_PACKAGES[@]}" ] && \
        [ -t 0 ]; then
         # Solo pedir selección interactiva si:
@@ -103,6 +104,7 @@ main() {
         backup)        handler=_cmd_backup ;;
         seguridad)     handler=validate_no_sensitive_data ;;
         instalar-deps) handler=install_dependencies ;;
+        instalar-fuentes) handler=install_user_fonts ;;
         "")
             log_error "No se especificó ningún comando."
             show_help

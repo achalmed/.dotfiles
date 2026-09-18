@@ -261,6 +261,66 @@ install_dependencies() {
             return 1
             ;;
     esac
+    # Las fuentes de usuario no dependen de la distro: van después, sin sudo.
+    install_user_fonts
+}
+
+# install_user_fonts()
+# Instala en ~/.local/share/fonts las familias de USER_FONTS (config.sh) que no
+# llegan por el gestor de paquetes: descarga la release oficial, verifica el
+# sha256, extrae solo los archivos del patrón y refresca fontconfig y, si hay
+# TeX Live, el índice de luaotfload. Idempotente: una carpeta ya poblada se
+# salta. No usa sudo y no versiona binarios (principio de mínima captura).
+install_user_fonts() {
+    log_section "Instalando fuentes de usuario"
+    local entrada carpeta url sha patrones destino
+    for entrada in "${USER_FONTS[@]}"; do
+        IFS='|' read -r carpeta url sha patrones <<< "$entrada"
+        destino="${USER_FONTS_DIR}/${carpeta}"
+        if compgen -G "${destino}/*.otf" > /dev/null || compgen -G "${destino}/*.ttf" > /dev/null; then
+            log_success "  ✓ ya instalada: ${carpeta} (${destino})"
+            continue
+        fi
+        if [ "$DRY_RUN" = true ]; then
+            log_info "[dry-run] Se instalaría ${carpeta} desde ${url} en ${destino}"
+            continue
+        fi
+        _install_font_zip "$carpeta" "$url" "$sha" "$patrones" "$destino" || \
+            log_warn "  ✗ ${carpeta}: no se pudo instalar (ver mensajes anteriores)"
+    done
+    if command -v fc-cache &>/dev/null; then
+        fc-cache -f "${USER_FONTS_DIR}" &>/dev/null && log_info "fontconfig actualizado."
+    fi
+    if command -v luaotfload-tool &>/dev/null; then
+        luaotfload-tool --update --force &>/dev/null && log_info "Índice de luaotfload actualizado."
+    fi
+}
+
+# _install_font_zip() carpeta url sha256 patrones destino
+# Descarga a un directorio temporal, comprueba la suma, extrae aplanando las
+# rutas (unzip -j) y deja el resultado en destino. Falla sin dejar restos.
+_install_font_zip() {
+    local carpeta="$1" url="$2" sha="$3" patrones="$4" destino="$5"
+    local tmp zip
+    tmp="$(mktemp -d)" || return 1
+    zip="${tmp}/$(basename "$url")"
+    log_info "  → descargando ${carpeta}: $(basename "$url")"
+    if ! curl -fsSL --retry 2 -o "$zip" "$url"; then
+        log_warn "  descarga fallida: ${url}"
+        rm -rf "$tmp"; return 1
+    fi
+    if ! echo "${sha}  ${zip}" | sha256sum -c --status; then
+        log_warn "  sha256 NO coincide para $(basename "$url"); se descarta"
+        rm -rf "$tmp"; return 1
+    fi
+    mkdir -p "$destino"
+    # shellcheck disable=SC2086  # los patrones se expanden a propósito
+    if ! unzip -q -j -o "$zip" $patrones -d "$destino"; then
+        log_warn "  no se pudo extraer ${patrones} de $(basename "$url")"
+        rm -rf "$tmp"; return 1
+    fi
+    rm -rf "$tmp"
+    log_success "  ✓ ${carpeta}: $(find "$destino" -maxdepth 1 -type f | wc -l) archivos en ${destino}"
 }
 
 # _install_deps_arch()

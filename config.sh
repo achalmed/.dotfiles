@@ -246,6 +246,20 @@ readonly SENSITIVE_SCAN_ALLOWLIST=(
     # ejemplo: "kate/.config/katerc"
 )
 
+# --- Fuentes de usuario (instaladas, no versionadas) ------------------------
+# Familias que la máquina necesita y que NO llegan por apt/pacman ni por TeX Live:
+# se descargan de su release oficial a ~/.local/share/fonts/<carpeta>/ con
+# `instalar-fuentes` (o al final de `instalar-deps`), verificando el sha256.
+# Los binarios no entran en el repo (principio de mínima captura): aquí vive
+# solo la receta reproducible. Formato: "carpeta|url|sha256|patrón dentro del zip".
+# Source Serif 4 (OFL 1.1): la voz titular del tema `rubricacion` y la serif de
+# `perceptual` del formato lamina de ~/Documents/03 writing (L-A5, 2026-09-17);
+# sourceserifpro de TeX Live es la 2.007, sin los cortes ópticos.
+readonly USER_FONTS_DIR="${HOME}/.local/share/fonts"
+readonly USER_FONTS=(
+    "source-serif-4|https://github.com/adobe-fonts/source-serif/releases/download/4.005R/source-serif-4.005_Desktop.zip|549fdb8f9a682bd06944298621404969f6de77c2e422ff3b8244a1dcd6a0c425|source-serif-4.005_Desktop/OTF/*.otf source-serif-4.005_Desktop/LICENSE.md"
+)
+
 # --- Colores para output (solo si el terminal los soporta) --------------------
 if tput colors &>/dev/null && [ "$(tput colors)" -ge 8 ]; then
     readonly COLOR_RESET='\033[0m'
