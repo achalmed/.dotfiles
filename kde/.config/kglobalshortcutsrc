@@ -365,10 +365,6 @@ _launch=Meta+Alt+E
 [services][org.kde.konsole.desktop]
 _launch=Meta+Return
 
-[services][org.kde.spectacle.desktop]
-CurrentMonitorScreenShot=
-OpenWithoutScreenshot=
-
 [services][positron.desktop]
 _launch=Meta+Alt+P
 
