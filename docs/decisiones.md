@@ -18,7 +18,9 @@ en cada cambio está en el mensaje de commit; aquí queda por qué.
   reales.
 - **Híbridos admitidos** (2026-07-06). `kdeglobals`, `kwinrc`, `konsolerc` y `texstudio.ini` se
   versionan aunque arrastren algo de estado, porque las preferencias dominan y no se pueden
-  separar. El caso de `texstudio.ini` está en revisión (§Pendientes).
+  separar. `texstudio.ini` pasa desde el 2026-10-04 por un filtro `clean` de git
+  (`lib/filtros/texstudio_ini.sh`) que retira las claves de archivos recientes, último documento y
+  último directorio: lo confirmado no lleva rutas privadas; la historia anterior sí (§Pendientes).
 - **Plugins de Obsidian como directorios** (2026-09-15). Cada plugin de la comunidad se enlaza
   como directorio; se versionan `data.json` y `manifest.json`, y `main.js`/`styles.css` se ignoran
   porque son código que se reinstala desde `community-plugins.json`. El mapa describe el disco:
@@ -70,7 +72,7 @@ en cada cambio está en el mensaje de commit; aquí queda por qué.
 
 | prioridad | pendiente | anotado | dueño |
 |---|---|---|---|
-| **alta** | `texstudio.ini` versiona la lista de archivos recientes y el último documento, con rutas privadas del espacio de trabajo, y ya está publicado. Decidir: dejar de versionarlo, filtrar esas claves con un filtro `clean` de git, o seguir como híbrido. Hasta entonces su diferencia local no se confirma | 2026-10-04 | autor |
+| **alta** | ~~`texstudio.ini` versiona la lista de archivos recientes…~~ *Resuelto el 2026-10-04 con el filtro `clean`* para lo que se confirma desde hoy. Sigue abierto: las rutas ya publicadas en la historia del remoto (decidir si se reescribe) | 2026-10-04 | autor |
 | **alta** | el historial público conserva archivos y rutas privadas de etapas anteriores del repo (incluida la credencial de base de datos ya conocida). Decidir si se reescribe el historial y se fuerza el push, y rotar lo que corresponda | 2026-10-04 | autor |
 | **alta** | el visor de calibre versiona su historial de lectura y varias configuraciones guardan rutas absolutas de la máquina (calibre, Positron): contra la mínima captura y no portables. Decidir si salen del mapa | 2026-10-04 | autor |
 | — | ~~el repo es público y no tiene `LICENSE`~~ cerrado el 2026-10-04 por decisión del autor: MIT (`LICENSE`) | 2026-10-04 | autor |

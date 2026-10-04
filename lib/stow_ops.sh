@@ -430,6 +430,15 @@ install_configs() {
     log_section "Instalando configuraciones: repo → laptop"
     validate_dotfiles_dir || return 1
 
+    # Filtro «clean» de texstudio.ini (lib/filtros/texstudio_ini.sh): git lo aplica solo si
+    # está en la configuración local del clon, así que se registra aquí en cada instalación.
+    if [ "$DRY_RUN" = true ]; then
+        log_info "[dry-run] git config filter.texstudio-ini.clean"
+    else
+        git -C "$DOTFILES_DIR" config filter.texstudio-ini.clean 'bash lib/filtros/texstudio_ini.sh' \
+            && log_info "Filtro de texstudio.ini registrado en la configuración local de git."
+    fi
+
     local total_ok=0
     local total_skip=0
 

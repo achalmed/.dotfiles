@@ -42,10 +42,10 @@ máquina, estado de sesión, credenciales ni nada regenerable. La selección es 
 
 KDE y TeXstudio mezclan preferencias y estado en el mismo archivo. Se versionan
 `kdeglobals`, `kwinrc`, `konsolerc` y `texstudio.ini` porque las preferencias dominan, y tras usar
-las aplicaciones aparecen diferencias pequeñas que se revisan antes de confirmar. Esto choca con
-la regla de no versionar listas de archivos recientes: `texstudio.ini` las contiene y está
-pendiente de decisión (ver [decisiones.md](decisiones.md) §Pendientes). Mientras tanto, su
-diferencia no se confirma sin leerla.
+las aplicaciones aparecen diferencias pequeñas que se revisan antes de confirmar. `texstudio.ini`
+contiene además la lista de archivos recientes, el último documento y el último directorio, con
+rutas privadas: un filtro `clean` de git (`lib/filtros/texstudio_ini.sh`, activado por
+`.gitattributes` y por `./main.sh instalar`) las quita de lo que se confirma; en el disco siguen.
 
 ## Exclusiones deliberadas
 
