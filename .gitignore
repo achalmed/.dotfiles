@@ -10,6 +10,9 @@
 .backups/
 .logs/
 
+# --- Configuración local del asistente (clase: local de herramienta; no se versiona) ---
+.claude/
+
 # --- Editores y sistemas de archivos ------------------------------------------
 *~
 *.swp

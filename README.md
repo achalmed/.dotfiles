@@ -1,501 +1,107 @@
-# dotfiles-manager
-
-> Gestor de dotfiles para **Arch Linux** y **Kubuntu** con Git y layout
-> compatible con GNU Stow. Versiona únicamente configuraciones realmente
-> personalizadas para reproducir el entorno de trabajo en cualquier equipo.
-
 ---
-
-## 📋 Tabla de Contenidos
-
-- [Filosofía: principio de mínima captura](#-filosofía-principio-de-mínima-captura)
-- [¿Por dónde empiezo?](#-por-dónde-empiezo)
-- [Requisitos](#-requisitos)
-- [Uso](#-uso)
-- [Paquetes gestionados](#-paquetes-gestionados)
-- [Exclusiones deliberadas](#-exclusiones-deliberadas)
-- [Lo que este repo no gestiona: `~/Documents`](#-lo-que-este-repo-no-gestiona-documents)
-- [Arquitectura](#-arquitectura)
-- [Agregar un nuevo paquete](#-agregar-un-nuevo-paquete)
-- [Seguridad](#-seguridad)
-- [Solución de problemas](#-solución-de-problemas)
-- [Notas y advertencias](#-notas-y-advertencias)
-
+tipo: readme
+estado: activo
 ---
+# .dotfiles/ — la configuración de las aplicaciones de la máquina, en paquetes, y el gestor que la enlaza en `$HOME`
 
-## 🎯 Filosofía: principio de mínima captura
+Gestor de dotfiles para Arch Linux y Kubuntu (repositorio achalmed/.dotfiles en GitHub). Cada aplicación
+es un paquete con layout compatible con GNU Stow; `main.sh` crea los enlaces simbólicos desde el
+repo hacia `$HOME`, de modo que lo que se cambia en la aplicación aparece como cambio en el repo.
 
-Este repositorio **NO es un respaldo del sistema**. Cada archivo versionado
-debe responder afirmativamente a esta pregunta:
+## Qué es
 
-> _"¿Este archivo representa una personalización que yo hice manualmente
-> y que realmente quiero reproducir en otro equipo?"_
+Este repo **no es un respaldo del sistema**. Solo versiona lo que responde que sí a: «¿es una
+personalización que hice a mano y quiero reproducir en otra máquina?». Entran preferencias,
+temas, atajos, plantillas y la configuración de editores, del shell y de plugins; quedan fuera
+caché, historial, archivos recientes, geometría de ventanas, estado de sesión, identificadores de
+máquina y credenciales. La selección es explícita: `config.sh` enumera los archivos de cada
+paquete y lo que no está ahí no se toca. El criterio completo y cada paquete, en
+[docs/paquetes.md](docs/paquetes.md).
 
-**Se versiona:**
+## Uso
 
-- preferencias, apariencia, temas, atajos y keybindings
-- snippets, plantillas y scripts propios
-- configuración de editores, shell y herramientas
-- configuración de plugins (JSON/Lua/TOML, nunca binarios)
-
-**Se excluye siempre:**
-
-- caché, logs, locks, bases de datos, índices
-- historial, listas MRU ("archivos recientes"), posiciones de ventanas
-- IDs de máquina, estado de sesión, datos dependientes del hardware
-- credenciales y cualquier archivo regenerable
-
-La selección es **positiva y explícita**: el mapa `PACKAGE_FILES` de
-`config.sh` enumera exactamente qué archivos gestiona cada paquete.
-Lo que no está en la lista, no se toca. El `.gitignore` actúa como segunda
-línea de defensa.
-
----
-
-## 🚀 ¿Por dónde empiezo?
-
-### Escenario A — Máquina nueva, repo ya existe en GitHub
+Requisitos: `git` y `bash` 4 o superior; opcionales `zsh`, `starship` y `stow`. Distribuciones
+reconocidas: Arch, Archcraft, EndeavourOS, Manjaro (pacman); Ubuntu, Kubuntu, Debian, Linux
+Mint, Pop!_OS (apt). En otra, se instala `git` a mano y el resto funciona igual.
 
 ```bash
+# Máquina nueva, el repo ya está en GitHub
 git clone https://github.com/achalmed/.dotfiles.git ~/.dotfiles
-cd ~/.dotfiles
-./main.sh instalar
+~/.dotfiles/main.sh instalar-deps        # dependencias de la distro y fuentes de usuario
+~/.dotfiles/main.sh instalar             # enlaces repo → $HOME
+alias dotfiles='~/.dotfiles/main.sh'     # en ~/.zshrc
+
+# Empezar a versionar configuración que ya está en la máquina
+dotfiles adoptar -p kate --dry-run       # simular primero
+dotfiles adoptar -p kate                 # mueve el archivo al repo y deja el enlace
+git -C ~/.dotfiles diff                  # revisar antes de confirmar
+
+# Uso diario
+dotfiles estado                          # enlaces y git
+dotfiles sync-pull                       # traer cambios y volver a enlazar
+dotfiles sync-push                       # escáner de datos sensibles, commit y push
 ```
 
-### Escenario B — Tengo configs en la laptop, quiero comenzar a versionar
-
-```bash
-./main.sh adoptar            # mueve los archivos al repo y crea symlinks
-cd ~/.dotfiles && git diff   # revisar qué se adoptó
-./main.sh sync-push          # subir a GitHub
-```
-
-### Escenario C — Configs en la laptop Y en el repo (posible conflicto)
-
-```bash
-./main.sh estado             # ver dónde están los conflictos
-./main.sh backup             # backup de seguridad primero
-# Si quieres la versión del REPO:    ./main.sh instalar --force
-# Si quieres la de la LAPTOP:        ./main.sh adoptar
-```
-
-### Escenario D — Ya todo funciona, solo quiero actualizar
-
-```bash
-./main.sh sync-push          # subir cambios locales
-./main.sh sync-pull          # bajar cambios de GitHub
-```
-
-**Alias recomendado** — agrégalo a tu `~/.zshrc`:
-
-```zsh
-alias dotfiles='~/.dotfiles/main.sh'
-```
-
----
-
-## ⚙️ Requisitos
-
-### Sistema operativo
-
-- Arch Linux / Archcraft / EndeavourOS / Manjaro
-- Ubuntu 20.04+ / Kubuntu / Debian / Linux Mint / Pop!\_OS
-
-### Dependencias
-
-| Herramienta   | ¿Obligatoria? | Para qué                                                                                          |
-| ------------- | ------------- | ------------------------------------------------------------------------------------------------- |
-| `git`         | Sí            | Control de versiones y sincronización                                                             |
-| `bash >= 4.0` | Sí            | Ejecución del gestor (arrays asociativos)                                                         |
-| `zsh`         | No            | Shell configurado por el paquete `shell`                                                          |
-| `stow`        | No            | El gestor crea symlinks directamente; el layout es compatible con stow si prefieres usarlo a mano |
-| `starship`    | No            | Prompt; config disponible pero inactiva (ver notas)                                               |
-
-```bash
-./main.sh instalar-deps      # instalación automática según la distro
-```
-
----
-
-## 💻 Uso
-
-```bash
-./main.sh                    # menú interactivo
-./main.sh <COMANDO> [OPCIONES]
-```
-
-### Comandos
-
-| Comando         | Descripción                                             |
-| --------------- | ------------------------------------------------------- |
-| `instalar`      | Crea symlinks del repo hacia la laptop                  |
-| `adoptar`       | Mueve configs de la laptop al repo y crea symlinks      |
-| `actualizar`    | Re-aplica symlinks (útil al agregar archivos al repo)   |
-| `eliminar`      | Elimina symlinks sin borrar el repo                     |
-| `sync-push`     | Escanea datos sensibles, commitea y sube a GitHub       |
-| `sync-pull`     | Descarga cambios de GitHub y actualiza symlinks         |
-| `estado`        | Muestra estado de symlinks y Git                        |
-| `backup`        | Crea backup de configs actuales                         |
-| `seguridad`     | Escanea todos los archivos versionados por credenciales |
-| `instalar-deps` | Instala dependencias según la distro detectada          |
-
-### Opciones globales
-
-| Opción                         | Descripción                            |
-| ------------------------------ | -------------------------------------- |
-| `-p, --packages git,shell,kde` | Operar solo sobre paquetes específicos |
-| `-v, --verbose`                | Salida detallada de cada operación     |
-| `-n, --dry-run`                | Simular sin hacer cambios reales       |
-| `-f, --force`                  | Reemplazar sin preguntar (con backup)  |
-| `--no-backup`                  | No crear backup automático             |
-| `-h, --help`                   | Ver ayuda completa                     |
-| `--version`                    | Ver versión y distro detectada         |
-
-### Ejemplos
-
-```bash
-# Inicio
-cd /home/achalmaedison/.dotfiles
-./main.sh instalar -p git,shell,kde     # instalar solo esos paquetes
-./main.sh adoptar -p meta               # adoptar solo el paquete meta
-./main.sh adoptar -p zotero
-./main.sh adoptar -p git
-./main.sh adoptar -p calibre
-
-./main.sh sync-pull --dry-run --verbose # simular un pull
-./main.sh estado
-./main.sh estado --verbose              # estado archivo por archivo
-
-# Subir a GitHub con confirmación de datos sensibles
-./main.sh sync-push
-```
-
-**Nota para uso no interactivo/scripts:** pasa siempre `-p` (sin TTY los
-prompts usan la opción segura por defecto: saltar/no eliminar).
-
----
-
-## 📦 Paquetes gestionados
-
-| Paquete     | Contenido                                                                                                                                                 |
-| ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `git`       | `.gitconfig`                                                                                                                                              |
-| `shell`     | `.zshrc`, `.config/starship.toml`                                                                                                                         |
-| `kde`       | `kdeglobals`, `kglobalshortcutsrc`, `kwinrc`, `dolphinrc`, `plasmarc`, `plasma-localerc`, `mimeapps.list`                                                 |
-| `konsole`   | `konsolerc` + **perfiles y esquemas de color** (`~/.local/share/konsole/`)                                                                                |
-| `positron`  | `settings.json` del IDE Positron                                                                                                                          |
-| `obsidian`  | Config del vault: `app.json`, `appearance.json`, `hotkeys.json`, `community-plugins.json`, `core-plugins.json`, `snippets/`; 8 plugins como symlinks de directorio (`data.json` + `manifest.json`; `main.js`/`styles.css` ignorados) |
-| `calibre`   | `global.py.json`, `tweak_book_gui.json`, `viewer-webengine.json`                                                                                          |
-| `kate`      | `katerc`, `lspclient/settings.json`, `externaltools/`                                                                                                     |
-| `texstudio` | `texstudio.ini` (híbrido, ver notas)                                                                                                                      |
-| `okular`    | `okularpartrc` (solo preferencias de visualización)                                                                                                       |
-| `rstudio`   | `rstudio-prefs.json`                                                                                                                                      |
-| `xournalpp` | `settings.xml`                                                                                                                                            |
-| `koreader`  | `defaults.custom.lua`, `gestures.lua`, `hotkeys.lua`, `directory_defaults.lua`                                                                            |
-
----
-
-## 🚫 Exclusiones deliberadas
-
-Archivos que **existían en versiones anteriores del repo** y fueron
-excluidos tras la auditoría v3.0, porque el estado domina sobre la
-configuración (generaban commits enormes e inútiles en cada uso):
-
-| App         | Archivo                                         | Por qué se excluyó                                                                                            |
-| ----------- | ----------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| digiKam     | `digikamrc`                                     | Índices de sidebar, geometría, rutas de BD **y contraseña de BD**                                             |
-| Krusader    | `krusaderrc`                                    | PopularUrls, historial de tabs, estado binario de toolbars                                                    |
-| Zotero      | `prefs.js`                                      | Timestamps de sync, geometría; además la ruta del perfil (`0xh8512f.default`) no es portable entre máquinas   |
-| Okular      | `okularrc`                                      | Dominado por "Recent Files" y geometría (las preferencias reales viven en `okularpartrc`, que sí se versiona) |
-| LibreOffice | `registrymodifications.xcu`                     | Mezcla MRU, posiciones y rutas locales en un solo archivo que cambia en cada uso                              |
-| KDE Plasma  | `plasma-org.kde.plasma.desktop-appletsrc`       | Layout de paneles dependiente de monitor/resolución                                                           |
-| KDE Plasma  | `plasmashellrc`                                 | Estado del shell por pantalla                                                                                 |
-| Konsole     | `konsolesshconfig`                              | Estado de plugin, sin personalización                                                                         |
-| Obsidian    | `workspace.json`, `core-plugins-migration.json` | Estado de ventanas / migración regenerable                                                                    |
-| calibre     | `gui.json`                                      | Geometría de ventanas y modelo/fabricante del monitor (hardware)                                              |
-| calibre     | `gui.py.json`                                   | Historial de búsquedas (MRU)                                                                                  |
-| KOReader    | `settings.reader.lua`                           | Último archivo abierto (MRU) y geometría; la app lo reescribe en cada uso                                     |
-| VSCode      | paquete completo                                | Reemplazado por Positron; la app ya no está instalada                                                         |
-| Obsidian    | `plugins/*/main.js`, `plugins/*/styles.css`    | Código del plugin, no configuración; se reinstala desde `community-plugins.json` (FG5, 2026-09-15)          |
-
-Las configuraciones de esas apps **no se pierden**: al excluirlas del repo
-se restauraron como archivos reales en `$HOME`. Simplemente ya no se
-versionan. Para reproducir su configuración en otra máquina, configúralas
-una vez a mano (o usa sus mecanismos propios, p. ej. el sync de Zotero).
-
----
-
-## 🗂️ Lo que este repo no gestiona: `~/Documents`
-
-`~/Documents` es el workspace (vault de Obsidian + repos). **Este repo reproduce la
-máquina, no el workspace**: no conoce `~/Documents` salvo por el paquete `obsidian`
-(configuración de la app en `~/Documents/.obsidian/`) y por los alias de `.zshrc`.
-
-Hasta el 2026-09-15 existió aquí un paquete `meta` con el «vault OS» de
-`~/Documents/meta` (plantillas Templater, vistas Dataview, tableros, scripts).
-Se retiró en la fase FG2 del diagnóstico de gobierno
-(`~/Documents/meta/DIAGNOSTICO_CORE_META_DOTFILES_2026-09.md`): ese código
-depende de `~/Documents/core`, instancia la normativa del ecosistema y solo tiene
-sentido con ese vault, así que se versiona con él en el repo `ecosistema`
-(`~/Documents/meta`, privado), con su historial completo. Lo mismo vale para los
-datos de lectura de KOReader (antes `koreader-data/`, hoy repo propio; ver FG3).
-
-Regla: si un archivo solo tiene sentido con `~/Documents`, no va aquí.
-
----
-
-## 🔄 Flujos de trabajo completos
-
-### Flujo 1: Configuración inicial en máquina nueva
-
-```bash
-# Paso 1: Clonar el repo
-git clone https://github.com/achalmed/.dotfiles.git ~/.dotfiles
-
-# Paso 2: Instalar dependencias
-~/.dotfiles/main.sh instalar-deps
-
-# Paso 3: Instalar todas las configuraciones
-~/.dotfiles/main.sh instalar
-
-# Paso 4: Agregar alias al .zshrc (ya estará linkeado)
-echo "alias dotfiles='~/.dotfiles/main.sh'" >> ~/.zshrc
-source ~/.zshrc
-```
-
-### Flujo 2: Modificar una configuración y guardarla
-
-```bash
-# Modificas normalmente tu config (ej: ~/.config/kate/katerc)
-# Como es un symlink, el cambio ya está en el repo automáticamente
-
-# Verificar qué cambió
-dotfiles estado
-
-# Subir a GitHub
-dotfiles sync-push
-```
-
-### Flujo 3: Actualizar la laptop con cambios del repo
-
-```bash
-# Descargar cambios y aplicar
-dotfiles sync-pull
-
-# Verifica que todo quedó bien
-dotfiles estado
-```
-
-### Flujo 4: Comenzar a versionar una config que aún no está en el repo
-
-```bash
-# Supón que quieres agregar la config de una app nueva
-
-# Paso 1: Crear el directorio del paquete en el repo
-mkdir -p ~/.dotfiles/miapp/.config/miapp/
-
-# Paso 2: Adoptar (mueve el archivo al repo y crea el symlink)
-dotfiles adoptar -p miapp
-
-# Paso 3: Verificar que el symlink funciona
-ls -la ~/.config/miapp/
-
-# Paso 4: Subir a GitHub
-dotfiles sync-push
-```
-
-### Flujo 5: Resolver conflicto (configs en laptop Y en repo)
-
-```bash
-# Ver dónde están los conflictos
-dotfiles estado
-
-# Opción A: Me quedo con la versión del REPO
-dotfiles backup                    # backup de seguridad primero
-dotfiles instalar --force          # sobrescribe con la del repo
-
-# Opción B: Me quedo con la versión de la LAPTOP
-dotfiles adoptar                   # mueve la de laptop al repo
-cd ~/.dotfiles && git diff         # revisar qué cambió
-dotfiles sync-push                 # subir la versión de laptop
-```
-
----
-
-## 🏗️ Arquitectura
-
-```
-~/.dotfiles/
-├── main.sh              # Punto de entrada: carga módulos y hace dispatch
-├── config.sh            # Constantes, distro, STOW_PACKAGES, PACKAGE_FILES
-├── lib/
-│   ├── logger.sh        # Logging a consola + .logs/dotfiles-YYYY-MM-DD.log
-│   ├── validator.sh     # Pre-flight checks + escáner de datos sensibles
-│   ├── cli.sh           # Parseo de argumentos, menú, confirmaciones
-│   ├── stow_ops.sh      # adoptar/instalar/actualizar/eliminar symlinks
-│   ├── git_ops.sh       # sync-push / sync-pull / estado git
-│   └── tools.sh         # Backups quirúrgicos/completos, dependencias
-├── .backups/            # Backups automáticos (ignorado por git)
-├── .logs/               # Logs diarios (ignorado por git)
-└── <paquetes>/          # git/ shell/ kde/ konsole/ … koreader/
-```
-
-### Decisiones de diseño
-
-1. **Selección explícita de archivos.** `PACKAGE_FILES["app"]="ruta1|ruta2"`
-   (rutas relativas a `$HOME`) decide qué se gestiona. Nunca se adopta un
-   directorio de configuración completo "a ciegas".
-
-2. **Symlinks directos, layout compatible con Stow.** El gestor crea los
-   enlaces con `ln -sfn` archivo por archivo — el binario de GNU Stow no es
-   necesario. Cada paquete replica la estructura de `$HOME`, así que
-   `stow <paquete>` también funcionaría (pero enlazaría todo el paquete,
-   sin el control archivo-por-archivo).
-
-3. **Fallar rápido y seguro.** `set -euo pipefail`, validaciones antes de
-   operar, backups quirúrgicos automáticos antes de instalar/adoptar, y
-   prompts con opción segura por defecto cuando no hay TTY.
-
-4. **Portabilidad.** `DOTFILES_DIR` se deriva de `$HOME` (sobreescribible
-   por variable de entorno). La detección de distro elige pacman o apt.
-
-5. **Autonomía respecto de `~/Documents`.** Este repo se instala antes de que
-   exista el workspace y nada aquí puede depender de él (salvo alias del
-   shell). Por eso `lib/logger.sh` y los backups de `lib/tools.sh` son
-   **duplicados deliberados** de `~/Documents/core/shell-lib` (mismo formato de
-   línea `[NIVEL] fecha - mensaje`): el gestor tiene que arrancar solo.
-
-6. **El mapa describe el disco.** `PACKAGE_FILES` es la verdad de lo que se
-   enlaza; un cambio de layout en `$HOME` (p. ej. un plugin nuevo de Obsidian)
-   se refleja aquí en el mismo commit. `dotfiles instalar --dry-run` en verde
-   es la prueba (FG5, 2026-09-15).
-
-### Descripción de módulos
-
-| Archivo            | Responsabilidad                                                  |
-| ------------------ | ---------------------------------------------------------------- |
-| `main.sh`          | Carga módulos, parsea args, hace dispatch al comando correcto    |
-| `config.sh`        | Detecta distro, define rutas, paquetes stow, patrones sensibles  |
-| `lib/logger.sh`    | Logging formateado a consola y archivo con niveles y colores     |
-| `lib/validator.sh` | Verifica stow, git, internet, árbol limpio, datos sensibles      |
-| `lib/cli.sh`       | Parseo de argumentos, menú interactivo, confirmaciones           |
-| `lib/stow_ops.sh`  | Instalar, adoptar, actualizar y eliminar symlinks con stow       |
-| `lib/git_ops.sh`   | Push con validación, pull con re-stow, estado del repo           |
-| `lib/tools.sh`     | Backups comprimidos con limpieza automática, instalación de deps |
-
----
-
-## ➕ Agregar un nuevo paquete
-
-```bash
-# 1. Agrega el paquete a STOW_PACKAGES en config.sh
-# 2. Define sus archivos (SOLO personalización, nunca caché/estado):
-#    PACKAGE_FILES["miapp"]=".config/miapp/config.yaml"
-# 3. Adopta (mueve el archivo al repo y crea el symlink):
-./main.sh adoptar -p miapp
-# 4. Revisa y sube:
-git diff && ./main.sh sync-push
-```
-
-Antes de agregar un archivo pregúntate: ¿lo configuré yo? ¿cambia solo con
-el uso normal de la app? ¿contiene rutas absolutas de esta máquina,
-historial o credenciales? Ante la duda, obsérvalo unos días con
-`git diff` antes de versionarlo.
-
----
-
-## 🔐 Seguridad
-
-- `sync-push` ejecuta **siempre** el escáner de datos sensibles y aborta si
-  hay hallazgos. El escáner recorre TODOS los archivos versionados (y los
-  nuevos no ignorados) con patrones tipo `clave=valor` para minimizar
-  falsos positivos: contraseñas, api keys, tokens (`ghp_…`, `sk-…`) y
-  claves privadas PEM.
-- Falsos positivos revisados se declaran en `SENSITIVE_SCAN_ALLOWLIST`
-  (config.sh).
-- Ejecución manual: `./main.sh seguridad`.
-- El `.gitignore` bloquea además credenciales típicas (`*.pem`, `key4.db`,
-  `logins.json`, `cookies.sqlite`).
-
-> ⚠️ Nota histórica: versiones anteriores del repo versionaron `digikamrc`,
-> que incluye una contraseña de BD codificada. El archivo ya no se versiona,
-> pero permanece en el historial de Git. Si esa contraseña importa, rótala
-> (o reescribe el historial con `git filter-repo` y fuerza el push).
-
----
-
-## 🔧 Solución de problemas
-
-### "Hay conflictos — archivo real existe en laptop"
-
-Existe un archivo normal (no symlink) donde el gestor quiere crear el enlace.
-
-```bash
-./main.sh estado                      # ver dónde
-./main.sh adoptar  -p <paquete>       # opción 1: laptop → repo
-./main.sh instalar -p <paquete> -f    # opción 2: repo → laptop (con backup)
-```
-
-### "Falló git push"
-
-```bash
-cd ~/.dotfiles && git remote -v       # ¿remote configurado?
-git remote add origin git@github.com:achalmed/.dotfiles.git
-```
-
-### "Datos sensibles detectados antes del push"
-
-```bash
-./main.sh seguridad                   # ver qué y dónde
-# Edita el archivo y elimina la credencial, o si es falso positivo
-# revisado, agrégalo a SENSITIVE_SCAN_ALLOWLIST en config.sh
-```
-
-### Los symlinks quedaron rotos
-
-```bash
-./main.sh actualizar                  # re-aplica todos los symlinks
-```
-
-### Un archivo versionado empieza a generar mucho churn
-
-Señal de que la app le mete estado. Decide: ¿las preferencias dominan?
-Si no: quítalo de `PACKAGE_FILES`, borra el symlink, mueve el archivo del
-repo de vuelta a `$HOME` y `git rm --cached` la ruta.
-
----
-
-## ⚠️ Notas y advertencias
-
-**Archivos híbridos (churn menor esperado).** KDE y TeXstudio mezclan
-preferencias y algo de estado en el mismo archivo. Se versionan porque las
-preferencias dominan: `kdeglobals`, `kwinrc`, `konsolerc`, `texstudio.ini`.
-Es normal ver diffs pequeños tras usar las apps; revísalos en `sync-push`.
-
-**Obsidian vault.** El vault es `~/Documents` completo (con `.obsidian/`
-dentro). Los paquetes `obsidian` y `meta` asumen esa ruta; si en otra
-máquina el vault vive en otro lado, ajusta la estructura de ambos paquetes.
-
-**Starship inactivo.** `shell/.config/starship.toml` está versionado en la
-ruta XDG estándar, pero el `.zshrc` actual usa Oh My Zsh y no inicializa
-starship. Para activarlo: `eval "$(starship init zsh)"` al final del
-`.zshrc`.
-
-**Perfil de Konsole.** El paquete `konsole` versiona el perfil
-`achalmaedison.profile`; `konsolerc` lo referencia por nombre, así que
-funciona igual en cualquier máquina.
-
-**Apps que rompen symlinks (escritura atómica).** calibre y KOReader
-guardan su configuración escribiendo un archivo nuevo y renombrándolo,
-lo que reemplaza el symlink por un archivo real. Por eso sus archivos
-más volátiles quedaron excluidos. Si `estado` muestra conflictos en esos
-paquetes tras usar las apps, ejecuta `./main.sh adoptar -p <paquete>`
-para re-sincronizar los archivos que sí se versionan.
-
-**Backups.** Se guardan en `.backups/` (fuera de git) y se conservan los
-últimos 15 automáticamente. Son backups de emergencia por archivo, no
-reemplazan un respaldo completo del sistema.
-
-**Kubuntu vs Arch.** `instalar-deps` detecta la distro por `/etc/os-release`
-y usa pacman o apt. En otras distros, instala `git` (y opcionalmente `zsh`)
-a mano; el resto del gestor funciona igual.
+| comando | qué hace |
+|---|---|
+| `instalar` | crea los enlaces del repo hacia `$HOME` |
+| `adoptar` | mueve al repo la configuración de `$HOME` y deja el enlace |
+| `actualizar` | vuelve a aplicar los enlaces |
+| `eliminar` | quita los enlaces sin tocar el repo |
+| `sync-push` | escanea datos sensibles, confirma todo lo modificado y sube |
+| `sync-pull` | baja cambios de GitHub y vuelve a enlazar |
+| `estado` | estado de los enlaces y de git |
+| `backup` | respaldo manual de la configuración actual |
+| `seguridad` | escanea los archivos versionados en busca de credenciales |
+| `instalar-deps` | instala dependencias según la distribución y, al final, las fuentes |
+| `instalar-fuentes` | instala las fuentes de usuario de `USER_FONTS` en `~/.local/share/fonts`, sin sudo |
+
+Opciones globales: `-p, --packages a,b` (solo esos paquetes; los nombres se validan contra
+`STOW_PACKAGES`), `-n, --dry-run`, `-v, --verbose`, `-f, --force` (reemplazar sin preguntar,
+con respaldo), `--no-backup`, `-h, --help`, `--version`. Sin argumentos, `main.sh` abre un menú.
+Sin terminal interactiva, cada pregunta toma la opción segura; en scripts, pásese siempre `-p`.
+
+**Problemas frecuentes.**
+
+- *Hay un archivo real donde debería ir un enlace*: `dotfiles estado` dice dónde; `adoptar -p
+  <paquete>` se queda con el de la máquina, `instalar -p <paquete> -f` con el del repo (antes,
+  `dotfiles backup`).
+- *El escáner detiene `sync-push`*: `dotfiles seguridad` muestra qué y dónde; se quita el dato o,
+  si es un falso positivo revisado, se añade a `SENSITIVE_SCAN_ALLOWLIST` en `config.sh`.
+- *Enlaces rotos*: `dotfiles actualizar`.
+- *calibre o KOReader dejaron conflictos tras usarlos*: escriben de forma atómica y sustituyen
+  el enlace; `dotfiles adoptar -p <paquete>` lo repone.
+- *Falla el push*: comprobar `git -C ~/.dotfiles remote -v`; el commit queda guardado en local.
+
+## Estructura
+
+| carpeta o archivo | qué es | dueño / generador |
+|---|---|---|
+| `main.sh` | punto de entrada: carga los módulos y despacha el comando | a mano |
+| `config.sh` | constantes, `STOW_PACKAGES`, `PACKAGE_FILES`, patrones sensibles, `USER_FONTS` | a mano |
+| `lib/` | módulos del gestor ([docs/arquitectura.md](docs/arquitectura.md)) | a mano |
+| `git/` `shell/` `kde/` `konsole/` `positron/` `obsidian/` `calibre/` `kate/` `texstudio/` `okular/` `rstudio/` `xournalpp/` `koreader/` | un paquete por aplicación, con la estructura de `$HOME` dentro | las aplicaciones, a través del enlace |
+| `docs/` | referencia, explicación y decisiones | a mano; índice por `core/docs.py` |
+| `.backups/`, `.logs/` | respaldos y registros del gestor, ignorados por git | el gestor |
+
+## Documentación
+
+| pregunta | documento |
+|---|---|
+| qué cubre cada paquete, qué se excluye y cómo se añade uno | [docs/paquetes.md](docs/paquetes.md) |
+| cómo funciona el gestor y quién depende de este repo | [docs/arquitectura.md](docs/arquitectura.md) |
+| los atajos de teclado de KDE | [docs/atajos-kde.md](docs/atajos-kde.md) |
+| por qué se decidió así y qué está pendiente | [docs/decisiones.md](docs/decisiones.md) |
+| todo, con su tipo y estado | [docs/README.md](docs/README.md) |
+
+## Límite honesto
+
+- La configuración se adoptó de una instalación de Kubuntu; la rama de pacman de `instalar-deps`
+  no se ha comprobado en este repo.
+- Los archivos híbridos (KDE, TeXstudio) arrastran algo de estado: cada diferencia se lee antes de
+  confirmar, y `sync-push` confirma todo lo modificado.
+- El escáner busca credenciales con forma `clave=valor`; no detecta rutas ni nombres privados.
+- El historial de git conserva archivos que ya no se versionan. Lo que queda por decidir sobre él
+  y sobre la licencia está en [docs/decisiones.md](docs/decisiones.md) §Pendientes.
+- El paquete `obsidian` supone que el vault es `~/Documents`; en otra máquina con otro vault hay
+  que ajustar su estructura.
