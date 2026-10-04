@@ -102,6 +102,6 @@ Sin terminal interactiva, cada pregunta toma la opción segura; en scripts, pás
   confirmar, y `sync-push` confirma todo lo modificado.
 - El escáner busca credenciales con forma `clave=valor`; no detecta rutas ni nombres privados.
 - El historial de git conserva archivos que ya no se versionan. Lo que queda por decidir sobre él
-  y sobre la licencia está en [docs/decisiones.md](docs/decisiones.md) §Pendientes.
+  está en [docs/decisiones.md](docs/decisiones.md) §Pendientes. Licencia: MIT (`LICENSE`).
 - El paquete `obsidian` supone que el vault es `~/Documents`; en otra máquina con otro vault hay
   que ajustar su estructura.

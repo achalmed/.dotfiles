@@ -73,6 +73,6 @@ en cada cambio está en el mensaje de commit; aquí queda por qué.
 | **alta** | `texstudio.ini` versiona la lista de archivos recientes y el último documento, con rutas privadas del espacio de trabajo, y ya está publicado. Decidir: dejar de versionarlo, filtrar esas claves con un filtro `clean` de git, o seguir como híbrido. Hasta entonces su diferencia local no se confirma | 2026-10-04 | autor |
 | **alta** | el historial público conserva archivos y rutas privadas de etapas anteriores del repo (incluida la credencial de base de datos ya conocida). Decidir si se reescribe el historial y se fuerza el push, y rotar lo que corresponda | 2026-10-04 | autor |
 | **alta** | el visor de calibre versiona su historial de lectura y varias configuraciones guardan rutas absolutas de la máquina (calibre, Positron): contra la mínima captura y no portables. Decidir si salen del mapa | 2026-10-04 | autor |
-| **alta** | el repo es público y no tiene `LICENSE`. Decidir la licencia (en el espacio de trabajo, MIT es lo habitual para código) | 2026-10-04 | autor |
+| — | ~~el repo es público y no tiene `LICENSE`~~ cerrado el 2026-10-04 por decisión del autor: MIT (`LICENSE`) | 2026-10-04 | autor |
 | media | `sync-push` confirma con `git add .`: arrastra cualquier diferencia retenida. Valorar que confirme solo las rutas de `PACKAGE_FILES` | 2026-10-04 | autor |
 | baja | `validate_stow_installed` (`lib/validator.sh`) no se llama desde ningún sitio: borrarla o usarla | 2026-10-04 | autor |

@@ -27,7 +27,7 @@ Léase antes: `README.md` (uso), `docs/README.md` (índice) y `config.sh` (el ma
 - **No ejecutar** `instalar`, `adoptar`, `eliminar` ni `sync-*` sin que el autor lo pida; para
   comprobar, `--dry-run`.
 - **Dónde va cada cosa nueva.** En la raíz solo `README.md`, `CLAUDE.md`, `AGENTS.md`, `main.sh`,
-  `config.sh`, `.gitignore` y, cuando el autor la decida, `LICENSE`. **Nunca un `.md` dentro de un
+  `config.sh`, `.gitignore` y `LICENSE`. **Nunca un `.md` dentro de un
   directorio de paquete**: `stow <paquete>` lo enlazaría a `$HOME`.
 
   | lo que apareció | va a | nunca a |
