@@ -63,11 +63,11 @@ SetEditor=false
 
 [MainWindow]
 1920x1080 screen: Height=1006
-1920x1080 screen: Width=960
+1920x1080 screen: Width=1920
 2 screens: Height=978
 2 screens: Width=960
-3 screens: Height=998
-3 screens: Width=960
+3 screens: Height=1006
+3 screens: Width=1920
 
 [UiSettings]
 ColorScheme=Nothing
