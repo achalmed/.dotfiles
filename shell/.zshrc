@@ -266,7 +266,7 @@ command -v starship >/dev/null 2>&1 && eval "$(starship init zsh)"
 # ====================================================
 # Scripts propios en ~/Documents (rutas actualizadas tras la reorganización
 # v4 de scripts_for_linux)
-alias compilar="$HOME/Documents/scripts_for_latex/script_compilar_latex/main.sh"
+alias compilar="$HOME/Documents/scripts-latex/script_compilar_latex/main.sh"
 alias ptree="$HOME/Documents/scripts_for_linux/scripts_filesystem_studio/backend/script_proyect_tree/main.sh"
 
 # ====================================================
