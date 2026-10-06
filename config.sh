@@ -253,7 +253,7 @@ readonly SENSITIVE_SCAN_ALLOWLIST=(
 # Los binarios no entran en el repo (principio de mínima captura): aquí vive
 # solo la receta reproducible. Formato: "carpeta|url|sha256|patrón dentro del zip".
 # Source Serif 4 (OFL 1.1): la voz titular del tema `rubricacion` y la serif de
-# `perceptual` del formato lamina de ~/Documents/03 writing (L-A5, 2026-09-17);
+# `perceptual` del formato lamina de ~/Documents/escritura (L-A5, 2026-09-17);
 # sourceserifpro de TeX Live es la 2.007, sin los cortes ópticos.
 readonly USER_FONTS_DIR="${HOME}/.local/share/fonts"
 readonly USER_FONTS=(

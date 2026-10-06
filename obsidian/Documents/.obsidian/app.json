@@ -34,7 +34,7 @@
     "meta/grafo/",
     "meta/reparaciones/",
     "/^datafw\\/(?!_vault\\/)/",
-    "/^03 writing\\/(?!_vault\\/)/",
+    "/^escritura\\/(?!_vault\\/)/",
     "/^04 index\\/(?!_vault\\/|_indice\\/)/",
     "cv/",
     "core/",
