@@ -9,7 +9,7 @@
       "pattern": ""
     },
     {
-      "folder": "02 analysis",
+      "folder": "datafw",
       "tag": "^#analysis",
       "pattern": ""
     },
@@ -74,37 +74,37 @@
       "pattern": ""
     },
     {
-      "folder": "02 analysis",
+      "folder": "datafw",
       "tag": "^#decision",
       "pattern": ""
     },
     {
-      "folder": "02 analysis",
+      "folder": "datafw",
       "tag": "^#problema",
       "pattern": ""
     },
     {
-      "folder": "02 analysis",
+      "folder": "datafw",
       "tag": "^#hipotesis",
       "pattern": ""
     },
     {
-      "folder": "02 analysis",
+      "folder": "datafw",
       "tag": "^#experimento",
       "pattern": ""
     },
     {
-      "folder": "02 analysis",
+      "folder": "datafw",
       "tag": "^#aprendizaje",
       "pattern": ""
     },
     {
-      "folder": "02 analysis",
+      "folder": "datafw",
       "tag": "^#error",
       "pattern": ""
     },
     {
-      "folder": "02 analysis",
+      "folder": "datafw",
       "tag": "^#bitacora",
       "pattern": ""
     },
@@ -164,7 +164,7 @@
       "folder": "^01 notes/70-recursos"
     },
     {
-      "folder": "^02 analysis"
+      "folder": "^datafw"
     },
     {
       "folder": "^03 writing"

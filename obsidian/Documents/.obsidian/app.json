@@ -33,7 +33,7 @@
     "meta/doctor/",
     "meta/grafo/",
     "meta/reparaciones/",
-    "/^02 analysis\\/(?!_vault\\/)/",
+    "/^datafw\\/(?!_vault\\/)/",
     "/^03 writing\\/(?!_vault\\/)/",
     "/^04 index\\/(?!_vault\\/|_indice\\/)/",
     "cv/",
