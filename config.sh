@@ -79,7 +79,6 @@ readonly STOW_PACKAGES=(
     kde
     konsole
     positron      # Positron IDE (fork de VSCode); config en ~/.config/Positron/
-    obsidian      # config del vault (~/Documents es el vault)
     calibre
     kate
     texstudio
@@ -153,32 +152,11 @@ PACKAGE_FILES["konsole"]=\
 # NO: cache, gpu cache, crashpad, session storage, machine id, History/
 PACKAGE_FILES["positron"]=".config/Positron/User/settings.json"
 
-# obsidian: configuración del vault en ~/Documents/.obsidian/ (la app; el vault es ~/Documents).
-# Los plugins se gestionan como symlinks de DIRECTORIO (FG5, 2026-09-15: el mapa describe el
-# disco): dentro se versionan data.json y manifest.json; main.js y styles.css están en
-# .gitignore (código del plugin, se reinstala desde community-plugins.json).
-# NO: workspace.json (estado de ventanas), vault-stats.json,
-#     core-plugins-migration.json (estado de migración regenerable),
-#     themes/ (se reinstalan; appearance.json registra cuál usar)
-PACKAGE_FILES["obsidian"]=\
-"Documents/.obsidian/app.json|\
-Documents/.obsidian/appearance.json|\
-Documents/.obsidian/community-plugins.json|\
-Documents/.obsidian/core-plugins.json|\
-Documents/.obsidian/hotkeys.json|\
-Documents/.obsidian/snippets|\
-Documents/.obsidian/plugins/auto-note-mover|\
-Documents/.obsidian/plugins/dataview|\
-Documents/.obsidian/plugins/longform|\
-Documents/.obsidian/plugins/obsidian-minimal-settings|\
-Documents/.obsidian/plugins/obsidian-zotero-desktop-connector|\
-Documents/.obsidian/plugins/quickadd|\
-Documents/.obsidian/plugins/tag-wrangler|\
-Documents/.obsidian/plugins/templater-obsidian"
-
+# obsidian (retirado en la ola 8, 2026-10-10): la configuración del vault vive en ~/Documents/.obsidian/ como
+# archivos reales y se respalda con el espejo de ~/Documents; este repo ya no conoce ~/Documents.
 # meta (retirado en FG2, 2026-09-15): el vault OS de ~/Documents/meta se versiona en el
 # repo `ecosistema` (~/Documents/meta), no aquí. Este repo no conoce ~/Documents salvo
-# el paquete `obsidian` (configuración de la app) y los alias del shell.
+# los alias del shell (el paquete `obsidian` se retiró en la ola 8).
 
 # calibre: solo las preferencias estables de personalización.
 # NO: caches/, conversion/, fonts/, plugins binarios, server-users.sqlite,

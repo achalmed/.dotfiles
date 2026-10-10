@@ -80,7 +80,7 @@ Sin terminal interactiva, cada pregunta toma la opción segura; en scripts, pás
 | `main.sh` | punto de entrada: carga los módulos y despacha el comando | a mano |
 | `config.sh` | constantes, `STOW_PACKAGES`, `PACKAGE_FILES`, patrones sensibles, `USER_FONTS` | a mano |
 | `lib/` | módulos del gestor ([docs/arquitectura.md](docs/arquitectura.md)) | a mano |
-| `git/` `shell/` `kde/` `konsole/` `positron/` `obsidian/` `calibre/` `kate/` `texstudio/` `okular/` `rstudio/` `xournalpp/` `koreader/` | un paquete por aplicación, con la estructura de `$HOME` dentro | las aplicaciones, a través del enlace |
+| `git/` `shell/` `kde/` `konsole/` `positron/` `calibre/` `kate/` `texstudio/` `okular/` `rstudio/` `xournalpp/` `koreader/` | un paquete por aplicación, con la estructura de `$HOME` dentro | las aplicaciones, a través del enlace |
 | `docs/` | referencia, explicación y decisiones | a mano; índice por `core/docs.py` |
 | `.backups/`, `.logs/` | respaldos y registros del gestor, ignorados por git | el gestor |
 
@@ -103,5 +103,5 @@ Sin terminal interactiva, cada pregunta toma la opción segura; en scripts, pás
 - El escáner busca credenciales con forma `clave=valor`; no detecta rutas ni nombres privados.
 - El historial de git conserva archivos que ya no se versionan. Lo que queda por decidir sobre él
   está en [docs/decisiones.md](docs/decisiones.md) §Pendientes. Licencia: MIT (`LICENSE`).
-- El paquete `obsidian` supone que el vault es `~/Documents`; en otra máquina con otro vault hay
-  que ajustar su estructura.
+- La configuración de Obsidian ya no está aquí (ola 8, 2026-10-10): vive en `~/Documents/.obsidian/` como archivos
+  reales y la respalda el espejo de `~/Documents`; la historia de este repo conserva el paquete `obsidian` retirado.

@@ -29,7 +29,7 @@ máquina, estado de sesión, credenciales ni nada regenerable. La selección es 
 | `kde` | preferencias globales de Plasma: tema y colores, atajos globales ([atajos-kde.md](atajos-kde.md)), KWin, Dolphin, región y aplicaciones predeterminadas; solo archivos dominados por preferencias |
 | `konsole` | el perfil y el esquema de color, que es donde vive la personalización; `konsolerc` solo aporta el perfil por defecto, referido por nombre |
 | `positron` | ajustes del IDE Positron |
-| `obsidian` | configuración de la aplicación para el vault (`~/Documents`): apariencia, atajos, plugins activos, fragmentos CSS y la configuración de cada plugin de la comunidad, enlazado como directorio (se versionan sus `data.json` y `manifest.json`; el código del plugin se reinstala) |
+| ~~`obsidian`~~ | retirado el 2026-10-10 (ola 8 del programa de reingeniería): la configuración del vault vive en `~/Documents/.obsidian/` como archivos reales y la respalda el espejo de `~/Documents`; queda en la historia de este repo (etiqueta `antes-ola-08-2026-10-10`) |
 | `calibre` | preferencias de calibre y de su visor y editor |
 | `kate` | editor, cliente LSP y herramientas externas |
 | `texstudio` | configuración completa del editor (híbrido; ver abajo) |

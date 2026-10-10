@@ -153,8 +153,6 @@ _create_full_backup() {
         "$HOME/.gitconfig"
         "$HOME/.zshrc"
         "$HOME/.local/share/konsole"
-        "$HOME/Documents/meta"
-        "$HOME/Documents/.obsidian"
     )
     for d in "${candidates[@]}"; do
         [ -e "$d" ] && dirs_to_backup+=("$d")

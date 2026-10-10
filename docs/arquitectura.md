@@ -67,14 +67,13 @@ sudo. Los binarios no entran en el repo.
 
 Este repo reproduce la máquina, no el espacio de trabajo: se instala antes de que exista
 `~/Documents` y nada del gestor depende de él. Por eso el registro y los respaldos duplican a
-propósito la biblioteca de shell del espacio de trabajo (mismo formato de línea). Las únicas
-excepciones son el paquete `obsidian` (la configuración de la aplicación vive en el vault, que es
-`~/Documents`) y los alias del shell. Si un archivo solo tiene sentido con `~/Documents`, no va
+propósito la biblioteca de shell del espacio de trabajo (mismo formato de línea). La única
+excepción son los alias del shell (el paquete `obsidian` se retiró en la ola 8: la configuración de la
+aplicación vive en el vault, `~/Documents/.obsidian/`, como archivos reales). Si un archivo solo tiene sentido con `~/Documents`, no va
 aquí.
 
 ## Consumidores
 
 | consumidor | qué usa | contrato |
 |---|---|---|
-| el vault OS del espacio de trabajo (repo `ecosistema`) | la configuración de los plugins de Obsidian del paquete `obsidian` | las reglas de carpetas, plantillas y scripts que esa configuración nombra deben existir en el vault; el vault OS documenta su lado y no escribe en este repo |
 | la capa de diseño editorial (`sistema-editorial`) | Source Serif 4 instalada por `instalar-fuentes` | la familia y su versión las fija `USER_FONTS`; cambiarlas obliga a avisar a ese consumidor |
