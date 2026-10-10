@@ -35,7 +35,7 @@
     "meta/reparaciones/",
     "/^datafw\\/(?!_vault\\/)/",
     "/^escritura\\/(?!_vault\\/)/",
-    "/^04 index\\/(?!_vault\\/|_indice\\/)/",
+    "/^web\\/(?!_vault\\/|_indice\\/)/",
     "cv/",
     "core/",
     "/^05 tasks\\/(docs|seeds|bridges|perfil\\.ejemplo|operaciones)\\//"
