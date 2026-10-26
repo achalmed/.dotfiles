@@ -334,6 +334,10 @@ activate widget 206=,none,Activar el elemento gráfico Monitor del sistema
 activate widget 239=,none,Activate Application Launcher Widget
 activate widget 3=,none,Activate Application Launcher Widget
 activate widget 31=,none,Activate Application Launcher Widget
+activate widget 319=,none,Activate Application Launcher Widget
+activate widget 402=,none,Activate Application Launcher Widget
+activate widget 485=,none,Activate Application Launcher Widget
+activate widget 515=,none,Activate System Monitor Widget
 activate widget 56=,none,Activate Application Launcher Widget
 activate widget 81=,none,Activate Application Launcher Widget
 clear-history=,,Clear Clipboard History
@@ -364,6 +368,10 @@ _launch=Meta+Alt+E
 
 [services][org.kde.konsole.desktop]
 _launch=Meta+Return
+
+[services][org.kde.spectacle.desktop]
+CurrentMonitorScreenShot=
+OpenWithoutScreenshot=
 
 [services][positron.desktop]
 _launch=Meta+Alt+P
