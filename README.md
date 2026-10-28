@@ -27,7 +27,7 @@ Mint, Pop!_OS (apt). En otra, se instala `git` a mano y el resto funciona igual.
 ```bash
 # Máquina nueva, el repo ya está en GitHub
 git clone https://github.com/achalmed/.dotfiles.git ~/.dotfiles
-~/.dotfiles/main.sh instalar-deps        # dependencias de la distro y fuentes de usuario
+~/.dotfiles/main.sh instalar-deps        # dependencias de la distro, zram y fuentes de usuario
 ~/.dotfiles/main.sh instalar             # enlaces repo → $HOME
 alias dotfiles='~/.dotfiles/main.sh'     # en ~/.zshrc
 
@@ -53,7 +53,7 @@ dotfiles sync-push                       # escáner de datos sensibles, commit y
 | `estado` | estado de los enlaces y de git |
 | `backup` | respaldo manual de la configuración actual |
 | `seguridad` | escanea los archivos versionados en busca de credenciales |
-| `instalar-deps` | instala dependencias según la distribución y, al final, las fuentes |
+| `instalar-deps` | instala dependencias según la distribución, configura la zram (`ZRAM_*` en `config.sh`; pide sudo) y, al final, las fuentes |
 | `instalar-fuentes` | instala las fuentes de usuario de `USER_FONTS` en `~/.local/share/fonts`, sin sudo |
 
 Opciones globales: `-p, --packages a,b` (solo esos paquetes; los nombres se validan contra

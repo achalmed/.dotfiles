@@ -63,6 +63,15 @@ y patrón dentro del zip. `./main.sh instalar-fuentes` (y el final de `instalar-
 descarga en `~/.local/share/fonts/<carpeta>/`, comprueba el sha256 y refresca fontconfig, sin
 sudo. Los binarios no entran en el repo.
 
+## Swap comprimida (zram)
+
+`instalar-deps` instala `zram-generator` (`systemd-zram-generator` en apt) y escribe
+`ZRAM_CONF_FILE` con `ZRAM_TAMANO` y `ZRAM_ALGORITMO` (`config.sh`). Es el único archivo fuera de
+`$HOME` que toca el repo: es de root y systemd lo lee al arrancar, así que se copia con sudo en vez
+de enlazarse. Si ya coincide no se toca; si difiere, el anterior queda como `.bak-<fecha>` a su
+lado. Una zram que ya es swap no se reinicia (habría que devolver su contenido a la RAM): el
+cambio se aplica al próximo arranque. `ZRAM_TAMANO=""` deja la zram como esté.
+
 ## Autonomía respecto de `~/Documents`
 
 Este repo reproduce la máquina, no el espacio de trabajo: se instala antes de que exista

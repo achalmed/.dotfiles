@@ -243,6 +243,8 @@ install_dependencies() {
 
     if [ "$DRY_RUN" = true ]; then
         log_info "[dry-run] Se instalarían dependencias para: ${DISTRO}"
+        [ -z "${ZRAM_TAMANO}" ] || \
+            log_info "[dry-run] Se escribiría ${ZRAM_CONF_FILE} (zram de ${ZRAM_TAMANO}, ${ZRAM_ALGORITMO})"
         return 0
     fi
 
@@ -261,6 +263,36 @@ install_dependencies() {
     esac
     # Las fuentes de usuario no dependen de la distro: van después, sin sudo.
     install_user_fonts
+}
+
+# setup_zram()
+# Escribe ZRAM_CONF_FILE (config.sh) con el tamaño y el algoritmo de la zram si
+# difiere de lo que hay (lo anterior queda como .bak-<fecha>). Si la zram aún no
+# es swap, la arranca; si ya lo es, no la reinicia, porque eso obliga a devolver
+# a la RAM lo que tiene: el cambio se aplica al próximo arranque. Idempotente.
+setup_zram() {
+    local conf
+    if [ -z "${ZRAM_TAMANO}" ]; then
+        log_info "zram: ZRAM_TAMANO vacío, no se toca."
+        return 0
+    fi
+    conf="$(printf '[zram0]\nzram-size = %s\ncompression-algorithm = %s' "${ZRAM_TAMANO}" "${ZRAM_ALGORITMO}")"
+    if [ -f "${ZRAM_CONF_FILE}" ] && [ "$(cat "${ZRAM_CONF_FILE}")" = "$conf" ]; then
+        log_success "  ✓ zram ya configurada: ${ZRAM_TAMANO}, ${ZRAM_ALGORITMO}"
+        return 0
+    fi
+    if [ -f "${ZRAM_CONF_FILE}" ]; then
+        sudo cp -p "${ZRAM_CONF_FILE}" "${ZRAM_CONF_FILE}.bak-$(date +%Y%m%d-%H%M%S)"
+    fi
+    printf '%s\n' "$conf" | sudo tee "${ZRAM_CONF_FILE}" > /dev/null
+    sudo systemctl daemon-reload
+    if swapon --noheadings --show=NAME 2>/dev/null | grep -qx '/dev/zram0'; then
+        log_success "zram configurada (${ZRAM_TAMANO}, ${ZRAM_ALGORITMO}); se aplica al próximo arranque."
+    elif sudo systemctl start systemd-zram-setup@zram0.service; then
+        log_success "zram activa: ${ZRAM_TAMANO}, ${ZRAM_ALGORITMO}."
+    else
+        log_warn "zram configurada pero no arrancó: ver «systemctl status systemd-zram-setup@zram0»."
+    fi
 }
 
 # install_user_fonts()
@@ -325,7 +357,7 @@ _install_font_zip() {
 # Instala dependencias en Arch Linux y derivados (pacman).
 _install_deps_arch() {
     sudo pacman -Sy --noconfirm 2>/dev/null || log_warn "No se pudo actualizar pacman"
-    local packages=("stow" "git" "zsh" "starship" "curl")
+    local packages=("stow" "git" "zsh" "starship" "curl" "zram-generator")
     local to_install=()
     for pkg in "${packages[@]}"; do
         if ! pacman -Q "$pkg" &>/dev/null; then
@@ -337,6 +369,7 @@ _install_deps_arch() {
     done
     [ ${#to_install[@]} -gt 0 ] && sudo pacman -S --noconfirm "${to_install[@]}"
     log_success "Dependencias Arch instaladas."
+    setup_zram
     _post_install_zsh
 }
 
@@ -345,7 +378,7 @@ _install_deps_arch() {
 # Starship requiere instalación separada via curl (no está en repos oficiales).
 _install_deps_apt() {
     sudo apt update -qq || log_warn "No se pudo actualizar apt"
-    local packages=("stow" "git" "zsh" "curl")
+    local packages=("stow" "git" "zsh" "curl" "systemd-zram-generator")
     local to_install=()
     for pkg in "${packages[@]}"; do
         if ! dpkg -s "$pkg" &>/dev/null; then
@@ -366,6 +399,7 @@ _install_deps_apt() {
         log_success "  ✓ ya instalado: starship"
     fi
     log_success "Dependencias Kubuntu instaladas."
+    setup_zram
     _post_install_zsh
 }
 

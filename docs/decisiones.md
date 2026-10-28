@@ -68,6 +68,15 @@ en cada cambio está en el mensaje de commit; aquí queda por qué.
   mano no recarga y puede ser sobrescrito. Se cambian desde Preferencias del Sistema o por DBus
   (`org.kde.KGlobalAccel.setForeignShortcutKeys`), que actualiza memoria y archivo a la vez.
 
+## Fuera de `$HOME`
+
+- **zram en `instalar-deps`** (2026-10-27). Sin swap, al llenarse la RAM el *OOM killer* del
+  kernel cerraba aplicaciones antes de que diera tiempo a elegir cuál cerrar; Ubuntu no trae
+  swap comprimida configurada a la medida. Se reproduce como receta (`ZRAM_*` en `config.sh`), no
+  como paquete enlazado: `/etc/systemd/zram-generator.conf` es de root, systemd lo lee al
+  arrancar y un archivo del sistema no debe depender de uno de `$HOME`. La mitad de la RAM con `zstd`:
+  comprime más que `lzo-rle` a cambio de algo de CPU, y en esta máquina lo que falta es RAM.
+
 ## Pendientes
 
 | prioridad | pendiente | anotado | dueño |

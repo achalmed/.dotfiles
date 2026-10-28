@@ -238,6 +238,17 @@ readonly USER_FONTS=(
     "source-serif-4|https://github.com/adobe-fonts/source-serif/releases/download/4.005R/source-serif-4.005_Desktop.zip|549fdb8f9a682bd06944298621404969f6de77c2e422ff3b8244a1dcd6a0c425|source-serif-4.005_Desktop/OTF/*.otf source-serif-4.005_Desktop/LICENSE.md"
 )
 
+# --- Swap comprimida en RAM (zram) --------------------------------------------
+# Sin swap, al llenarse la RAM el kernel (OOM killer) cierra una aplicación sin
+# preguntar; zram le da margen comprimiendo en la propia RAM lo menos usado.
+# `instalar-deps` instala zram-generator y escribe ZRAM_CONF_FILE: es de root y
+# systemd lo lee al arrancar, por eso se copia y no se enlaza. ZRAM_TAMANO es una
+# expresión de zram-generator ("ram / 2", "min(ram / 2, 8192)" en MiB); vacío =
+# no tocar la zram.
+readonly ZRAM_CONF_FILE="/etc/systemd/zram-generator.conf"
+readonly ZRAM_TAMANO="ram / 2"
+readonly ZRAM_ALGORITMO="zstd"
+
 # --- Colores para output (solo si el terminal los soporta) --------------------
 if tput colors &>/dev/null && [ "$(tput colors)" -ge 8 ]; then
     readonly COLOR_RESET='\033[0m'
