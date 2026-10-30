@@ -1,0 +1,18 @@
+# Devuelve el audio de la sesión local a su PipeWire.
+# Chrome Remote Desktop abre al arranque una sesión X que, por
+# /etc/X11/Xsession.d/95dbus_update-activation-env, exporta todo su entorno al
+# systemd --user compartido; PIPEWIRE_REMOTE y PULSE_* quedan apuntando a su
+# PipeWire virtual (crd_audio) y Plasma, que no los redefine, los hereda.
+[Unit]
+Description=Quita el audio de Chrome Remote Desktop del entorno de la sesión local
+ConditionEnvironment=XDG_SESSION_TYPE=wayland
+Before=graphical-session-pre.target plasma-kwin_wayland.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/systemctl --user unset-environment PIPEWIRE_REMOTE PULSE_RUNTIME_PATH PULSE_SINK CHROME_REMOTE_DESKTOP_AUDIO_PIPE CHROME_REMOTE_DESKTOP_SESSION
+# D-Bus no permite quitar variables: se fijan sus valores por defecto.
+ExecStart=/usr/bin/dbus-update-activation-environment PIPEWIRE_REMOTE=pipewire-0 PULSE_RUNTIME_PATH=%t/pulse PULSE_SINK=@DEFAULT_SINK@
+
+[Install]
+WantedBy=graphical-session-pre.target

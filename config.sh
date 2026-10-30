@@ -86,6 +86,7 @@ readonly STOW_PACKAGES=(
     rstudio
     xournalpp
     koreader
+    systemd       # unidades de usuario propias de la máquina (no las de los repos)
 )
 
 # =============================================================================
@@ -206,6 +207,13 @@ PACKAGE_FILES["koreader"]=\
 .config/koreader/settings/gestures.lua|\
 .config/koreader/settings/hotkeys.lua|\
 .config/koreader/settings/directory_defaults.lua"
+
+# systemd: unidades de systemd --user que arreglan la máquina, no las que
+# instalan los repos del espacio de trabajo (esas viven en cada repo).
+# audio-sesion-local.service: Chrome Remote Desktop filtra su audio al
+# entorno compartido al arrancar; la unidad lo devuelve a PipeWire.
+# Tras instalar: systemctl --user enable audio-sesion-local.service
+PACKAGE_FILES["systemd"]=".config/systemd/user/audio-sesion-local.service"
 
 # --- Patrones de datos sensibles a revisar antes de push --------------------
 # Patrones tipo clave=valor para reducir falsos positivos: buscan la palabra
