@@ -31,9 +31,6 @@ export PAGER="less"
 # -R: respeta colores ANSI; -F: sale si cabe en pantalla; -X: no limpia al salir
 export LESS="-RFX"
 
-# Qt: Wayland primero y XWayland si falta el plugin (el Qt de Anaconda no lo trae)
-export QT_QPA_PLATFORM="wayland;xcb"
-
 # ====================================================
 #  PATH
 # ====================================================
