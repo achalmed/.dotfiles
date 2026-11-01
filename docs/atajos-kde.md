@@ -33,6 +33,7 @@ repo recoge el cambio por el enlace simbólico.
 | `Meta+Return` | Konsole |
 | `Meta+E` | Dolphin |
 | `Meta+Alt+B` | Zen Browser |
+| `Meta+Alt+C` | captura rápida de Obsidian (complemento Captura); lo declara `kde/.local/share/kglobalaccel/obsidian-captura.desktop` con `X-KDE-Shortcuts`, no `kglobalshortcutsrc` |
 | `Meta+Alt+E` | Kate |
 | `Meta+Alt+K` | Krusader (traer al frente) |
 | `Meta+Alt+O` | Obsidian |

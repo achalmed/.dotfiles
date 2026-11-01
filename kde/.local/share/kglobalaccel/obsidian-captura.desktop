@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Captura de Obsidian
+Comment=Abre la captura rápida del complemento Captura en el vault Documents
+Exec=xdg-open "obsidian://advanced-uri?vault=Documents&commandid=captura%%3Acapturar-capturas"
+Icon=obsidian
+Categories=Office;
+Terminal=false
+X-KDE-Shortcuts=Meta+Alt+C
