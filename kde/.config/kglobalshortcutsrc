@@ -360,7 +360,7 @@ toggle do not disturb=Meta+N,,Toggle do not disturb
 [services][app.zen_browser.zen.desktop]
 _launch=Meta+Alt+B
 
-[services][obsidian-captura.desktop]
+[services][obsidian-captura-rapida.desktop]
 _launch=Meta+Alt+C
 
 [services][obsidian.desktop]
