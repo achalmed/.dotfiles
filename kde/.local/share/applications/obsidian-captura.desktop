@@ -6,4 +6,3 @@ Exec=xdg-open "obsidian://advanced-uri?vault=Documents&commandid=captura%%3Acapt
 Icon=obsidian
 Categories=Office;
 Terminal=false
-X-KDE-Shortcuts=Meta+Alt+C

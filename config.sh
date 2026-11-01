@@ -129,7 +129,7 @@ PACKAGE_FILES["shell"]=".zshrc|.config/starship.toml"
 #   plasmarc          → tema de Plasma
 #   plasma-localerc   → configuración regional
 #   mimeapps.list     → aplicaciones predeterminadas
-#   kglobalaccel/obsidian-captura.desktop → atajo global de la captura de Obsidian (X-KDE-Shortcuts, Meta+Alt+C)
+#   applications/obsidian-captura.desktop → lanzador de la captura de Obsidian (su atajo, Meta+Alt+C, en kglobalshortcutsrc)
 # EXCLUIDOS (estado/hardware): plasma-org.kde.plasma.desktop-appletsrc
 # (layout de paneles, específico de pantalla), plasmashellrc (estado del
 # shell por monitor), konsolesshconfig (estado de plugin).
@@ -141,7 +141,7 @@ PACKAGE_FILES["kde"]=\
 .config/plasmarc|\
 .config/plasma-localerc|\
 .config/mimeapps.list|\
-.local/share/kglobalaccel/obsidian-captura.desktop"
+.local/share/applications/obsidian-captura.desktop"
 
 # konsole: terminal de KDE. La personalización real vive en los PERFILES
 # (~/.local/share/konsole/), no en konsolerc (que solo aporta DefaultProfile).
