@@ -81,6 +81,7 @@ Sin terminal interactiva, cada pregunta toma la opción segura; en scripts, pás
 | `config.sh` | constantes, `STOW_PACKAGES`, `PACKAGE_FILES`, patrones sensibles, `USER_FONTS` | a mano |
 | `lib/` | módulos del gestor ([docs/arquitectura.md](docs/arquitectura.md)) | a mano |
 | `git/` `shell/` `kde/` `konsole/` `positron/` `calibre/` `kate/` `texstudio/` `okular/` `rstudio/` `xournalpp/` `koreader/` | un paquete por aplicación, con la estructura de `$HOME` dentro | las aplicaciones, a través del enlace |
+| `studio/` | Dotfiles Studio, la ventana **opcional** del gestor (PySide6 y el paquete de pip `gui-comun`): `./main.sh instalar-studio` pone su acceso directo; sus pruebas en `studio/tests/` | a mano |
 | `docs/` | referencia, explicación y decisiones | a mano; índice por `core/docs.py` |
 | `.backups/`, `.logs/` | respaldos y registros del gestor, ignorados por git | el gestor |
 

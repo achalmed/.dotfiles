@@ -139,6 +139,7 @@ ${COLOR_BOLD}COMANDOS:${COLOR_RESET}
   ${COLOR_GREEN}seguridad${COLOR_RESET}      Escanea archivos en busca de datos sensibles
   ${COLOR_GREEN}instalar-deps${COLOR_RESET}  Instala dependencias según la distro detectada
   ${COLOR_GREEN}instalar-fuentes${COLOR_RESET} Instala las fuentes de usuario de USER_FONTS (sin sudo)
+  ${COLOR_GREEN}instalar-studio${COLOR_RESET}  Acceso directo de Dotfiles Studio, la ventana opcional (PySide6 y gui-comun)
 
 ${COLOR_BOLD}OPCIONES:${COLOR_RESET}
   -p, --packages LISTA  Paquetes específicos separados por coma (ej: git,shell,kde)

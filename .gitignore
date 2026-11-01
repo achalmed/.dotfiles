@@ -91,3 +91,7 @@ koreader/**/statistics.sqlite3
 **/sessions/
 **/lspclient/hover*
 *.bak-doctor
+
+# Dotfiles Studio (studio/): bytecode de Python
+__pycache__/
+*.pyc

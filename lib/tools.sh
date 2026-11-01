@@ -263,6 +263,7 @@ install_dependencies() {
     esac
     # Las fuentes de usuario no dependen de la distro: van después, sin sudo.
     install_user_fonts
+    log_info "Opcional, la ventana (Dotfiles Studio): python3 -m pip install --user PySide6 \"git+https://github.com/achalmed/gui-comun@v1.3.0\" && ./main.sh instalar-studio"
 }
 
 # setup_zram()
@@ -418,5 +419,20 @@ _post_install_zsh() {
         fi
     else
         log_success "  ✓ Zsh ya es el shell predeterminado."
+    fi
+}
+
+# install_studio()
+# Acceso directo en el menú de Dotfiles Studio (studio/), la ventana OPCIONAL del gestor: necesita PySide6 y el paquete
+# de pip gui-comun (nunca se busca en otra carpeta: el repo no depende de ningún espacio de trabajo). Sin ellos, avisa
+# cómo instalarlos y no falla: main.sh no depende de la ventana.
+install_studio() {
+    log_section "Dotfiles Studio (ventana opcional)"
+    local python_studio="${PYTHON_STUDIO:-python3}"
+    local -a args=(--instalar-lanzador)
+    [ "$DRY_RUN" = true ] && args+=(-n)
+    if ! "$python_studio" "${DOTFILES_DIR}/studio/main.py" "${args[@]}"; then
+        log_warn "La ventana no se instaló (faltan PySide6 o gui-comun); main.sh sigue funcionando sin ella."
+        return 0
     fi
 }

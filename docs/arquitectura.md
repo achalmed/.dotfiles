@@ -81,6 +81,17 @@ excepción son los alias del shell (el paquete `obsidian` se retiró en la ola 8
 aplicación vive en el vault, `~/Documents/.obsidian/`, como archivos reales). Si un archivo solo tiene sentido con `~/Documents`, no va
 aquí.
 
+## Dotfiles Studio
+
+`studio/` es la ventana opcional del gestor, de la familia de studios (acento índigo): Inicio, Paquetes, Cambios,
+Seguridad, Sistema y Guía. No escribe por su cuenta: cada botón corre `main.sh` (instalar, adoptar y eliminar por
+paquete, siempre con respaldo; simular con `--dry-run`); confirmar es **por ruta**, tras `main.sh seguridad`, con el
+diff entero a la vista (`studio/dotfiles_app/estado.py`, `orden_confirmar`), y no hay botón de `sync-push`. El mapa de
+paquetes lo lee de `config.sh` por Bash, sin copiarlo. Necesita PySide6 y `gui-comun` **como paquete de pip** (desde
+su repo público, con versión fija): nunca lo busca en `~/Documents`. Sin ellos, `studio/main.py` dice cómo
+instalarlos y sale con 3; `main.sh` no la necesita. Las pruebas (`python3 -m pytest -q studio/tests`) usan un repo y un
+`HOME` falsos.
+
 ## Consumidores
 
 | consumidor | qué usa | contrato |

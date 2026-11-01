@@ -77,6 +77,15 @@ en cada cambio está en el mensaje de commit; aquí queda por qué.
   arrancar y un archivo del sistema no debe depender de uno de `$HOME`. La mitad de la RAM con `zstd`:
   comprime más que `lzo-rle` a cambio de algo de CPU, y en esta máquina lo que falta es RAM.
 
+## La ventana
+
+- **Dotfiles Studio, opcional y sin `~/Documents`** (2026-11-01; propuesta aprobada por el autor en el espacio de
+  trabajo). La familia de studios encuentra su marco (`gui-comun`) subiendo carpetas hasta `~/Documents`; aquí eso
+  rompería la autonomía del repo, así que `gui-comun` entra como paquete de pip desde su repo público y con versión
+  fija, y la ventana es opcional: sin ella, `main.sh` hace todo. Corre `main.sh` para lo que cambia algo; eliminar se
+  pasa con `--force` porque la ventana ya preguntó (sin terminal, `confirm_action` respondería «no»); instalar nunca
+  lleva `--force`. Los cambios se confirman de uno en uno, con su diff entero y tras el escáner; no hay `sync-push`.
+
 ## Pendientes
 
 | prioridad | pendiente | anotado | dueño |

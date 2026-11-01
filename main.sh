@@ -79,6 +79,7 @@ main() {
        [ "$COMMAND" != "backup" ] && \
        [ "$COMMAND" != "instalar-deps" ] && \
        [ "$COMMAND" != "instalar-fuentes" ] && \
+       [ "$COMMAND" != "instalar-studio" ] && \
        [ ${#TARGET_PACKAGES[@]} -eq "${#STOW_PACKAGES[@]}" ] && \
        [ -t 0 ]; then
         # Solo pedir selección interactiva si:
@@ -105,6 +106,7 @@ main() {
         seguridad)     handler=validate_no_sensitive_data ;;
         instalar-deps) handler=install_dependencies ;;
         instalar-fuentes) handler=install_user_fonts ;;
+        instalar-studio) handler=install_studio ;;
         "")
             log_error "No se especificó ningún comando."
             show_help
