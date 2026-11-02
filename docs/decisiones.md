@@ -97,6 +97,25 @@ en cada cambio está en el mensaje de commit; aquí queda por qué.
   La preferencia `ui/tema` deja de ofrecerse (el tema es del escritorio). Los pendientes del repo pasan a `estado.md`
   §Por hacer (regla 10 del espacio de trabajo); esta tabla conserva las decisiones abiertas del autor anteriores.
 
+- **Dotfiles Studio como gestor de paquetes de configuración** (2026-11-02; reingeniería de los diez studios encargada
+  por el autor, decidida por el director con el criterio más conservador; [reingenieria.md](reingenieria.md)). La
+  ventana deja de ser una variación de Dolphin y toma la forma de Discover, sobre `GuiComun.VentanaBase`
+  (`gui-comun` 3.0): portada de tarjetas y página por paquete. **Nada se aplica sin ver antes** la comparación
+  repo ⟷ HOME, el plan por archivo (que reproduce `lib/stow_ops.sh`) y la orden exacta. Aplicar pide confirmación
+  con esas consecuencias y su estado de operación (instalación, escritura, eliminación o publicación), y después
+  verifica que cada archivo quedó como el plan decía. Atajos de gestor: Ctrl+Mayús+Intro simula, Ctrl+Intro aplica,
+  F5 relee.
+
+  `actualizar` se ofrece por primera vez, pero bloqueada cuando borraría un archivo real sin respaldo (`ln -sfn`).
+  Se añade el estado «local» (solo en HOME), que `main.sh estado` cuenta como ausente.
+
+  El escáner pasa de 5 a 16 patrones con nombre, más la regla de los `.env` versionados. Informa archivo, línea y
+  tipo, nunca el valor; en la ventana, con una huella HMAC de la sesión. Las comparaciones ocultan las líneas con un
+  secreto. Ninguno de los patrones nuevos casa nada en el repo real (comprobado con `grep -l`, sin mostrar
+  contenido).
+
+  El defecto de `--dry-run` que creaba carpetas se corrige en `lib/stow_ops.sh` en un commit propio.
+
 ## Pendientes
 
 | prioridad | pendiente | anotado | dueño |

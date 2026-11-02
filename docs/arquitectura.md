@@ -39,11 +39,26 @@ interactiva, toda pregunta toma la opción segura (saltar, no borrar).
 
 ## Escáner de datos sensibles
 
-`./main.sh seguridad`, y siempre `sync-push` antes de confirmar, recorren los archivos
-versionados y los nuevos no ignorados con patrones de tipo `clave=valor` (contraseñas, claves de
-API, tokens, claves privadas). Si hay coincidencias, `sync-push` se detiene; los falsos positivos
-revisados se declaran en `SENSITIVE_SCAN_ALLOWLIST`. El escáner no ve rutas ni nombres privados
-dentro de una lista de archivos recientes: eso lo detiene solo la lectura del diff.
+`./main.sh seguridad` recorre los archivos versionados y los nuevos no ignorados (lo que subiría un `git add .`).
+`sync-push` lo corre siempre antes de confirmar. Los patrones son los de `SENSITIVE_PATTERNS`, cada uno con su
+nombre en `SENSITIVE_PATTERN_NAMES` (2026-11-02):
+
+- contraseñas y claves de tipo `clave=valor`;
+- claves privadas de cualquier tipo;
+- tokens de GitHub (clásicos y finos), GitLab, Slack, Google, Telegram, Stripe, Hugging Face, npm y AWS;
+- tokens JWT;
+- claves `sk-`;
+- contraseñas dentro de una URL.
+
+Un archivo `.env` versionado (`.env`, `*.env`, `.env.*`, salvo `.example`, `.sample` y `.template`) es un hallazgo
+por sí mismo. Cada hallazgo se informa como archivo, línea y tipo; **el valor nunca se imprime** (el número de línea
+sale por `cut`). Si hay coincidencias, `sync-push` se detiene. Los falsos positivos revisados se declaran en
+`SENSITIVE_SCAN_ALLOWLIST`.
+
+La ventana lee las mismas dos listas (`studio/dotfiles_app/servicios/seguridad.py`) y añade una huella HMAC de la
+sesión, que sirve para ver que dos hallazgos son el mismo secreto. También oculta las líneas con un secreto en sus
+comparaciones. El escáner no ve rutas ni nombres privados dentro de una lista de archivos recientes: eso lo detiene
+solo la lectura del diff.
 
 `sync-push` confirma con `git add .`, es decir, todo lo modificado. Con una diferencia retenida a
 propósito en el árbol, se confirma a mano por ruta y no se usa `sync-push`.
@@ -84,18 +99,23 @@ aquí.
 ## Dotfiles Studio
 
 `studio/` es la ventana opcional del gestor, de la familia de studios: QML + Qt Quick + Kirigami sobre el marco
-`gui-comun` 2.x, con el Python y el Qt del sistema (`/usr/bin/python3`: es el único cuyo Qt carga Kirigami). Una sola
-ventana de trabajo (menú, barra corta, navegación, centro, detalles, panel inferior, barra de estado, paleta de
-órdenes) con tres vistas: **Paquetes** (el árbol paquete › archivo con el estado de cada enlace, filtros Todos ·
-Piden atención · Activos, y la operación instalar · adoptar · eliminar que F5 simula con `--dry-run` y Ctrl+Intro
-aplica tras confirmar, siempre por `main.sh -p <paquetes>`), **Cambios** (la tabla de `git status`, el diff entero
-del archivo elegido y la confirmación **por ruta** tras `main.sh seguridad`: `studio/dotfiles_app/estado.py`,
-`orden_confirmar`; subir a GitHub tras confirmar; no hay `sync-push`) y **Guía** (los documentos del repo). El
-escáner, las fuentes de usuario, las dependencias y el respaldo son acciones del menú con «Simular» y «Aplicar».
-No escribe por su cuenta: toda orden es `main.sh` o `git`, y lo que `main.sh` pregunta por la terminal (adoptar con
-un archivo en los dos lados, `instalar-deps` con `sudo`) se abre en una terminal. El mapa de paquetes lo lee de
-`config.sh` por Bash, sin copiarlo. Diseño y decisiones en [rediseno.md](rediseno.md); estructura y uso en
-`studio/README.md`.
+`gui-comun` 3.x (`VentanaBase`), con el Python y el Qt del sistema (`/usr/bin/python3`: es el único cuyo Qt carga
+Kirigami). Desde la reingeniería del 2026-11-02 es un **gestor de paquetes de configuración** con la forma de Discover:
+
+- **portada** de tarjetas por paquete, con categorías y búsqueda;
+- **página** de cada paquete con la operación (instalar, adoptar, actualizar, quitar enlaces), la orden exacta de
+  `main.sh`, el plan por archivo y la comparación repo ⟷ HOME antes de simular o aplicar;
+- **Cambios**: la diferencia lado a lado y la confirmación **por ruta** tras el escáner (`orden_confirmar`); no hay
+  `sync-push`;
+- **Seguridad**: el escáner, sin mostrar valores;
+- **Sistema**: dependencias de la distribución, fuentes y respaldo;
+- **Guía**.
+
+No escribe por su cuenta: toda orden es `main.sh` o `git`. Lo que `main.sh` pregunta por la terminal (adoptar con un
+archivo en los dos lados, `instalar-deps` con `sudo`) se abre en una terminal. El mapa de paquetes lo lee de
+`config.sh` por Bash, sin copiarlo. El plan por archivo (`servicios/plan.py`) reproduce `lib/stow_ops.sh`, y una
+prueba lo compara con lo que anuncia `--dry-run`. Diagnóstico y diseño en [reingenieria.md](reingenieria.md);
+estructura y uso en `studio/README.md`.
 
 Necesita el binding de Qt del sistema y `gui-comun` **como paquete de pip** (desde su repo público, con la versión
 fija de `studio/dotfiles_app/__init__.py`) o señalado con la variable `GUI_COMUN_DIR`: nunca lo busca en otra

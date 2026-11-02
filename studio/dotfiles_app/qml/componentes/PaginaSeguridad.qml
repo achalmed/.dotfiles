@@ -59,10 +59,11 @@ ColumnLayout {
             QQC2.ScrollBar.vertical: QQC2.ScrollBar {}
             Accessible.name: "Hallazgos del escáner"
             header: RowLayout {
-                width: ListView.view.width
+                width: ListView.view.width - Kirigami.Units.largeSpacing * 2      // el relleno del ItemDelegate de las filas
+                x: Kirigami.Units.largeSpacing
                 visible: lista.count > 0
                 spacing: 0
-                Cabecera { texto: "Archivo"; Layout.fillWidth: true }
+                Cabecera { texto: "Archivo"; Layout.preferredWidth: parent.width - Kirigami.Units.gridUnit * 27 }
                 Cabecera { texto: "Línea"; Layout.preferredWidth: Kirigami.Units.gridUnit * 4 }
                 Cabecera { texto: "Tipo"; Layout.preferredWidth: Kirigami.Units.gridUnit * 14 }
                 Cabecera { texto: "Huella"; Layout.preferredWidth: Kirigami.Units.gridUnit * 9 }
@@ -75,7 +76,12 @@ ColumnLayout {
                 Accessible.name: modelData.archivo + ", línea " + modelData.linea + ": " + modelData.tipo
                 contentItem: RowLayout {
                     spacing: 0
-                    QQC2.Label { text: fila.modelData.archivo; elide: Text.ElideMiddle; Layout.fillWidth: true; font: Kirigami.Theme.fixedWidthFont }
+                    QQC2.Label {
+                        text: fila.modelData.archivo
+                        elide: Text.ElideMiddle
+                        font: Kirigami.Theme.fixedWidthFont
+                        Layout.preferredWidth: fila.availableWidth - Kirigami.Units.gridUnit * 27
+                    }
                     QQC2.Label { text: fila.modelData.linea || "—"; Layout.preferredWidth: Kirigami.Units.gridUnit * 4 }
                     RowLayout {
                         Layout.preferredWidth: Kirigami.Units.gridUnit * 14

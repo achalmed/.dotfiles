@@ -38,7 +38,7 @@ Léase antes: `README.md` (uso), `docs/README.md` (índice) y `config.sh` (el ma
   | atajos de KDE | `docs/atajos-kde.md` | `kde/` |
   | por qué se decidió algo | `docs/decisiones.md` | un `DECISION_<fecha>.md` |
   | un pendiente | `estado.md` §Por hacer, con fecha y dueño (las decisiones abiertas del autor anteriores a 2026-11-02 siguen en `docs/decisiones.md` §Pendientes) | un `TODO.md` |
-  | el diseño de la ventana | `docs/rediseno.md` | un `DISENO.md` |
+  | el diseño de la ventana | `docs/reingenieria.md` | un `DISENO.md` |
   | una regla para el asistente | este archivo, si es transversal y estable | un segundo archivo de instrucciones |
 
   Lo que hiciste en esta sesión va al mensaje de commit, no a un archivo. Si nada encaja,
@@ -46,9 +46,11 @@ Léase antes: `README.md` (uso), `docs/README.md` (índice) y `config.sh` (el ma
 - **La ventana (`studio/`) es opcional y no conoce `~/Documents`.** Corre con el Python del sistema
   (`/usr/bin/python3`: su Qt es el que trae Kirigami) y encuentra `gui-comun` instalado con pip (versión fija en
   `studio/dotfiles_app/__init__.py`) o por la variable explícita `GUI_COMUN_DIR`; nunca subiendo carpetas. No
-  escribe por su cuenta: toda orden es `main.sh` o `git`; F5 simula, Ctrl+Intro aplica tras confirmar; confirmar es
-  por ruta. Diseño en `docs/rediseno.md`; nada de `gui_comun.widgets` (congelado), QtWidgets, colores propios ni
-  nombre o logotipo dentro de la ventana.
+  escribe por su cuenta: toda orden es `main.sh` o `git`. Antes de cada operación muestra la comparación, el plan por
+  archivo y la orden exacta; Ctrl+Mayús+Intro simula, Ctrl+Intro aplica tras confirmar y F5 relee. Confirmar es por
+  ruta. Diseño en `docs/reingenieria.md`. Nada de `gui_comun.widgets` (congelado), QtWidgets en la interfaz, colores
+  propios ni nombre o logotipo dentro de la ventana. El escáner nunca muestra un valor: ni en pantalla, ni en el
+  registro, ni en el informe.
 
 ## Cómo se verifica un cambio
 
@@ -88,10 +90,13 @@ aplicación) y no se corrigen.
 - `main.sh` pregunta por `/dev/tty` al adoptar un archivo que existe en los dos lados y lee la entrada estándar en
   `confirm_action` (eliminar): sin terminal, lo primero se salta y lo segundo no responde. La ventana pasa `--force`
   a eliminar y abre en una terminal adoptar con conflictos e `instalar-deps` (`sudo`).
-- `--dry-run` de `instalar` crea las carpetas padre en `HOME` (`_create_symlink` hace `mkdir -p` antes de mirar
-  `DRY_RUN`): la prueba `xfail` de `studio/tests/test_estado.py` lo documenta; es un pendiente del autor en `estado.md`.
-- Las capturas de `docs/figuras/` se hacen con `studio/capturar.py` mostrando el Registro, no la Salida ni la vista
-  Cambios: el repo es público y la salida de `main.sh` y los diffs llevan rutas de `HOME`.
+- `--dry-run` no toca el disco: desde el 2026-11-02 `_create_symlink`, `_ensure_repo_dir` y `_adopt_package` miran
+  `DRY_RUN` antes de cada `mkdir -p` (lo vigilan dos pruebas de `studio/tests/test_estado.py`).
+- Las capturas de `docs/figuras/` se hacen con `studio/capturar.py --muestra`: el repo y el HOME inventados de
+  `studio/muestra.py` en un temporal, sin ninguna ruta ni configuración de la máquina (el repo es público). Sin
+  `--muestra`, solo el Registro, nunca la Salida ni un diff.
+- Un secreto falso en una prueba o en la muestra se arma al vuelo (`"gh" + "p_" + …`): escrito entero, el propio
+  escáner lo encontraría en el repo y `sync-push` se detendría.
 
 ## Dónde está cada cosa
 
@@ -103,5 +108,5 @@ aplicación) y no se corrigen.
 | atajos de KDE | `docs/atajos-kde.md` |
 | decisiones | `docs/decisiones.md` |
 | qué está hecho, en curso y pendiente | `estado.md` |
-| la ventana: auditoría, arquitectura de información, componentes, decisiones | `docs/rediseno.md` y `studio/README.md` |
+| la ventana: diagnóstico, referencias y arquitectura (gestor de paquetes al estilo de Discover) | `docs/reingenieria.md` y `studio/README.md` (la fase 5 anterior: `docs/rediseno.md`) |
 | la lista exacta de archivos de cada paquete | `config.sh` (`PACKAGE_FILES`) |

@@ -165,11 +165,49 @@ Instalación, eliminación y publicación siempre piden confirmación, con las c
 - Ctrl+Mayús+Intro simula la operación elegida;
 - Ctrl+Intro la aplica tras confirmar;
 - Alt+Izquierda y Esc vuelven a la portada;
-- Ctrl+1…6 llevan a cada página.
+- Ctrl+1…5 llevan a cada página.
 
 ## 4. El resultado
 
-Capturas con un repo y un HOME de muestra, con `HOME` y `XDG_CACHE_HOME` temporales, en `figuras/`.
+Capturas con el repo y el HOME de `studio/muestra.py` (inventados, en un temporal: ninguna ruta ni configuración de
+la máquina), hechas con `studio/capturar.py --muestra`.
+
+![La portada en Lliphi Oscuro: cada paquete con su aplicación, su estado y la operación que pide](figuras/dotfiles-studio-oscuro.png)
+
+![La página de shell en Lliphi Claro: adoptar, la orden exacta, el plan por archivo y la comparación del .zshrc, con el token oculto](figuras/dotfiles-studio-claro.png)
+
+![La confirmación de instalar con «Reemplazar»: las consecuencias calculadas del plan y la orden](figuras/dotfiles-studio-confirmacion.png)
+
+![Cambios en Lliphi Claro: kdeglobals, híbrido, lado a lado](figuras/dotfiles-studio-cambios.png)
+
+![Seguridad: tres hallazgos con archivo, línea, tipo y huella; ningún valor](figuras/dotfiles-studio-seguridad.png)
+
+![La paleta de órdenes buscando un paquete](figuras/dotfiles-studio-paleta.png)
+
+| antes (fase 5) | ahora |
+|---|---|
+| un árbol paquete › archivo en el centro y dos pestañas laterales | portada de tarjetas y página por paquete (Discover) |
+| la operación, una opción marcable del menú; F5 simula y Ctrl+Intro aplica | la operación se elige en la página, con lo que hace, la orden exacta y su plan |
+| antes de aplicar, un texto general | antes de aplicar, la comparación repo ⟷ HOME del archivo elegido y lo que pasará con cada uno |
+| `actualizar` no se ofrece | `actualizar`, bloqueada si borraría un archivo real sin respaldo |
+| «ausente» mezcla «no existe» y «solo en HOME» | estado «local» (solo en HOME) |
+| sin dependencias ni conflictos entre paquetes | la aplicación de cada paquete (instalada o no), las rutas compartidas, los huérfanos del repo, lo que el sistema necesita |
+| el diff, texto plano | lado a lado, con el híbrido y el filtro `clean` explicados |
+| 5 patrones; imprime la expresión | 16 patrones con nombre y los `.env`; archivo, línea, tipo y huella, nunca el valor; secretos ocultos en las comparaciones |
+| éxito = código 0 | éxito y verificación por separado (cada archivo como el plan decía) |
+| errores de una línea | errores presentables (qué falló, la orden, qué hacer) |
+| `xdg-open` de la carpeta | Dolphin con el archivo señalado (`Escritorio.mostrarEnDolphin`) |
+
+Pruebas: 53 en `studio/tests/run.sh` (repo y HOME falsos). Cubren:
+
+- el plan frente a lo que anuncia `main.sh --dry-run`;
+- simular sin escribir;
+- instalar con verificación;
+- quitar enlaces;
+- actualizar bloqueada;
+- el escáner de bash y el de la ventana sin el valor;
+- la comparación con secretos ocultos;
+- cada componente QML y `--smoke`.
 
 ## 5. Lo que queda fuera
 

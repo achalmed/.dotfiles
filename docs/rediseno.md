@@ -1,11 +1,13 @@
 ---
 tipo: doc
-estado: hecho
+estado: archivado
 forma: explicacion
 titulo: "Rediseño de Dotfiles Studio como espacio de trabajo: auditoría de la GUI de Widgets, arquitectura de información, distribución de la ventana, componentes y decisiones"
 creado: 2026-11-02
 ---
 # Rediseño de Dotfiles Studio: los paquetes del repo y lo que `main.sh` hace con ellos
+
+> **Sustituido el 2026-11-02 por [reingenieria.md](reingenieria.md)**: la ventana dejó de ser un espacio de trabajo al estilo de Dolphin y es un gestor de paquetes de configuración al estilo de Discover. Este documento queda como registro de la fase 5; sus capturas son las de `figuras/antes/`.
 
 Fase 5 de la modernización de la familia de studios (`gui-comun/docs/arquitectura-qml-kirigami.md` §8): Dotfiles
 Studio es el segundo que sigue al piloto Git Studio, cuyo lenguaje visual y arquitectura de información
@@ -17,7 +19,7 @@ arquitectura de información (§3), la ventana (§4), lo construido (§5), los c
 necesitó (§7) y las decisiones (§8). **Está construido** (rama `wip/2026-11-02-qml`, 2026-11-02): las capturas de §5 son
 reales; pasa a `hecho` cuando el autor valide el studio en la sesión real (P3, `../estado.md`).
 
-![Dotfiles Studio en Lliphi Oscuro: el paquete kde, con un archivo real donde iría el enlace](figuras/dotfiles-studio-oscuro.png)
+![Dotfiles Studio en Lliphi Oscuro: el paquete kde, con un archivo real donde iría el enlace](figuras/antes/dotfiles-studio-oscuro.png)
 
 ## 1. Auditoría de la GUI actual (Widgets, `gui-comun` 1.x)
 
@@ -186,9 +188,9 @@ Registro y no la Salida (D8: la salida de `main.sh` lleva rutas de `HOME`).
 
 | | |
 |---|---|
-| ![Lliphi Oscuro: Selección](figuras/dotfiles-studio-oscuro.png) | ![Lliphi Claro: Operación](figuras/dotfiles-studio-claro.png) |
+| ![Lliphi Oscuro: Selección](figuras/antes/dotfiles-studio-oscuro.png) | ![Lliphi Claro: Operación](figuras/antes/dotfiles-studio-claro.png) |
 
-![Paleta de órdenes (Ctrl+Alt+I) filtrando «adop»](figuras/dotfiles-studio-paleta.png)
+![Paleta de órdenes (Ctrl+Alt+I) filtrando «adop»](figuras/antes/dotfiles-studio-paleta.png)
 
 Qué hay detrás: `studio/dotfiles_app/aplicacion.py` (el registro de acciones: §3.3 íntegro; Ejecutar y Aplicar cambian
 de texto, icono y disponibilidad con la vista y con la operación marcada), cinco controladores (`espacio`,

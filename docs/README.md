@@ -15,7 +15,8 @@ decisiones con sus pendientes. Orden de lectura sugerido: paquetes, arquitectura
 | [atajos-kde.md](atajos-kde.md) | `doc` | `activo` | Atajos de teclado de KDE Plasma: convenciones y tabla de referencia |
 | [decisiones.md](decisiones.md) | `decision` | `activo` | Decisiones del repo dotfiles, por tema y con fecha, y sus pendientes |
 | [paquetes.md](paquetes.md) | `doc` | `activo` | Paquetes: qué configuración reproduce cada uno, qué se excluye y por qué |
-| [rediseno.md](rediseno.md) | `doc` | `borrador` | Rediseño de Dotfiles Studio como espacio de trabajo: auditoría de la GUI de Widgets, arquitectura de información, distribución de la ventana, componentes y decisiones |
+| [rediseno.md](rediseno.md) | `doc` | `archivado` | Rediseño de Dotfiles Studio como espacio de trabajo: auditoría de la GUI de Widgets, arquitectura de información, distribución de la ventana, componentes y decisiones |
+| [reingenieria.md](reingenieria.md) | `doc` | `activo` | Reingeniería de Dotfiles Studio (2026-11-02): diagnóstico del studio de la fase 5, referencias y la arquitectura de un gestor de paquetes de configuración |
 
-<sub>Bloque generado por `core/docs.py indice` desde el frontmatter de docs/ (2026-11-01); no se edita a mano.</sub>
+<sub>Bloque generado por `core/docs.py indice` desde el frontmatter de docs/ (2026-11-02); no se edita a mano.</sub>
 <!-- docs:fin -->
