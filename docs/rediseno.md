@@ -14,8 +14,10 @@ familia», y el primero (Filesystem Studio, `filesystem-studio/docs/rediseno.md`
 herramientas: una ventana, Ejecutar (F5) simula o lee, Aplicar (Ctrl+Intro) escribe tras confirmar. Este documento
 aplica ese diseño a este studio: la auditoría de lo que hay (§1), las ocho preguntas de producto (§2), la
 arquitectura de información (§3), la ventana (§4), lo construido (§5), los componentes (§6), lo que el marco
-necesitó (§7) y las decisiones (§8). Mientras esté en `borrador`, §5 describe lo previsto; pasa a `hecho` cuando el
-autor valide el studio en la sesión real (P3).
+necesitó (§7) y las decisiones (§8). **Está construido** (rama `wip/2026-11-02-qml`, 2026-11-02): las capturas de §5 son
+reales; pasa a `hecho` cuando el autor valide el studio en la sesión real (P3, `../estado.md`).
+
+![Dotfiles Studio en Lliphi Oscuro: el paquete kde, con un archivo real donde iría el enlace](figuras/dotfiles-studio-oscuro.png)
 
 ## 1. Auditoría de la GUI actual (Widgets, `gui-comun` 1.x)
 
@@ -177,9 +179,27 @@ divisores, geometría y anchos de columna de la tabla se recuerdan en QSettings.
 
 ## 5. Lo construido
 
-Pendiente de construir (este documento está en `borrador`). Al cerrar la fase, aquí van las tres capturas reales
-(`studio/capturar.py`, 1280 × 800, el Qt del sistema con Kirigami 6.24, el repo real sin tocar el escritorio):
-Paquetes en Lliphi Oscuro y Lliphi Claro, y la paleta de órdenes filtrando sobre el árbol.
+Tres capturas reales (`studio/capturar.py`, 1280 × 800, el Qt del sistema con Kirigami 6.24, el repo real sin tocar
+el escritorio ni las preferencias): la vista Paquetes con `kde` seleccionado tras simular su instalación, en Lliphi
+Oscuro (Selección) y Lliphi Claro (Operación), y la paleta de órdenes filtrando «adop». El panel inferior muestra el
+Registro y no la Salida (D8: la salida de `main.sh` lleva rutas de `HOME`).
+
+| | |
+|---|---|
+| ![Lliphi Oscuro: Selección](figuras/dotfiles-studio-oscuro.png) | ![Lliphi Claro: Operación](figuras/dotfiles-studio-claro.png) |
+
+![Paleta de órdenes (Ctrl+Alt+I) filtrando «adop»](figuras/dotfiles-studio-paleta.png)
+
+Qué hay detrás: `studio/dotfiles_app/aplicacion.py` (el registro de acciones: §3.3 íntegro; Ejecutar y Aplicar cambian
+de texto, icono y disponibilidad con la vista y con la operación marcada), cinco controladores (`espacio`,
+`paquetes`, `cambios`, `guia`, `sistema`) más `ajustes`, dos módulos de modelos puros (los nodos del árbol y las
+filas de la tabla, sin Qt), `estado.py` intacto más seis consultas, `studio/dotfiles_app/qml/Main.qml` sobre
+`VentanaStudio` y diez componentes propios (selección y operación del paquete, la diferencia con el commit al pie,
+el resumen del repositorio, el documento, la vista de texto con resaltado, los diálogos de sistema y de ajustes);
+38 pruebas (`studio/tests/run.sh`: el servicio, los modelos y los controladores sobre un repo y un `HOME` falsos con
+una simulación y una instalación y eliminación reales de `main.sh`, una confirmación real por ruta, el escáner con y
+sin credencial, cada QML y `--smoke` con `/usr/bin/python3`; una `xfail` estricta documenta que `--dry-run` deja
+carpetas vacías en `HOME`). Lo que quedó fuera está en `../estado.md` §Por hacer.
 
 ## 6. Componentes
 
