@@ -19,7 +19,7 @@ autor valide el studio en la sesión real (P3).
 
 ## 1. Auditoría de la GUI actual (Widgets, `gui-comun` 1.x)
 
-Seis páginas en una barra lateral con la marca «Dotfiles Studio» (`studio/dotfiles_app/ventana.py`, 405 líneas), todas
+Seis páginas en una barra lateral con la marca «Dotfiles Studio» (el módulo `ventana.py` de 1.x, 405 líneas, retirado en esta fase), todas
 construidas a mano con `gui_comun.widgets` (tarjetas, cifras, listas con vacío, consola como cajón, paleta Ctrl+K,
 avisos flotantes). La lógica (`studio/dotfiles_app/estado.py`, 250 líneas, sin Qt) ya está separada: lee el mapa de
 paquetes de `config.sh` por Bash, calcula el estado de cada archivo con la leyenda de `main.sh estado`, lee git y

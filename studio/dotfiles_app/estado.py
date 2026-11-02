@@ -19,6 +19,12 @@ HIBRIDOS = ("kdeglobals", "kwinrc", "konsolerc", "texstudio.ini")
 # calibre y KOReader escriben de forma atómica: sustituyen el enlace por un archivo real (se repone con adoptar).
 SUSTITUYEN = ("calibre", "koreader")
 ESTADOS = ("activo", "conflicto", "pendiente", "ausente")
+# qué significa cada estado de archivo y qué orden lo arregla (la leyenda de `main.sh estado`)
+EXPLICA = {"activo": "enlazado al repo", "conflicto": "archivo real en HOME: adoptar lo devuelve al repo",
+           "pendiente": "en el repo, sin enlace: instalar", "ausente": "ni en el repo ni en HOME"}
+# los documentos de la Guía: (texto, ruta relativa al repo)
+DOCUMENTOS = (("Uso", "README.md"), ("Paquetes", "docs/paquetes.md"), ("Arquitectura", "docs/arquitectura.md"),
+              ("Atajos de KDE", "docs/atajos-kde.md"), ("Decisiones", "docs/decisiones.md"))
 
 
 def repo() -> Path:
@@ -170,3 +176,70 @@ def orden_confirmar(ruta: str, mensaje: str) -> list[str]:
              'git add -- "$1"\n'
              'git commit -m "$2" -- "$1"')
     return ["bash", "-c", guion, "confirmar", ruta, mensaje]
+
+
+# --- consultas nuevas (2026-11-02, Dotfiles Studio en QML) ------------------------------------------------------------
+
+def destino_enlace(rel: str, casa: Path | None = None) -> str:
+    """A dónde apunta el enlace de HOME (vacío si no es un enlace)."""
+    p = (casa or home()) / rel
+    try:
+        return os.readlink(p) if p.is_symlink() else ""
+    except OSError:
+        return ""
+
+
+def orden_main(*args: str) -> list[str]:
+    """La orden de `main.sh` para un proceso hijo con `cwd` en la raíz del repo (sin rutas absolutas en la salida)."""
+    return ["bash", "main.sh", *args]
+
+
+def orden_paquetes(operacion: str, paquetes: list[str], *, simular: bool = False, detallado: bool = True,
+                   forzar: bool = False) -> list[str]:
+    """`main.sh instalar|adoptar|eliminar -p a,b [--dry-run] [--verbose] [--force]`.
+
+    `--force` va siempre con eliminar: `confirm_action` lee la entrada estándar, que en un proceso hijo de la ventana no
+    responde (y la ventana ya preguntó); con instalar solo si se pide (reemplaza los archivos reales de HOME, con
+    respaldo); adoptar no lo usa (pregunta por /dev/tty: ver `necesita_terminal`)."""
+    if operacion not in ("instalar", "adoptar", "eliminar"):
+        raise ValueError(f"operación desconocida: {operacion}")
+    args = [operacion, "-p", ",".join(paquetes)]
+    if simular:
+        args.append("--dry-run")
+    if detallado:
+        args.append("--verbose")
+    if operacion == "eliminar" or (operacion == "instalar" and forzar):
+        args.append("--force")
+    return orden_main(*args)
+
+
+def necesita_terminal(operacion: str, paquetes: list[Paquete]) -> bool:
+    """Adoptar un archivo que existe en HOME y en el repo pregunta por /dev/tty (`_resolve_conflict`): sin terminal,
+    `main.sh` lo salta en silencio. La ventana lo abre entonces en una terminal."""
+    return operacion == "adoptar" and any(a.estado == "conflicto" for p in paquetes for a in p.archivos)
+
+
+def orden_push(raiz: Path | None = None) -> list[str]:
+    return ["git", "-C", str(raiz or repo()), "push"]
+
+
+def documentos(raiz: Path | None = None) -> list[dict]:
+    """La Guía: [{texto, ruta, existe}] en el orden de DOCUMENTOS."""
+    raiz = raiz or repo()
+    return [{"texto": t, "ruta": r, "existe": (raiz / r).is_file()} for t, r in DOCUMENTOS]
+
+
+def leer_documento(rel: str, raiz: Path | None = None) -> tuple[dict, str]:
+    """(frontmatter como dict de cadenas, cuerpo sin el frontmatter) de un documento del repo."""
+    p = (raiz or repo()) / rel
+    if not p.is_file():
+        return {}, f"No está {rel}."
+    texto = p.read_text(encoding="utf-8", errors="replace")
+    meta: dict[str, str] = {}
+    if texto.startswith("---\n") and "\n---\n" in texto:
+        cabecera, texto = texto[4:].split("\n---\n", 1)
+        for linea in cabecera.splitlines():
+            clave, sep, valor = linea.partition(":")
+            if sep and not linea.startswith(" "):
+                meta[clave.strip()] = valor.strip().strip("'\"")
+    return meta, texto.lstrip("\n")
