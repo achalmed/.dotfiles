@@ -263,5 +263,8 @@
     "vscode-office.editMode": "ir",
     "vscode-office.codeMirrorTheme": "Solarized Dark",
     "python.languageServer": "None",
+    "window.autoDetectColorScheme": true,
+    "workbench.preferredDarkColorTheme": "Lliphi Oscuro",
+    "workbench.preferredLightColorTheme": "Lliphi Claro",
     "workbench.colorTheme": "One Dark Modern" // número en segundos
 }
