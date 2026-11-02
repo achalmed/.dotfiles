@@ -55,6 +55,7 @@ dotfiles sync-push                       # escáner de datos sensibles, commit y
 | `seguridad` | escanea los archivos versionados en busca de credenciales |
 | `instalar-deps` | instala dependencias según la distribución, configura la zram (`ZRAM_*` en `config.sh`; pide sudo) y, al final, las fuentes |
 | `instalar-fuentes` | instala las fuentes de usuario de `USER_FONTS` en `~/.local/share/fonts`, sin sudo |
+| `instalar-studio` | pone en el menú de aplicaciones el acceso directo de Dotfiles Studio, la ventana opcional ([studio/README.md](studio/README.md)) |
 
 Opciones globales: `-p, --packages a,b` (solo esos paquetes; los nombres se validan contra
 `STOW_PACKAGES`), `-n, --dry-run`, `-v, --verbose`, `-f, --force` (reemplazar sin preguntar,
@@ -81,7 +82,8 @@ Sin terminal interactiva, cada pregunta toma la opción segura; en scripts, pás
 | `config.sh` | constantes, `STOW_PACKAGES`, `PACKAGE_FILES`, patrones sensibles, `USER_FONTS` | a mano |
 | `lib/` | módulos del gestor ([docs/arquitectura.md](docs/arquitectura.md)) | a mano |
 | `git/` `shell/` `kde/` `konsole/` `positron/` `calibre/` `kate/` `texstudio/` `okular/` `rstudio/` `xournalpp/` `koreader/` | un paquete por aplicación, con la estructura de `$HOME` dentro | las aplicaciones, a través del enlace |
-| `studio/` | Dotfiles Studio, la ventana **opcional** del gestor (PySide6 y el paquete de pip `gui-comun`): `./main.sh instalar-studio` pone su acceso directo; sus pruebas en `studio/tests/` | a mano |
+| `studio/` | Dotfiles Studio, la ventana **opcional** del gestor (QML + Kirigami sobre `gui-comun` 2.x, con el Python y el Qt del sistema): los paquetes y sus enlaces, la operación de `main.sh` que F5 simula y Ctrl+Intro aplica, los cambios del repo con su diff y la confirmación por ruta, la guía; `./main.sh instalar-studio` pone su acceso directo; sus pruebas en `studio/tests/run.sh` ([studio/README.md](studio/README.md)) | a mano |
+| `estado.md` | qué está hecho, en curso y pendiente, con fecha y dueño | a mano |
 | `docs/` | referencia, explicación y decisiones | a mano; índice por `core/docs.py` |
 | `.backups/`, `.logs/` | respaldos y registros del gestor, ignorados por git | el gestor |
 
@@ -92,7 +94,9 @@ Sin terminal interactiva, cada pregunta toma la opción segura; en scripts, pás
 | qué cubre cada paquete, qué se excluye y cómo se añade uno | [docs/paquetes.md](docs/paquetes.md) |
 | cómo funciona el gestor y quién depende de este repo | [docs/arquitectura.md](docs/arquitectura.md) |
 | los atajos de teclado de KDE | [docs/atajos-kde.md](docs/atajos-kde.md) |
-| por qué se decidió así y qué está pendiente | [docs/decisiones.md](docs/decisiones.md) |
+| por qué se decidió así | [docs/decisiones.md](docs/decisiones.md) |
+| la ventana: auditoría, arquitectura de información y decisiones de su rediseño | [docs/rediseno.md](docs/rediseno.md) |
+| qué está hecho y qué está pendiente | [estado.md](estado.md) |
 | todo, con su tipo y estado | [docs/README.md](docs/README.md) |
 
 ## Límite honesto

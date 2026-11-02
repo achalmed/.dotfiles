@@ -85,6 +85,17 @@ en cada cambio está en el mensaje de commit; aquí queda por qué.
   fija, y la ventana es opcional: sin ella, `main.sh` hace todo. Corre `main.sh` para lo que cambia algo; eliminar se
   pasa con `--force` porque la ventana ya preguntó (sin terminal, `confirm_action` respondería «no»); instalar nunca
   lleva `--force`. Los cambios se confirman de uno en uno, con su diff entero y tras el escáner; no hay `sync-push`.
+- **Dotfiles Studio en QML + Kirigami, como el resto de la familia** (2026-11-02; fase 5 de la modernización de los
+  studios sobre el diseño que el autor aprobó con el piloto Git Studio; [rediseno.md](rediseno.md)). Las seis
+  páginas de Widgets se reescriben como una sola ventana sobre `GuiComun.VentanaStudio` (`gui-comun` 2.1) con tres
+  vistas (Paquetes, Cambios, Guía) y las operaciones en el menú: **F5 simula y Ctrl+Intro aplica tras confirmar**
+  (regla 3 del espacio de trabajo). Corre con el Python del sistema porque su Qt es el que trae Kirigami; `gui-comun`
+  sigue entrando por pip con versión fija, y además por la variable explícita `GUI_COMUN_DIR` para desarrollar contra
+  una copia local, nunca subiendo carpetas. `--force` va con eliminar siempre (también al simular: `confirm_action`
+  lee la entrada estándar) y con instalar solo si se marca «Reemplazar los archivos reales»; adoptar con un archivo
+  en los dos lados e `instalar-deps` se abren en una terminal porque `main.sh` pregunta por `/dev/tty` o pide `sudo`.
+  La preferencia `ui/tema` deja de ofrecerse (el tema es del escritorio). Los pendientes del repo pasan a `estado.md`
+  §Por hacer (regla 10 del espacio de trabajo); esta tabla conserva las decisiones abiertas del autor anteriores.
 
 ## Pendientes
 

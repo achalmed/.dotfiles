@@ -263,7 +263,7 @@ install_dependencies() {
     esac
     # Las fuentes de usuario no dependen de la distro: van después, sin sudo.
     install_user_fonts
-    log_info "Opcional, la ventana (Dotfiles Studio): python3 -m pip install --user PySide6 \"git+https://github.com/achalmed/gui-comun@v1.3.0\" && ./main.sh instalar-studio"
+    log_info "Opcional, la ventana (Dotfiles Studio): el Qt del sistema con Kirigami y gui-comun; studio/main.py dice qué instalar y luego ./main.sh instalar-studio"
 }
 
 # setup_zram()
@@ -423,12 +423,13 @@ _post_install_zsh() {
 }
 
 # install_studio()
-# Acceso directo en el menú de Dotfiles Studio (studio/), la ventana OPCIONAL del gestor: necesita PySide6 y el paquete
-# de pip gui-comun (nunca se busca en otra carpeta: el repo no depende de ningún espacio de trabajo). Sin ellos, avisa
-# cómo instalarlos y no falla: main.sh no depende de la ventana.
+# Acceso directo en el menú de Dotfiles Studio (studio/), la ventana OPCIONAL del gestor: corre con el Python del
+# sistema (/usr/bin/python3, cuyo Qt es el que trae Kirigami) y necesita el paquete de pip gui-comun (o GUI_COMUN_DIR;
+# nunca se busca en otra carpeta: el repo no depende de ningún espacio de trabajo). Sin ellos, avisa cómo instalarlos
+# y no falla: main.sh no depende de la ventana. PYTHON_STUDIO permite otro intérprete.
 install_studio() {
     log_section "Dotfiles Studio (ventana opcional)"
-    local python_studio="${PYTHON_STUDIO:-python3}"
+    local python_studio="${PYTHON_STUDIO:-/usr/bin/python3}"
     local -a args=(--instalar-lanzador)
     [ "$DRY_RUN" = true ] && args+=(-n)
     if ! "$python_studio" "${DOTFILES_DIR}/studio/main.py" "${args[@]}"; then
