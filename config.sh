@@ -226,14 +226,47 @@ PACKAGE_FILES["vim"]=".vimrc"
 PACKAGE_FILES["nvim"]=".config/nvim/init.lua"
 
 # --- Patrones de datos sensibles a revisar antes de push --------------------
-# Patrones tipo clave=valor para reducir falsos positivos: buscan la palabra
-# seguida de separador y un valor no vacío, no la palabra suelta.
+# Expresiones extendidas (grep -iE). Las de clave=valor buscan la palabra seguida
+# de separador y un valor no vacío, no la palabra suelta, para reducir falsos
+# positivos; las de servicios, el prefijo y la longitud del token. Cada patrón
+# tiene su nombre en SENSITIVE_PATTERN_NAMES (mismo orden): es lo que el escáner
+# informa junto al archivo y la línea. El valor encontrado nunca se imprime.
+# La ventana (studio/dotfiles_app/servicios/seguridad.py) lee estas dos listas.
 readonly SENSITIVE_PATTERNS=(
     '(password|passwd|contrasena)[[:space:]"'"'"']*[=:][[:space:]"'"'"']*[^[:space:]"'"'"']{4,}'
     '(api[_-]?key|secret[_-]?key|access[_-]?token|auth[_-]?token)[[:space:]"'"'"']*[=:][[:space:]"'"'"']*[A-Za-z0-9_/+.-]{8,}'
-    'BEGIN[[:space:]](RSA|OPENSSH|EC|DSA|PGP)[[:space:]]PRIVATE[[:space:]]KEY'
-    'ghp_[A-Za-z0-9]{20,}'
+    'BEGIN[[:space:]]([A-Z0-9]+[[:space:]])*PRIVATE[[:space:]]KEY'
+    'gh[pousr]_[A-Za-z0-9]{20,}'
+    'github_pat_[A-Za-z0-9_]{40,}'
     'sk-[A-Za-z0-9_-]{20,}'
+    '(AKIA|ASIA)[0-9A-Z]{16}'
+    'glpat-[A-Za-z0-9_-]{20,}'
+    'xox[abposr]-[A-Za-z0-9-]{10,}'
+    'AIza[0-9A-Za-z_-]{35}'
+    '[0-9]{8,10}:AA[A-Za-z0-9_-]{33}'
+    '(sk|rk)_live_[A-Za-z0-9]{20,}'
+    'hf_[A-Za-z0-9]{30,}'
+    'npm_[A-Za-z0-9]{36}'
+    'eyJ[A-Za-z0-9_-]{10,}\.eyJ[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}'
+    '[a-z][a-z0-9+.-]*://[^/[:space:]:@]+:[^/[:space:]:@]{3,}@'
+)
+readonly SENSITIVE_PATTERN_NAMES=(
+    "contraseña (clave = valor)"
+    "clave o token (clave = valor)"
+    "clave privada"
+    "token de GitHub"
+    "token de acceso fino de GitHub"
+    "clave de API sk- (OpenAI, Anthropic)"
+    "clave de acceso de AWS"
+    "token de GitLab"
+    "token de Slack"
+    "clave de API de Google"
+    "token de bot de Telegram"
+    "clave secreta de Stripe"
+    "token de Hugging Face"
+    "token de npm"
+    "token JWT"
+    "contraseña en una URL"
 )
 
 # Archivos versionados que NUNCA deben disparar el escáner (falsos positivos

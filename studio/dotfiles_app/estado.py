@@ -2,12 +2,15 @@
 
 Los paquetes y sus archivos salen de `config.sh` (`STOW_PACKAGES`, `PACKAGE_FILES`), leídos por Bash para no tener
 una segunda copia del mapa. El estado de cada archivo sigue la leyenda de `main.sh estado` (`lib/stow_ops.sh`):
-activo (enlace al repo), conflicto (archivo real en HOME: adoptar), pendiente (en el repo, sin enlace) y ausente.
+activo (enlace al repo), conflicto (archivo real en HOME: adoptar), pendiente (en el repo, sin enlace) y ausente;
+más «local» (2026-11-02): el archivo existe en HOME y no en el repo, que `main.sh estado` cuenta como ausente y que
+adoptar lleva al repo.
 """
 from __future__ import annotations
 
 import os
 import re
+import shutil
 import subprocess
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -18,10 +21,33 @@ REPO = Path(__file__).resolve().parents[2]
 HIBRIDOS = ("kdeglobals", "kwinrc", "konsolerc", "texstudio.ini")
 # calibre y KOReader escriben de forma atómica: sustituyen el enlace por un archivo real (se repone con adoptar).
 SUSTITUYEN = ("calibre", "koreader")
-ESTADOS = ("activo", "conflicto", "pendiente", "ausente")
+ESTADOS = ("activo", "conflicto", "pendiente", "local", "ausente")
 # qué significa cada estado de archivo y qué orden lo arregla (la leyenda de `main.sh estado`)
 EXPLICA = {"activo": "enlazado al repo", "conflicto": "archivo real en HOME: adoptar lo devuelve al repo",
-           "pendiente": "en el repo, sin enlace: instalar", "ausente": "ni en el repo ni en HOME"}
+           "pendiente": "en el repo, sin enlace: instalar", "local": "solo en HOME: adoptar lo lleva al repo",
+           "ausente": "ni en el repo ni en HOME"}
+# la aplicación que cada paquete configura: (nombre, binarios que la delatan, icono del tema, qué guarda el paquete).
+# No es un segundo mapa de archivos (ese es config.sh): es lo que la ventana muestra de cada paquete y su dependencia.
+APLICACIONES = {
+    "git": ("Git", ("git",), "git", "identidad y preferencias, sin credenciales"),
+    "shell": ("Zsh y Starship", ("zsh",), "utilities-terminal", "el shell, sus alias y el prompt"),
+    "kde": ("KDE Plasma", ("plasmashell",), "kde", "tema, colores, atajos globales, KWin y Dolphin"),
+    "konsole": ("Konsole", ("konsole",), "utilities-terminal", "el perfil y el esquema de color"),
+    "positron": ("Positron", ("positron",), "positron", "ajustes y atajos del IDE"),
+    "calibre": ("calibre", ("calibre",), "calibre-gui", "preferencias de la biblioteca, el visor y el editor"),
+    "kate": ("Kate", ("kate",), "kate", "editor, cliente LSP y herramientas externas"),
+    "texstudio": ("TeXstudio", ("texstudio",), "texstudio", "la configuración completa del editor"),
+    "okular": ("Okular", ("okular",), "okular", "las preferencias de visualización"),
+    "rstudio": ("RStudio", ("rstudio",), "rstudio", "las preferencias del editor"),
+    "xournalpp": ("Xournal++", ("xournalpp",), "com.github.xournalpp.xournalpp", "los ajustes de la aplicación"),
+    "koreader": ("KOReader", ("koreader",), "koreader", "ajustes de lectura, gestos y teclas"),
+    "systemd": ("systemd (usuario)", ("systemctl",), "preferences-system-services", "unidades de usuario de la máquina"),
+    "vim": ("Vim", ("vim",), "vim", "el ~/.vimrc"),
+    "nvim": ("Neovim", ("nvim",), "nvim", "el init.lua"),
+}
+# lo que el gestor necesita de la distribución (`_install_deps_apt` en lib/tools.sh): (paquete, binario)
+DEPENDENCIAS_SISTEMA = (("git", "git"), ("zsh", "zsh"), ("curl", "curl"), ("stow", "stow"),
+                        ("systemd-zram-generator", "/usr/lib/systemd/system-generators/zram-generator"))
 # los documentos de la Guía: (texto, ruta relativa al repo)
 DOCUMENTOS = (("Uso", "README.md"), ("Paquetes", "docs/paquetes.md"), ("Arquitectura", "docs/arquitectura.md"),
               ("Atajos de KDE", "docs/atajos-kde.md"), ("Decisiones", "docs/decisiones.md"))
@@ -65,7 +91,7 @@ class Paquete:
             return "activo"
         if activos:
             return "parcial"
-        for e in ("conflicto", "pendiente"):
+        for e in ("conflicto", "pendiente", "local"):
             if self.cuenta(e):
                 return e
         return "ausente"
@@ -100,6 +126,8 @@ def estado_de(paquete: str, rel: str, raiz: Path | None = None, casa: Path | Non
         return "conflicto"
     if en_repo.exists() and not en_casa.exists():
         return "pendiente"
+    if (en_casa.exists() or en_casa.is_symlink()) and not en_repo.exists():
+        return "local"
     return "ausente"
 
 
@@ -196,12 +224,12 @@ def orden_main(*args: str) -> list[str]:
 
 def orden_paquetes(operacion: str, paquetes: list[str], *, simular: bool = False, detallado: bool = True,
                    forzar: bool = False) -> list[str]:
-    """`main.sh instalar|adoptar|eliminar -p a,b [--dry-run] [--verbose] [--force]`.
+    """`main.sh instalar|adoptar|actualizar|eliminar -p a,b [--dry-run] [--verbose] [--force]`.
 
     `--force` va siempre con eliminar: `confirm_action` lee la entrada estándar, que en un proceso hijo de la ventana no
     responde (y la ventana ya preguntó); con instalar solo si se pide (reemplaza los archivos reales de HOME, con
     respaldo); adoptar no lo usa (pregunta por /dev/tty: ver `necesita_terminal`)."""
-    if operacion not in ("instalar", "adoptar", "eliminar"):
+    if operacion not in ("instalar", "adoptar", "actualizar", "eliminar"):
         raise ValueError(f"operación desconocida: {operacion}")
     args = [operacion, "-p", ",".join(paquetes)]
     if simular:
@@ -243,3 +271,58 @@ def leer_documento(rel: str, raiz: Path | None = None) -> tuple[dict, str]:
             if sep and not linea.startswith(" "):
                 meta[clave.strip()] = valor.strip().strip("'\"")
     return meta, texto.lstrip("\n")
+
+
+# --- lo que la página de un paquete muestra (2026-11-02, reingeniería) ------------------------------------------------
+
+def _hay(binario: str) -> bool:
+    return Path(binario).exists() if binario.startswith("/") else shutil.which(binario) is not None
+
+
+def aplicacion(paquete: str) -> dict:
+    """{nombre, icono, descripcion, binario, instalada} de la aplicación que configura el paquete."""
+    nombre, binarios, icono, descripcion = APLICACIONES.get(paquete, (paquete, (paquete,), "package-x-generic", ""))
+    return {"nombre": nombre, "icono": icono, "descripcion": descripcion, "binario": binarios[0],
+            "instalada": any(_hay(b) for b in binarios)}
+
+
+def dependencias_sistema() -> list[dict]:
+    return [{"nombre": n, "binario": b, "instalada": _hay(b)} for n, b in DEPENDENCIAS_SISTEMA]
+
+
+def rutas_compartidas(m: dict[str, list[str]]) -> dict[str, list[str]]:
+    """{ruta: [paquetes]} de las rutas que reclama más de un paquete (o una dentro de la carpeta de otro): el segundo
+    en instalarse pisaría el enlace del primero."""
+    duenos: dict[str, list[str]] = {}
+    for p, rels in m.items():
+        for r in rels:
+            duenos.setdefault(r, []).append(p)
+    todas = sorted(duenos)
+    for r in todas:
+        for otra in todas:
+            if otra != r and r.startswith(otra.rstrip("/") + "/"):
+                for p in duenos[otra]:
+                    if p not in duenos[r]:
+                        duenos[r].append(p)
+    return {r: ps for r, ps in duenos.items() if len(ps) > 1}
+
+
+def huerfanos(paquete: str, rels: list[str], raiz: Path | None = None) -> list[str]:
+    """Los archivos de la carpeta del paquete en el repo que ya no están en su lista (los que `adoptar` ofrece borrar,
+    `_clean_repo_orphans`), relativos a esa carpeta."""
+    base = (raiz or repo()) / paquete
+    if not base.is_dir():
+        return []
+    validos = [base / r for r in rels]
+    salida = []
+    for f in sorted(base.rglob("*")):
+        if not f.is_file() or ".git" in f.relative_to(base).parts:
+            continue
+        if not any(f == v or v in f.parents for v in validos):
+            salida.append(str(f.relative_to(base)))
+    return salida
+
+
+def es_carpeta(paquete: str, rel: str, raiz: Path | None = None, casa: Path | None = None) -> bool:
+    """Una entrada del mapa puede ser una carpeta entera (un enlace de carpeta)."""
+    return ((raiz or repo()) / paquete / rel).is_dir() or ((casa or home()) / rel).is_dir()

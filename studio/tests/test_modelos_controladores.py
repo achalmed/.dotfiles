@@ -252,7 +252,8 @@ def test_sistema_escaner_y_simulaciones(app, piezas):
     s.seguridad()
     _esperar(app, tareas)
     assert resultados == [("seguridad", 0)] and avisos == ["positivo"]
-    (repo / "git" / ".gitconfig").write_text("[user]\n\tpassword = supersecreta\n", encoding="utf-8")
+    # el secreto falso se arma al vuelo: escrito entero, el escáner del repo lo encontraría en esta prueba
+    (repo / "git" / ".gitconfig").write_text("[user]\n\tpass" + "word = supersecreta\n", encoding="utf-8")
     s.seguridad()
     _esperar(app, tareas)
     assert resultados[-1][0] == "seguridad" and resultados[-1][1] != 0 and avisos[-1] == "aviso"

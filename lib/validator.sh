@@ -114,14 +114,16 @@ validate_stow_package_exists() {
 # validate_no_sensitive_data()
 # Escanea archivos de configuración en busca de datos sensibles antes de
 # hacer commit. Evita exponer accidentalmente credenciales en GitHub.
+# Informa archivo, línea y tipo (SENSITIVE_PATTERN_NAMES); nunca el valor.
+# Un archivo .env versionado (.env, *.env, .env.*; no .env.example ni
+# .env.sample ni .env.template) cuenta como hallazgo por sí mismo.
 #
 # Returns:
 #   0 si no se encontraron datos sensibles
 #   1 si se encontraron posibles datos sensibles
 validate_no_sensitive_data() {
     local found_sensitive=0
-    local pattern
-    local file
+    local file i linea nombre base
 
     log_info "Escaneando archivos versionados en busca de datos sensibles..."
 
@@ -144,16 +146,26 @@ validate_no_sensitive_data() {
             continue
         fi
 
+        # Un .env versionado es un hallazgo aunque no case ningún patrón
+        base="${file##*/}"
+        case "$base" in
+            .env.example | .env.sample | .env.template | *.env.example | *.env.sample | *.env.template) ;;
+            .env | *.env | .env.*)
+                log_warn "Posible archivo .env versionado: ${file}"
+                found_sensitive=1
+                ;;
+        esac
+
         # Saltar archivos binarios
         grep -qI . "$file" 2>/dev/null || continue
 
-        for pattern in "${SENSITIVE_PATTERNS[@]}"; do
-            if grep -qiE "$pattern" "$file" 2>/dev/null; then
-                log_warn "Posible dato sensible en: ${file}"
-                log_warn "  patrón: ${pattern}"
-                found_sensitive=1
-                break
-            fi
+        # Por patrón, la primera línea que casa: solo su número (cut), nunca su texto
+        for i in "${!SENSITIVE_PATTERNS[@]}"; do
+            linea="$(grep -niE -m1 -- "${SENSITIVE_PATTERNS[$i]}" "$file" 2>/dev/null | cut -d: -f1)"
+            [ -n "$linea" ] || continue
+            nombre="${SENSITIVE_PATTERN_NAMES[$i]:-patrón $((i + 1))}"
+            log_warn "Posible ${nombre}: ${file}:${linea}"
+            found_sensitive=1
         done
     done < <(git ls-files --cached --others --exclude-standard 2>/dev/null)
 
