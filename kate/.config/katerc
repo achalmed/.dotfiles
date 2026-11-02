@@ -70,7 +70,6 @@ SetEditor=false
 3 screens: Width=1920
 
 [UiSettings]
-ColorScheme=Nothing
 
 [filetree]
 editShade=183,220,246
