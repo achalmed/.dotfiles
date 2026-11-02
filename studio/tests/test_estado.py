@@ -104,13 +104,25 @@ def test_la_simulacion_de_main_sh_no_escribe(falso):
     assert not (casa / ".config" / "starship.toml").exists()
 
 
-@pytest.mark.xfail(strict=True, reason="lib/stow_ops.sh: _create_symlink hace mkdir -p de la carpeta padre antes de mirar DRY_RUN; "
-                                       "la simulación deja carpetas vacías en HOME (pendiente del autor, estado.md)")
 def test_la_simulacion_tampoco_crea_carpetas(falso):
+    """2026-11-02: `_create_symlink` mira DRY_RUN antes del `mkdir -p` de la carpeta padre (antes era xfail)."""
     repo, casa = falso
     carpetas = {p for p in casa.rglob("*") if p.is_dir()}
     subprocess.run(est.orden_paquetes("instalar", ["shell"], simular=True), cwd=repo, capture_output=True, text=True, timeout=60)
     assert {p for p in casa.rglob("*") if p.is_dir()} == carpetas
+
+
+def test_adoptar_simulado_no_crea_carpetas_en_el_repo(falso):
+    """2026-11-02: tampoco `adoptar --dry-run` (`_ensure_repo_dir` y la carpeta del paquete miran DRY_RUN)."""
+    repo, casa = falso
+    rel = est.mapa(repo)["kde"][0]
+    (casa / rel).parent.mkdir(parents=True, exist_ok=True)
+    (casa / rel).write_text("[General]\n", encoding="utf-8")         # solo en HOME: adoptar lo llevaría al repo
+    antes = {p for p in repo.rglob("*")}
+    r = subprocess.run(est.orden_paquetes("adoptar", ["kde"], simular=True), cwd=repo, capture_output=True, text=True, timeout=60)
+    assert r.returncode == 0, r.stderr
+    assert {p for p in repo.rglob("*") if ".logs" not in p.parts and ".backups" not in p.parts} == {p for p in antes if ".logs" not in p.parts and ".backups" not in p.parts}
+    assert not (casa / rel).is_symlink()
 
 
 def test_los_documentos_de_la_guia(falso):

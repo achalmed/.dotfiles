@@ -76,6 +76,7 @@ _ensure_repo_dir() {
     local pkg="$1"
     local rel_path="$2"
     local repo_file_dir="${DOTFILES_DIR}/${pkg}/$(dirname "$rel_path")"
+    [ "$DRY_RUN" = true ] && return 0          # la simulación no crea carpetas en el repo
     mkdir -p "$repo_file_dir"
 }
 
@@ -122,15 +123,16 @@ _create_symlink() {
     local repo_file="$1"
     local home_file="$2"
 
-    # Crear directorio padre en HOME si no existe
-    local parent_dir
-    parent_dir="$(dirname "$home_file")"
-    mkdir -p "$parent_dir"
-
+    # En simulación no se toca el disco: ni el enlace ni la carpeta padre
     [ "$DRY_RUN" = true ] && {
         log_info "  [dry-run] ln -sfn ${repo_file} → ${home_file}"
         return 0
     }
+
+    # Crear directorio padre en HOME si no existe
+    local parent_dir
+    parent_dir="$(dirname "$home_file")"
+    mkdir -p "$parent_dir"
 
     # Crear symlink. -n evita que, si el destino es un symlink a directorio,
     # el enlace se cree DENTRO del directorio en lugar de reemplazarlo.
@@ -191,8 +193,8 @@ _adopt_package() {
     local files_adopted=0
     local files_skipped=0
 
-    # Crear el directorio base del paquete en el repo si no existe
-    mkdir -p "${DOTFILES_DIR}/${pkg}"
+    # Crear el directorio base del paquete en el repo si no existe (no en simulación)
+    [ "$DRY_RUN" = true ] || mkdir -p "${DOTFILES_DIR}/${pkg}"
 
     while IFS= read -r rel_path; do
         local home_file repo_file
