@@ -1,12 +1,10 @@
 [Desktops]
 Id_1=e70342c1-cfa0-40ff-a778-734baf959823
-Id_2=080837ae-cf97-46d2-8b03-2c214150e36e
-Id_3=68648bbc-34cf-40b3-bf3c-f1d8a7610030
-Number=3
+Number=1
 Rows=1
 
 [Effect-overview]
-BorderActivate=0,4
+BorderActivate=0
 
 [Effect-windowview]
 TouchBorderActivateAll=2
@@ -29,6 +27,18 @@ TouchBorderActivate=9
 TouchBorderAlternativeActivate=9
 
 [Tiling][080837ae-cf97-46d2-8b03-2c214150e36e][77df8b14-1329-415a-83ed-f5cd47399b63]
+padding=4
+tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}
+
+[Tiling][080837ae-cf97-46d2-8b03-2c214150e36e][8937b6b1-15f6-4ed4-ad91-7ec3e6a0b25d]
+padding=4
+tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}
+
+[Tiling][080837ae-cf97-46d2-8b03-2c214150e36e][97c3e8d2-2c5f-40f7-919e-37386b285e2f]
+padding=4
+tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}
+
+[Tiling][080837ae-cf97-46d2-8b03-2c214150e36e][f737d426-5809-4bab-b5ff-4f896b427820]
 padding=4
 tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}
 
@@ -89,6 +99,18 @@ padding=4
 tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}
 
 [Tiling][68648bbc-34cf-40b3-bf3c-f1d8a7610030][77df8b14-1329-415a-83ed-f5cd47399b63]
+padding=4
+tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}
+
+[Tiling][68648bbc-34cf-40b3-bf3c-f1d8a7610030][8937b6b1-15f6-4ed4-ad91-7ec3e6a0b25d]
+padding=4
+tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}
+
+[Tiling][68648bbc-34cf-40b3-bf3c-f1d8a7610030][97c3e8d2-2c5f-40f7-919e-37386b285e2f]
+padding=4
+tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}
+
+[Tiling][68648bbc-34cf-40b3-bf3c-f1d8a7610030][f737d426-5809-4bab-b5ff-4f896b427820]
 padding=4
 tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}
 
@@ -243,4 +265,3 @@ Scale=1
 [org.kde.kdecoration2]
 ButtonsOnLeft=XIA
 ButtonsOnRight=
-library=org.kde.kwin.aurorae.v2

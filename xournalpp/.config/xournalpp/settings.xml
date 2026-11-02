@@ -87,12 +87,12 @@
   <property name="pressureGuessing" value="false"/>
   <property name="recolor.enabled" value="false"/>
   <property name="recolor.sidebar" value="false"/>
-  <property name="recolor.dark" value="4281349190"/>
-  <property name="recolor.light" value="4291219701"/>
-  <property name="selectionBorderColor" value="4294901760"/>
-  <property name="backgroundColor" value="4292664021"/>
-  <property name="selectionMarkerColor" value="4285702095"/>
-  <property name="activeSelectionColor" value="4286381056"/>
+  <property name="recolor.dark" value="4279242770"/>
+  <property name="recolor.light" value="4293585901"/>
+  <property name="selectionBorderColor" value="4281424879"/>
+  <property name="backgroundColor" value="4282203714"/>
+  <property name="selectionMarkerColor" value="4282873840"/>
+  <property name="activeSelectionColor" value="4293010729"/>
   <property name="touchZoomStartThreshold" value="0"/>
   <property name="pageRerenderThreshold" value="5"/>
   <!--The count of rendered PDF pages which will be cached.-->
@@ -135,7 +135,7 @@
   <property name="stabilizerMass" value="5"/>
   <property name="stabilizerCuspDetection" value="true"/>
   <property name="stabilizerFinalizeStroke" value="true"/>
-  <property name="colorPalette" value="/usr/share/xournalpp/palettes/xournal.gpl"/>
+  <property name="colorPalette" value="/home/achalmaedison/.config/xournalpp/palettes/Lliphi.gpl"/>
   <property name="latexSettings.autoCheckDependencies" value="true"/>
   <property name="latexSettings.defaultText" value="x^2"/>
   <property name="latexSettings.globalTemplatePath" value="/usr/share/xournalpp/resources/default_template.tex"/>

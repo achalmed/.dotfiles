@@ -24,7 +24,7 @@ Recent File List Entry Count=10
 Restore Window Configuration=true
 SDI Mode=false
 Save Meta Infos=true
-Show Full Path in Title=false
+Show Full Path in Title=true
 Show Menu Bar=true
 Show Status Bar=true
 Show Symbol In Navigation Bar=true
@@ -64,8 +64,10 @@ SetEditor=false
 [MainWindow]
 1920x1080 screen: Height=1006
 1920x1080 screen: Width=960
+1920x1080 screen: Window-Maximized=true
 2 screens: Height=978
 2 screens: Width=960
+2 screens: Window-Maximized=true
 3 screens: Height=1006
 3 screens: Width=1920
 
@@ -83,7 +85,7 @@ sortRole=0
 viewShade=211,190,222
 
 [lspclient]
-AllowedServerCommandLines=
+AllowedServerCommandLines=/home/achalmaedison/anaconda3/bin/pylsp --check-parent-process
 AutoHover=true
 AutoImport=true
 BlockedServerCommandLines=

@@ -7,116 +7,152 @@ ContrastAmount=0.65
 ContrastEffect=1
 Enable=
 IntensityAmount=0.1
-IntensityEffect=0
+IntensityEffect=2
 
 [ColorEffects:Inactive]
-ChangeSelectionColor=false
+ChangeSelectionColor=true
 Color=112,111,110
-ColorAmount=-0.9500000000000001
-ColorEffect=0
+ColorAmount=0.025
+ColorEffect=2
 ContrastAmount=0.1
-ContrastEffect=0
-Enable=true
+ContrastEffect=2
+Enable=false
 IntensityAmount=0
 IntensityEffect=0
 
 [Colors:Button]
-BackgroundAlternate=27,27,29
-BackgroundNormal=50,50,54
-DecorationFocus=39,39,42
-DecorationHover=235,49,49
-ForegroundActive=61,174,233
-ForegroundInactive=242,243,243
-ForegroundLink=41,128,185
-ForegroundNegative=67,205,189
-ForegroundNeutral=95,125,205
-ForegroundNormal=254,254,254
-ForegroundPositive=156,83,198
+BackgroundAlternate=189,195,199
+BackgroundNormal=255,255,255
+DecorationFocus=49,91,239
+DecorationHover=71,119,240
+ForegroundActive=42,79,208
+ForegroundInactive=120,120,120
+ForegroundLink=42,79,208
+ForegroundNegative=218,68,83
+ForegroundNeutral=246,116,0
+ForegroundNormal=36,36,36
+ForegroundPositive=39,174,96
 ForegroundVisited=127,140,141
 
 [Colors:Complementary]
-BackgroundAlternate=27,27,29
-BackgroundNormal=27,27,29
-DecorationFocus=39,39,47
-DecorationHover=235,49,49
+BackgroundAlternate=66,66,66
+BackgroundNormal=51,51,51
+DecorationFocus=49,91,239
+DecorationHover=71,119,240
+ForegroundActive=42,79,208
+ForegroundInactive=120,120,120
+ForegroundLink=42,79,208
+ForegroundNegative=231,76,60
+ForegroundNeutral=253,188,75
+ForegroundNormal=239,240,241
+ForegroundPositive=46,204,113
+ForegroundVisited=120,120,120
+
+[Colors:Header]
+BackgroundAlternate=238,238,238
+BackgroundNormal=255,255,255
+DecorationFocus=49,91,239
+DecorationHover=71,119,240
+ForegroundActive=42,79,208
+ForegroundInactive=120,120,120
+ForegroundLink=42,79,208
+ForegroundNegative=218,68,83
+ForegroundNeutral=246,116,0
+ForegroundNormal=36,36,36
+ForegroundPositive=39,174,96
+ForegroundVisited=127,140,141
+
+[Colors:Header][Inactive]
+BackgroundAlternate=238,238,238
+BackgroundNormal=245,245,245
+DecorationFocus=49,91,239,150
+DecorationHover=71,119,240
+ForegroundActive=42,79,208,150
+ForegroundInactive=120,120,120,150
+ForegroundLink=42,79,208
+ForegroundNegative=218,68,83
+ForegroundNeutral=246,116,0
+ForegroundNormal=36,36,36,150
+ForegroundPositive=39,174,96
+ForegroundVisited=127,140,141
 
 [Colors:Selection]
-BackgroundAlternate=255,25,25
-BackgroundNormal=235,49,49
-DecorationFocus=39,39,42
-DecorationHover=235,49,49
+BackgroundAlternate=71,119,240
+BackgroundNormal=49,91,239
+DecorationFocus=255,255,255
+DecorationHover=71,119,240
 ForegroundActive=252,252,252
-ForegroundInactive=252,253,253
-ForegroundLink=253,188,75
-ForegroundNegative=67,205,189
-ForegroundNeutral=95,125,205
-ForegroundNormal=254,254,254
-ForegroundPositive=156,83,198
-ForegroundVisited=189,195,199
+ForegroundInactive=252,252,252
+ForegroundLink=252,252,252
+ForegroundNegative=218,68,83
+ForegroundNeutral=246,116,0
+ForegroundNormal=255,255,255
+ForegroundPositive=39,174,96
+ForegroundVisited=252,252,252
 
 [Colors:Tooltip]
-BackgroundAlternate=39,39,42
-BackgroundNormal=39,39,42
-DecorationFocus=39,39,42
-DecorationHover=235,49,49
-ForegroundActive=61,174,233
-ForegroundInactive=242,243,243
-ForegroundLink=41,128,185
-ForegroundNegative=67,205,189
-ForegroundNeutral=95,125,205
-ForegroundNormal=252,253,253
-ForegroundPositive=156,83,198
+BackgroundAlternate=77,77,77
+BackgroundNormal=36,36,36
+DecorationFocus=49,91,239
+DecorationHover=71,119,240
+ForegroundActive=42,79,208
+ForegroundInactive=120,120,120
+ForegroundLink=42,79,208
+ForegroundNegative=218,68,83
+ForegroundNeutral=246,116,0
+ForegroundNormal=222,222,222
+ForegroundPositive=39,174,96
 ForegroundVisited=127,140,141
 
 [Colors:View]
-BackgroundAlternate=27,27,29
-BackgroundNormal=27,27,29
-DecorationFocus=39,39,42
-DecorationHover=235,49,49
-ForegroundActive=61,174,233
-ForegroundInactive=242,243,243
-ForegroundLink=31,140,236
-ForegroundNegative=67,205,189
-ForegroundNeutral=95,125,205
-ForegroundNormal=254,254,254
-ForegroundPositive=156,83,198
+BackgroundAlternate=239,239,239
+BackgroundNormal=255,255,255
+DecorationFocus=49,91,239
+DecorationHover=71,119,240
+ForegroundActive=42,79,208
+ForegroundInactive=120,120,120
+ForegroundLink=42,79,208
+ForegroundNegative=218,68,83
+ForegroundNeutral=246,116,0
+ForegroundNormal=36,36,36
+ForegroundPositive=39,174,96
 ForegroundVisited=127,140,141
 
 [Colors:Window]
-BackgroundAlternate=27,27,29
-BackgroundNormal=27,27,29
-DecorationFocus=39,39,42
-DecorationHover=235,49,49
-ForegroundActive=61,174,233
-ForegroundInactive=242,243,243
-ForegroundLink=41,128,185
-ForegroundNegative=67,205,189
-ForegroundNeutral=95,125,205
-ForegroundNormal=252,253,253
-ForegroundPositive=156,83,198
+BackgroundAlternate=238,238,238
+BackgroundNormal=255,255,255
+DecorationFocus=49,91,239
+DecorationHover=71,119,240
+ForegroundActive=42,79,208
+ForegroundInactive=120,120,120
+ForegroundLink=42,79,208
+ForegroundNegative=218,68,83
+ForegroundNeutral=246,116,0
+ForegroundNormal=36,36,36
+ForegroundPositive=39,174,96
 ForegroundVisited=127,140,141
 
 [General]
 BrowserApplication=google-chrome.desktop
-ColorSchemeHash=404c9c568102723de6d5694e4902840a6a5076c6
-fixed=JetBrainsMono Nerd Font,10,-1,5,400,0,0,0,0,0
-font=Inter,10,-1,5,400,0,0,0,0,0
-menuFont=Inter,10,-1,5,400,0,0,0,0,0
-smallestReadableFont=Inter,8,-1,5,400,0,0,0,0,0
-toolBarFont=Inter,10,-1,5,400,0,0,0,0,0
+ColorSchemeHash=4056fe5ac86ffdc3374f1864f4caf8bdd28613d6
+fixed=JetBrainsMono Nerd Font,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
+font=Inter,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
+menuFont=Inter,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
+smallestReadableFont=Inter,8,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
+toolBarFont=Inter,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
 
 [KDE]
 AnimationDurationFactor=0.17677669529663687
 AutomaticLookAndFeel=false
-LookAndFeelPackage=Nothing
+LookAndFeelPackage=org.lliphi.claro
 ShowDeleteCommand=false
 
 [KFileDialog Settings]
 Allow Expansion=false
 Automatically select filename extension=true
-Breadcrumb Navigation=false
+Breadcrumb Navigation=true
 Decoration position=0
-Preview Width=256
+Preview Width=185
 Show Full Path=false
 Show Inline Previews=true
 Show Preview=true
@@ -135,10 +171,10 @@ MaximumRemoteSize=10485760
 MaximumSize=20971520
 
 [WM]
-activeBackground=27,27,29
-activeBlend=27,27,29
-activeFont=Inter,10,-1,5,500,0,0,0,0,0
-activeForeground=237,240,242
-inactiveBackground=27,27,29
-inactiveBlend=27,27,29
-inactiveForeground=181,182,182
+activeBackground=255,255,255
+activeBlend=86,86,86
+activeFont=Inter,10,-1,5,600,0,0,0,0,0,0,0,0,0,0,1,SemiBold
+activeForeground=66,66,66
+inactiveBackground=245,245,245
+inactiveBlend=102,102,102
+inactiveForeground=120,120,120
