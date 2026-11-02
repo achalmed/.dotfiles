@@ -87,6 +87,7 @@ readonly STOW_PACKAGES=(
     xournalpp
     koreader
     systemd       # unidades de usuario propias de la máquina (no las de los repos)
+    vim           # Vim: ~/.vimrc
 )
 
 # =============================================================================
@@ -216,6 +217,11 @@ PACKAGE_FILES["koreader"]=\
 # entorno compartido al arrancar; la unidad lo devuelve a PipeWire.
 # Tras instalar: systemctl --user enable audio-sesion-local.service
 PACKAGE_FILES["systemd"]=".config/systemd/user/audio-sesion-local.service"
+
+# vim y nvim: la configuración propia del editor de terminal. Los dos activan el esquema de colores
+# `lliphi` (el tema de escritorio del autor), que no se versiona aquí: lo instala Lliphi en
+# ~/.local/share/nvim/site/colors/ (y Vim lo ve por un enlace en ~/.vim/colors/, que tampoco).
+PACKAGE_FILES["vim"]=".vimrc"
 
 # --- Patrones de datos sensibles a revisar antes de push --------------------
 # Patrones tipo clave=valor para reducir falsos positivos: buscan la palabra
