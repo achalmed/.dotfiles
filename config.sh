@@ -88,6 +88,7 @@ readonly STOW_PACKAGES=(
     koreader
     systemd       # unidades de usuario propias de la máquina (no las de los repos)
     vim           # Vim: ~/.vimrc
+    nvim          # Neovim: ~/.config/nvim/init.lua
 )
 
 # =============================================================================
@@ -222,6 +223,7 @@ PACKAGE_FILES["systemd"]=".config/systemd/user/audio-sesion-local.service"
 # `lliphi` (el tema de escritorio del autor), que no se versiona aquí: lo instala Lliphi en
 # ~/.local/share/nvim/site/colors/ (y Vim lo ve por un enlace en ~/.vim/colors/, que tampoco).
 PACKAGE_FILES["vim"]=".vimrc"
+PACKAGE_FILES["nvim"]=".config/nvim/init.lua"
 
 # --- Patrones de datos sensibles a revisar antes de push --------------------
 # Patrones tipo clave=valor para reducir falsos positivos: buscan la palabra
