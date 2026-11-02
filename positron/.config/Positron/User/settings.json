@@ -67,7 +67,7 @@
         "comments": false, //  | "inline"
         "strings": false //  | "inline"
     }, // nombre de tema
-    "workbench.iconTheme": "material-icon-theme", // "vs-minimal" | "material-icon-theme" | etc.
+    "workbench.iconTheme": "office-material-icon-theme", // "vs-minimal" | "material-icon-theme" | etc.
     "workbench.productIconTheme": "material-product-icons", // nombre de tema de iconos
     "workbench.activityBar.location": "bottom", // "default" | "top" | "bottom" | "hidden"
     "workbench.sideBar.location": "right", // "left" | "right"
@@ -263,5 +263,9 @@
     "vscode-office.editMode": "ir",
     "vscode-office.codeMirrorTheme": "Solarized Dark",
     "python.languageServer": "None",
-    "workbench.colorTheme": "One Dark Modern" // número en segundos
+    "workbench.colorTheme": "Default Positron Dark",
+    "window.autoDetectColorScheme": true,
+    "workbench.preferredDarkColorTheme": "Lliphi Oscuro",
+    "workbench.preferredLightColorTheme": "Lliphi Claro",
+    "vscode-office.editorTheme": "One Dark" // número en segundos
 }

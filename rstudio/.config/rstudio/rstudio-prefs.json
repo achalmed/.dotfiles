@@ -34,5 +34,6 @@
         ],
         "sidebar_visible": true,
         "sidebar_location": "left"
-    }
+    },
+    "editor_theme": "Lliphi Claro"
 }
