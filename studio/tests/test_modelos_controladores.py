@@ -1,7 +1,8 @@
 """studio/tests/test_modelos_controladores.py — los modelos (funciones puras) y los controladores de Dotfiles Studio
-sobre el repo y el HOME falsos: el árbol de paquetes con sus filtros, la selección y la operación (la orden, la
-simulación real de `main.sh --dry-run`, la aplicación real de instalar y eliminar), la tabla de cambios con el diff y
-la confirmación por ruta, la guía, el sistema y los ajustes. QSettings en temporal: nada toca al autor."""
+sobre el repo y el HOME falsos: la portada y la página de un paquete (filtros, búsqueda, plan, comparación, la
+simulación real de `main.sh --dry-run`, la aplicación real de instalar y quitar enlaces con su verificación), la tabla
+de cambios con la diferencia lado a lado y la confirmación por ruta, el escáner, la guía, el sistema y los ajustes.
+QSettings en temporal: nada toca al autor."""
 from __future__ import annotations
 
 import time
@@ -12,34 +13,9 @@ from conftest import requiere_binding
 
 from dotfiles_app import estado as est
 from dotfiles_app.modelos import cambios as mc
-from dotfiles_app.modelos import paquetes as mp
 
 
 # ----------------------------------------------------------------------------------------------- modelos (sin Qt)
-
-def test_nodos_del_arbol_y_filtros(falso):
-    paquetes = est.paquetes()
-    raices = mp.nodos(paquetes)
-    por = {n["paquete"]: n for n in raices}
-    assert [n["paquete"] for n in raices][:2] == ["git", "shell"]
-    assert por["git"]["valores"] == ["git", "activo", "1/1 enlazados"] and por["git"]["nivel"] == "positivo"
-    assert por["git"]["icono"][1] == "vcs-normal" and por["git"]["rel"] is None
-    assert por["shell"]["nivel"] == "negativo" and por["shell"]["valores"][1] == "conflicto"
-    hijos = {h["rel"]: h for h in por["shell"]["hijos"]}
-    assert hijos[".zshrc"]["estado"] == "conflicto" and "adoptar" in hijos[".zshrc"]["valores"][2]
-    assert hijos[".config/starship.toml"]["nivel"] == "activo" and hijos[".config/starship.toml"]["icono"][1] == "vcs-update-required"
-    assert por["kde"]["nivel"] == "inactivo" and por["kde"]["estado"] == "ausente"
-    assert [n["paquete"] for n in mp.nodos(paquetes, "activos")] == ["git"]
-    assert "git" not in [n["paquete"] for n in mp.nodos(paquetes, "atencion")] and "shell" in [n["paquete"] for n in mp.nodos(paquetes, "atencion")]
-    # el texto casa con el nombre del paquete (todos sus archivos) o con un archivo (solo los que casan)
-    assert [n["paquete"] for n in mp.nodos(paquetes, "todos", "star")] == ["shell"]
-    assert [h["rel"] for h in mp.nodos(paquetes, "todos", "star")[0]["hijos"]] == [".config/starship.toml"]
-    assert len(mp.nodos(paquetes, "todos", "shell")[0]["hijos"]) == 2
-    c = mp.contadores(paquetes)
-    assert c["todos"] == len(paquetes) and c["activos"] == 1 and c["atencion"] == len(paquetes) - 1
-    assert c["enlaces"] == 1 and c["conflictos"] == 1 and c["pendientes"] == 1
-    assert mp.resumen(c).startswith(f"{len(paquetes)} paquetes · 1 activos · ")
-
 
 def test_filas_de_cambios(falso):
     repo, _ = falso
@@ -79,143 +55,147 @@ def piezas(app, falso, tmp_path, monkeypatch):
     from gui_comun.tareas import Tareas
     from dotfiles_app.controladores.ajustes import Ajustes
     from dotfiles_app.controladores.cambios import Cambios
+    from dotfiles_app.controladores.catalogo import Catalogo
     from dotfiles_app.controladores.espacio import Espacio
     from dotfiles_app.controladores.guia import Guia
-    from dotfiles_app.controladores.paquetes import Paquetes
+    from dotfiles_app.controladores.seguridad import Seguridad
     from dotfiles_app.controladores.sistema import Sistema
     consola = Consola()
     tareas = Tareas(consola)
     ajustes = Ajustes()
     espacio = Espacio(consola, ajustes)
     p = dict(repo=falso[0], casa=falso[1], consola=consola, tareas=tareas, ajustes=ajustes, espacio=espacio,
-             paquetes=Paquetes(espacio, consola, tareas), cambios=Cambios(espacio, consola, tareas), guia=Guia(espacio),
-             sistema=Sistema(espacio, consola, tareas))
+             catalogo=Catalogo(espacio, consola, tareas), cambios=Cambios(espacio, consola, tareas), guia=Guia(espacio),
+             seguridad=Seguridad(consola, tareas), sistema=Sistema(espacio, consola, tareas))
     yield p
     tareas.esperar()
 
 
 @requiere_binding
-def test_espacio_vistas_y_barra(app, piezas):
+def test_espacio_paginas_y_barra(app, piezas):
     e = piezas["espacio"]
     assert e.repo == str(piezas["repo"]) and e.nombreRepo == "dotfiles"
-    assert [v["nombre"] for v in e.vistas] == ["paquetes", "cambios", "guia"]
+    assert [v["nombre"] for v in e.vistas] == ["paquetes", "cambios", "seguridad", "sistema", "guia"]
     assert e.vista == "paquetes" and e.indiceVista == 0
     e.fijarVista("guia")
-    assert e.vista == "guia" and e.indiceVista == 2 and e.textoVista == "Guía"
-    e.fijarVistaPorIndice(1)
-    assert e.vista == "cambios"
+    assert e.vista == "guia" and e.indiceVista == 4 and e.textoVista == "Guía"
     e.fijarVista("otra")
-    assert e.vista == "cambios"
+    assert e.vista == "guia"
     e.fijarResumen("x"); e.fijarContexto("y")
     assert e.resumen == "x" and e.contexto == "y"
 
 
 @requiere_binding
-def test_paquetes_arbol_filtros_y_seleccion(app, piezas):
-    from gui_comun.qt import Qt
-    p = piezas["paquetes"]
-    m = p.modelo
-    assert p.error == "" and m.filas == p.contadores["todos"] and p.contadores["activos"] == 1
-    assert p.resumen.startswith(f"{m.filas} paquetes") and [f["nombre"] for f in p.filtros] == ["filtro:todos", "filtro:atencion", "filtro:activos"]
-    assert p.filtros[1]["contador"] == m.filas - 1
-    shell = m.index(1, 0)
-    assert m.data(shell, Qt.ItemDataRole.DisplayRole) == "shell" and m.data(m.index(1, 1), Qt.ItemDataRole.DisplayRole) == "conflicto"
-    assert m.rowCount(shell) == 2
-    # seleccionar el paquete
-    p.seleccionarActual(shell)
-    assert p.haySeleccion and p.paquetesSeleccionados == ["shell"] and p.seleccion["tipo"] == "paquete"
-    assert p.seleccion["porEstado"] == [{"estado": "conflicto", "cuantos": 1}, {"estado": "pendiente", "cuantos": 1}]
-    assert p.rutaSeleccionada == str(piezas["repo"] / "shell") and p.conflictosSeleccion == 1
-    # seleccionar un archivo: la operación actúa sobre su paquete
-    zshrc = m.index(0, 0, shell)
-    p.seleccionar([zshrc])
-    p.seleccionarActual(zshrc)
-    s = p.seleccion
-    assert s["tipo"] == "archivo" and s["rel"] == ".zshrc" and s["estado"] == "conflicto" and s["rutaHome"] == "~/.zshrc"
-    assert s["rutaRepo"] == "shell/.zshrc" and s["enRepo"] and s["destino"] == "" and not s["hibrido"]
-    assert p.paquetesSeleccionados == ["shell"] and p.rutaSeleccionada == str(piezas["repo"] / "shell" / ".zshrc")
-    # varios paquetes a la vez, sin repetir
-    p.seleccionar([m.index(0, 0), shell, zshrc])
-    assert p.paquetesSeleccionados == ["git", "shell"]
-    # filtros y texto
-    p.fijarFiltro("filtro:activos")
-    assert p.filtro == "activos" and m.filas == 1 and not p.haySeleccion
-    p.fijarTexto("star")
-    assert m.filas == 0
-    p.fijarFiltro("todos")
-    assert m.filas == 1 and m.data(m.index(0, 0), Qt.ItemDataRole.DisplayRole) == "shell"
-    p.fijarTexto("")
-    assert p.filaDe("kde") >= 2 and p.filaDe("inexistente") == -1
-    p.fijarFiltro("activos")
-    assert p.filaDe("shell") == 1 and p.filtro == "todos"      # el filtro que lo escondía se quita
+def test_catalogo_portada_filtros_y_busqueda(app, piezas):
+    c = piezas["catalogo"]
+    total = len(c.tarjetas)
+    assert c.error == "" and total == c.cifras["paquetes"] and c.cifras["activos"] == 1
+    por = {t["nombre"]: t for t in c.tarjetas}
+    assert por["git"]["textoEstado"] == "Enlazado" and por["git"]["nivel"] == "positivo" and por["git"]["pide"] == ""
+    assert por["shell"]["estado"] == "conflicto" and por["shell"]["pide"] == "adoptar" and por["shell"]["textoPide"] == "Adoptar"
+    assert por["kate"]["aplicacion"] == "Kate" and por["kate"]["icono"] == "kate"
+    assert [f["nombre"] for f in c.filtros] == ["todos", "atencion", "activos", "cambios"]
+    c.fijarFiltro("activos")
+    assert [t["nombre"] for t in c.tarjetas] == ["git"]
+    c.fijarFiltro("atencion")
+    assert "shell" in [t["nombre"] for t in c.tarjetas] and "git" not in [t["nombre"] for t in c.tarjetas]
+    c.fijarFiltro("todos")
+    c.buscar("star")                                         # una ruta de archivo también encuentra su paquete
+    assert [t["nombre"] for t in c.tarjetas] == ["shell"]
+    c.buscar("")
+    (piezas["repo"] / "git" / ".gitconfig").write_text("[user]\n\tname = Otra\n", encoding="utf-8")
+    c.recargar()
+    c.fijarFiltro("cambios")
+    assert [t["nombre"] for t in c.tarjetas] == ["git"] and c.tarjetas[0]["cambios"] == 1
+    assert c.resumen.startswith(f"1/{total} paquetes enlazados")
 
 
 @requiere_binding
-def test_paquetes_operacion_y_ordenes(app, piezas):
-    p = piezas["paquetes"]
-    p.seleccionarActual(p.modelo.index(1, 0))                    # shell
-    assert p.operacion == "instalar" and p.detallado and not p.forzar
-    assert p.ordenSimular == "./main.sh instalar -p shell --dry-run --verbose" and p.ordenAplicar == "./main.sh instalar -p shell --verbose"
-    assert not p.necesitaTerminal and "Paquetes: shell" in p.textoConfirmacion
-    p.forzar = True
-    assert p.ordenAplicar.endswith("--force") and "Reemplazar" in p.textoConfirmacion
-    p.fijarOperacion("adoptar")
-    assert p.necesitaTerminal and "terminal" in p.textoConfirmacion and "--force" not in p.ordenAplicar
-    p.fijarOperacion("eliminar")
-    p.detallado = False
-    assert p.ordenSimular == "./main.sh eliminar -p shell --dry-run --force"
-    p.fijarOperacion("borrar")
-    assert p.operacion == "eliminar"
+def test_catalogo_pagina_plan_orden_y_comparacion(app, piezas):
+    c = piezas["catalogo"]
+    c.abrir("shell")
+    assert c.abierto == "shell" and c.operacion == "adoptar" and c.archivo == ".zshrc"
+    pg = c.pagina
+    assert pg["aplicacion"] == "Zsh y Starship" and [a["rel"] for a in pg["archivos"]] == [".zshrc", ".config/starship.toml"]
+    assert pg["dependencias"][0]["nombre"] == "Zsh y Starship" and pg["compartidas"] == [] and pg["huerfanos"] == []
+    assert c.plan["terminal"] and c.ordenAplicar == "./main.sh adoptar -p shell --verbose"
+    assert c.comparacion["izquierda"] == "Repositorio" and c.filaPlan["accion"] == "pregunta qué versión conservar"
+    c.fijarOperacion("instalar")
+    assert c.ordenSimular == "./main.sh instalar -p shell --dry-run --verbose" and c.plan["cambian"] == 1
+    c.forzar = True
+    assert c.ordenAplicar.endswith("--force") and c.filaPlan["accion"] == "reemplaza por el enlace"
+    assert "1 archivo real reemplazado" in c.consecuencias("instalar") and "Orden: ./main.sh instalar -p shell" in c.consecuencias("instalar")
+    ops = {o["nombre"]: o for o in c.operaciones}
+    assert ops["instalar"]["habilitada"] and not ops["actualizar"]["habilitada"] and "sin respaldo" in ops["actualizar"]["motivo"]
+    assert not ops["eliminar"]["habilitada"] and c.puede("instalar") and not c.puede("actualizar")
+    c.fijarArchivo(".config/starship.toml")
+    assert c.comparacion["derecha"] == "Repositorio" and c.comparacion["anadidas"] == 1
+    c.cerrar()
+    assert c.abierto == "" and c.pagina == {}
 
 
 @requiere_binding
-def test_paquetes_simular_no_escribe_y_aplicar_instala(app, piezas):
-    p, tareas, casa = piezas["paquetes"], piezas["tareas"], piezas["casa"]
-    p.seleccionarActual(p.modelo.index(1, 0))                    # shell: .zshrc en conflicto, starship pendiente
-    p.simular()
+def test_catalogo_simular_no_escribe_y_aplicar_instala_y_verifica(app, piezas):
+    c, tareas, casa = piezas["catalogo"], piezas["tareas"], piezas["casa"]
+    verificadas, terminadas = [], []
+    tareas.verificada.connect(lambda n, ok, d: verificadas.append((ok, d)))
+    c.terminado.connect(lambda o, cod: terminadas.append((o, cod)))
+    c.abrir("shell")
+    c.fijarOperacion("instalar")
+    c.simular()
     _esperar(app, tareas)
-    salida = piezas["consola"].salida.texto
-    assert "$ bash main.sh instalar -p shell --dry-run --verbose" in salida and "dry-run" in salida
-    assert not (casa / ".config" / "starship.toml").exists() and not (casa / ".zshrc").is_symlink()
-    codigos = []
-    p.terminado.connect(codigos.append)
-    p.aplicar()                                                  # instalar sin --force: el pendiente se enlaza, el conflicto se salta
+    assert terminadas == [("instalar", 0)] and not (casa / ".config").exists()
+    assert any("starship.toml" in l for l in c.salida) and c.salidaDe.endswith("(simulación)")
+    assert not any(str(casa) in l for l in c.salida)                  # rutas de la máquina, acortadas
+    c.aplicar("instalar")
     _esperar(app, tareas)
-    assert codigos == [0]
-    assert (casa / ".config" / "starship.toml").is_symlink() and not (casa / ".zshrc").is_symlink()
-    por = {n["paquete"]: n for n in p.modelo.todas()}
-    assert por["shell"]["valores"][1] == "parcial"
-    assert p.paquetesSeleccionados == ["shell"]                  # la selección se reencuentra tras releer
-    p.fijarOperacion("eliminar")
-    p.aplicar()
-    _esperar(app, tareas)
-    assert not (casa / ".config" / "starship.toml").exists() and codigos == [0, 0]
-    assert any("Termina" in l for l, *_ in piezas["consola"].registro.ultimas(50))
+    for _ in range(20):
+        app.processEvents()
+    assert terminadas[-1] == ("instalar", 0) and (casa / ".config" / "starship.toml").is_symlink()
+    assert not (casa / ".zshrc").is_symlink()                          # sin «Reemplazar», el archivo real se salta
+    assert verificadas and verificadas[-1][0] and "como el plan decía" in verificadas[-1][1]
 
 
 @requiere_binding
-def test_paquetes_sin_seleccion_avisa(app, piezas):
-    p = piezas["paquetes"]
+def test_catalogo_quitar_enlaces_y_actualizar_bloqueado(app, piezas):
+    c, tareas, casa = piezas["catalogo"], piezas["tareas"], piezas["casa"]
     avisos = []
-    p.aviso.connect(lambda t, k: avisos.append((t, k)))
-    p.simular()
-    assert avisos and "Selecciona" in avisos[0][0] and not piezas["tareas"].activa
+    c.aviso.connect(lambda t, k: avisos.append((t, k)))
+    c.abrir("shell")
+    c.aplicar("actualizar")                                            # bloqueado: borraría .zshrc sin respaldo
+    assert avisos and "sin respaldo" in avisos[-1][0] and not tareas.activa and not (casa / ".zshrc").is_symlink()
+    c.abrir("git")
+    assert c.operacion == "instalar" and c.plan_de("eliminar")["cambian"] == 1
+    c.aplicar("eliminar")
+    _esperar(app, tareas)
+    assert not (casa / ".gitconfig").exists() and (piezas["repo"] / "git" / ".gitconfig").is_file()
 
 
 @requiere_binding
-def test_cambios_tabla_diff_confirmar(app, piezas):
+def test_catalogo_sin_paquete_avisa(app, piezas):
+    c = piezas["catalogo"]
+    avisos = []
+    c.aviso.connect(lambda t, k: avisos.append((t, k)))
+    c.simular()
+    assert avisos and "Abra un paquete" in avisos[0][0] and not piezas["tareas"].activa
+
+
+@requiere_binding
+def test_cambios_tabla_diferencia_y_confirmar(app, piezas):
     from gui_comun.qt import Qt
     repo, c, tareas = piezas["repo"], piezas["cambios"], piezas["tareas"]
     assert not c.hayCambios and c.rama == "main" and c.cuantos == 0 and c.contexto == "rama main · 0 cambios sin confirmar · 0 sin subir"
     (repo / "git" / ".gitconfig").write_text("[user]\n\tname = Otra\n", encoding="utf-8")
     (repo / "shell" / ".zshrc").write_text("export EDITOR=vim\n", encoding="utf-8")
     c.recargar()
-    assert c.hayCambios and c.cuantos == 2 and c.filaActual == -1 and c.diferencia == ""
+    assert c.hayCambios and c.cuantos == 2 and c.filaActual == -1 and c.diferencia == "" and c.comparacion == {}
     assert c.confirmar("x").startswith("Elige un archivo")
     c.modelo.ordenar(0, False)
     fila = next(i for i in range(c.modelo.rowCount()) if c.modelo.data(c.modelo.index(i, 0), Qt.ItemDataRole.DisplayRole) == "git/.gitconfig")
     c.fijarFila(fila)
     assert c.ruta == "git/.gitconfig" and "+\tname = Otra" in c.diferencia and c.mensajeSugerido == "git: "
+    lados = [(f["izq"], f["der"]) for f in c.comparacion["filas"] if f["tipo"] == "cambio"]
+    assert lados == [("\tname = Prueba", "\tname = Otra")] and c.comparacion["izquierda"] == "Último commit"
     assert c.datos["paquete"] == "git" and c.rutaSeleccionada == str(repo / "git" / ".gitconfig")
     assert c.confirmar("git: ").startswith("Escribe el mensaje")
     codigos = []
@@ -225,7 +205,38 @@ def test_cambios_tabla_diff_confirmar(app, piezas):
     assert codigos == [0] and c.cuantos == 1 and [f["ruta"] for f in c._filas] == ["shell/.zshrc"]
     assert c.adelante == 0 and not c.hayParaSubir               # sin remoto, git no cuenta commits adelante
     assert c.ruta == ""                                          # el confirmado ya no está
-    assert "seguridad" in piezas["consola"].salida.texto.lower() or "Escaneando" in piezas["consola"].salida.texto
+
+
+@requiere_binding
+def test_cambios_ocultan_un_secreto_y_marcan_el_hibrido(app, piezas):
+    repo, c = piezas["repo"], piezas["cambios"]
+    # dentro de una carpeta seguida, git lo lista como archivo (una carpeta nueva entera saldría como «kde/»)
+    (repo / "shell" / ".config" / "kdeglobals").write_text("[General]\napi_" + "key = " + "abcdefgh" * 3 + "\n", encoding="utf-8")
+    c.recargar()
+    fila = next(i for i, f in enumerate(c._filas) if f["ruta"].endswith("kdeglobals"))
+    c.fijarFila(fila)
+    comp = c.comparacion
+    assert comp["hibrido"] and comp["ocultas"] == 1 and "abcdefgh" * 3 not in repr(comp["filas"])
+    assert any("Híbrido" in n for n in comp["notas"])
+
+
+@requiere_binding
+def test_seguridad_escanea_sin_mostrar_el_valor(app, piezas):
+    s, tareas, repo, consola = piezas["seguridad"], piezas["tareas"], piezas["repo"], piezas["consola"]
+    assert "contraseña en una URL" in s.tipos and "archivo .env versionado" in s.tipos and s.orden == "./main.sh seguridad"
+    s.escanear()
+    _esperar(app, tareas)
+    for _ in range(10):
+        app.processEvents()
+    assert s.escaneado and s.cuantos == 0
+    clave = "super" + "secreta"                                 # armada al vuelo (ver test_servicios.py)
+    (repo / "git" / ".gitconfig").write_text("[user]\n\tpass" + "word = " + clave + "\n", encoding="utf-8")
+    s.escanear()
+    _esperar(app, tareas)
+    for _ in range(10):
+        app.processEvents()
+    assert s.cuantos == 1 and s.hallazgos[0]["archivo"] == "git/.gitconfig" and s.hallazgos[0]["linea"] == 2
+    assert clave not in repr(s.hallazgos) and clave not in consola.registro.texto and clave not in consola.salida.texto
 
 
 @requiere_binding
@@ -241,26 +252,19 @@ def test_guia_documentos(app, piezas):
 
 
 @requiere_binding
-def test_sistema_escaner_y_simulaciones(app, piezas):
+def test_sistema_simulaciones_y_dependencias(app, piezas):
     s, tareas, repo = piezas["sistema"], piezas["tareas"], piezas["repo"]
     info = s.info("dependencias")
-    assert info["sudo"] and info["simulable"] and info["orden"] == "./main.sh instalar-deps"
-    assert not s.info("seguridad")["simulable"]
-    resultados, avisos = [], []
+    assert info["sudo"] and info["simulable"] and info["orden"] == "./main.sh instalar-deps" and info["operacion"] == "instalacion"
+    assert s.info("respaldo")["operacion"] == "escritura"
+    assert [d["nombre"] for d in s.dependencias][:2] == ["git", "zsh"] and "sudo" in s.consecuencias("dependencias")
+    resultados = []
     s.terminado.connect(lambda n, c: resultados.append((n, c)))
-    s.aviso.connect(lambda t, k: avisos.append(k))
-    s.seguridad()
-    _esperar(app, tareas)
-    assert resultados == [("seguridad", 0)] and avisos == ["positivo"]
-    # el secreto falso se arma al vuelo: escrito entero, el escáner del repo lo encontraría en esta prueba
-    (repo / "git" / ".gitconfig").write_text("[user]\n\tpass" + "word = supersecreta\n", encoding="utf-8")
-    s.seguridad()
-    _esperar(app, tareas)
-    assert resultados[-1][0] == "seguridad" and resultados[-1][1] != 0 and avisos[-1] == "aviso"
     antes = sorted(x.name for x in repo.iterdir())
     s.correr("respaldo", True)
     _esperar(app, tareas)
-    assert resultados[-1] == ("respaldo", 0) and sorted(x.name for x in repo.iterdir() if x.name != ".backups") == [a for a in antes if a != ".backups"]
+    fuera = (".backups", ".logs")                                 # lo que main.sh deja siempre (ignorado por git)
+    assert resultados[-1] == ("respaldo", 0) and [x for x in sorted(y.name for y in repo.iterdir()) if x not in fuera] == [a for a in antes if a not in fuera]
     assert not list((repo / ".backups").glob("*.tar*")) if (repo / ".backups").is_dir() else True
 
 

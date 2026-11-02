@@ -69,7 +69,7 @@ def _git(raiz: Path, *args: str) -> str:
     return r.stdout if r.returncode == 0 else ""
 
 
-def _enmascarar(d: dict, patrones) -> int:
+def enmascarar_filas(d: dict, patrones) -> int:
     """Enmascara las filas en su sitio; devuelve cuántas tenían un secreto."""
     if not patrones:
         return 0
@@ -137,7 +137,7 @@ def comparar(paquete: str, archivo: est.Archivo, *, raiz: Path | None = None, ca
         notas.append("Es una carpeta enlazada entera: se compara su lista de archivos (tamaño y huella del contenido).")
 
     d = diferencias.analizar(texto)
-    ocultas = _enmascarar(d, patrones)
+    ocultas = enmascarar_filas(d, patrones)
     if ocultas:
         notas.append(f"{ocultas} línea(s) con un posible secreto, oculto (el escáner de Seguridad dice dónde).")
     trozos = len(d["trozos"])

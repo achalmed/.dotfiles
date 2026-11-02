@@ -1,7 +1,7 @@
-"""dotfiles_app/controladores/espacio.py — lo transversal de la ventana: la vista activa (Paquetes · Cambios · Guía),
-el repo y su nombre (el título de la ventana), el resumen y el contexto de la barra de estado, las acciones sobre una
-ruta (Dolphin, terminal, portapapeles) y la terminal para lo que `main.sh` pregunta por la consola (adoptar con
-conflictos, `sudo` de las dependencias). Lo que antes repetían seis páginas y el tablero «Inicio».
+"""dotfiles_app/controladores/espacio.py — lo transversal de la ventana: la página activa (Paquetes · Cambios ·
+Seguridad · Sistema · Guía), el repo y su nombre (el título de la ventana), el resumen y el contexto de la barra de
+estado, las acciones sobre una ruta (mostrarla en Dolphin con `Escritorio`, terminal, portapapeles) y la terminal para
+lo que `main.sh` pregunta por la consola (adoptar con conflictos, `sudo` de las dependencias).
 """
 
 from __future__ import annotations
@@ -15,7 +15,8 @@ from gui_comun.qt import QGuiApplication, QObject, Property, Signal, Slot
 from dotfiles_app import estado as est
 
 # nombre, texto, icono
-VISTAS = (("paquetes", "Paquetes", "package-x-generic"), ("cambios", "Cambios", "vcs-commit"), ("guia", "Guía", "help-contents"))
+VISTAS = (("paquetes", "Paquetes", "package-x-generic"), ("cambios", "Cambios", "vcs-locally-modified"),
+          ("seguridad", "Seguridad", "security-high"), ("sistema", "Sistema", "preferences-system"), ("guia", "Guía", "help-contents"))
 NOMBRES = tuple(v[0] for v in VISTAS)
 
 
@@ -25,9 +26,9 @@ class Espacio(QObject):
     contextoCambiado = Signal()
     aviso = Signal(str, str)                 # texto, tipo (informacion · positivo · aviso · error)
 
-    def __init__(self, consola, ajustes=None, parent=None):
+    def __init__(self, consola, ajustes=None, escritorio=None, parent=None):
         super().__init__(parent)
-        self.consola, self.ajustes = consola, ajustes
+        self.consola, self.ajustes, self.escritorio = consola, ajustes, escritorio
         self._vista = NOMBRES[0]
         self._resumen = ""
         self._contexto = ""
@@ -96,10 +97,20 @@ class Espacio(QObject):
 
     @Slot(str)
     def abrirDolphin(self, ruta: str) -> None:
+        """Dolphin con el archivo señalado (`dolphin --select`); sin Dolphin, su carpeta con el gestor del escritorio."""
         ruta = self._ruta(ruta)
-        carpeta = ruta if os.path.isdir(ruta) else os.path.dirname(ruta)
-        if os.path.isdir(carpeta):
-            subprocess.Popen(["xdg-open", carpeta])
+        if not os.path.exists(ruta) and not os.path.islink(ruta):
+            ruta = os.path.dirname(ruta)
+        if self.escritorio is not None:
+            self.escritorio.mostrarEnDolphin(ruta)
+        elif os.path.isdir(ruta if os.path.isdir(ruta) else os.path.dirname(ruta)):
+            subprocess.Popen(["xdg-open", ruta if os.path.isdir(ruta) else os.path.dirname(ruta)])
+
+    @Slot(str)
+    def abrirConAplicacion(self, ruta: str) -> None:
+        """El archivo con la aplicación que el escritorio asocia a su tipo (Kate para un .ini, por ejemplo)."""
+        if ruta and self.escritorio is not None:
+            self.escritorio.abrirConAplicacion(ruta)
 
     @Slot(str)
     def abrirTerminal(self, ruta: str) -> None:

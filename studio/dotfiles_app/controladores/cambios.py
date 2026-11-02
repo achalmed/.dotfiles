@@ -11,6 +11,7 @@ from gui_comun.qt import QObject, Property, Signal, Slot
 
 from dotfiles_app import estado as est
 from dotfiles_app.modelos import cambios as mc
+from dotfiles_app.servicios import comparar, diferencias, seguridad
 
 
 class Cambios(QObject):
@@ -22,6 +23,7 @@ class Cambios(QObject):
     def __init__(self, espacio, consola, tareas, parent=None):
         super().__init__(parent)
         self.espacio, self.consola, self.tareas = espacio, consola, tareas
+        self._patrones = None
         self._estado = est.EstadoGit("—", 0, 0, ())
         self._filas: list[dict] = []
         self._fila = -1
@@ -107,6 +109,37 @@ class Cambios(QObject):
     def diferencia(self) -> str:
         """El diff ENTERO (o el contenido, si es nuevo): se lee antes de confirmar."""
         return self._diff
+
+    @Property("QVariantMap", notify=filaCambiada)
+    def comparacion(self) -> dict:
+        """El diff del archivo elegido lado a lado (último commit ⟷ repo), con los secretos ocultos y la nota del
+        híbrido o del filtro clean."""
+        ruta = self.ruta
+        if not ruta:
+            return {}
+        texto = self._diff
+        if texto.startswith("(archivo nuevo)\n"):
+            texto = "\n".join(comparar.difflib.unified_diff([], texto.split("\n", 1)[1].splitlines(), "/dev/null", ruta, lineterm=""))
+        d = diferencias.analizar(texto if texto.startswith(("diff", "---")) else "")
+        if self._patrones is None:
+            try:
+                self._patrones = seguridad.cargar(est.repo())
+            except RuntimeError:
+                self._patrones = []
+        ocultas = comparar.enmascarar_filas(d, self._patrones)
+        nombre = ruta.rsplit("/", 1)[-1]
+        notas = []
+        if nombre in comparar.APLICACION_HIBRIDO:
+            notas.append(f"Híbrido: {comparar.APLICACION_HIBRIDO[nombre]} lo reescribe al usarse; lea la diferencia entera: "
+                         "puede llevar estado (recientes, geometría) además de preferencias.")
+        if nombre in comparar.FILTRADOS:
+            notas.append(f"git lo compara tras su filtro clean ({comparar.FILTRADOS[nombre]}): lo que se ve es lo que se confirmaría.")
+        if ocultas:
+            notas.append(f"{ocultas} línea(s) con un posible secreto, oculto: no lo confirme (página Seguridad).")
+        return {"ruta": ruta, "izquierda": "Último commit", "derecha": "Repositorio (lo que se confirmaría)", "filas": d["filas"],
+                "trozos": len(d["trozos"]), "anadidas": d["anadidas"], "quitadas": d["quitadas"], "binario": d["binario"],
+                "recortado": d["recortado"], "vacia": not d["filas"], "nuevo": self.datos.get("codigo") == "??",
+                "hibrido": nombre in comparar.APLICACION_HIBRIDO, "notas": notas, "ocultas": ocultas}
 
     @Property(str, notify=filaCambiada)
     def mensajeSugerido(self) -> str:

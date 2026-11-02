@@ -1,8 +1,9 @@
-"""studio/tests/test_studio.py — Dotfiles Studio (QML + Kirigami sobre gui-comun 2.x) abre su ventana sin pantalla con el
+"""studio/tests/test_studio.py — Dotfiles Studio (QML + Kirigami sobre gui-comun 3.x) abre su ventana sin pantalla con el
 Python del sistema sobre el repo y el HOME falsos:
 
 - la ventana principal se carga y se cierra con `QT_QPA_PLATFORM=offscreen`, y `studio/main.py --smoke` sale con 0;
-- las operaciones de docs/rediseno.md §3.3 están registradas una vez y los atajos no se repiten;
+- las operaciones de docs/reingenieria.md §3 están registradas una vez, con su estado de operación y su confirmación,
+  y los atajos no se repiten;
 - cada componente QML del studio se instancia sin errores; ningún color propio; ninguna marca dentro; controles con
   nombre accesible; nada de QtWidgets ni de los widgets congelados; el lanzador y main.py con /usr/bin/python3;
 - el repo no conoce ~/Documents: gui_comun se importa instalado o por GUI_COMUN_DIR, nunca subiendo carpetas.
@@ -31,16 +32,19 @@ app.motor.warnings.connect(lambda avisos: errores.extend(a.toString() for a in a
 ok = app.cargar(aplicacion.QML_DIR / "Main.qml")
 raiz = app.motor.rootObjects()[0] if ok else None
 titulo = raiz.property("title") if raiz else ""
-piezas["espacio"].fijarVista("cambios")                      # Ejecutar y Aplicar cambian de texto con la vista
-ejecutar = piezas["acciones"].accion("herr.ejecutar").textoPlano
-aplicar = piezas["acciones"].accion("herr.aplicar").textoPlano
-piezas["espacio"].fijarVista("paquetes")
-piezas["paquetes"].fijarOperacion("adoptar")
-simular = piezas["acciones"].accion("herr.ejecutar").textoPlano
+a = piezas["acciones"]
+portada = {"aplicar": a.accion("paq.aplicar").habilitada, "portada": a.accion("ver.portada").habilitada}
+piezas["catalogo"].abrir("shell")                            # la página: Aplicar dice la operación y pide confirmación
+pagina = {"aplicar": a.accion("paq.aplicar").textoPlano, "simular": a.accion("paq.simular").textoPlano,
+          "habilitada": a.accion("paq.aplicar").habilitada, "indice": raiz.property("indice") if raiz else -1}
+piezas["espacio"].fijarVista("cambios")
+cambios = a.accion("paq.aplicar").textoPlano
+operaciones = {n: [a.accion(n).operacion, a.accion(n).requiereConfirmacion] for n in a.nombres() if a.accion(n).operacion}
+consecuencias = a.accion("paq.adoptar").consecuencias
 QTimer.singleShot(600, app.app.quit); app.app.exec(); app.cerrar()
-print(json.dumps({"ok": ok, "titulo": titulo, "errores": errores, "acciones": piezas["acciones"].nombres(),
-                  "menus": [m["titulo"] for m in piezas["acciones"].menus], "barra": piezas["acciones"].barra,
-                  "ejecutar": ejecutar, "aplicar": aplicar, "simular": simular, "filas": piezas["paquetes"].modelo.filas}))
+print(json.dumps({"ok": ok, "titulo": titulo, "errores": errores, "acciones": a.nombres(), "menus": [m["titulo"] for m in a.menus],
+                  "barra": a.barra, "portada": portada, "pagina": pagina, "cambios": cambios, "operaciones": operaciones,
+                  "consecuencias": consecuencias, "tarjetas": len(piezas["catalogo"].tarjetas)}))
 """
 
 COMPONENTE = """
@@ -56,7 +60,7 @@ app.motor.warnings.connect(lambda avisos: errores.extend(a.toString() for a in a
 nombre, carpeta = sys.argv[2], sys.argv[3]
 ruta = os.path.join(os.environ["XDG_CACHE_HOME"], "Prueba_" + nombre + ".qml")
 os.makedirs(os.path.dirname(ruta), exist_ok=True)
-open(ruta, "w").write('import QtQuick\\nimport GuiComun\\nimport "file://%s/%s"\\nVentanaStudio { id: ventana; acciones: studio.acciones; tareas: studio.tareas; consola: studio.consola; visible: false; %s { id: objeto } }\\n' % (str(aplicacion.QML_DIR), carpeta, nombre))
+open(ruta, "w").write('import QtQuick\\nimport GuiComun\\nimport "file://%s/%s"\\nVentanaBase { id: ventana; acciones: studio.acciones; tareas: studio.tareas; consola: studio.consola; visible: false; %s { id: objeto } }\\n' % (str(aplicacion.QML_DIR), carpeta, nombre))
 ok = app.cargar(ruta)
 QTimer.singleShot(400, app.app.quit); app.app.exec(); app.cerrar()
 print(json.dumps({"ok": ok, "errores": errores}))
@@ -84,18 +88,29 @@ def test_abre_y_cierra_su_ventana(falso_gui):
     assert datos["ok"], r.stderr[-3000:]
     assert datos["titulo"] == "dotfiles — Dotfiles Studio"
     assert not _graves(datos["errores"]), "\n".join(_graves(datos["errores"]))
-    # las operaciones de rediseno.md §3.3, cada una registrada una sola vez
-    for n in ("archivo.dolphin", "archivo.terminal", "archivo.copiar", "editar.filtrar", "editar.todo", "editar.expandir", "editar.contraer",
-              "ver.vista.paquetes", "ver.vista.cambios", "ver.vista.guia", "herr.ejecutar", "herr.aplicar", "herr.cancelar",
-              "op.instalar", "op.adoptar", "op.eliminar", "op.detallado", "op.forzar", "repo.releer", "repo.seguridad", "repo.subir",
+    # las operaciones de reingenieria.md §3, cada una registrada una sola vez
+    for n in ("archivo.dolphin", "archivo.abrir", "archivo.terminal", "archivo.copiar", "editar.buscar",
+              "ver.pagina.paquetes", "ver.pagina.cambios", "ver.pagina.seguridad", "ver.pagina.sistema", "ver.pagina.guia", "ver.portada",
+              "ver.salida", "paq.simular", "paq.aplicar", "paq.instalar", "paq.adoptar", "paq.actualizar", "paq.eliminar", "paq.forzar",
+              "paq.detallado", "paq.cancelar", "repo.releer", "repo.subir", "seg.escanear", "seg.main", "seg.copiar",
               "sistema.fuentes", "sistema.dependencias", "sistema.respaldo", "guia.abrir", "ayuda.manual",
-              "ventana.navegacion", "ventana.detalles", "ventana.inferior", "ventana.paleta", "app.ajustes", "app.acerca", "app.salir"):
+              "ventana.paleta", "ventana.pantalla_completa", "app.ajustes", "app.acerca", "app.salir"):
         assert n in datos["acciones"], n
-    assert datos["menus"] == ["&Archivo", "&Editar", "&Ver", "A&cción", "&Repositorio", "&Herramientas", "A&justes", "Ay&uda"]
-    assert datos["barra"] == ["herr.ejecutar", "herr.aplicar", "|", "repo.seguridad"]
-    assert datos["ejecutar"] == "Releer el estado de git" and datos["aplicar"] == "Confirmar este archivo"
-    assert datos["simular"] == "Simular adoptar"
-    assert datos["filas"] >= 3                                   # los paquetes del config.sh real sobre el HOME falso
+    assert "ventana.navegacion" not in datos["acciones"]          # VentanaBase: sin los paneles de VentanaStudio
+    assert datos["menus"] == ["&Archivo", "&Editar", "&Ver", "&Paquete", "&Repositorio", "&Sistema", "A&justes", "Ay&uda"]
+    assert datos["barra"] == ["repo.releer", "|", "paq.simular", "paq.aplicar", "|", "seg.escanear"]
+    # estados de operación: lo que escribe en HOME o publica pide confirmación con sus consecuencias
+    op = datos["operaciones"]
+    assert op["paq.instalar"] == ["instalacion", True] and op["paq.actualizar"] == ["instalacion", True]
+    assert op["paq.adoptar"] == ["escritura", True] and op["paq.eliminar"] == ["eliminacion", True]
+    assert op["repo.subir"] == ["publicacion", True] and op["paq.simular"] == ["simulacion", False]
+    assert op["seg.escanear"] == ["lectura", False] and op["sistema.dependencias"] == ["instalacion", True]
+    assert "Adoptar shell" in datos["consecuencias"] and "Orden: ./main.sh adoptar -p shell" in datos["consecuencias"]
+    assert datos["portada"] == {"aplicar": False, "portada": False}
+    assert datos["pagina"]["aplicar"] == "Adoptar" and datos["pagina"]["simular"] == "Simular «adoptar»"
+    assert datos["pagina"]["habilitada"] and datos["pagina"]["indice"] == 1
+    assert datos["cambios"] == "Confirmar este archivo"
+    assert datos["tarjetas"] >= 3                                  # los paquetes del config.sh real sobre el HOME falso
 
 
 @requiere_sistema
@@ -166,10 +181,11 @@ def test_sin_colores_propios_en_qml():
 
 
 def test_sin_marca_dentro_de_la_ventana():
-    """Ningún nombre ni logotipo del studio dentro de la ventana (rediseno.md §6): el título lo pone KWin."""
-    codigo = "\n".join(l.split("//")[0] for l in (QML / "Main.qml").read_text(encoding="utf-8").splitlines())
-    assert "logotipo" not in codigo.lower() and "logo_svg" not in codigo and "marca.svg" not in codigo
-    assert 'text: "Dotfiles Studio"' not in codigo and "Kirigami.Heading" not in codigo.split("centro:")[0]
+    """Ningún nombre ni logotipo del studio dentro de la ventana: el título lo pone KWin."""
+    for qml in QML.rglob("*.qml"):
+        codigo = "\n".join(l.split("//")[0] for l in qml.read_text(encoding="utf-8").splitlines())
+        assert "logotipo" not in codigo.lower() and "logo_svg" not in codigo and "marca.svg" not in codigo, qml.name
+        assert 'text: "Dotfiles Studio"' not in codigo, qml.name
 
 
 def test_controles_sin_texto_con_nombre_accesible():
@@ -185,7 +201,8 @@ def test_controles_sin_texto_con_nombre_accesible():
 
 
 def test_sin_qtwidgets_ni_widgets_congelados_ni_documents():
-    """El studio es QGuiApplication: nada de QtWidgets ni de gui_comun.widgets; y no conoce ~/Documents ni sube carpetas."""
+    """La interfaz es QML: nada de QtWidgets ni de gui_comun.widgets (la QApplication la pone gui-comun 3.0); y no conoce
+    ~/Documents ni sube carpetas."""
     malos = []
     for f in STUDIO.rglob("*.py"):
         for n, linea in enumerate(f.read_text(encoding="utf-8").splitlines(), 1):

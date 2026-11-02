@@ -1,7 +1,8 @@
-"""dotfiles_app/controladores/sistema.py — las operaciones del repo que no son de un paquete: el escáner de datos
-sensibles (`main.sh seguridad`), las fuentes de usuario (`instalar-fuentes`), las dependencias de la distribución
-(`instalar-deps`, que pide `sudo` y por eso se aplica en una terminal) y el respaldo manual (`backup`). Cada una se
-simula (`--dry-run`) o se aplica; QML pregunta antes con el texto de `info(nombre)`."""
+"""dotfiles_app/controladores/sistema.py — la página Sistema: lo que no es de un paquete. Las dependencias de la
+distribución (`instalar-deps`, que pide `sudo` y por eso se aplica en una terminal) con su estado, las fuentes de
+usuario (`instalar-fuentes`) y el respaldo manual (`backup`). Cada una se simula (`--dry-run`) o se aplica tras la
+confirmación de su acción (`sistema.<nombre>`), con su estado de operación (instalación o escritura). El escáner de
+credenciales tiene su página (`seguridad.py`)."""
 
 from __future__ import annotations
 
@@ -9,9 +10,10 @@ from gui_comun.qt import QObject, Property, Signal, Slot
 
 from dotfiles_app import estado as est
 
+ESTADO_OPERACION = {"fuentes": "instalacion", "dependencias": "instalacion", "respaldo": "escritura"}
+
 # nombre → (título, orden de main.sh, qué hace, pide sudo)
 OPERACIONES = {
-    "seguridad": ("Escanear credenciales", "seguridad", "Busca credenciales (contraseñas, claves de API, tokens, claves privadas) en lo versionado y en lo nuevo sin ignorar. No ve rutas ni nombres en una lista de recientes: eso se mira en el diff.", False),
     "fuentes": ("Instalar fuentes de usuario", "instalar-fuentes", "Descarga las fuentes de USER_FONTS (config.sh) desde su release oficial a ~/.local/share/fonts, comprueba el sha256 y refresca fontconfig. Sin sudo.", False),
     "dependencias": ("Instalar dependencias", "instalar-deps", "Instala con el gestor de la distribución los paquetes que el repo necesita, configura la zram y, al final, las fuentes. Pide sudo: se aplica en una terminal.", True),
     "respaldo": ("Respaldo de la configuración", "backup", "Guarda en .backups/ un tarball con los archivos de HOME que tocan los paquetes (se conservan los últimos 15). Es un respaldo de emergencia, no del sistema.", False),
@@ -34,11 +36,16 @@ class Sistema(QObject):
     def info(self, nombre: str) -> dict:
         t, o, x, s = OPERACIONES[nombre]
         return {"nombre": nombre, "titulo": t, "orden": f"./main.sh {o}", "ordenSimular": f"./main.sh {o} --dry-run", "texto": x,
-                "sudo": s, "simulable": nombre != "seguridad"}
+                "sudo": s, "simulable": True, "operacion": ESTADO_OPERACION[nombre]}
 
-    @Slot()
-    def seguridad(self) -> None:
-        self.correr("seguridad", False)
+    @Property("QVariantList", constant=True)
+    def dependencias(self) -> list:
+        """Lo que el gestor necesita de la distribución (`_install_deps_apt`) y si está."""
+        return est.dependencias_sistema()
+
+    def consecuencias(self, nombre: str) -> str:
+        t, o, x, s = OPERACIONES[nombre]
+        return x + f"\n\nOrden: ./main.sh {o}" + ("\n\nPide sudo: se abre en una terminal para escribir la contraseña." if s else "")
 
     @Slot(str, bool)
     def correr(self, nombre: str, simular: bool) -> None:
@@ -54,12 +61,10 @@ class Sistema(QObject):
         if sudo and not simular:
             self.espacio.enTerminal(argv, titulo)
             return
-        self.tareas.proceso(etiqueta, argv, cwd=str(est.repo()), al_terminar=lambda c, n=nombre: self._fin(n, c))
+        self.tareas.proceso(etiqueta, argv, cwd=str(est.repo()), operacion="simulacion" if simular else ESTADO_OPERACION[nombre],
+                            al_terminar=lambda c, n=nombre: self._fin(n, c),
+                            error={"descripcion": f"«{titulo}» no terminó bien", "recurso": " ".join(["./main.sh", *argv[2:]]),
+                                   "accion": "Lea la salida (F4); si faltó la red, vuelva a intentarlo."})
 
     def _fin(self, nombre: str, codigo: int) -> None:
         self.terminado.emit(nombre, codigo)
-        if nombre == "seguridad":
-            self.aviso.emit("Escáner: sin datos sensibles en lo versionado." if codigo == 0 else "Escáner: hay posibles datos sensibles; revisa la salida (F4) antes de confirmar.",
-                            "positivo" if codigo == 0 else "aviso")
-        elif codigo != 0:
-            self.aviso.emit(f"{OPERACIONES[nombre][0]} terminó con código {codigo}: revisa la salida (F4).", "error")

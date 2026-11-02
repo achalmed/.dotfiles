@@ -275,7 +275,8 @@ def leer_documento(rel: str, raiz: Path | None = None) -> tuple[dict, str]:
 
 # --- lo que la página de un paquete muestra (2026-11-02, reingeniería) ------------------------------------------------
 
-def _hay(binario: str) -> bool:
+def instalado(binario: str) -> bool:
+    """Si el binario está en el PATH (o existe, si es una ruta absoluta)."""
     return Path(binario).exists() if binario.startswith("/") else shutil.which(binario) is not None
 
 
@@ -283,11 +284,11 @@ def aplicacion(paquete: str) -> dict:
     """{nombre, icono, descripcion, binario, instalada} de la aplicación que configura el paquete."""
     nombre, binarios, icono, descripcion = APLICACIONES.get(paquete, (paquete, (paquete,), "package-x-generic", ""))
     return {"nombre": nombre, "icono": icono, "descripcion": descripcion, "binario": binarios[0],
-            "instalada": any(_hay(b) for b in binarios)}
+            "instalada": any(instalado(b) for b in binarios)}
 
 
 def dependencias_sistema() -> list[dict]:
-    return [{"nombre": n, "binario": b, "instalada": _hay(b)} for n, b in DEPENDENCIAS_SISTEMA]
+    return [{"nombre": n, "binario": b, "instalada": instalado(b)} for n, b in DEPENDENCIAS_SISTEMA]
 
 
 def rutas_compartidas(m: dict[str, list[str]]) -> dict[str, list[str]]:

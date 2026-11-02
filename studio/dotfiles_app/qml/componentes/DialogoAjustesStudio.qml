@@ -17,7 +17,7 @@ DialogoAjustes {
     Component {
         id: paginaGeneral
         ColumnLayout {
-            function guardar() { dialogo.a.detallado = detallado.checked; studio.paquetes.detallado = detallado.checked; dialogo.a.terminal = terminal.text }
+            function guardar() { dialogo.a.detallado = detallado.checked; studio.catalogo.detallado = detallado.checked; dialogo.a.terminal = terminal.text }
             FormCard.FormHeader { title: "Operaciones de main.sh" }
             FormCard.FormCard {
                 FormCard.FormCheckDelegate { id: detallado; text: "Salida detallada (--verbose) por omisión"; description: "Lo que simular, instalar, adoptar y eliminar escriben en el panel inferior"; checked: dialogo.a.detallado }

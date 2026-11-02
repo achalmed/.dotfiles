@@ -1,52 +1,51 @@
-// Main.qml — Dotfiles Studio: los paquetes del repo y lo que main.sh hace con ellos, en un espacio de trabajo al estilo
-// Dolphin/Kate sobre GuiComun.VentanaStudio. Navegación (filtros de paquetes, cambios, guía) · centro (el árbol de
-// paquetes, la tabla de cambios o el documento) · detalles (selección y operación, diferencia y repositorio,
-// documento) · panel inferior (Salida, Registro) · barra de estado. Ninguna orden se ejecuta aquí: todo lo hacen los
-// controladores de Python (studio.*), y toda orden es main.sh o git.
+// Main.qml — Dotfiles Studio (reingeniería 2026-11-02): un gestor de paquetes de configuración sobre
+// GuiComun.VentanaBase, con la forma de Discover y no la de Dolphin. A la izquierda, las categorías de paquetes y las
+// páginas del repositorio; arriba, volver, la búsqueda y las acciones de la página; en el centro, la portada de
+// tarjetas o la página del paquete abierto (comparación y plan antes de cada operación), Cambios, Seguridad, Sistema o
+// la Guía; la salida, plegada (F4). Ninguna orden se ejecuta aquí: todo lo hacen los controladores de Python
+// (studio.*) y toda orden es main.sh o git. Ver docs/reingenieria.md.
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls as QQC2
+import QtCore
 import org.kde.kirigami as Kirigami
 import GuiComun
 import "componentes"
 
-VentanaStudio {
+VentanaBase {
     id: ventana
 
     readonly property var espacio: studio.espacio
+    readonly property var catalogo: studio.catalogo
     readonly property var registro: studio.acciones
-    readonly property var paquetes: studio.paquetes
-    readonly property var cambios: studio.cambios
-    readonly property string vista: espacio.vista
-    readonly property int indice: espacio.indiceVista
-    readonly property var sel: paquetes.seleccion
+    property bool mostrarSalida: false
+    property alias pestanaPaquete: paginaPaquete.pestana
+    readonly property int indice: espacio.vista === "paquetes" ? (catalogo.abierto ? 1 : 0)
+                                : ({ cambios: 2, seguridad: 3, sistema: 4, guia: 5 })[espacio.vista] ?? 0
 
     title: espacio.nombreRepo + " — Dotfiles Studio"
+    width: 1360
+    height: 860
+    minimumWidth: 980
     acciones: registro
     tareas: studio.tareas
     consola: studio.consola
     descripcion: descripcionStudio
     autor: "Edison Achalma (@achalmed)"
     sitio: "https://github.com/achalmed/.dotfiles"
-    resumen: espacio.resumen
-    contexto: espacio.contexto
     claveAjustes: "ventana"
 
-    function accion(nombre) { return registro.accion(nombre) }
-    function vistaActual() { return centro.children[ventana.indice] }
-    function irAPestana(i) { ventana.mostrarDetalles = true; const d = detalles.children[ventana.indice]; if (d) d.pestanaActual = i }
-    // la fila raíz de un paquete (la de su modelo) → la fila que ocupa en el árbol expandido (la de la vista)
-    function seleccionarPaquete(filaRaiz) {
-        if (filaRaiz < 0) return
-        const filaVista = arbolPaquetes.vista.rowAtIndex(paquetes.modelo.index(filaRaiz, 0))
-        if (filaVista < 0) return
-        arbolPaquetes.seleccionarFila(filaVista, true)
-        paquetes.seleccionarActual(arbolPaquetes.indiceDe(filaVista))
+    Settings {
+        category: "gestor"
+        property alias salida: ventana.mostrarSalida
     }
-    function nombreNavegacion() {
-        if (ventana.vista === "paquetes") return "filtro:" + paquetes.filtro
-        if (ventana.vista === "cambios") return "cambios"
-        return studio.guia.nombreActual
+    onMostrarSalidaChanged: registro.marcar("ver.salida", mostrarSalida)
+    Component.onCompleted: registro.marcar("ver.salida", mostrarSalida)
+
+    function abrirPaquete(nombre, operacion) {
+        espacio.fijarVista("paquetes")
+        catalogo.abrir(nombre)
+        if (operacion) catalogo.fijarOperacion(operacion)
     }
 
     // ------------------------------------------------------------------ lo que Python pide a la interfaz
@@ -54,193 +53,97 @@ VentanaStudio {
         target: studio.interfaz
         function onPedir(nombre, datos) {
             switch (nombre) {
-            case "filtrar": filtro.forceActiveFocus(); filtro.selectAll(); break
-            case "seleccionar_todo": { const v = vistaActual(); if (v && v.seleccionarTodo) v.seleccionarTodo(); break }
-            case "seleccionar_paquete": ventana.seleccionarPaquete(datos.fila); arbolPaquetes.forceActiveFocus(); break
-            case "seleccionar_fila":
-                if (datos.fila >= 0) { tablaCambios.seleccionarFila(datos.fila, true); cambios.fijarFila(datos.fila) }
-                break
-            case "pestana": irAPestana(datos.indice || 0); break
-            case "expandir": arbolPaquetes.expandirTodo(-1); break
-            case "contraer": arbolPaquetes.contraerTodo(); break
-            case "aplicar":
-                if (ventana.vista === "paquetes") dialogoAplicar.abrir()
-                else if (ventana.vista === "cambios") { ventana.mostrarDetalles = true; irAPestana(0); diferencia.confirmar() }
-                break
-            case "subir": dialogoSubir.open(); break
-            case "sistema": dialogoSistema.abrir(datos.nombre); break
+            case "buscar": busqueda.forceActiveFocus(); busqueda.selectAll(); break
+            case "salida": ventana.mostrarSalida = !ventana.mostrarSalida; break
+            case "confirmar": paginaCambios.confirmar(); break
+            case "seleccionar_cambio": paginaCambios.seleccionar(datos.fila); break
             case "paleta": ventana.paleta.abrir(datos.texto || ""); break
             }
         }
     }
-    Connections { target: espacio; function onAviso(texto, tipo) { ventana.mensajes.mostrar(texto, tipo) } }
-    Connections {
-        target: paquetes
-        function onAviso(texto, tipo) { ventana.mensajes.mostrar(texto, tipo) }
-        function onFilaRepuesta(fila) { Qt.callLater(() => ventana.seleccionarPaquete(fila)) }
-    }
-    Connections { target: cambios; function onAviso(texto, tipo) { ventana.mensajes.mostrar(texto, tipo) } }
-    Connections { target: studio.sistema; function onAviso(texto, tipo) { ventana.mensajes.mostrar(texto, tipo) } }
-    Connections { target: espacio; function onVistaCambiada() { filtro.text = ""; navegacion.actual = Qt.binding(() => ventana.nombreNavegacion()) } }
-
-    // ------------------------------------------------------------------ barra: el filtro
-    herramientasExtra: [
-        Kirigami.SearchField {
-            id: filtro
-            Layout.preferredWidth: Kirigami.Units.gridUnit * 12
-            placeholderText: ventana.vista === "paquetes" ? "Filtrar paquetes (Ctrl+F)" : "Filtrar (Ctrl+F)"
-            enabled: ventana.vista !== "guia"
-            onTextChanged: { if (ventana.vista === "paquetes") paquetes.fijarTexto(text); else if (ventana.vista === "cambios") cambios.modelo.filtrar(text) }
-            Keys.onEscapePressed: { text = ""; const v = vistaActual(); if (v) v.forceActiveFocus() }
-            Accessible.name: "Filtrar"
-        }
-    ]
-
-    // ------------------------------------------------------------------ navegación: paquetes, repositorio y guía
-    navegacion: PanelNavegacion {
-        id: navegacion
-        actual: ventana.nombreNavegacion()
-        secciones: [
-            { titulo: "Paquetes", filas: paquetes.filtros },
-            { titulo: "Repositorio", filas: [{ nombre: "cambios", texto: "Cambios sin confirmar", icono: "vcs-commit", contador: cambios.cuantos }] },
-            { titulo: "Guía", filas: studio.guia.documentos }
-        ]
-        onElegida: nombre => {
-            if (nombre.startsWith("filtro:")) { paquetes.fijarFiltro(nombre); espacio.fijarVista("paquetes") }
-            else if (nombre === "cambios") espacio.fijarVista("cambios")
-            else if (nombre.startsWith("doc:")) { studio.guia.fijarDocumento(nombre); espacio.fijarVista("guia") }
-            actual = Qt.binding(() => ventana.nombreNavegacion())
-        }
+    Connections { target: ventana.espacio; function onAviso(texto, tipo) { ventana.notificar(texto, tipo) } }
+    Connections { target: ventana.catalogo; function onAviso(texto, tipo) { ventana.notificar(texto, tipo) } }
+    Connections { target: studio.cambios; function onAviso(texto, tipo) { ventana.notificar(texto, tipo) } }
+    Connections { target: studio.seguridad; function onAviso(texto, tipo) { ventana.notificar(texto, tipo) } }
+    Connections { target: studio.sistema; function onAviso(texto, tipo) { ventana.notificar(texto, tipo) } }
+    Shortcut {
+        sequence: "Esc"
+        enabled: ventana.catalogo.abierto !== "" && ventana.espacio.vista === "paquetes" && !busqueda.activeFocus
+        onActivated: ventana.catalogo.cerrar()
     }
 
-    // ------------------------------------------------------------------ centro: el árbol, la tabla o el documento
-    centro: StackLayout {
-        id: centro
-        currentIndex: ventana.indice
+    // ------------------------------------------------------------------ cabecera: volver, búsqueda y acciones
+    header: QQC2.ToolBar {
+        RowLayout {
+            anchors.fill: parent
+            spacing: Kirigami.Units.smallSpacing
+            BotonAccion { accion: ventana.registro.accion("ver.portada"); conTexto: false; visible: ventana.indice === 1 }
+            QQC2.Label {
+                text: ventana.indice === 1 ? "Paquetes › " + ventana.catalogo.abierto : ventana.espacio.textoVista
+                font.bold: true
+                elide: Text.ElideRight
+                Layout.leftMargin: Kirigami.Units.smallSpacing
+            }
+            Item { Layout.fillWidth: true }
+            Kirigami.SearchField {
+                id: busqueda
+                Layout.preferredWidth: Kirigami.Units.gridUnit * 16
+                placeholderText: "Buscar paquetes, aplicaciones o archivos (Ctrl+F)"
+                onTextChanged: {
+                    ventana.catalogo.buscar(text)
+                    if (text !== "") { ventana.catalogo.cerrar(); ventana.espacio.fijarVista("paquetes") }
+                }
+                Keys.onEscapePressed: text = ""
+                Accessible.name: "Buscar paquetes"
+            }
+            QQC2.ToolSeparator {}
+            BotonAccion { accion: ventana.registro.accion("repo.releer"); conTexto: false }
+            BotonAccion { accion: ventana.registro.accion("seg.escanear"); conTexto: false }
+            BotonAccion { accion: ventana.registro.accion("ver.salida"); conTexto: false }
+        }
+    }
 
-        ArbolDatos {                                              // 0 · Paquetes
-            id: arbolPaquetes
-            modelo: paquetes.modelo
-            expandirAlCargar: 1
-            umbralEstrecho: Kirigami.Units.gridUnit * 30
-            mensajeVacio: paquetes.error !== "" ? "No se pudo leer config.sh: " + paquetes.error
-                        : paquetes.texto !== "" ? "Ningún paquete ni archivo casa con «" + paquetes.texto + "»"
-                        : paquetes.filtro === "atencion" ? "Todo enlazado: ningún paquete pide atención"
-                        : paquetes.filtro === "activos" ? "Ningún paquete está enlazado del todo" : "Sin paquetes en STOW_PACKAGES"
-            iconoVacio: paquetes.filtro === "atencion" ? "vcs-normal" : "package-x-generic"
-            columnas: [
-                { ancho: 0, minimo: 14, conIcono: true },
-                { ancho: 8, semantica: true, conIcono: true },
-                { ancho: 18, secundaria: true, estrecho: true }
-            ]
-            onSeleccionCambiada: paquetes.seleccionar(indicesSeleccionados())
-            onFilaActualCambiada: fila => paquetes.seleccionarActual(fila >= 0 ? indiceDe(fila) : null)
-            onActivada: indice => ventana.irAPestana(0)
-            menuContextual: MenuAcciones {
-                acciones: ventana.registro
-                conAtajos: false
-                elementos: [
-                    { tipo: "accion", nombre: "herr.ejecutar" }, { tipo: "accion", nombre: "herr.aplicar" },
-                    { tipo: "separador" },
-                    { tipo: "accion", nombre: "op.instalar" }, { tipo: "accion", nombre: "op.adoptar" }, { tipo: "accion", nombre: "op.eliminar" },
-                    { tipo: "separador" },
-                    { tipo: "accion", nombre: "archivo.dolphin" }, { tipo: "accion", nombre: "archivo.terminal" }, { tipo: "accion", nombre: "archivo.copiar" },
-                    { tipo: "separador" },
-                    { tipo: "accion", nombre: "editar.expandir" }, { tipo: "accion", nombre: "editar.contraer" }
-                ]
+    // ------------------------------------------------------------------ barra lateral | páginas
+    QQC2.SplitView {
+        anchors.fill: parent
+        orientation: Qt.Vertical
+
+        RowLayout {
+            QQC2.SplitView.fillHeight: true
+            spacing: 0
+            BarraLateral {
+                Layout.fillHeight: true
+                onElegirFiltro: nombre => { ventana.catalogo.fijarFiltro(nombre); ventana.catalogo.cerrar(); ventana.espacio.fijarVista("paquetes") }
+                onElegirPagina: nombre => ventana.espacio.fijarVista(nombre)
+            }
+            Kirigami.Separator { Layout.fillHeight: true }
+            StackLayout {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                currentIndex: ventana.indice
+                Portada { onAbrir: (nombre, operacion) => ventana.abrirPaquete(nombre, operacion) }
+                PaginaPaquete { id: paginaPaquete }
+                PaginaCambios { id: paginaCambios; ventana: ventana }
+                PaginaSeguridad {}
+                PaginaSistema {}
+                PaginaGuia {}
             }
         }
-        TablaDatos {                                              // 1 · Cambios
-            id: tablaCambios
-            modelo: cambios.modelo
-            claveAjustes: "cambios"
-            umbralEstrecho: Kirigami.Units.gridUnit * 36
-            mensajeVacio: "Sin cambios: el repo está al día" + (cambios.adelante > 0 ? " (" + cambios.adelante + " commit(s) sin subir: Repositorio › Subir a GitHub…)" : "")
-            iconoVacio: "vcs-normal"
-            columnas: [
-                { ancho: 0, minimo: 14, conIcono: true },
-                { ancho: 7, secundaria: true },
-                { ancho: 8, semantica: true, conIcono: true },
-                { ancho: 20, secundaria: true, estrecho: true }
-            ]
-            onOrdenar: (columna, descendente) => cambios.modelo.ordenar(columna, descendente)
-            onFilaActualCambiada: fila => cambios.fijarFila(fila)
-            onActivada: fila => ventana.irAPestana(0)
-            menuContextual: MenuAcciones {
-                acciones: ventana.registro
-                conAtajos: false
-                elementos: [{ tipo: "accion", nombre: "herr.aplicar" }, { tipo: "accion", nombre: "repo.seguridad" }, { tipo: "separador" },
-                            { tipo: "accion", nombre: "archivo.dolphin" }, { tipo: "accion", nombre: "archivo.copiar" }]
-            }
-        }
-        VistaTexto {                                              // 2 · Guía
-            texto: studio.guia.texto
-            markdown: true
-            mensajeVacio: "Elige un documento en la navegación"
-            iconoVacio: "help-contents"
+        PanelInferior {
+            visible: ventana.mostrarSalida
+            QQC2.SplitView.preferredHeight: Kirigami.Units.gridUnit * 9
+            QQC2.SplitView.minimumHeight: Kirigami.Units.gridUnit * 5
+            consola: studio.consola
+            onCerrar: ventana.mostrarSalida = false
         }
     }
 
-    // ------------------------------------------------------------------ detalles por vista
-    detalles: StackLayout {
-        id: detalles
-        property int anchoPreferido: Kirigami.Units.gridUnit * 24
-        property int anchoMinimo: Kirigami.Units.gridUnit * 18
-        currentIndex: ventana.indice
-
-        PanelDetalles {                                           // 0 · Paquetes
-            titulo: ventana.sel.paquete || "Paquetes"
-            subtitulo: ventana.sel.tipo === "archivo" ? ventana.sel.rutaHome : (ventana.sel.detalle || paquetes.resumen)
-            icono: ventana.sel.tipo === "archivo" ? "text-x-generic" : "package-x-generic"
-            accionesCabecera: [ventana.accion("archivo.dolphin"), ventana.accion("archivo.copiar")]
-            pestanas: [{ titulo: "Selección" }, { titulo: "Operación" }]
-            SeleccionPaquete {}
-            OperacionPaquete {}
-        }
-        PanelDetalles {                                           // 1 · Cambios
-            titulo: cambios.ruta ? cambios.ruta.split("/").pop() : "Cambios"
-            subtitulo: cambios.ruta || cambios.contexto
-            icono: "vcs-commit"
-            accionesCabecera: [ventana.accion("archivo.dolphin"), ventana.accion("archivo.copiar")]
-            pestanas: [{ titulo: "Diferencia" }, { titulo: "Repositorio" }]
-            Diferencia { id: diferencia }
-            ResumenRepositorio {}
-        }
-        PanelDetalles {                                           // 2 · Guía
-            titulo: studio.guia.titulo
-            subtitulo: studio.guia.actual
-            icono: "text-markdown"
-            accionesCabecera: [ventana.accion("guia.abrir")]
-            pestanas: [{ titulo: "Documento" }]
-            Documento {}
-        }
+    footer: BarraEstado {
+        resumen: ventana.espacio.resumen
+        contexto: ventana.espacio.contexto
+        tareas: studio.tareas
+        onProgresoPulsado: ventana.mostrarSalida = true
     }
 
-    // ------------------------------------------------------------------ panel inferior
-    inferior: PanelInferior { consola: studio.consola }
-
-    // ------------------------------------------------------------------ diálogos
-    Kirigami.PromptDialog {
-        id: dialogoAplicar
-        standardButtons: Kirigami.Dialog.Cancel
-        property string verbo: "Aplicar"
-        customFooterActions: [Kirigami.Action { text: dialogoAplicar.verbo; icon.name: ventana.accion("herr.aplicar").icono; onTriggered: { paquetes.aplicar(); dialogoAplicar.close() } }]
-        function abrir() {
-            if (!paquetes.haySeleccion) { ventana.mensajes.mostrar("Selecciona un paquete (o un archivo suyo) en el árbol.", "informacion"); return }
-            const op = paquetes.operacion
-            title = op.charAt(0).toUpperCase() + op.slice(1) + " " + paquetes.paquetesSeleccionados.join(", ")
-            verbo = paquetes.necesitaTerminal ? "Abrir en una terminal" : op.charAt(0).toUpperCase() + op.slice(1)
-            subtitle = paquetes.textoConfirmacion + (op === "eliminar" ? "" : "\n\nAntes se hace un respaldo en .backups/.") + "\n\n" + paquetes.ordenAplicar
-            open()
-        }
-    }
-    Kirigami.PromptDialog {
-        id: dialogoSubir
-        title: "Subir a GitHub"
-        subtitle: "¿Subir " + cambios.adelante + " commit(s) de la rama " + cambios.rama + " a GitHub?\nEl repo es público: lo confirmado se publica."
-        standardButtons: Kirigami.Dialog.Cancel
-        customFooterActions: [Kirigami.Action { text: "Subir"; icon.name: "cloud-upload"; enabled: cambios.hayParaSubir; onTriggered: { cambios.subir(); dialogoSubir.close() } }]
-    }
-    DialogoSistema { id: dialogoSistema }
     dialogoAjustes: DialogoAjustesStudio {}
 }
