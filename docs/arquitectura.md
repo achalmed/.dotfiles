@@ -83,14 +83,24 @@ aquí.
 
 ## Dotfiles Studio
 
-`studio/` es la ventana opcional del gestor, de la familia de studios (acento índigo): Inicio, Paquetes, Cambios,
-Seguridad, Sistema y Guía. No escribe por su cuenta: cada botón corre `main.sh` (instalar, adoptar y eliminar por
-paquete, siempre con respaldo; simular con `--dry-run`); confirmar es **por ruta**, tras `main.sh seguridad`, con el
-diff entero a la vista (`studio/dotfiles_app/estado.py`, `orden_confirmar`), y no hay botón de `sync-push`. El mapa de
-paquetes lo lee de `config.sh` por Bash, sin copiarlo. Necesita PySide6 y `gui-comun` **como paquete de pip** (desde
-su repo público, con versión fija): nunca lo busca en `~/Documents`. Sin ellos, `studio/main.py` dice cómo
-instalarlos y sale con 3; `main.sh` no la necesita. Las pruebas (`python3 -m pytest -q studio/tests`) usan un repo y un
-`HOME` falsos.
+`studio/` es la ventana opcional del gestor, de la familia de studios: QML + Qt Quick + Kirigami sobre el marco
+`gui-comun` 2.x, con el Python y el Qt del sistema (`/usr/bin/python3`: es el único cuyo Qt carga Kirigami). Una sola
+ventana de trabajo (menú, barra corta, navegación, centro, detalles, panel inferior, barra de estado, paleta de
+órdenes) con tres vistas: **Paquetes** (el árbol paquete › archivo con el estado de cada enlace, filtros Todos ·
+Piden atención · Activos, y la operación instalar · adoptar · eliminar que F5 simula con `--dry-run` y Ctrl+Intro
+aplica tras confirmar, siempre por `main.sh -p <paquetes>`), **Cambios** (la tabla de `git status`, el diff entero
+del archivo elegido y la confirmación **por ruta** tras `main.sh seguridad`: `studio/dotfiles_app/estado.py`,
+`orden_confirmar`; subir a GitHub tras confirmar; no hay `sync-push`) y **Guía** (los documentos del repo). El
+escáner, las fuentes de usuario, las dependencias y el respaldo son acciones del menú con «Simular» y «Aplicar».
+No escribe por su cuenta: toda orden es `main.sh` o `git`, y lo que `main.sh` pregunta por la terminal (adoptar con
+un archivo en los dos lados, `instalar-deps` con `sudo`) se abre en una terminal. El mapa de paquetes lo lee de
+`config.sh` por Bash, sin copiarlo. Diseño y decisiones en [rediseno.md](rediseno.md); estructura y uso en
+`studio/README.md`.
+
+Necesita el binding de Qt del sistema y `gui-comun` **como paquete de pip** (desde su repo público, con la versión
+fija de `studio/dotfiles_app/__init__.py`) o señalado con la variable `GUI_COMUN_DIR`: nunca lo busca en otra
+carpeta. Sin ellos, `studio/main.py` dice cómo instalarlos y sale con 3; `main.sh` no la necesita. Las pruebas
+(`studio/tests/run.sh`) usan un repo y un `HOME` falsos.
 
 ## Consumidores
 
