@@ -113,7 +113,7 @@ Kirigami). Desde la reingeniería del 2026-11-02 es un **gestor de paquetes de c
 
 No escribe por su cuenta: toda orden es `main.sh` o `git`. Lo que `main.sh` pregunta por la terminal (adoptar con un
 archivo en los dos lados, `instalar-deps` con `sudo`) se abre en una terminal. El mapa de paquetes lo lee de
-`config.sh` por Bash, sin copiarlo. El plan por archivo (`servicios/plan.py`) reproduce `lib/stow_ops.sh`, y una
+`config.sh` por Bash, sin copiarlo. El plan por archivo (`studio/dotfiles_app/servicios/plan.py`) reproduce `lib/stow_ops.sh`, y una
 prueba lo compara con lo que anuncia `--dry-run`. Diagnóstico y diseño en [reingenieria.md](reingenieria.md);
 estructura y uso en `studio/README.md`.
 

@@ -39,8 +39,8 @@ anterior, aprobado el 2026-11-01, está en `rediseno.md`; este documento lo sust
 ### 1.2 Funcional
 
 - **No hay comparación antes de actuar.** Lo único que se ve antes de aplicar es la orden y un texto general
-  (`DESCRIBE` en `controladores/paquetes.py`). La diferencia entre el archivo de HOME y el del repo, que es lo que
-  decide si adoptar o instalar, solo la imprime `main.sh` en la terminal (`_resolve_conflict`, 40 líneas) y solo al
+  (`DESCRIBE`, en el controlador de paquetes de entonces). La diferencia entre el archivo de HOME y el del repo, que es lo que
+  decide si adoptar o instalar, solo la imprime `main.sh` en la terminal (`_resolve_conflict`, las primeras líneas del diff) y solo al
   adoptar.
 - **El plan por archivo no existe.** `main.sh` decide archivo por archivo, y la ventana no lo anticipa:
   - crea el enlace, rehace el que ya existe o salta el que no está en el repo;
@@ -139,14 +139,14 @@ y el plan.
 
 | pieza | qué hace | dónde |
 |---|---|---|
-| `estado.py` | el estado de cada archivo, ahora con `local` (solo en HOME); la aplicación de cada paquete y si está instalada; las rutas que reclaman dos paquetes; los huérfanos del repo | Python sin Qt |
-| `servicios/plan.py` | lo que `main.sh` hará con cada archivo según la operación (instalar, adoptar, actualizar, quitar enlaces) y si hace falta terminal, respaldo o bloqueo; reproduce `lib/stow_ops.sh` | Python sin Qt |
-| `servicios/comparar.py` | la comparación de un archivo: repo ⟷ HOME (conflicto), el diff de git con el filtro `clean` (activo e híbrido), lo que se enlazará (pendiente) o lo que entrará al repo (solo en HOME); las líneas con secretos, enmascaradas | Python sin Qt |
-| `servicios/diferencias.py` | el diff unificado en filas lado a lado (de Git Studio) | Python sin Qt |
-| `servicios/seguridad.py` | el escáner con los patrones de `config.sh` (los mismos que `main.sh seguridad`): archivo, línea, tipo y huella HMAC de la sesión; nunca el valor | Python sin Qt |
-| `controladores/catalogo.py` | la portada y la página: tarjetas, filtros, el paquete abierto, el archivo elegido, la operación y su plan, simular y aplicar | Qt |
-| `controladores/cambios.py` · `seguridad.py` · `sistema.py` · `guia.py` | las páginas del repositorio | Qt |
-| `qml/Main.qml` | `VentanaBase`: barra lateral, cabecera con búsqueda, pila de páginas y barra de estado | QML |
+| `studio/dotfiles_app/estado.py` | el estado de cada archivo, ahora con `local` (solo en HOME); la aplicación de cada paquete y si está instalada; las rutas que reclaman dos paquetes; los huérfanos del repo | Python sin Qt |
+| `studio/dotfiles_app/servicios/plan.py` | lo que `main.sh` hará con cada archivo según la operación (instalar, adoptar, actualizar, quitar enlaces) y si hace falta terminal, respaldo o bloqueo; reproduce `lib/stow_ops.sh` | Python sin Qt |
+| `studio/dotfiles_app/servicios/comparar.py` | la comparación de un archivo: repo ⟷ HOME (conflicto), el diff de git con el filtro `clean` (activo e híbrido), lo que se enlazará (pendiente) o lo que entrará al repo (solo en HOME); las líneas con secretos, enmascaradas | Python sin Qt |
+| `studio/dotfiles_app/servicios/diferencias.py` | el diff unificado en filas lado a lado (de Git Studio) | Python sin Qt |
+| `studio/dotfiles_app/servicios/seguridad.py` | el escáner con los patrones de `config.sh` (los mismos que `main.sh seguridad`): archivo, línea, tipo y huella HMAC de la sesión; nunca el valor | Python sin Qt |
+| `studio/dotfiles_app/controladores/catalogo.py` | la portada y la página: tarjetas, filtros, el paquete abierto, el archivo elegido, la operación y su plan, simular y aplicar | Qt |
+| `studio/dotfiles_app/controladores/` (`cambios`, `seguridad`, `sistema`, `guia`) | las páginas del repositorio | Qt |
+| `studio/dotfiles_app/qml/Main.qml` | `VentanaBase`: barra lateral, cabecera con búsqueda, pila de páginas y barra de estado | QML |
 
 Las operaciones declaran su estado:
 

@@ -46,11 +46,9 @@ Léase antes: `README.md` (uso), `docs/README.md` (índice) y `config.sh` (el ma
 - **La ventana (`studio/`) es opcional y no conoce `~/Documents`.** Corre con el Python del sistema
   (`/usr/bin/python3`: su Qt es el que trae Kirigami) y encuentra `gui-comun` instalado con pip (versión fija en
   `studio/dotfiles_app/__init__.py`) o por la variable explícita `GUI_COMUN_DIR`; nunca subiendo carpetas. No
-  escribe por su cuenta: toda orden es `main.sh` o `git`. Antes de cada operación muestra la comparación, el plan por
-  archivo y la orden exacta; Ctrl+Mayús+Intro simula, Ctrl+Intro aplica tras confirmar y F5 relee. Confirmar es por
-  ruta. Diseño en `docs/reingenieria.md`. Nada de `gui_comun.widgets` (congelado), QtWidgets en la interfaz, colores
-  propios ni nombre o logotipo dentro de la ventana. El escáner nunca muestra un valor: ni en pantalla, ni en el
-  registro, ni en el informe.
+  escribe por su cuenta: toda orden es `main.sh` o `git`, con la comparación, el plan por archivo y la orden exacta a
+  la vista antes; confirmar es por ruta; el escáner nunca muestra un valor. Diseño en `docs/reingenieria.md`; nada de
+  `gui_comun.widgets`, QtWidgets en la interfaz, colores propios ni nombre o logotipo dentro de la ventana.
 
 ## Cómo se verifica un cambio
 
@@ -90,13 +88,9 @@ aplicación) y no se corrigen.
 - `main.sh` pregunta por `/dev/tty` al adoptar un archivo que existe en los dos lados y lee la entrada estándar en
   `confirm_action` (eliminar): sin terminal, lo primero se salta y lo segundo no responde. La ventana pasa `--force`
   a eliminar y abre en una terminal adoptar con conflictos e `instalar-deps` (`sudo`).
-- `--dry-run` no toca el disco: desde el 2026-11-02 `_create_symlink`, `_ensure_repo_dir` y `_adopt_package` miran
-  `DRY_RUN` antes de cada `mkdir -p` (lo vigilan dos pruebas de `studio/tests/test_estado.py`).
-- Las capturas de `docs/figuras/` se hacen con `studio/capturar.py --muestra`: el repo y el HOME inventados de
-  `studio/muestra.py` en un temporal, sin ninguna ruta ni configuración de la máquina (el repo es público). Sin
-  `--muestra`, solo el Registro, nunca la Salida ni un diff.
-- Un secreto falso en una prueba o en la muestra se arma al vuelo (`"gh" + "p_" + …`): escrito entero, el propio
-  escáner lo encontraría en el repo y `sync-push` se detendría.
+- Las capturas de `docs/figuras/` se hacen con `studio/capturar.py --muestra` (repo y HOME inventados de
+  `studio/muestra.py`: ninguna ruta de la máquina). Un secreto falso de prueba se arma al vuelo (`"gh" + "p_" + …`):
+  escrito entero, el propio escáner lo encontraría y `sync-push` se detendría.
 
 ## Dónde está cada cosa
 
