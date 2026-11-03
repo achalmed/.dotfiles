@@ -64,7 +64,7 @@ ColumnLayout {
         ColumnLayout {
             QQC2.SplitView.fillWidth: true
             spacing: 0
-            VistaDiferencia {
+            VistaComparacion {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 diferencia: raiz.cambios.comparacion

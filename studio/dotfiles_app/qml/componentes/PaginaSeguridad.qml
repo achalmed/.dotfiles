@@ -85,7 +85,7 @@ ColumnLayout {
                     QQC2.Label { text: fila.modelData.linea || "—"; Layout.preferredWidth: Kirigami.Units.gridUnit * 4 }
                     RowLayout {
                         Layout.preferredWidth: Kirigami.Units.gridUnit * 14
-                        EtiquetaEstado { texto: fila.modelData.tipo; nivel: "negativo" }
+                        EtiquetaNivel { visible: text !== ""; text: fila.modelData.tipo; nivel: "negativo" }
                         Item { Layout.fillWidth: true }
                     }
                     QQC2.Label {

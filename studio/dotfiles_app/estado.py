@@ -223,7 +223,7 @@ def orden_main(*args: str) -> list[str]:
 
 
 def orden_paquetes(operacion: str, paquetes: list[str], *, simular: bool = False, detallado: bool = True,
-                   forzar: bool = False) -> list[str]:
+                   forzar: bool = False, elecciones: str = "") -> list[str]:
     """`main.sh instalar|adoptar|actualizar|eliminar -p a,b [--dry-run] [--verbose] [--force]`.
 
     `--force` va siempre con eliminar: `confirm_action` lee la entrada estándar, que en un proceso hijo de la ventana no
@@ -232,6 +232,8 @@ def orden_paquetes(operacion: str, paquetes: list[str], *, simular: bool = False
     if operacion not in ("instalar", "adoptar", "actualizar", "eliminar"):
         raise ValueError(f"operación desconocida: {operacion}")
     args = [operacion, "-p", ",".join(paquetes)]
+    if operacion == "adoptar" and elecciones:          # la versión de cada conflicto, elegida en la ventana (2026-11-03)
+        args += ["--elecciones", elecciones]
     if simular:
         args.append("--dry-run")
     if detallado:

@@ -15,6 +15,10 @@ VERBOSE=false
 DRY_RUN=false
 FORCE=false
 NO_BACKUP=false
+# --elecciones ARCHIVO (2026-11-03): la versión de cada conflicto de «adoptar», sin preguntar por la terminal.
+# Una línea por archivo: «l<TAB>ruta» (la de HOME al repo), «r<TAB>ruta» (la del repo) o «s<TAB>ruta» (saltar);
+# la ruta, relativa a HOME como en PACKAGE_FILES. Lo que no esté en el archivo se pregunta como siempre.
+declare -gA ELECCIONES=()
 
 # parse_arguments()
 # Parsea todos los argumentos pasados al script principal.
@@ -51,6 +55,21 @@ parse_arguments() {
             --no-backup)
                 NO_BACKUP=true
                 shift
+                ;;
+            --elecciones)
+                if [ -z "${2:-}" ] || [ ! -r "${2:-}" ]; then
+                    log_error "La opción $1 requiere un archivo legible con «l|r|s<TAB>ruta» por línea"
+                    exit 2
+                fi
+                local _eleccion _ruta
+                while IFS=$'\t' read -r _eleccion _ruta || [ -n "${_eleccion}" ]; do
+                    [ -z "${_eleccion}" ] || [[ "${_eleccion}" == \#* ]] && continue
+                    case "${_eleccion}" in
+                        l|r|s) ELECCIONES["${_ruta}"]="${_eleccion}" ;;
+                        *) log_error "Elección no válida «${_eleccion}» para ${_ruta} (l, r o s)"; exit 2 ;;
+                    esac
+                done < "$2"
+                shift 2
                 ;;
             --packages | -p)
                 # Acepta lista separada por comas: --packages git,shell,kde
@@ -146,6 +165,8 @@ ${COLOR_BOLD}OPCIONES:${COLOR_RESET}
   -v, --verbose         Mostrar información detallada de cada operación
   -n, --dry-run         Simular sin realizar cambios reales
   -f, --force           Forzar operación aunque haya conflictos
+      --elecciones ARCH   En «adoptar», la versión de cada conflicto sin preguntar: una línea
+                          «l|r|s<TAB>ruta» (l: la de HOME al repo; r: la del repo; s: saltar)
       --no-backup       Omitir backup automático antes de operaciones destructivas
   -h, --help            Mostrar esta ayuda
       --version         Mostrar versión y distro detectada

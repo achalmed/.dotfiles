@@ -212,5 +212,21 @@ Pruebas: 53 en `studio/tests/run.sh` (repo y HOME falsos). Cubren:
 ## 5. Lo que queda fuera
 
 - `sync-push` y `sync-pull` siguen sin ofrecerse: la ventana confirma por ruta y sube con `git push` tras confirmar.
-- Resolver un conflicto archivo por archivo desde la ventana, eligiendo laptop o repo, necesitaría que `main.sh`
-  aceptara la elección por argumento. Hoy pregunta por la terminal, y la ventana la abre.
+- (Hecho el 2026-11-03, §6: la versión de cada conflicto se elige en la ventana.)
+- El progreso archivo por archivo: `main.sh` no lo anuncia de forma estable (sus líneas cambian con `--verbose`); la
+  tarea muestra la operación y su salida íntegra en Simulación, que basta para paquetes de pocas decenas de archivos.
+- El icono `security-high` falta en el tema de iconos Colloid oscuro (está en Breeze y en Colloid claro): es del tema,
+  no se cambia aquí.
+
+## 6. Lo que se añadió el 2026-11-03 (pendientes de la reingeniería)
+
+- **La versión de cada conflicto, en la ventana**: al adoptar, la comparación de un archivo que está en `HOME` y en el
+  repo ofrece «La de HOME, al repo» (`l`), «La del repo» (`r`) o «Saltar» (`s`); el plan lo refleja por archivo y deja
+  de pedir terminal cuando todos los conflictos tienen versión. La ventana escribe las elecciones en un archivo
+  temporal de su caché y corre `main.sh adoptar -p <paquete> --elecciones <archivo>` (opción nueva del gestor, en
+  `lib/cli.sh` y `_resolve_conflict` de `lib/stow_ops.sh`; simular dice qué elección se usaría); el respaldo previo y
+  la verificación posterior siguen igual. Lo que no está en el archivo se pregunta como siempre.
+- **Las piezas de `gui-comun` 3.1** (de aquí salieron dos): la comparación es `VistaComparacion` con
+  `gui_comun.diferencias`, el texto `VistaTexto` y las etiquetas `EtiquetaNivel`; retiradas las copias propias
+  (`VistaDiferencia`, `VistaTexto`, `Resaltado`, `EtiquetaEstado`, `servicios/diferencias.py`). Requiere `gui-comun` 3.1
+  (`VERSION_GUI_COMUN = "v4.0.0"`).

@@ -11,7 +11,9 @@ from gui_comun.qt import QObject, Property, Signal, Slot
 
 from dotfiles_app import estado as est
 from dotfiles_app.modelos import cambios as mc
-from dotfiles_app.servicios import comparar, diferencias, seguridad
+from gui_comun import diferencias
+
+from dotfiles_app.servicios import comparar, seguridad
 
 
 class Cambios(QObject):

@@ -11,7 +11,9 @@ el que el plan anunciaba.
 
 from __future__ import annotations
 
+import os
 import re
+from pathlib import Path
 
 from gui_comun.qt import QObject, Property, Signal, Slot
 
@@ -57,6 +59,7 @@ class Catalogo(QObject):
         self._salida_de = ""
         self._patrones = None
         self._comparacion: dict = {}
+        self._elecciones: dict[str, str] = {}
         self.recargar()
 
     # ------------------------------------------------------------------ datos
@@ -179,6 +182,7 @@ class Catalogo(QObject):
         # la operación que pide su estado; uno al día abre en «Instalar», cuyo plan dice que nada cambia
         self._operacion = ESTADO.get(p.estado, ("", "", ""))[2] or "instalar"
         self._forzar = False
+        self._elecciones = {}
         primero = next((a for a in p.archivos if a.estado != "activo"), p.archivos[0] if p.archivos else None)
         self._archivo = primero.rel if primero else ""
         if self._salida_de != nombre:
@@ -254,6 +258,21 @@ class Catalogo(QObject):
 
     forzar = Property(bool, _forzar_get, _forzar_set, notify=operacionCambiada)
 
+    # la versión de cada conflicto de «adoptar», elegida aquí (2026-11-03): main.sh --elecciones, sin terminal
+    @Slot(str, str)
+    def fijarEleccion(self, rel: str, valor: str) -> None:
+        """`valor`: l (la de HOME al repo) · r (la del repo) · s (saltar) · "" (preguntar en una terminal)."""
+        if valor in ("l", "r", "s"):
+            self._elecciones[rel] = valor
+        else:
+            self._elecciones.pop(rel, None)
+        self.operacionCambiada.emit()
+        self.archivoCambiado.emit()
+
+    @Property("QVariantMap", notify=operacionCambiada)
+    def elecciones(self) -> dict:
+        return dict(self._elecciones)
+
     def _detallado_get(self) -> bool:
         return self._detallado
 
@@ -268,7 +287,8 @@ class Catalogo(QObject):
         p = self.paquete(self._abierto)
         if not p:
             return {}
-        return planes.plan(operacion, p, forzar=self._forzar if operacion == "instalar" else False, compartidas=self._compartidas)
+        return planes.plan(operacion, p, forzar=self._forzar if operacion == "instalar" else False, compartidas=self._compartidas,
+                           elecciones=self._elecciones if operacion == "adoptar" else None)
 
     @Property("QVariantMap", notify=operacionCambiada)
     def plan(self) -> dict:
@@ -296,9 +316,23 @@ class Catalogo(QObject):
         texto = pl["consecuencias"] + f"\n\nOrden: {self._texto_orden(operacion, False)}"
         return texto
 
-    def orden(self, operacion: str, simular: bool) -> list[str]:
+    def orden(self, operacion: str, simular: bool, elecciones: str = "") -> list[str]:
         return est.orden_paquetes(operacion, [self._abierto or "<paquete>"], simular=simular, detallado=self._detallado,
-                                  forzar=self._forzar and operacion == "instalar")
+                                  forzar=self._forzar and operacion == "instalar",
+                                  elecciones=elecciones or ("<elecciones>" if operacion == "adoptar" and self._elecciones else ""))
+
+    def _archivo_elecciones(self) -> str:
+        """Las elecciones en un archivo temporal para `main.sh --elecciones` (en la caché de la ventana; se borra al
+        terminar). Vacío si no hay."""
+        if not self._elecciones:
+            return ""
+        import tempfile
+        carpeta = Path(os.environ.get("XDG_CACHE_HOME") or Path.home() / ".cache") / "dotfiles-studio"
+        carpeta.mkdir(parents=True, exist_ok=True)
+        fd, ruta = tempfile.mkstemp(prefix="elecciones-", suffix=".tsv", dir=carpeta)
+        with os.fdopen(fd, "w", encoding="utf-8") as f:
+            f.write("".join(f"{v}\t{rel}\n" for rel, v in sorted(self._elecciones.items())))
+        return ruta
 
     def _texto_orden(self, operacion: str, simular: bool) -> str:
         return "./" + " ".join(self.orden(operacion, simular)[1:])
@@ -375,8 +409,9 @@ class Catalogo(QObject):
         op, nombre = self._operacion, self._abierto
         self._salida, self._salida_de = [], f"{planes.TEXTO[op]} {nombre} (simulación)"
         self.salidaCambiada.emit()
-        w = self.tareas.proceso(f"Simular «{planes.TEXTO[op].lower()}» de {nombre}", self.orden(op, True), cwd=str(est.repo()),
-                                operacion="simulacion", al_terminar=lambda c, o=op: self._fin(o, c, simulado=True))
+        elecciones = self._archivo_elecciones() if op == "adoptar" else ""
+        w = self.tareas.proceso(f"Simular «{planes.TEXTO[op].lower()}» de {nombre}", self.orden(op, True, elecciones), cwd=str(est.repo()),
+                                operacion="simulacion", al_terminar=lambda c, o=op, e=elecciones: (self._borrar(e), self._fin(o, c, simulado=True)))
         w.line.connect(self._anotar)
 
     @Slot(str)
@@ -396,14 +431,23 @@ class Catalogo(QObject):
         esperado = {f["rel"] for f in pl["archivos"] if f["cambia"]}
         self._salida, self._salida_de = [], f"{planes.TEXTO[op]} {nombre}"
         self.salidaCambiada.emit()
-        w = self.tareas.proceso(f"{planes.TEXTO[op]} {nombre}", self.orden(op, False), cwd=str(est.repo()),
-                                operacion=pl["estadoOperacion"], al_terminar=lambda c, o=op: self._fin(o, c),
+        elecciones = self._archivo_elecciones() if op == "adoptar" else ""
+        w = self.tareas.proceso(f"{planes.TEXTO[op]} {nombre}", self.orden(op, False, elecciones), cwd=str(est.repo()),
+                                operacion=pl["estadoOperacion"], al_terminar=lambda c, o=op, e=elecciones: (self._borrar(e), self._fin(o, c)),
                                 verificar=lambda _v, o=op, n=nombre, e=esperado: self._verificar(o, n, e),
                                 error={"descripcion": f"main.sh no pudo {planes.TEXTO[op].lower()} {nombre}",
                                        "recurso": f"./main.sh {op} -p {nombre}",
                                        "accion": "Lea la salida en la pestaña Simulación de la página del paquete; "
                                                  "el respaldo de lo tocado está en .backups/."})
         w.line.connect(self._anotar)
+
+    @staticmethod
+    def _borrar(ruta: str) -> None:
+        if ruta:
+            try:
+                os.unlink(ruta)
+            except OSError:
+                pass
 
     def _verificar(self, operacion: str, nombre: str, esperado: set[str]) -> tuple[bool, str]:
         """El éxito de `main.sh` no prueba el resultado: se relee el disco y se mira cada archivo que el plan cambiaba."""

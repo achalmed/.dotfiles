@@ -133,3 +133,53 @@ def test_main_sh_seguridad_informa_tipo_y_linea_sin_el_valor(falso):
     assert "Posible token de GitHub: git/.gitconfig:3" in salida
     assert "Posible archivo .env versionado: shell/produccion.env" in salida
     assert TOKEN_GITHUB not in salida
+
+
+# ----------------------------------------------- 2026-11-03: la versión de cada conflicto, elegida en la ventana
+def test_plan_de_adoptar_con_eleccion_ya_no_pide_terminal(falso):
+    shell = _paquete("shell")
+    for valor, accion, cambia in (("l", "lleva la de HOME al repo", True), ("r", "deja la del repo y enlaza", True), ("s", "se salta", False)):
+        a = plan.plan("adoptar", shell, elecciones={".zshrc": valor})
+        fila = {x["rel"]: x for x in a["archivos"]}[".zshrc"]
+        assert not a["terminal"] and fila["accion"] == accion and fila["cambia"] is cambia and fila["eleccion"] == valor
+    assert "versión elegida en la ventana" in plan.plan("adoptar", shell, elecciones={".zshrc": "l"})["consecuencias"]
+    assert plan.plan("adoptar", shell, elecciones={".otro": "l"})["terminal"]          # sin elección para .zshrc
+    orden = est.orden_paquetes("adoptar", ["shell"], elecciones="/tmp/x.tsv")
+    assert orden[-2:] == ["--elecciones", "/tmp/x.tsv"] or "--elecciones" in orden
+    assert "--elecciones" not in est.orden_paquetes("instalar", ["shell"], elecciones="/tmp/x.tsv")
+
+
+def _adoptar(repo, eleccion: str, *extra: str) -> subprocess.CompletedProcess:
+    archivo = repo.parent / "elecciones.tsv"
+    archivo.write_text(f"# una por línea\n{eleccion}\t.zshrc\n", encoding="utf-8")
+    return subprocess.run(est.orden_paquetes("adoptar", ["shell"], elecciones=str(archivo)) + list(extra), cwd=repo,
+                          capture_output=True, text=True, timeout=120, stdin=subprocess.DEVNULL)
+
+
+def test_main_sh_adoptar_con_la_version_de_home(falso):
+    """`--elecciones` con «l»: la .zshrc de HOME pasa al repo y HOME queda enlazada; sin preguntar por la terminal."""
+    repo, casa = falso
+    r = _adoptar(repo, "l")
+    assert r.returncode == 0, r.stdout + r.stderr
+    assert "Elección dada: l" in r.stdout + r.stderr
+    assert (casa / ".zshrc").is_symlink() and (repo / "shell" / ".zshrc").read_text(encoding="utf-8") == "# un archivo real\n"
+    assert list((repo / ".backups").glob("*conflicto-shell*")), "sin respaldo antes de tocar"
+
+
+def test_main_sh_adoptar_con_la_version_del_repo_y_simulacion(falso):
+    repo, casa = falso
+    simulado = _adoptar(repo, "r", "--dry-run")
+    assert "se usaría la elección «r»" in simulado.stdout + simulado.stderr
+    assert not (casa / ".zshrc").is_symlink()                                    # simular no toca nada
+    r = _adoptar(repo, "r")
+    assert r.returncode == 0, r.stdout + r.stderr
+    assert (casa / ".zshrc").is_symlink() and (repo / "shell" / ".zshrc").read_text(encoding="utf-8") == "export EDITOR=kate\n"
+
+
+def test_main_sh_elecciones_no_validas(falso):
+    repo, casa = falso
+    r = _adoptar(repo, "x")
+    assert r.returncode == 2 and "Elección no válida" in r.stdout + r.stderr
+    r = subprocess.run(est.orden_paquetes("adoptar", ["shell"]) + ["--elecciones", "/no/existe"], cwd=repo, capture_output=True,
+                       text=True, timeout=60, stdin=subprocess.DEVNULL)
+    assert r.returncode == 2 and not (casa / ".zshrc").is_symlink()

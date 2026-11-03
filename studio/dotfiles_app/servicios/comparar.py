@@ -11,7 +11,7 @@ Qué se compara depende del estado del archivo (la pregunta que el usuario tiene
 
 Una carpeta entera se compara por su lista de archivos (tamaño y huella de contenido). Las líneas con un secreto se
 enmascaran DESPUÉS de comparar (así una contraseña distinta a cada lado sigue viéndose como un cambio, sin mostrarse).
-Devuelve el diccionario que pinta `VistaDiferencia` (las filas de `diferencias.analizar`) más el modo y las notas.
+Devuelve el diccionario que pinta `VistaComparacion` (gui-comun) (las filas de `diferencias.analizar`) más el modo y las notas.
 """
 
 from __future__ import annotations
@@ -22,7 +22,9 @@ import subprocess
 from pathlib import Path
 
 from dotfiles_app import estado as est
-from dotfiles_app.servicios import diferencias, seguridad
+from gui_comun import diferencias
+
+from dotfiles_app.servicios import seguridad
 
 MAX_BYTES = 1_000_000
 FILTRADOS = {"texstudio.ini": "lib/filtros/texstudio_ini.sh"}     # los que git compara tras su filtro clean (.gitattributes)

@@ -5,7 +5,9 @@ de cambios con la diferencia lado a lado y la confirmación por ruta, el escáne
 QSettings en temporal: nada toca al autor."""
 from __future__ import annotations
 
+import os
 import time
+from pathlib import Path
 
 import pytest
 
@@ -277,3 +279,26 @@ def test_ajustes_en_qsettings_temporal(app, piezas):
     a.guardar()
     assert a.detallado is False and a.terminal == "konsole"
     assert str(piezas["repo"].parent) not in a._s.fileName() or "config" in a._s.fileName()
+
+
+@requiere_binding
+def test_adoptar_con_la_version_elegida_en_la_ventana(app, piezas):
+    """Elegir la versión de un conflicto en la página quita la terminal: aplicar corre main.sh con --elecciones (en un
+    archivo temporal de la caché, borrado al terminar), y se verifica que el archivo quedó enlazado."""
+    c, casa, repo, tareas = piezas["catalogo"], piezas["casa"], piezas["repo"], piezas["tareas"]
+    c.abrir("shell")
+    c.fijarOperacion("adoptar")
+    assert c.plan["terminal"]
+    c.fijarArchivo(".zshrc")
+    c.fijarEleccion(".zshrc", "l")
+    assert not c.plan["terminal"] and c.elecciones == {".zshrc": "l"} and c.filaPlan["accion"] == "lleva la de HOME al repo"
+    assert "--elecciones" in c.ordenAplicar
+    verificadas = []
+    tareas.verificada.connect(lambda n, ok, d: verificadas.append(ok))
+    c.aplicar("adoptar")
+    _esperar(app, tareas)
+    assert (casa / ".zshrc").is_symlink() and (repo / "shell" / ".zshrc").read_text(encoding="utf-8") == "# un archivo real\n"
+    assert verificadas == [True]
+    assert not list((Path(os.environ["XDG_CACHE_HOME"]) / "dotfiles-studio").glob("elecciones-*"))     # sin restos
+    c.fijarEleccion(".zshrc", "")
+    assert c.elecciones == {}

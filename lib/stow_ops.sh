@@ -313,18 +313,30 @@ _resolve_conflict() {
         fi
     fi
 
+    # la elección que se dio con --elecciones (la ventana): no se pregunta
+    local elegida="${ELECCIONES[$rel_path]:-}"
+
     if [ "$DRY_RUN" = true ]; then
-        log_info "  [dry-run] se preguntaría al usuario qué versión usar"
+        if [ -n "$elegida" ]; then
+            log_info "  [dry-run] se usaría la elección «${elegida}» (l: laptop → repo · r: repo → laptop · s: saltar)"
+        else
+            log_info "  [dry-run] se preguntaría al usuario qué versión usar"
+        fi
         return 0
     fi
 
-    # Menú de resolución
-    printf "  ¿Qué versión usar?\n"
-    printf "  ${COLOR_GREEN}[l]${COLOR_RESET} Laptop → repo (actualiza el repo con la versión de la laptop)\n"
-    printf "  ${COLOR_CYAN}[r]${COLOR_RESET} Repo   → laptop (mantiene el repo, crea symlink)\n"
-    printf "  ${COLOR_YELLOW}[s]${COLOR_RESET} Saltar este archivo\n"
-    printf "  Opción [l/r/s]: "
-    choice="$(_read_choice "s")"
+    if [ -n "$elegida" ]; then
+        choice="$elegida"
+        log_info "  Elección dada: ${choice}"
+    else
+        # Menú de resolución
+        printf "  ¿Qué versión usar?\n"
+        printf "  ${COLOR_GREEN}[l]${COLOR_RESET} Laptop → repo (actualiza el repo con la versión de la laptop)\n"
+        printf "  ${COLOR_CYAN}[r]${COLOR_RESET} Repo   → laptop (mantiene el repo, crea symlink)\n"
+        printf "  ${COLOR_YELLOW}[s]${COLOR_RESET} Saltar este archivo\n"
+        printf "  Opción [l/r/s]: "
+        choice="$(_read_choice "s")"
+    fi
 
     case "$choice" in
         [lL])

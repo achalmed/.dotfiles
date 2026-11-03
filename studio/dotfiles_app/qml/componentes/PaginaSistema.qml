@@ -29,9 +29,10 @@ QQC2.ScrollView {
             spacing: Kirigami.Units.smallSpacing
             Repeater {
                 model: raiz.sistema.dependencias
-                delegate: EtiquetaEstado {
+                delegate: EtiquetaNivel {
                     required property var modelData
-                    texto: modelData.nombre + (modelData.instalada ? "" : ": falta")
+                    visible: text !== ""
+                    text: modelData.nombre + (modelData.instalada ? "" : ": falta")
                     nivel: modelData.instalada ? "positivo" : "neutro"
                     icono: modelData.instalada ? "checkmark" : "dialog-warning"
                 }
@@ -70,8 +71,8 @@ QQC2.ScrollView {
                         spacing: Kirigami.Units.smallSpacing
                         RowLayout {
                             Kirigami.Heading { level: 3; text: tarjeta.modelData.titulo }
-                            EtiquetaEstado { texto: tarjeta.accion ? tarjeta.accion.operacionTexto : "" }
-                            EtiquetaEstado { texto: tarjeta.modelData.sudo ? "pide sudo: en una terminal" : ""; icono: "utilities-terminal"; nivel: "neutro" }
+                            EtiquetaNivel { visible: text !== ""; text: tarjeta.accion ? tarjeta.accion.operacionTexto : "" }
+                            EtiquetaNivel { visible: text !== ""; text: tarjeta.modelData.sudo ? "pide sudo: en una terminal" : ""; icono: "utilities-terminal"; nivel: "neutro" }
                         }
                         QQC2.Label { text: tarjeta.modelData.texto; wrapMode: Text.WordWrap; Layout.fillWidth: true }
                         QQC2.Label {

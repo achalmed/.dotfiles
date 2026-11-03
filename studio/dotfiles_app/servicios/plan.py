@@ -42,8 +42,18 @@ def _fila(a: est.Archivo, accion: str, detalle: str = "", nivel: str = "", cambi
             "hibrido": a.hibrido}
 
 
+# la versión elegida en la ventana para un conflicto de «adoptar» (main.sh --elecciones): l · r · s
+ELECCION = {"l": ("lleva la de HOME al repo", "la versión de HOME pasa al repo y se enlaza (antes, respaldo)", "neutro", True),
+            "r": ("deja la del repo y enlaza", "la de HOME se respalda y se sustituye por el enlace al repo", "neutro", True),
+            "s": ("se salta", "elegido en la ventana: no se toca", "neutro", False)}
+
+
 def plan(operacion: str, paquete: est.Paquete, *, forzar: bool = False, raiz: Path | None = None,
-         casa: Path | None = None, compartidas: dict[str, list[str]] | None = None) -> dict:
+         casa: Path | None = None, compartidas: dict[str, list[str]] | None = None,
+         elecciones: dict[str, str] | None = None) -> dict:
+    """El plan por archivo de una operación. `elecciones` (adoptar): rel → l · r · s para los conflictos; los que la
+    tienen ya no piden terminal (main.sh --elecciones)."""
+    elecciones = elecciones or {}
     if operacion not in OPERACIONES:
         raise ValueError(f"operación desconocida: {operacion}")
     raiz = raiz or est.repo()
@@ -72,9 +82,14 @@ def plan(operacion: str, paquete: est.Paquete, *, forzar: bool = False, raiz: Pa
                 filas.append(_fila(a, "ya enlazado", "no cambia nada"))
             elif a.estado == "local":
                 filas.append(_fila(a, "lo mueve al repo y lo enlaza", "el archivo entra al repo: confírmelo después en Cambios", "positivo", True))
+            elif a.estado == "conflicto" and elecciones.get(a.rel) in ELECCION:
+                accion, detalle, nivel, cambia = ELECCION[elecciones[a.rel]]
+                respaldo = respaldo or cambia
+                filas.append(_fila(a, accion, detalle, nivel, cambia))
+                filas[-1]["eleccion"] = elecciones[a.rel]
             elif a.estado == "conflicto":
                 terminal = respaldo = True
-                filas.append(_fila(a, "pregunta qué versión conservar", "está en HOME y en el repo: se responde en una terminal (antes, respaldo)",
+                filas.append(_fila(a, "pregunta qué versión conservar", "está en HOME y en el repo: elija aquí la versión, o se responde en una terminal (antes, respaldo)",
                                    "neutro", True))
             elif a.estado == "pendiente":
                 filas.append(_fila(a, "crea el enlace", "", "positivo", True))
@@ -130,6 +145,8 @@ def resumen(operacion: str, filas: list[dict], huerfanos: list[str], respaldo: b
     for accion, singular, plural in (("crea el enlace", "enlace nuevo", "enlaces nuevos"),
                                      ("reemplaza por el enlace", "archivo real reemplazado", "archivos reales reemplazados"),
                                      ("lo mueve al repo y lo enlaza", "archivo al repo", "archivos al repo"),
+                                     ("lleva la de HOME al repo", "conflicto con la versión de HOME", "conflictos con la versión de HOME"),
+                                     ("deja la del repo y enlaza", "conflicto con la versión del repo", "conflictos con la versión del repo"),
                                      ("pregunta qué versión conservar", "conflicto por resolver", "conflictos por resolver"),
                                      ("quita el enlace", "enlace quitado", "enlaces quitados"),
                                      ("lo borraría sin respaldo", "archivo real en juego", "archivos reales en juego"),
@@ -154,7 +171,9 @@ def consecuencias(operacion: str, nombre: str, filas: list[dict], huerfanos: lis
     if operacion == "adoptar" and any(f["accion"] == "lo mueve al repo y lo enlaza" for f in filas):
         texto += " Los archivos movidos aparecen después en Cambios, para confirmarlos (el repo es público)."
     if terminal:
-        texto += " Hay archivos en los dos lados: main.sh pregunta cuál conservar, así que se abre en una terminal."
+        texto += " Hay archivos en los dos lados sin versión elegida: main.sh pregunta cuál conservar, así que se abre en una terminal."
+    elif any(f.get("eleccion") in ("l", "r") for f in filas):
+        texto += " Los conflictos se resuelven con la versión elegida en la ventana; antes se guarda un respaldo en .backups/."
     if huerfanos:
         texto += " main.sh preguntará si borra del repo los huérfanos; sin respuesta, se conservan."
     return texto

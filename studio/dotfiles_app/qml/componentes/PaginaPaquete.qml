@@ -47,15 +47,16 @@ ColumnLayout {
             Flow {
                 Layout.fillWidth: true
                 spacing: Kirigami.Units.smallSpacing
-                EtiquetaEstado { texto: raiz.p.textoEstado || ""; nivel: raiz.p.nivel || "" }
-                EtiquetaEstado { texto: raiz.p.total ? raiz.p.enlazados + "/" + raiz.p.total + " enlazados" : ""; icono: "emblem-symbolic-link" }
-                EtiquetaEstado {
-                    texto: raiz.p.instalada === undefined ? "" : raiz.p.instalada ? raiz.p.aplicacion + " instalada" : raiz.p.aplicacion + " no instalada"
+                EtiquetaNivel { visible: text !== ""; text: raiz.p.textoEstado || ""; nivel: raiz.p.nivel || "" }
+                EtiquetaNivel { visible: text !== ""; text: raiz.p.total ? raiz.p.enlazados + "/" + raiz.p.total + " enlazados" : ""; icono: "emblem-symbolic-link" }
+                EtiquetaNivel {
+                    visible: text !== ""
+                    text: raiz.p.instalada === undefined ? "" : raiz.p.instalada ? raiz.p.aplicacion + " instalada" : raiz.p.aplicacion + " no instalada"
                     nivel: raiz.p.instalada ? "" : "neutro"
                     icono: raiz.p.instalada ? "checkmark" : "dialog-warning"
                 }
-                EtiquetaEstado { texto: raiz.p.hibridos ? raiz.p.hibridos + " híbrido" + (raiz.p.hibridos > 1 ? "s" : "") : ""; icono: "document-edit" }
-                EtiquetaEstado { texto: raiz.p.cambios ? raiz.p.cambios + " sin confirmar" : ""; icono: "vcs-locally-modified"; nivel: "neutro" }
+                EtiquetaNivel { visible: text !== ""; text: raiz.p.hibridos ? raiz.p.hibridos + " híbrido" + (raiz.p.hibridos > 1 ? "s" : "") : ""; icono: "document-edit" }
+                EtiquetaNivel { visible: text !== ""; text: raiz.p.cambios ? raiz.p.cambios + " sin confirmar" : ""; icono: "vcs-locally-modified"; nivel: "neutro" }
             }
         }
         QQC2.ToolButton {
@@ -146,9 +147,9 @@ ColumnLayout {
                 spacing: Kirigami.Units.smallSpacing
                 Kirigami.Icon { source: "view-list-details"; implicitWidth: Kirigami.Units.iconSizes.small; implicitHeight: implicitWidth }
                 QQC2.Label { text: "Plan: " + (raiz.pl.resumen || "—"); font.bold: true }
-                EtiquetaEstado { texto: raiz.pl.respaldo ? "respaldo antes en .backups/" : ""; icono: "document-save" }
-                EtiquetaEstado { texto: raiz.pl.terminal ? "pregunta: se abre en una terminal" : ""; icono: "utilities-terminal"; nivel: "neutro" }
-                EtiquetaEstado { texto: raiz.pl.estadoOperacion ? studio.acciones.accion("paq." + raiz.catalogo.operacion).operacionTexto : "" }
+                EtiquetaNivel { visible: text !== ""; text: raiz.pl.respaldo ? "respaldo antes en .backups/" : ""; icono: "document-save" }
+                EtiquetaNivel { visible: text !== ""; text: raiz.pl.terminal ? "pregunta: se abre en una terminal" : ""; icono: "utilities-terminal"; nivel: "neutro" }
+                EtiquetaNivel { visible: text !== ""; text: raiz.pl.estadoOperacion ? studio.acciones.accion("paq." + raiz.catalogo.operacion).operacionTexto : "" }
             }
             Kirigami.InlineMessage {
                 Layout.fillWidth: true
@@ -211,7 +212,7 @@ ColumnLayout {
                                     font.bold: fila.highlighted
                                     color: fila.highlighted ? Kirigami.Theme.highlightedTextColor : Kirigami.Theme.textColor
                                 }
-                                EtiquetaEstado { texto: fila.modelData.hibrido ? "híbrido" : "" }
+                                EtiquetaNivel { visible: text !== ""; text: fila.modelData.hibrido ? "híbrido" : "" }
                             }
                             QQC2.Label {
                                 text: fila.modelData.accion + (fila.modelData.detalle ? " · " + fila.modelData.detalle : "")
@@ -282,7 +283,20 @@ ColumnLayout {
                         }
                         BotonAccion { accion: raiz.registro.accion("archivo.abrir"); conTexto: false }
                     }
-                    VistaDiferencia {
+                    // la versión de un conflicto al adoptar (2026-11-03): main.sh --elecciones, sin terminal
+                    Kirigami.InlineMessage {
+                        Layout.fillWidth: true
+                        Layout.margins: Kirigami.Units.smallSpacing
+                        visible: raiz.catalogo.operacion === "adoptar" && raiz.catalogo.filaPlan.estado === "conflicto"
+                        type: Kirigami.MessageType.Warning
+                        text: "Está en HOME y en el repo con contenido distinto: ¿qué versión se queda al adoptar?"
+                        actions: [
+                            Kirigami.Action { text: "La de HOME, al repo"; icon.name: "go-home"; checkable: true; checked: raiz.catalogo.elecciones[raiz.catalogo.archivo] === "l"; onTriggered: raiz.catalogo.fijarEleccion(raiz.catalogo.archivo, checked ? "l" : "") },
+                            Kirigami.Action { text: "La del repo"; icon.name: "folder-git"; checkable: true; checked: raiz.catalogo.elecciones[raiz.catalogo.archivo] === "r"; onTriggered: raiz.catalogo.fijarEleccion(raiz.catalogo.archivo, checked ? "r" : "") },
+                            Kirigami.Action { text: "Saltar"; icon.name: "go-next-skip"; checkable: true; checked: raiz.catalogo.elecciones[raiz.catalogo.archivo] === "s"; onTriggered: raiz.catalogo.fijarEleccion(raiz.catalogo.archivo, checked ? "s" : "") }
+                        ]
+                    }
+                    VistaComparacion {
                         Layout.fillWidth: true
                         Layout.fillHeight: true
                         diferencia: raiz.catalogo.comparacion

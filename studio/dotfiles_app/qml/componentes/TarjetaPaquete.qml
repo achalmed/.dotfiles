@@ -6,6 +6,7 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls as QQC2
 import org.kde.kirigami as Kirigami
+import GuiComun
 
 QQC2.ItemDelegate {
     id: raiz
@@ -57,14 +58,15 @@ QQC2.ItemDelegate {
                 Layout.fillWidth: true
                 Layout.topMargin: Kirigami.Units.smallSpacing
                 spacing: Kirigami.Units.smallSpacing
-                EtiquetaEstado { texto: raiz.datos.textoEstado || ""; nivel: raiz.datos.nivel || "" }
-                EtiquetaEstado {
-                    texto: raiz.datos.total ? raiz.datos.enlazados + "/" + raiz.datos.total + " enlazados" : ""
+                EtiquetaNivel { visible: text !== ""; text: raiz.datos.textoEstado || ""; nivel: raiz.datos.nivel || "" }
+                EtiquetaNivel {
+                    visible: text !== ""
+                    text: raiz.datos.total ? raiz.datos.enlazados + "/" + raiz.datos.total + " enlazados" : ""
                     icono: "emblem-symbolic-link"
                 }
-                EtiquetaEstado { texto: raiz.datos.hibridos ? raiz.datos.hibridos + " híbrido" + (raiz.datos.hibridos > 1 ? "s" : "") : ""; icono: "document-edit" }
-                EtiquetaEstado { texto: raiz.datos.cambios ? raiz.datos.cambios + " sin confirmar" : ""; icono: "vcs-locally-modified"; nivel: "neutro" }
-                EtiquetaEstado { texto: raiz.datos.instalada === false ? "aplicación no instalada" : ""; icono: "dialog-information" }
+                EtiquetaNivel { visible: text !== ""; text: raiz.datos.hibridos ? raiz.datos.hibridos + " híbrido" + (raiz.datos.hibridos > 1 ? "s" : "") : ""; icono: "document-edit" }
+                EtiquetaNivel { visible: text !== ""; text: raiz.datos.cambios ? raiz.datos.cambios + " sin confirmar" : ""; icono: "vcs-locally-modified"; nivel: "neutro" }
+                EtiquetaNivel { visible: text !== ""; text: raiz.datos.instalada === false ? "aplicación no instalada" : ""; icono: "dialog-information" }
             }
         }
         QQC2.Button {
