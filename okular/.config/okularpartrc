@@ -1,3 +1,7 @@
+[Core General]
+ExternalEditor=Custom
+ExternalEditorCommand=/usr/bin/python3 /home/achalmaedison/Documents/latex-studio/studio/main.py --ir %f %l
+
 [General]
 ttsEngine=
 
