@@ -126,4 +126,4 @@ carpeta. Sin ellos, `studio/main.py` dice cómo instalarlos y sale con 3; `main.
 
 | consumidor | qué usa | contrato |
 |---|---|---|
-| la capa de diseño editorial (`sistema-editorial`) | Source Serif 4 instalada por `instalar-fuentes` | la familia y su versión las fija `USER_FONTS`; cambiarlas obliga a avisar a ese consumidor |
+| la capa de diseño editorial (`estilos-visuales`) | Source Serif 4 instalada por `instalar-fuentes` | la familia y su versión las fija `USER_FONTS`; cambiarlas obliga a avisar a ese consumidor |
