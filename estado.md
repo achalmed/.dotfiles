@@ -26,9 +26,9 @@ nada en curso
 
 ## Por hacer
 
-- 2026-11-11 · dueño: el autor · terminar la corrección en español: `sudo apt install hunspell-es` (KDE no tiene
-  diccionario de español sin él); cerrar Zen y la app de Claude, correr `corrector-espanol --aplicar` en Konsole y
-  volver a abrirlos; comprobar en cada uno que «errorr» sale en rojo y «corrección» no.
+- 2026-11-11 · dueño: el autor · terminar la corrección en español (`hunspell-es` ya instalado): cerrar Zen y la app
+  de Claude, correr `corrector-espanol --aplicar` en Konsole y volver a abrirlos; comprobar en cada uno, y en Kate,
+  que «errorr» sale en rojo y «corrección» no.
 
 - 2026-11-02 · dueño: el autor · probar Dotfiles Studio en la sesión real (Wayland) con su HOME, también elegir la versión de un conflicto al adoptar. La instalación por pip apunta a la etiqueta `v4.0.0` de `gui-comun` (la empuja el director con el resto); tras la fusión, `./main.sh instalar-studio` para el lanzador.
 - 2026-11-02 · dueño: director · lo que quedó fuera de la ventana (`docs/reingenieria.md` §5): `sync-pull` y `sync-push`
