@@ -13,6 +13,7 @@ en `docs/decisiones.md` §Pendientes. Nada aquí lleva rutas de máquina: el rep
 
 | fecha | qué | dónde se ve |
 |---|---|---|
+| 2026-11-11 | **Paquete `panel`**: la barra superior de Plasma en cada monitor. `panel-en-cada-pantalla` copia la de la pantalla principal (sus 10 widgets y su configuración, menos la nota y la bandeja interna) a cada pantalla sin barra; simula por defecto. Aplicado en esta sesión: la segunda pantalla ya tiene la barra, idéntica, y se mantiene al pasar a claro y volver a oscuro (comprobado con capturas). La barra la trae el tema de Lliphi (decisiones 5.51 de Lliphi) | `docs/paquetes.md`; `config.sh` (`panel`) |
 | 2026-11-11 | **Paquete `ortografia`**: corrección en español (es-PE/es-419 con inglés) y la interfaz sigue en inglés. `Sonnet.conf` enlazado para KDE; `corrector-espanol` para Chromium, Electron y Firefox (simula, `--aplicar` con la aplicación cerrada, copia `.antes-corrector-<fecha>`); `hunspell-es` en `instalar-deps`. Aplicado en Chrome y Firefox (Snap) | `docs/paquetes.md`; `docs/decisiones.md` §Qué se versiona |
 | 2026-11-03 | **Pendientes de la reingeniería** (carril A): la versión de cada conflicto al **adoptar se elige en la ventana** (sobre la comparación: la de HOME, la del repo o saltar) y `main.sh adoptar --elecciones ARCHIVO` lo hace sin terminal (opción nueva del gestor; simular dice qué se usaría); la ventana usa `VistaComparacion`, `VistaTexto` y `EtiquetaNivel` de `gui-comun` 3.1 (retiradas cuatro copias y `servicios/diferencias.py`); requiere `gui-comun` ≥ 3.1 (`v4.0.0`); 55 pruebas | `docs/reingenieria.md` §6; `tests/test_servicios.py` |
 | 2026-11-02 | **Reingeniería de Dotfiles Studio** (rama `wip/2026-11-02-reingenieria`, carril A, sin fusionar ni empujar). Ahora es un gestor de paquetes de configuración al estilo de Discover sobre `gui-comun` 3.0: portada de tarjetas y página por paquete con la comparación repo ⟷ HOME, el plan por archivo y la orden exacta antes de instalar, adoptar, actualizar o quitar enlaces. Aplicar confirma con consecuencias y estado de operación, y verifica después; `actualizar` se bloquea si borraría sin respaldo. Hay estado «local». Cambios va lado a lado, con los híbridos y el filtro `clean` explicados. El escáner tiene 16 patrones con nombre más los `.env`, informa archivo, línea y tipo, nunca el valor. Sistema muestra las dependencias. `--dry-run` ya no crea carpetas (`lib/stow_ops.sh`, commit propio). 53 pruebas | `docs/reingenieria.md`; `docs/figuras/`; `studio/README.md`; `git log` |
@@ -26,6 +27,9 @@ nada en curso
 
 ## Por hacer
 
+- 2026-11-11 · dueño: el autor · enlazar el paquete `panel` (`./main.sh instalar -p panel`; el asistente no pudo:
+  crea un autoarranque) para que la barra aparezca sola en el tercer monitor al conectarlo. Mientras tanto, con el
+  monitor conectado, `~/.dotfiles/panel/.local/bin/panel-en-cada-pantalla --aplicar`.
 - 2026-11-11 · dueño: el autor · terminar la corrección en español (`hunspell-es` ya instalado): cerrar Zen y la app
   de Claude, correr `corrector-espanol --aplicar` en Konsole y volver a abrirlos; comprobar en cada uno, y en Kate,
   que «errorr» sale en rojo y «corrección» no.

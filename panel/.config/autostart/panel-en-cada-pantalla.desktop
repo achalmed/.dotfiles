@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Barra superior en cada pantalla
+Comment=Repite la barra superior de la pantalla principal en cada monitor que se conecte
+Exec=sh -c '"$HOME/.local/bin/panel-en-cada-pantalla" --vigilar'
+OnlyShowIn=KDE;
+NoDisplay=true
+X-KDE-autostart-phase=2

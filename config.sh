@@ -90,6 +90,7 @@ readonly STOW_PACKAGES=(
     vim           # Vim: ~/.vimrc
     nvim          # Neovim: ~/.config/nvim/init.lua
     ortografia    # corrección ortográfica en español: Sonnet de KDE y el aplicador de navegadores
+    panel         # la barra superior de Plasma repetida en cada monitor
 )
 
 # =============================================================================
@@ -235,6 +236,16 @@ PACKAGE_FILES["nvim"]=".config/nvim/init.lua"
 PACKAGE_FILES["ortografia"]=\
 ".config/KDE/Sonnet.conf|\
 .local/bin/corrector-espanol"
+
+# panel: la barra superior de Plasma en cada monitor. La disposición de paneles es estado y no se versiona
+# (plasma-org.kde.plasma.desktop-appletsrc, arriba en kde); lo que se versiona es la regla: la barra de la pantalla
+# principal se repite en cada monitor que no la tenga. La barra misma (sus widgets) la trae el tema global de Lliphi
+# («Disposición del escritorio»), que ya no cambia entre claro y oscuro.
+#   panel-en-cada-pantalla            → simula; --aplicar la crea donde falta; --vigilar además sigue los monitores
+#   autostart/…desktop                → --vigilar al iniciar la sesión (un monitor conectado después recibe su barra)
+PACKAGE_FILES["panel"]=\
+".local/bin/panel-en-cada-pantalla|\
+.config/autostart/panel-en-cada-pantalla.desktop"
 
 # --- Patrones de datos sensibles a revisar antes de push --------------------
 # Expresiones extendidas (grep -iE). Las de clave=valor buscan la palabra seguida

@@ -39,6 +39,7 @@ máquina, estado de sesión, credenciales ni nada regenerable. La selección es 
 | `koreader` | ajustes de lectura propios por el mecanismo oficial de KOReader (sobrescrituras de usuario, gestos, teclas, valores por carpeta) |
 | `systemd` | unidades de usuario que corrigen la máquina, no las que instalan los repos del espacio de trabajo: `audio-sesion-local.service` devuelve el audio de la sesión local a PipeWire cuando Chrome Remote Desktop, que abre su sesión X al arrancar, filtra el suyo al entorno de `systemd --user`; tras instalar se habilita con `systemctl --user enable` |
 | `ortografia` | corrección ortográfica en español (con inglés) sin cambiar la interfaz: `Sonnet.conf` para KDE y `corrector-espanol` para Chrome, Brave, Chromium, la app de Claude, Zen y Firefox, que se corre con cada aplicación cerrada (`corrector-espanol --aplicar`; sin la opción, simula); pide el diccionario del sistema `hunspell-es`, que instala `instalar-deps` |
+| `panel` | la barra superior de Plasma en cada monitor: `panel-en-cada-pantalla` copia la barra de la pantalla principal (widgets, orden y configuración) a cada pantalla que no la tenga; simula por defecto, `--aplicar` la crea y `--vigilar`, que arranca con la sesión (`autostart`), lo repite cada vez que cambian los monitores conectados. La barra misma la trae el tema global de Lliphi; la disposición de paneles sigue excluida (abajo) |
 
 ## Archivos híbridos
 
@@ -62,7 +63,7 @@ con el mecanismo propio de la aplicación.
 | Zotero | `prefs.js` | marcas de sincronización y geometría; la ruta del perfil no es portable |
 | Okular | `okularrc` | archivos recientes y geometría (las preferencias están en `okularpartrc`) |
 | LibreOffice | `registrymodifications.xcu` | recientes, posiciones y rutas locales en un archivo que cambia en cada uso |
-| Plasma | `plasma-org.kde.plasma.desktop-appletsrc`, `plasmashellrc` | disposición de paneles y estado por monitor |
+| Plasma | `plasma-org.kde.plasma.desktop-appletsrc`, `plasmashellrc` | disposición de paneles y estado por monitor; la regla «la barra en cada monitor» sí se versiona, en el paquete `panel` |
 | Konsole | `konsolesshconfig` | estado de plugin, sin personalización |
 | Obsidian | `workspace.json`, `core-plugins-migration.json`, `vault-stats.json`, código de plugins | estado de ventanas y de migración; el código se reinstala desde `community-plugins.json` |
 | calibre | `gui.json`, `gui.py.json` | geometría y modelo del monitor; historial de búsquedas |

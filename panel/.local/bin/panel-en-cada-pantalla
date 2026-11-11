@@ -1,0 +1,124 @@
+#!/usr/bin/env bash
+# panel-en-cada-pantalla — repite la barra superior de la pantalla principal en cada pantalla que no la tenga.
+#
+# Plasma no tiene «un panel en todas las pantallas»: un monitor que se conecta recibe escritorio, pero no panel. Este
+# guion lee la barra superior de la pantalla 0 (la principal: sus widgets en su orden y la configuración de cada uno)
+# y la crea igual en las demás, por la API de scripting de Plasma (org.kde.PlasmaShell.evaluateScript). Es
+# idempotente: una pantalla que ya tiene panel arriba no se toca. No copia el identificador de la nota del widget de
+# notas (cada barra tiene su nota) ni la configuración interna de la bandeja (la nueva arranca con la de serie).
+#
+# Uso:
+#   panel-en-cada-pantalla              simula: qué pantallas recibirían la barra (no escribe)
+#   panel-en-cada-pantalla --aplicar    la crea donde falta
+#   panel-en-cada-pantalla --vigilar    la crea donde falta y vuelve a hacerlo cada vez que cambian los monitores
+#                                       conectados (lo arranca la sesión: ~/.config/autostart)
+set -euo pipefail
+
+readonly INTERVALO=5          # segundos entre lecturas de /sys/class/drm al vigilar
+readonly ESPERA_PLASMA=60     # segundos que se espera a plasmashell al iniciar la sesión
+
+modo="${1:---simular}"
+case "$modo" in
+    --simular|--dry-run|--aplicar|--vigilar) ;;
+    -h|--help) sed -n '2,16p' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
+    *) echo "panel-en-cada-pantalla: opción desconocida: $modo (ver --help)" >&2; exit 2 ;;
+esac
+
+js() {
+    local aplicar="$1"
+    cat <<EOF
+var aplicar = ${aplicar};
+var salida = [];
+function decir(texto) { salida.push(texto); }
+var todos = panels();
+var arriba = {};
+var ref = null;
+for (var i = 0; i < todos.length; i++) {
+    if (todos[i].location !== "top" || todos[i].screen < 0) continue;
+    arriba[todos[i].screen] = true;
+    if (todos[i].screen === 0) ref = todos[i];
+}
+if (!ref) {
+    decir("sin barra superior en la pantalla principal: nada que copiar");
+} else {
+    ref.currentConfigGroup = ["General"];
+    var orden = String(ref.readConfig("AppletOrder", "")).split(";");
+    var widgets = ref.widgets();
+    widgets.sort(function (a, b) {
+        var ia = orden.indexOf(String(a.id)), ib = orden.indexOf(String(b.id));
+        return (ia < 0 ? 1e6 + a.id : ia) - (ib < 0 ? 1e6 + b.id : ib);
+    });
+    function copiar(origen, destino, grupo, nivel) {
+        origen.currentConfigGroup = grupo;
+        var claves = origen.configKeys, subgrupos = origen.configGroups;
+        for (var k = 0; k < claves.length; k++) {
+            if (claves[k] === "noteId") continue;
+            origen.currentConfigGroup = grupo;
+            var valor = origen.readConfig(claves[k]);
+            destino.currentConfigGroup = grupo;
+            destino.writeConfig(claves[k], valor);
+        }
+        if (nivel < 3) for (var g = 0; g < subgrupos.length; g++) copiar(origen, destino, grupo.concat([subgrupos[g]]), nivel + 1);
+    }
+    var hechas = 0;
+    for (var s = 1; s < screenCount; s++) {
+        if (arriba[s]) { decir("pantalla " + s + ": ya tiene barra"); continue; }
+        if (!aplicar) { decir("pantalla " + s + ": recibiría la barra (" + widgets.length + " widgets)"); continue; }
+        var p = new Panel;
+        p.screen = s;
+        p.location = "top";
+        p.height = ref.height;
+        p.hiding = ref.hiding;
+        p.floating = ref.floating;
+        p.lengthMode = ref.lengthMode;
+        p.alignment = ref.alignment;
+        for (var j = 0; j < widgets.length; j++) {
+            var w = p.addWidget(widgets[j].type);
+            if (widgets[j].type !== "org.kde.plasma.systemtray") copiar(widgets[j], w, [], 0);
+        }
+        hechas++;
+        decir("pantalla " + s + ": barra creada (" + widgets.length + " widgets)");
+    }
+    decir(screenCount + " pantalla(s); " + (aplicar ? hechas + " barra(s) nueva(s)" : "simulación, nada escrito (--aplicar para crearlas)"));
+}
+print(salida.join("\n"));
+EOF
+}
+
+evaluar() {
+    busctl --user call org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell evaluateScript s "$(js "$1")" \
+        | sed -e 's/^s "//' -e 's/"$//' | { IFS= read -r -d '' texto || true; printf '%b\n' "$texto"; }
+}
+
+conectadas() {
+    local f
+    for f in /sys/class/drm/card*-*/status; do
+        [[ -r "$f" ]] && [[ "$(<"$f")" == connected ]] && echo "${f%/status}"
+    done | sort | tr '\n' ' '
+}
+
+esperar_plasma() {
+    local t=0
+    until busctl --user status org.kde.plasmashell >/dev/null 2>&1; do
+        (( t++ >= ESPERA_PLASMA )) && { echo "panel-en-cada-pantalla: plasmashell no respondió" >&2; return 1; }
+        sleep 1
+    done
+}
+
+case "$modo" in
+    --simular|--dry-run) evaluar false ;;
+    --aplicar) evaluar true ;;
+    --vigilar)
+        esperar_plasma
+        sleep 3          # que Plasma termine de colocar los paneles de la sesión
+        evaluar true
+        antes="$(conectadas)"
+        while sleep "$INTERVALO"; do
+            ahora="$(conectadas)"
+            [[ "$ahora" == "$antes" ]] && continue
+            antes="$ahora"
+            sleep 3      # que KScreen y Plasma den de alta la pantalla nueva
+            busctl --user status org.kde.plasmashell >/dev/null 2>&1 && evaluar true || true
+        done
+        ;;
+esac
