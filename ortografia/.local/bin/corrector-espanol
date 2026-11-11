@@ -1,0 +1,224 @@
+#!/usr/bin/env python3
+"""corrector-espanol: corrección ortográfica en español (y en inglés) sin cambiar el idioma de la interfaz.
+
+Pone el español como idioma de corrección en los navegadores de la familia Chromium (Chrome, Chromium,
+Brave), en la aplicación de Claude (Electron) y en los de la familia Firefox (Zen, Firefox, LibreWolf).
+KDE no pasa por aquí: su corrector (Sonnet) lee ~/.config/KDE/Sonnet.conf, que es un archivo del paquete
+`ortografia` de los dotfiles.
+
+Simula por defecto; `--aplicar` escribe. Cada aplicación tiene que estar CERRADA: Chromium y Firefox guardan
+sus preferencias desde la memoria al salir y pisarían el cambio. Antes de escribir deja una copia
+`<archivo>.antes-corrector-<fecha>` junto al original. Es idempotente: lo que ya está en español no se toca.
+
+Uso:
+    corrector-espanol             # simula: qué cambiaría en cada perfil
+    corrector-espanol --aplicar   # escribe en los perfiles de las aplicaciones cerradas
+
+Sale con 0 si todo quedó (o ya estaba) en español, 1 si algún perfil quedó pendiente por estar abierto.
+"""
+from __future__ import annotations
+
+import argparse
+import configparser
+import datetime as dt
+import json
+import os
+import re
+import shutil
+import sys
+import subprocess
+import tempfile
+from pathlib import Path
+
+CASA = Path.home()
+
+# Chromium no trae diccionario es-PE: es-419 es el español de América Latina. El inglés se conserva para
+# que el texto técnico no salga en rojo; Chromium acepta una palabra si cualquiera de los dos la conoce.
+CHROMIUM_DICCIONARIOS = ["es-419", "en-US"]
+# Firefox guarda la lista separada por comas; es-PE lo trae el runtime de Flatpak y el paquete hunspell-es.
+FIREFOX_DICCIONARIOS = "es-PE,en-US"
+
+# (nombre, carpeta de datos relativa a la carpeta de inicio)
+CHROMIUM = [
+    ("Claude", ".config/Claude"),
+    ("Google Chrome", ".config/google-chrome"),
+    ("Google Chrome (Flatpak)", ".var/app/com.google.Chrome/config/google-chrome"),
+    ("Chromium", ".config/chromium"),
+    ("Chromium (Flatpak)", ".var/app/org.chromium.Chromium/config/chromium"),
+    ("Ungoogled Chromium (Flatpak)", ".var/app/io.github.ungoogled_software.ungoogled_chromium/config/chromium"),
+    ("Brave", ".config/BraveSoftware/Brave-Browser"),
+]
+FIREFOX = [
+    ("Zen (Flatpak)", ".var/app/app.zen_browser.zen/.zen"),
+    ("Zen", ".zen"),
+    ("Firefox", ".mozilla/firefox"),
+    ("Firefox (Snap)", "snap/firefox/common/.mozilla/firefox"),
+    ("Firefox (Flatpak)", ".var/app/org.mozilla.firefox/.mozilla/firefox"),
+    ("LibreWolf (Flatpak)", ".var/app/io.gitlab.librewolf-community/.librewolf"),
+]
+
+SELLO = dt.datetime.now().strftime("%Y%m%d-%H%M%S")
+
+
+def abierta(candado: Path) -> bool:
+    """¿Sigue viva la aplicación dueña del candado? Un candado huérfano (tras un cierre brusco) no cuenta.
+
+    Chromium escribe «máquina-PID» en SingletonLock y Firefox «IP:+PID» en lock. En Flatpak el PID es el
+    del espacio de procesos del sandbox, así que se pregunta a flatpak si la aplicación corre.
+    """
+    if not os.path.lexists(candado):
+        return False
+    partes = candado.relative_to(CASA).parts
+    if len(partes) > 2 and partes[:2] == (".var", "app"):
+        try:
+            salida = subprocess.run(["flatpak", "ps", "--columns=application"],
+                                    capture_output=True, text=True, check=True).stdout
+        except (OSError, subprocess.CalledProcessError):
+            return True
+        return partes[2] in salida.split()
+    m = re.search(r"(\d+)$", os.readlink(candado))
+    return bool(m) and Path(f"/proc/{m.group(1)}").exists()
+
+
+def respaldar(archivo: Path) -> Path:
+    copia = archivo.with_name(f"{archivo.name}.antes-corrector-{SELLO}")
+    shutil.copy2(archivo, copia)
+    return copia
+
+
+def escribir_atomico(archivo: Path, texto: str) -> None:
+    """Escribe en un temporal de la misma carpeta y lo renombra, con los permisos del original."""
+    fd, tmp = tempfile.mkstemp(dir=archivo.parent, prefix=f".{archivo.name}.")
+    with os.fdopen(fd, "w", encoding="utf-8") as f:
+        f.write(texto)
+    shutil.copymode(archivo, tmp)
+    os.replace(tmp, archivo)
+
+
+# --- Chromium y Electron ---------------------------------------------------------------------------------
+
+def perfiles_chromium(datos: Path) -> list[Path]:
+    """La aplicación de Claude guarda su perfil en la raíz; los navegadores, en Default y Profile N."""
+    candidatos = [datos / "Preferences", datos / "Default" / "Preferences"]
+    candidatos += sorted(datos.glob("Profile */Preferences"))
+    return [p for p in candidatos if p.is_file()]
+
+
+def idiomas_con_espanol(actuales: str) -> str:
+    """Añade es-419 al final de la lista de idiomas de las páginas: el inglés sigue primero."""
+    lista = [x for x in actuales.split(",") if x] if actuales else ["en-US", "en"]
+    if not any(x.lower().startswith("es") for x in lista):
+        lista.append("es-419")
+    return ",".join(lista)
+
+
+def chromium(nombre: str, datos: Path, aplicar: bool) -> bool:
+    """Devuelve False si quedó pendiente (aplicación abierta)."""
+    perfiles = perfiles_chromium(datos)
+    if not perfiles:
+        return True
+    en_uso = abierta(datos / "SingletonLock")
+    ok = True
+    for pref in perfiles:
+        etiqueta = f"{nombre} · {pref.parent.name if pref.parent != datos else 'perfil'}"
+        d = json.loads(pref.read_text(encoding="utf-8"))
+        corr = d.setdefault("spellcheck", {})
+        intl = d.setdefault("intl", {})
+        antes = list(corr.get("dictionaries", []))
+        nuevos = CHROMIUM_DICCIONARIOS + [x for x in antes if x not in CHROMIUM_DICCIONARIOS]
+        # Chromium descarta los diccionarios cuyo idioma no figura entre los de las páginas.
+        idiomas_antes = intl.get("accept_languages", "")
+        idiomas = idiomas_con_espanol(idiomas_antes)
+        if antes == nuevos and idiomas == idiomas_antes:
+            print(f"  ✓ {etiqueta}: ya corrige en {', '.join(antes)}")
+            continue
+        print(f"  → {etiqueta}: diccionarios {antes or '[]'} → {nuevos}; idiomas de las páginas «{idiomas_antes}» → «{idiomas}»")
+        if en_uso:
+            print(f"    ✗ {nombre} está abierto: ciérrelo y repita")
+            ok = False
+            continue
+        if not aplicar:
+            continue
+        corr["dictionaries"] = nuevos
+        corr["use_spelling_service"] = False
+        intl["accept_languages"] = idiomas
+        if "selected_languages" in intl:
+            intl["selected_languages"] = idiomas_con_espanol(intl["selected_languages"])
+        copia = respaldar(pref)
+        escribir_atomico(pref, json.dumps(d, ensure_ascii=False, separators=(",", ":")))
+        print(f"    escrito; copia en {copia.name}")
+    return ok
+
+
+# --- Firefox y Zen -----------------------------------------------------------------------------------------
+
+PREF = "spellchecker.dictionary"
+LINEA = re.compile(r'^\s*user_pref\("spellchecker\.dictionary",\s*"([^"]*)"\);\s*$', re.M)
+
+
+def perfiles_firefox(raiz: Path) -> list[Path]:
+    ini = raiz / "profiles.ini"
+    if not ini.is_file():
+        return []
+    cp = configparser.ConfigParser(interpolation=None)
+    cp.read(ini, encoding="utf-8")
+    perfiles = []
+    for seccion in cp.sections():
+        if not seccion.startswith("Profile") or "Path" not in cp[seccion]:
+            continue
+        ruta = cp[seccion]["Path"]
+        p = raiz / ruta if cp[seccion].get("IsRelative", "1") == "1" else Path(ruta)
+        if (p / "prefs.js").is_file():
+            perfiles.append(p)
+    return perfiles
+
+
+def firefox(nombre: str, raiz: Path, aplicar: bool) -> bool:
+    ok = True
+    for perfil in perfiles_firefox(raiz):
+        etiqueta = f"{nombre} · {perfil.name}"
+        prefs = perfil / "prefs.js"
+        texto = prefs.read_text(encoding="utf-8")
+        m = LINEA.search(texto)
+        antes = m.group(1) if m else ""
+        user_js = perfil / "user.js"
+        if user_js.is_file() and LINEA.search(user_js.read_text(encoding="utf-8")):
+            print(f"  ! {etiqueta}: user.js fija {PREF} y manda sobre prefs.js; corríjalo en quien lo genera")
+        if antes == FIREFOX_DICCIONARIOS:
+            print(f"  ✓ {etiqueta}: ya corrige en {antes}")
+            continue
+        print(f"  → {etiqueta}: {PREF} «{antes}» → «{FIREFOX_DICCIONARIOS}»")
+        if abierta(perfil / "lock"):
+            print(f"    ✗ {nombre} está abierto: ciérrelo y repita")
+            ok = False
+            continue
+        if not aplicar:
+            continue
+        linea = f'user_pref("{PREF}", "{FIREFOX_DICCIONARIOS}");'
+        nuevo = LINEA.sub(linea, texto) if m else texto.rstrip("\n") + "\n" + linea + "\n"
+        copia = respaldar(prefs)
+        escribir_atomico(prefs, nuevo)
+        print(f"    escrito; copia en {copia.name}")
+    return ok
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
+    ap.add_argument("--aplicar", action="store_true", help="escribe (sin esto, solo simula)")
+    args = ap.parse_args()
+
+    print("Simulación (nada se escribe; --aplicar para escribir)" if not args.aplicar else "Aplicando")
+    ok = True
+    for nombre, rel in CHROMIUM:
+        if (CASA / rel).is_dir():
+            ok &= chromium(nombre, CASA / rel, args.aplicar)
+    for nombre, rel in FIREFOX:
+        if (CASA / rel).is_dir():
+            ok &= firefox(nombre, CASA / rel, args.aplicar)
+    if not Path("/usr/share/hunspell/es_PE.dic").exists():
+        print("\n! Falta el diccionario del sistema (KDE, Firefox nativo): sudo apt install hunspell-es")
+    return 0 if ok else 1
+
+
+if __name__ == "__main__":
+    sys.exit(main())

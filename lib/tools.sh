@@ -263,6 +263,7 @@ install_dependencies() {
     esac
     # Las fuentes de usuario no dependen de la distro: van después, sin sudo.
     install_user_fonts
+    log_info "Corrección en español en navegadores y en la app de Claude: con ellos cerrados, corrector-espanol --aplicar"
     log_info "Opcional, la ventana (Dotfiles Studio): el Qt del sistema con Kirigami y gui-comun; studio/main.py dice qué instalar y luego ./main.sh instalar-studio"
 }
 
@@ -358,7 +359,8 @@ _install_font_zip() {
 # Instala dependencias en Arch Linux y derivados (pacman).
 _install_deps_arch() {
     sudo pacman -Sy --noconfirm 2>/dev/null || log_warn "No se pudo actualizar pacman"
-    local packages=("stow" "git" "zsh" "starship" "curl" "zram-generator")
+    # hunspell-es_pe: el diccionario del paquete ortografia (Sonnet de KDE y Firefox nativo).
+    local packages=("stow" "git" "zsh" "starship" "curl" "zram-generator" "hunspell-es_pe")
     local to_install=()
     for pkg in "${packages[@]}"; do
         if ! pacman -Q "$pkg" &>/dev/null; then
@@ -379,7 +381,8 @@ _install_deps_arch() {
 # Starship requiere instalación separada via curl (no está en repos oficiales).
 _install_deps_apt() {
     sudo apt update -qq || log_warn "No se pudo actualizar apt"
-    local packages=("stow" "git" "zsh" "curl" "systemd-zram-generator")
+    # hunspell-es: el diccionario del paquete ortografia (Sonnet de KDE y Firefox nativo; trae es_PE).
+    local packages=("stow" "git" "zsh" "curl" "systemd-zram-generator" "hunspell-es")
     local to_install=()
     for pkg in "${packages[@]}"; do
         if ! dpkg -s "$pkg" &>/dev/null; then

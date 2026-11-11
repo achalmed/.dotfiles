@@ -29,6 +29,15 @@ en cada cambio está en el mensaje de commit; aquí queda por qué.
   paquetes ni por TeX Live se instalan con `instalar-fuentes` desde su release oficial,
   verificando el sha256; el repo guarda la receta (`USER_FONTS`), no los binarios. La primera es
   Source Serif 4, que pide la capa de diseño editorial del espacio de trabajo.
+- **Corrección en español, interfaz en inglés** (2026-11-11). El sistema va en inglés y la
+  corrección ortográfica en español del Perú con inglés al lado (el texto técnico no sale en rojo).
+  Es el único paquete que no es una aplicación (`ortografia`), para que la preferencia viva en un
+  solo lugar. KDE la toma de `Sonnet.conf`, que se enlaza. Chromium, Electron y Firefox guardan
+  sus preferencias como estado que reescriben al salir, así que no se enlazan: el paquete trae
+  `corrector-espanol`, un aplicador idempotente que simula por defecto y escribe con la
+  aplicación cerrada. Chromium no trae `es-PE`, por eso usa `es-419`, y además pide el idioma
+  entre los de las páginas, después del inglés. En Zen escribe en `prefs.js`, no en `user.js`,
+  que lo genera Lliphi.
 
 ## Cómo se enlaza
 

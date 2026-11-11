@@ -89,6 +89,7 @@ readonly STOW_PACKAGES=(
     systemd       # unidades de usuario propias de la máquina (no las de los repos)
     vim           # Vim: ~/.vimrc
     nvim          # Neovim: ~/.config/nvim/init.lua
+    ortografia    # corrección ortográfica en español: Sonnet de KDE y el aplicador de navegadores
 )
 
 # =============================================================================
@@ -224,6 +225,16 @@ PACKAGE_FILES["systemd"]=".config/systemd/user/audio-sesion-local.service"
 # ~/.local/share/nvim/site/colors/ (y Vim lo ve por un enlace en ~/.vim/colors/, que tampoco).
 PACKAGE_FILES["vim"]=".vimrc"
 PACKAGE_FILES["nvim"]=".config/nvim/init.lua"
+
+# ortografia: la interfaz en inglés y la corrección en español (con inglés) en todas partes. Es el único
+# paquete que no es una aplicación sino una preferencia transversal: así vive en un solo lugar.
+#   Sonnet.conf        → corrector de KDE (Kate, KMail, campos de texto de Qt); español del Perú + inglés
+#   corrector-espanol  → aplicador para Chromium/Electron (Chrome, Brave, la app de Claude) y Firefox/Zen,
+#                        cuyas preferencias son estado y no se enlazan; simula por defecto, --aplicar con
+#                        cada aplicación cerrada. Requiere el diccionario del sistema: hunspell-es.
+PACKAGE_FILES["ortografia"]=\
+".config/KDE/Sonnet.conf|\
+.local/bin/corrector-espanol"
 
 # --- Patrones de datos sensibles a revisar antes de push --------------------
 # Expresiones extendidas (grep -iE). Las de clave=valor buscan la palabra seguida

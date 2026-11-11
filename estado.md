@@ -1,7 +1,7 @@
 ---
 tipo: estado
 estado: activo
-actualizado: 2026-11-03
+actualizado: 2026-11-11
 ---
 # estado.md — dotfiles (repo público `achalmed/.dotfiles`)
 
@@ -13,6 +13,7 @@ en `docs/decisiones.md` §Pendientes. Nada aquí lleva rutas de máquina: el rep
 
 | fecha | qué | dónde se ve |
 |---|---|---|
+| 2026-11-11 | **Paquete `ortografia`**: corrección en español (es-PE/es-419 con inglés) y la interfaz sigue en inglés. `Sonnet.conf` enlazado para KDE; `corrector-espanol` para Chromium, Electron y Firefox (simula, `--aplicar` con la aplicación cerrada, copia `.antes-corrector-<fecha>`); `hunspell-es` en `instalar-deps`. Aplicado en Chrome y Firefox (Snap) | `docs/paquetes.md`; `docs/decisiones.md` §Qué se versiona |
 | 2026-11-03 | **Pendientes de la reingeniería** (carril A): la versión de cada conflicto al **adoptar se elige en la ventana** (sobre la comparación: la de HOME, la del repo o saltar) y `main.sh adoptar --elecciones ARCHIVO` lo hace sin terminal (opción nueva del gestor; simular dice qué se usaría); la ventana usa `VistaComparacion`, `VistaTexto` y `EtiquetaNivel` de `gui-comun` 3.1 (retiradas cuatro copias y `servicios/diferencias.py`); requiere `gui-comun` ≥ 3.1 (`v4.0.0`); 55 pruebas | `docs/reingenieria.md` §6; `tests/test_servicios.py` |
 | 2026-11-02 | **Reingeniería de Dotfiles Studio** (rama `wip/2026-11-02-reingenieria`, carril A, sin fusionar ni empujar). Ahora es un gestor de paquetes de configuración al estilo de Discover sobre `gui-comun` 3.0: portada de tarjetas y página por paquete con la comparación repo ⟷ HOME, el plan por archivo y la orden exacta antes de instalar, adoptar, actualizar o quitar enlaces. Aplicar confirma con consecuencias y estado de operación, y verifica después; `actualizar` se bloquea si borraría sin respaldo. Hay estado «local». Cambios va lado a lado, con los híbridos y el filtro `clean` explicados. El escáner tiene 16 patrones con nombre más los `.env`, informa archivo, línea y tipo, nunca el valor. Sistema muestra las dependencias. `--dry-run` ya no crea carpetas (`lib/stow_ops.sh`, commit propio). 53 pruebas | `docs/reingenieria.md`; `docs/figuras/`; `studio/README.md`; `git log` |
 | 2026-11-02 | El autor dio por buena la fase 5 (P3): `wip/2026-11-02-qml` fusionada en `main` y retirada; `docs/rediseno.md` a `hecho` | `git log` |
@@ -24,6 +25,10 @@ en `docs/decisiones.md` §Pendientes. Nada aquí lleva rutas de máquina: el rep
 nada en curso
 
 ## Por hacer
+
+- 2026-11-11 · dueño: el autor · terminar la corrección en español: `sudo apt install hunspell-es` (KDE no tiene
+  diccionario de español sin él); cerrar Zen y la app de Claude, correr `corrector-espanol --aplicar` en Konsole y
+  volver a abrirlos; comprobar en cada uno que «errorr» sale en rojo y «corrección» no.
 
 - 2026-11-02 · dueño: el autor · probar Dotfiles Studio en la sesión real (Wayland) con su HOME, también elegir la versión de un conflicto al adoptar. La instalación por pip apunta a la etiqueta `v4.0.0` de `gui-comun` (la empuja el director con el resto); tras la fusión, `./main.sh instalar-studio` para el lanzador.
 - 2026-11-02 · dueño: director · lo que quedó fuera de la ventana (`docs/reingenieria.md` §5): `sync-pull` y `sync-push`

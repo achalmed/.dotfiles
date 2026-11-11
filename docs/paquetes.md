@@ -38,6 +38,7 @@ máquina, estado de sesión, credenciales ni nada regenerable. La selección es 
 | `xournalpp` | ajustes de la aplicación |
 | `koreader` | ajustes de lectura propios por el mecanismo oficial de KOReader (sobrescrituras de usuario, gestos, teclas, valores por carpeta) |
 | `systemd` | unidades de usuario que corrigen la máquina, no las que instalan los repos del espacio de trabajo: `audio-sesion-local.service` devuelve el audio de la sesión local a PipeWire cuando Chrome Remote Desktop, que abre su sesión X al arrancar, filtra el suyo al entorno de `systemd --user`; tras instalar se habilita con `systemctl --user enable` |
+| `ortografia` | corrección ortográfica en español (con inglés) sin cambiar la interfaz: `Sonnet.conf` para KDE y `corrector-espanol` para Chrome, Brave, Chromium, la app de Claude, Zen y Firefox, que se corre con cada aplicación cerrada (`corrector-espanol --aplicar`; sin la opción, simula); pide el diccionario del sistema `hunspell-es`, que instala `instalar-deps` |
 
 ## Archivos híbridos
 
