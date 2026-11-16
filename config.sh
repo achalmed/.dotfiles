@@ -134,6 +134,8 @@ PACKAGE_FILES["shell"]=".zshrc|.config/starship.toml"
 #   plasma-localerc   → configuración regional
 #   mimeapps.list     → aplicaciones predeterminadas
 #   applications/obsidian-captura-rapida.desktop → lanzador de la captura de Obsidian (su atajo, Meta+Alt+C, en kglobalshortcutsrc)
+#   applications/deepseek-harness.desktop + icons/…/deepseek-harness.svg → lanzador de DeepSeek Harness
+#     (corre `dsh web` en una terminal; la función dsh, con Node 24 de nvm, vive en el .zshrc del paquete shell)
 # EXCLUIDOS (estado/hardware): plasma-org.kde.plasma.desktop-appletsrc
 # (layout de paneles, específico de pantalla), plasmashellrc (estado del
 # shell por monitor), konsolesshconfig (estado de plugin).
@@ -145,7 +147,9 @@ PACKAGE_FILES["kde"]=\
 .config/plasmarc|\
 .config/plasma-localerc|\
 .config/mimeapps.list|\
-.local/share/applications/obsidian-captura-rapida.desktop"
+.local/share/applications/obsidian-captura-rapida.desktop|\
+.local/share/applications/deepseek-harness.desktop|\
+.local/share/icons/hicolor/scalable/apps/deepseek-harness.svg"
 
 # konsole: terminal de KDE. La personalización real vive en los PERFILES
 # (~/.local/share/konsole/), no en konsolerc (que solo aporta DefaultProfile).

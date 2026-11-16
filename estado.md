@@ -1,7 +1,7 @@
 ---
 tipo: estado
 estado: activo
-actualizado: 2026-11-11
+actualizado: 2026-11-15
 ---
 # estado.md — dotfiles (repo público `achalmed/.dotfiles`)
 
@@ -13,6 +13,7 @@ en `docs/decisiones.md` §Pendientes. Nada aquí lleva rutas de máquina: el rep
 
 | fecha | qué | dónde se ve |
 |---|---|---|
+| 2026-11-15 | **Lanzador de DeepSeek Harness** en el paquete `kde` (`deepseek-harness.desktop` y su icono, el `favicon.svg` del propio paquete npm, MIT): abre una terminal que corre `dsh web`. En `shell`, la función `dsh` lo corre con el Node 24 más reciente de nvm (exige ≥ 24.9; el predeterminado es otro). Enlazado en esta laptop | `config.sh` (`kde`); `docs/paquetes.md` |
 | 2026-11-11 | **Paquete `panel`**: la barra superior de Plasma en cada monitor. `panel-en-cada-pantalla` copia la de la pantalla principal (sus 10 widgets y su configuración, menos la nota y la bandeja interna) a cada pantalla sin barra; simula por defecto. Aplicado en esta sesión: la segunda pantalla ya tiene la barra, idéntica, y se mantiene al pasar a claro y volver a oscuro (comprobado con capturas). Enlazado por el autor el mismo día (`instalar -p panel`); la vigilancia arranca con la sesión. La barra la trae el tema de Lliphi (decisiones 5.51 de Lliphi) | `docs/paquetes.md`; `config.sh` (`panel`) |
 | 2026-11-11 | **Paquete `ortografia`**: corrección en español (es-PE/es-419 con inglés) y la interfaz sigue en inglés. `Sonnet.conf` enlazado para KDE; `corrector-espanol` para Chromium, Electron y Firefox (simula, `--aplicar` con la aplicación cerrada, copia `.antes-corrector-<fecha>`); `hunspell-es` en `instalar-deps`. Aplicado en Chrome y Firefox (Snap) | `docs/paquetes.md`; `docs/decisiones.md` §Qué se versiona |
 | 2026-11-03 | **Pendientes de la reingeniería** (carril A): la versión de cada conflicto al **adoptar se elige en la ventana** (sobre la comparación: la de HOME, la del repo o saltar) y `main.sh adoptar --elecciones ARCHIVO` lo hace sin terminal (opción nueva del gestor; simular dice qué se usaría); la ventana usa `VistaComparacion`, `VistaTexto` y `EtiquetaNivel` de `gui-comun` 3.1 (retiradas cuatro copias y `servicios/diferencias.py`); requiere `gui-comun` ≥ 3.1 (`v4.0.0`); 55 pruebas | `docs/reingenieria.md` §6; `tests/test_servicios.py` |

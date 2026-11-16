@@ -26,7 +26,7 @@ máquina, estado de sesión, credenciales ni nada regenerable. La selección es 
 |---|---|
 | `git` | identidad y preferencias de git, sin credenciales (se usa un `credential.helper`) |
 | `shell` | zsh (Oh My Zsh y alias) y la configuración de starship en su ruta XDG, que está versionada pero inactiva: el `.zshrc` no la inicializa |
-| `kde` | preferencias globales de Plasma: tema y colores, atajos globales ([atajos-kde.md](atajos-kde.md)), KWin, Dolphin, región y aplicaciones predeterminadas; solo archivos dominados por preferencias |
+| `kde` | preferencias globales de Plasma: tema y colores, atajos globales ([atajos-kde.md](atajos-kde.md)), KWin, Dolphin, región, aplicaciones predeterminadas y dos lanzadores propios (la captura de Obsidian y DeepSeek Harness, que corre `dsh web` con la función `dsh` del paquete `shell`); solo archivos dominados por preferencias |
 | `konsole` | el perfil y el esquema de color, que es donde vive la personalización; `konsolerc` solo aporta el perfil por defecto, referido por nombre |
 | `positron` | ajustes del IDE Positron |
 | ~~`obsidian`~~ | retirado el 2026-10-10 (ola 8 del programa de reingeniería): la configuración del vault vive en `~/Documents/.obsidian/` como archivos reales y la respalda el espejo de `~/Documents`; queda en la historia de este repo (etiqueta `antes-ola-08-2026-10-10`) |

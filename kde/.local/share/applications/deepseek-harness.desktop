@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=DeepSeek Harness
+GenericName=Agente de IA
+Comment=Abre la interfaz web de DeepSeek Harness (dsh web) en el navegador
+Exec=zsh -ic "dsh web"
+Icon=deepseek-harness
+Terminal=true
+Categories=Development;
+Keywords=deepseek;dsh;agente;ia;
+StartupNotify=false
