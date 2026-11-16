@@ -281,3 +281,11 @@ typeset -U path PATH
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# DeepSeek Harness (dsh) exige Node >= 24.9 y el predeterminado de nvm es otro:
+# corre con el Node 24 más reciente de nvm sin cambiar el de la terminal.
+dsh() {
+  local -a bins=("$NVM_DIR"/versions/node/v24.*/bin(N/nOn))
+  (( ${#bins} )) || { print -u2 "dsh: falta Node 24 (nvm install 24)"; return 1; }
+  PATH="${bins[1]}:$PATH" command dsh "$@"
+}
