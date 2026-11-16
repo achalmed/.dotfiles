@@ -73,7 +73,9 @@ con el mecanismo propio de la aplicación.
 ## Aplicaciones que rompen el enlace
 
 calibre y KOReader guardan escribiendo un archivo nuevo y renombrándolo, lo que sustituye el
-enlace simbólico por un archivo real. Por eso sus archivos más volátiles quedaron fuera. Si
+enlace simbólico por un archivo real. Lo mismo pasa con `mimeapps.list` (paquete `kde`) cada vez que
+KDE o una aplicación, como Muyu, cambia una asociación de archivos: conviene readoptarlo y, de paso,
+quitar las aplicaciones que ya no existen. Por eso sus archivos más volátiles quedaron fuera. Si
 `./main.sh estado` muestra conflictos en esos paquetes después de usarlos,
 `./main.sh adoptar -p <paquete>` vuelve a llevar al repo los archivos que sí se versionan.
 
