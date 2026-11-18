@@ -151,6 +151,43 @@ def test_cada_componente_qml(carpeta, nombre, falso_gui):
     assert not _graves(datos["errores"]), "\n".join(_graves(datos["errores"]))
 
 
+NIVELES = """
+import sys, json, os; sys.path.insert(0, sys.argv[1])
+from dotfiles_app import aplicacion
+from gui_comun.nucleo import Aplicacion
+from gui_comun.qt import QTimer
+app = Aplicacion("dotfiles-studio", "Dotfiles Studio", version="prueba", nombre_ajustes="DotfilesStudio")
+aplicacion.construir(app); app.exponer("descripcionStudio", "prueba")
+lineas = json.loads(sys.argv[2])
+ruta = os.path.join(os.environ["XDG_CACHE_HOME"], "Prueba_niveles.qml")
+os.makedirs(os.path.dirname(ruta), exist_ok=True)
+open(ruta, "w").write('import QtQuick\\nimport "file://%s/componentes"\\nItem { id: caja; property var lineas: %s\\n'
+                      '  TerminalSimulacion { id: t; lineas: caja.lineas }\\n'
+                      '  property string niveles: JSON.stringify(caja.lineas.map(l => t.nivelDe(l))) }\\n'
+                      % (str(aplicacion.QML_DIR), json.dumps(lineas)))
+ok = app.cargar(ruta)
+raiz = app.motor.rootObjects()[0] if ok else None
+niveles = json.loads(raiz.property("niveles")) if raiz else []
+QTimer.singleShot(300, app.app.quit); app.app.exec(); app.cerrar()
+print(json.dumps({"ok": ok, "niveles": niveles}))
+"""
+
+
+@requiere_sistema
+def test_la_terminal_colorea_como_main_sh(falso_gui):
+    """TerminalSimulacion es la TerminalSalida de gui-comun 4.1 con las reglas de main.sh, en el orden de antes."""
+    casos = {"[ERROR] falló stow": "negativo", "Archivo real existe: ~/.zshrc": "negativo", "✗ no enlazado": "negativo",
+             "Saltado: ya enlazado": "neutro", "[WARN] sin paquete": "neutro", "✓ enlazado": "positivo",
+             "[dry-run] ln -s a b": "", "[SECTION] shell": "", "[dry-run] Archivo real existe: x": "negativo",
+             "otra cosa": "inactivo"}
+    r = correr_python(NIVELES, falso_gui, json.dumps(list(casos)))
+    assert r.returncode == 0, r.stderr[-3000:]
+    datos = json.loads(r.stdout.strip().splitlines()[-1])
+    assert datos["ok"], r.stderr[-3000:]
+    assert dict(zip(casos, datos["niveles"])) == casos
+    assert "Kirigami.Theme" not in (QML / "componentes" / "TerminalSimulacion.qml").read_text()   # el color, de la base
+
+
 @requiere_sistema
 def test_atajos_sin_repetir(falso_gui):
     """Cada atajo dispara una sola orden (un atajo repetido es ambiguo y Qt no ejecuta ninguna)."""

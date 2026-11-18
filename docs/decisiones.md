@@ -136,7 +136,8 @@ en cada cambio está en el mensaje de commit; aquí queda por qué.
   - **abajo, la terminal con la simulación de lo que se ve**: `main.sh instalar --dry-run` de las tarjetas a la vista,
     sin `-p` si se ven todas. Es el `stow -n` de este gestor, que no usa stow (§Cómo se enlaza), y nunca escribe. La
     orden se ve antes de correr; cada línea lleva el color de estado de lo que dice. La misma pieza
-    (`TerminalSimulacion`) sirve a la pestaña Simulación de la página del paquete;
+    (`TerminalSimulacion`, desde gui-comun 4.1 la `TerminalSalida` de la base con las reglas de main.sh) sirve a la
+    pestaña Simulación de la página del paquete;
   - en la barra lateral, un recuento que pide algo lleva su color de estado: lo que pide atención en neutro, los
     hallazgos del escáner en negativo.
 

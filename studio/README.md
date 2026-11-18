@@ -76,9 +76,9 @@ Requisitos:
 - El Python y el Qt del sistema (Kubuntu 26.04 o equivalente): `python3-pyside6.qtquick`,
   `python3-pyside6.qtquickcontrols2`, `qml6-module-org-kde-kirigami`, `qml6-module-org-kde-kirigamiaddons-formcard`,
   `qml6-module-org-kde-desktop` y `qml6-module-org-kde-syntaxhighlighting`.
-- `gui-comun` 3.1 o superior, de una de estas dos formas:
+- `gui-comun` 4.1 o superior, de una de estas dos formas:
   - **como paquete de pip**, desde su repo público con la versión fija de `dotfiles_app/__init__.py`:
-    `/usr/bin/python3 -m pip install --user --break-system-packages "gui-comun @ git+https://github.com/achalmed/gui-comun@v4.0.0"`;
+    `/usr/bin/python3 -m pip install --user --break-system-packages "gui-comun @ git+https://github.com/achalmed/gui-comun@v4.1.0"`;
   - señalado con `GUI_COMUN_DIR=<carpeta del repo gui-comun>`, para desarrollar contra una copia local.
 
 El repo no conoce ningún espacio de trabajo: nunca busca `gui-comun` subiendo carpetas. El PySide6 de pip o de
@@ -97,7 +97,7 @@ Anaconda no carga Kirigami. Sin lo necesario, `main.py` dice qué instalar y sal
 | `dotfiles_app/servicios/` | sin Qt: `plan.py` (qué hará `main.sh` con cada archivo en cada operación, como `lib/stow_ops.sh`), `comparar.py` (la comparación según el estado), `diferencias.py` (el diff en filas lado a lado, de Git Studio), `seguridad.py` (el escáner con los patrones de `config.sh` y la huella HMAC de la sesión) |
 | `dotfiles_app/controladores/` | `catalogo` (portada, página, operación, plan, comparación, simular, aplicar y verificar), `cambios`, `seguridad`, `sistema`, `guia`, `espacio` (página activa, barra de estado, Dolphin con `Escritorio`, terminal), `ajustes`: los QObject que QML ve como `studio.<nombre>` |
 | `dotfiles_app/modelos/` | funciones puras: las filas de la tabla de Cambios (`cambios.py`) |
-| `dotfiles_app/qml/Main.qml` · `componentes/` | la ventana (`GuiComun.VentanaBase`) y sus piezas: `BarraLateral`, `Portada` y `TarjetaPaquete`, `TerminalSimulacion` (la salida de una simulación, en la portada y en la página), `PaginaPaquete`, `PaginaCambios`, `PaginaSeguridad`, `PaginaSistema`, `PaginaGuia` y el diálogo de ajustes; la comparación, la vista de texto y las etiquetas son de gui-comun (`VistaComparacion`, `VistaTexto`, `EtiquetaNivel`) |
+| `dotfiles_app/qml/Main.qml` · `componentes/` | la ventana (`GuiComun.VentanaBase`) y sus piezas: `BarraLateral`, `Portada` y `TarjetaPaquete`, `TerminalSimulacion` (la salida de una simulación, en la portada y en la página: la `TerminalSalida` de gui-comun con las reglas de main.sh), `PaginaPaquete`, `PaginaCambios`, `PaginaSeguridad`, `PaginaSistema`, `PaginaGuia` y el diálogo de ajustes; la comparación, la vista de texto y las etiquetas son de gui-comun (`VistaComparacion`, `VistaTexto`, `EtiquetaNivel`) |
 | `dotfiles_app/recursos/marca.svg` | el icono del lanzador (lo único con el acento del studio) |
 | `tests/` | `run.sh`, `conftest.py` (el repo y el `HOME` falsos), el servicio y los servicios nuevos, los controladores, cada QML y `--smoke` |
 
