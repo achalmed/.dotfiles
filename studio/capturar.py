@@ -38,7 +38,7 @@ def main() -> int:
     parser.add_argument("--forzar", action="store_true", help="marca «Reemplazar los archivos reales»")
     parser.add_argument("--archivo", default="", help="el archivo del paquete (o de Cambios) que se compara")
     parser.add_argument("--pestana", type=int, default=0, help="pestaña de la página del paquete (0 comparación · 1 simulación · 2 detalles)")
-    parser.add_argument("--simular", action="store_true", help="simula la operación antes de capturar")
+    parser.add_argument("--simular", action="store_true", help="simula la operación (o, en la portada, lo que se ve) antes de capturar")
     parser.add_argument("--escanear", action="store_true", help="corre el escáner de credenciales antes de capturar")
     parser.add_argument("--confirmar", action="store_true", help="abre el diálogo de confirmación de la operación")
     parser.add_argument("--paleta", default=None, help="abre la paleta de órdenes con este texto")
@@ -109,8 +109,8 @@ def main() -> int:
         if args.pagina == "cambios" and args.archivo:
             fila = next((i for i, f in enumerate(piezas["cambios"]._filas) if f["ruta"].endswith(args.archivo)), -1)
             QTimer.singleShot(300, lambda: piezas["interfaz"].pedir.emit("seleccionar_cambio", {"fila": fila}))
-        if args.simular:
-            catalogo.simular()
+        if args.simular:                             # en la página, la operación; en la portada, lo que se ve
+            catalogo.simular() if args.paquete else catalogo.simularPortada()
         if args.escanear:
             piezas["seguridad"].escanear()
 

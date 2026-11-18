@@ -26,8 +26,8 @@ lleva nombre ni logotipo dentro ni colores propios: el esquema, las fuentes y lo
 |---|---|
 | menú | Archivo · Editar · Ver · Paquete · Repositorio · Sistema · Ajustes · Ayuda: todas las órdenes con sus atajos |
 | cabecera | volver a la portada (Alt+Izquierda o Esc), dónde se está, la búsqueda (Ctrl+F: paquete, aplicación o ruta de un archivo), releer (F5), escanear (Ctrl+Alt+S) y la salida (F4) |
-| barra lateral | Paquetes: Todos · Piden atención · Enlazados · Con cambios sin confirmar, con su recuento. Repositorio: Cambios sin confirmar · Seguridad · Sistema · Guía (Ctrl+1 … Ctrl+5). Al pie, la rama y lo que falta subir |
-| portada | una tarjeta por paquete con: icono de su aplicación, nombre, qué guarda, estado (Enlazado · Parcial · Archivo real en HOME · Sin enlazar · Solo en HOME · Sin configuración aún), enlaces, híbridos, cambios sin confirmar, aplicación no instalada y el botón de la operación que pide, que abre la página |
+| barra lateral | Paquetes: Todos · Piden atención · Enlazados · Con cambios sin confirmar, con su recuento (lo que pide atención, en neutro; los hallazgos del escáner, en negativo). Repositorio: Cambios sin confirmar · Seguridad · Sistema · Guía (Ctrl+1 … Ctrl+5). Al pie, la rama y lo que falta subir |
+| portada | una tarjeta por paquete con: icono de su aplicación (del tema de iconos), nombre, el estado de stow como un punto de color de estado (Enlazado en positivo · Parcial, Sin enlazar o Solo en HOME en neutro · Archivo real en HOME, un conflicto, en negativo, también dentro de un paquete a medias · Sin configuración aún, tenue), qué guarda, una línea tenue con archivos, enlazados, híbridos, cambios sin confirmar y aplicación no instalada, y el botón de la operación que pide, que abre la página. Abajo, la **terminal** con la simulación de lo que se ve (`main.sh instalar --dry-run`, sin `-p` si se ven todas; Ctrl+Mayús+Intro o «Simular lo que se ve»), la orden arriba y cada línea en su color de estado; nunca escribe |
 | página del paquete | ver la tabla que sigue |
 | Cambios | la tabla de `git status`, la diferencia lado a lado (último commit ⟷ repo; híbridos y filtro `clean` explicados, secretos ocultos), el mensaje y «Confirmar este archivo» (Ctrl+Intro); «Subir a GitHub…» |
 | Seguridad | qué se busca (los 16 tipos de `config.sh` y los `.env` versionados) y cada hallazgo con archivo, línea, tipo y huella; «Escanear con main.sh» y «Copiar el informe» (sin valores) |
@@ -43,7 +43,7 @@ La página del paquete se compone así:
 |---|---|
 | cabecera | icono grande, aplicación, estado y cifras |
 | barra de la operación | Instalar · Adoptar · Actualizar · Quitar enlaces; qué hace; la orden exacta (copiable); Simular (Ctrl+Mayús+Intro) y la acción principal (Ctrl+Intro, pide confirmación); el plan resumido y por qué está bloqueada |
-| debajo | los archivos con lo que les pasará; del elegido, Comparación · Simulación (la salida de `--dry-run`, sin rutas de la máquina) · Detalles (de qué aplicación depende, rutas compartidas con otro paquete, huérfanos del repo, notas, destino de cada enlace) |
+| debajo | los archivos con lo que les pasará; del elegido, Comparación · Simulación (la salida de `--dry-run` en la misma terminal que la portada, sin rutas de la máquina) · Detalles (de qué aplicación depende, rutas compartidas con otro paquete, huérfanos del repo, notas, destino de cada enlace) |
 
 **Regla de todo lo que escribe.** Nada se aplica desde la portada. La operación se elige en la página, con la
 comparación y el plan a la vista. Aplicar pide confirmación con las consecuencias calculadas del plan («Instalar
@@ -97,7 +97,7 @@ Anaconda no carga Kirigami. Sin lo necesario, `main.py` dice qué instalar y sal
 | `dotfiles_app/servicios/` | sin Qt: `plan.py` (qué hará `main.sh` con cada archivo en cada operación, como `lib/stow_ops.sh`), `comparar.py` (la comparación según el estado), `diferencias.py` (el diff en filas lado a lado, de Git Studio), `seguridad.py` (el escáner con los patrones de `config.sh` y la huella HMAC de la sesión) |
 | `dotfiles_app/controladores/` | `catalogo` (portada, página, operación, plan, comparación, simular, aplicar y verificar), `cambios`, `seguridad`, `sistema`, `guia`, `espacio` (página activa, barra de estado, Dolphin con `Escritorio`, terminal), `ajustes`: los QObject que QML ve como `studio.<nombre>` |
 | `dotfiles_app/modelos/` | funciones puras: las filas de la tabla de Cambios (`cambios.py`) |
-| `dotfiles_app/qml/Main.qml` · `componentes/` | la ventana (`GuiComun.VentanaBase`) y sus piezas: `BarraLateral`, `Portada` y `TarjetaPaquete`, `PaginaPaquete`, `PaginaCambios`, `PaginaSeguridad`, `PaginaSistema`, `PaginaGuia` y el diálogo de ajustes; la comparación, la vista de texto y las etiquetas son de gui-comun (`VistaComparacion`, `VistaTexto`, `EtiquetaNivel`) |
+| `dotfiles_app/qml/Main.qml` · `componentes/` | la ventana (`GuiComun.VentanaBase`) y sus piezas: `BarraLateral`, `Portada` y `TarjetaPaquete`, `TerminalSimulacion` (la salida de una simulación, en la portada y en la página), `PaginaPaquete`, `PaginaCambios`, `PaginaSeguridad`, `PaginaSistema`, `PaginaGuia` y el diálogo de ajustes; la comparación, la vista de texto y las etiquetas son de gui-comun (`VistaComparacion`, `VistaTexto`, `EtiquetaNivel`) |
 | `dotfiles_app/recursos/marca.svg` | el icono del lanzador (lo único con el acento del studio) |
 | `tests/` | `run.sh`, `conftest.py` (el repo y el `HOME` falsos), el servicio y los servicios nuevos, los controladores, cada QML y `--smoke` |
 

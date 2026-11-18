@@ -304,46 +304,14 @@ ColumnLayout {
                     }
                 }
 
-                // Simulación: la salida de main.sh, sin rutas de la máquina
-                ColumnLayout {
-                    spacing: 0
-                    QQC2.Label {
-                        Layout.margins: Kirigami.Units.smallSpacing
-                        visible: raiz.catalogo.salidaDe !== ""
-                        text: raiz.catalogo.salidaDe
-                        font.bold: true
-                    }
-                    ListView {
-                        id: salida
-                        Layout.fillWidth: true
-                        Layout.fillHeight: true
-                        clip: true
-                        model: raiz.catalogo.salida
-                        boundsBehavior: Flickable.StopAtBounds
-                        QQC2.ScrollBar.vertical: QQC2.ScrollBar {}
-                        onCountChanged: positionViewAtEnd()
-                        Accessible.name: "Salida de main.sh"
-                        delegate: QQC2.Label {
-                            required property string modelData
-                            width: ListView.view.width
-                            leftPadding: Kirigami.Units.smallSpacing
-                            text: modelData
-                            textFormat: Text.PlainText
-                            wrapMode: Text.WrapAnywhere
-                            font: Kirigami.Theme.fixedWidthFont
-                            color: modelData.indexOf("[dry-run]") >= 0 ? Kirigami.Theme.textColor
-                                 : modelData.indexOf("Saltado") >= 0 || modelData.indexOf("WARN") >= 0 ? Kirigami.Theme.neutralTextColor
-                                 : modelData.indexOf("ERROR") >= 0 ? Kirigami.Theme.negativeTextColor : Kirigami.Theme.disabledTextColor
-                        }
-                        Kirigami.PlaceholderMessage {
-                            anchors.centerIn: parent
-                            width: parent.width - Kirigami.Units.gridUnit * 4
-                            visible: salida.count === 0
-                            icon.name: "view-preview"
-                            text: "Sin simular todavía"
-                            explanation: "Simular (Ctrl+Mayús+Intro) corre la orden con --dry-run: main.sh dice qué haría sin tocar el disco."
-                        }
-                    }
+                // Simulación: la salida de main.sh, sin rutas de la máquina (la misma terminal que la portada)
+                TerminalSimulacion {
+                    titulo: raiz.catalogo.salidaDe || "Simulación"
+                    orden: raiz.catalogo.ordenSimular
+                    lineas: raiz.catalogo.salida
+                    nombreAccesible: "Salida de main.sh"
+                    mensajeVacio: "Sin simular todavía"
+                    explicacionVacia: "Simular (Ctrl+Mayús+Intro) corre la orden con --dry-run: main.sh dice qué haría sin tocar el disco."
                 }
 
                 // Detalles: dependencia, rutas compartidas, huérfanos, notas y enlaces

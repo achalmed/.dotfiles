@@ -1,7 +1,7 @@
 ---
 tipo: estado
 estado: activo
-actualizado: 2026-11-15
+actualizado: 2026-11-18
 ---
 # estado.md — dotfiles (repo público `achalmed/.dotfiles`)
 
@@ -13,6 +13,7 @@ en `docs/decisiones.md` §Pendientes. Nada aquí lleva rutas de máquina: el rep
 
 | fecha | qué | dónde se ve |
 |---|---|---|
+| 2026-11-18 | **Dotfiles Studio con su forma propia** (rediseño visual aprobado por el autor): cada tarjeta de paquete lleva el icono de su aplicación, el número de archivos y el estado de stow como un punto de color de estado (un conflicto, en negativo, aunque el paquete esté a medias); bajo las tarjetas, la terminal con la simulación de lo que se ve (`main.sh instalar --dry-run`, que nunca escribe; Ctrl+Mayús+Intro); en la barra lateral, los recuentos que piden algo con su color de estado. `TerminalSimulacion` sirve también a la pestaña Simulación. `ortografia` y `panel` con su aplicación e icono. Cero colores propios; los avisos sin decisión van a las notificaciones de KDE. 58 pruebas (4 nuevas; arreglada la búsqueda que «autostart» de `panel` rompía) | `docs/decisiones.md` §La ventana; `docs/reingenieria.md` §7; `docs/figuras/dotfiles-studio-oscuro.png` |
 | 2026-11-15 | **`mimeapps.list` al día y sin aplicaciones desinstaladas**: KDE y Muyu habían reemplazado el enlace por un archivo real (Muyu como predeterminada de casi todo); se readoptó y se quitaron 17 referencias a 8 aplicaciones que ya no existen (Chrome, Thunderbird, GitKraken, Manuskript, Ghostwriter, Apostrophe y dos manejadores de URL); Obsidian y Claude apuntan a sus nombres actuales (`md.obsidian.Obsidian`, `com.anthropic.Claude`). `http`, `https` y `mailto` → Zen | `kde/.config/mimeapps.list`; `docs/paquetes.md` §Aplicaciones que rompen el enlace |
 | 2026-11-15 | **Lanzador de DeepSeek Harness** en el paquete `kde` (`deepseek-harness.desktop` y su icono, el `favicon.svg` del propio paquete npm, MIT): abre una terminal que corre `dsh web`. En `shell`, la función `dsh` lo corre con el Node 24 más reciente de nvm (exige ≥ 24.9; el predeterminado es otro). Enlazado en esta laptop | `config.sh` (`kde`); `docs/paquetes.md` |
 | 2026-11-11 | **Paquete `panel`**: la barra superior de Plasma en cada monitor. `panel-en-cada-pantalla` copia la de la pantalla principal (sus 10 widgets y su configuración, menos la nota y la bandeja interna) a cada pantalla sin barra; simula por defecto. Aplicado en esta sesión: la segunda pantalla ya tiene la barra, idéntica, y se mantiene al pasar a claro y volver a oscuro (comprobado con capturas). Enlazado por el autor el mismo día (`instalar -p panel`); la vigilancia arranca con la sesión. La barra la trae el tema de Lliphi (decisiones 5.51 de Lliphi) | `docs/paquetes.md`; `config.sh` (`panel`) |
@@ -28,6 +29,17 @@ en `docs/decisiones.md` §Pendientes. Nada aquí lleva rutas de máquina: el rep
 nada en curso
 
 ## Por hacer
+
+- 2026-11-18 · dueño: el autor · ver la portada nueva de Dotfiles Studio en la sesión real y el cambio de claro a
+  oscuro con la ventana abierta (probado aislado, con muestra y bus propio; las pestañas y los campos que pinta Kvantum
+  no siguen el cambio en vivo, es del entorno).
+- 2026-11-18 · dueño: director · el gestor imprime «/dev/tty: No such device or address» en cada conflicto cuando corre
+  sin terminal de control (la ventana, una simulación): `_read_choice` (`lib/stow_ops.sh`) prueba `-r /dev/tty`, que
+  es cierto aunque no haya terminal. Propuesta: comprobar con `{ : </dev/tty; } 2>/dev/null` antes de leer; la salida
+  se ve hoy en la terminal de la portada, tenue.
+- 2026-11-18 · dueño: director · las figuras de `docs/figuras/` salvo la portada (`dotfiles-studio-oscuro.png`) son
+  anteriores al rediseño; la página del paquete no cambió de forma, la pestaña Simulación sí (se regeneran con
+  `studio/capturar.py --muestra` cuando el autor dé el rediseño por bueno).
 
 - 2026-11-11 · dueño: el autor · terminar la corrección en español (`hunspell-es` ya instalado): cerrar Zen y la app
   de Claude, correr `corrector-espanol --aplicar` en Konsole y volver a abrirlos; comprobar en cada uno, y en Kate,

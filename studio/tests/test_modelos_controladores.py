@@ -102,7 +102,7 @@ def test_catalogo_portada_filtros_y_busqueda(app, piezas):
     c.fijarFiltro("atencion")
     assert "shell" in [t["nombre"] for t in c.tarjetas] and "git" not in [t["nombre"] for t in c.tarjetas]
     c.fijarFiltro("todos")
-    c.buscar("star")                                         # una ruta de archivo también encuentra su paquete
+    c.buscar("starship")                                     # una ruta de archivo también encuentra su paquete
     assert [t["nombre"] for t in c.tarjetas] == ["shell"]
     c.buscar("")
     (piezas["repo"] / "git" / ".gitconfig").write_text("[user]\n\tname = Otra\n", encoding="utf-8")
@@ -110,6 +110,45 @@ def test_catalogo_portada_filtros_y_busqueda(app, piezas):
     c.fijarFiltro("cambios")
     assert [t["nombre"] for t in c.tarjetas] == ["git"] and c.tarjetas[0]["cambios"] == 1
     assert c.resumen.startswith(f"1/{total} paquetes enlazados")
+
+
+@requiere_binding
+def test_tarjetas_punto_de_estado_y_cifras(app, piezas):
+    """Rediseño del 2026-11-18: el punto lleva el color del estado de stow (un conflicto, en negativo, aunque el paquete
+    esté a medias) y la tarjeta, el número de archivos en una línea tenue."""
+    c, casa, repo = piezas["catalogo"], piezas["casa"], piezas["repo"]
+    por = {t["nombre"]: t for t in c.tarjetas}
+    assert por["git"]["punto"] == "positivo" and por["git"]["cifras"].startswith("1 archivo · 1/1 enlazados")
+    assert por["shell"]["punto"] == "negativo" and por["shell"]["conflictos"] == 1 and por["shell"]["total"] == 2
+    assert por["shell"]["cifras"].startswith("2 archivos · 0/2 enlazados")
+    assert por["kde"]["punto"] == "" and por["kde"]["textoEstado"] == "Sin configuración aún"
+    (casa / ".config").mkdir(exist_ok=True)                           # shell a medias, con el conflicto aún en HOME
+    (casa / ".config" / "starship.toml").symlink_to(repo / "shell" / ".config" / "starship.toml")
+    c.recargar()
+    shell = next(t for t in c.tarjetas if t["nombre"] == "shell")
+    assert shell["estado"] == "parcial" and shell["nivel"] == "neutro" and shell["punto"] == "negativo"
+    assert shell["textoEstado"] == "Parcial · 1 conflicto"
+
+
+@requiere_binding
+def test_portada_simula_lo_que_se_ve_sin_escribir(app, piezas):
+    """La terminal de la portada: `main.sh instalar --dry-run` de las tarjetas a la vista (sin -p si se ven todas)."""
+    c, tareas, casa = piezas["catalogo"], piezas["tareas"], piezas["casa"]
+    assert c.ordenPortada == "./main.sh instalar --dry-run --verbose" and c.salidaPortada == []
+    c.fijarFiltro("atencion")
+    assert c.ordenPortada.startswith("./main.sh instalar -p ") and "shell" in c.ordenPortada and "--dry-run" in c.ordenPortada
+    antes = sorted(str(x.relative_to(casa)) for x in casa.rglob("*"))
+    c.simularPortada()
+    _esperar(app, tareas)
+    assert c.salidaPortadaDe.startswith("./main.sh instalar -p ") and any("starship.toml" in l for l in c.salidaPortada)
+    assert not any(str(casa) in l for l in c.salidaPortada)           # rutas de la máquina, acortadas
+    assert sorted(str(x.relative_to(casa)) for x in casa.rglob("*")) == antes and not (casa / ".zshrc").is_symlink()
+    assert c.salida == [] and c.abierto == ""                        # la de la página no se toca
+    c.buscar("ningun-paquete-asi")
+    avisos = []
+    c.aviso.connect(lambda t, k: avisos.append(t))
+    c.simularPortada()
+    assert avisos and "Ningún paquete" in avisos[-1] and not tareas.activa
 
 
 @requiere_binding

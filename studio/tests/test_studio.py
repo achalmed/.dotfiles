@@ -33,7 +33,8 @@ ok = app.cargar(aplicacion.QML_DIR / "Main.qml")
 raiz = app.motor.rootObjects()[0] if ok else None
 titulo = raiz.property("title") if raiz else ""
 a = piezas["acciones"]
-portada = {"aplicar": a.accion("paq.aplicar").habilitada, "portada": a.accion("ver.portada").habilitada}
+portada = {"aplicar": a.accion("paq.aplicar").habilitada, "portada": a.accion("ver.portada").habilitada,
+           "simular": a.accion("paq.simular").habilitada, "textoSimular": a.accion("paq.simular").textoPlano}
 piezas["catalogo"].abrir("shell")                            # la página: Aplicar dice la operación y pide confirmación
 pagina = {"aplicar": a.accion("paq.aplicar").textoPlano, "simular": a.accion("paq.simular").textoPlano,
           "habilitada": a.accion("paq.aplicar").habilitada, "indice": raiz.property("indice") if raiz else -1}
@@ -106,7 +107,7 @@ def test_abre_y_cierra_su_ventana(falso_gui):
     assert op["repo.subir"] == ["publicacion", True] and op["paq.simular"] == ["simulacion", False]
     assert op["seg.escanear"] == ["lectura", False] and op["sistema.dependencias"] == ["instalacion", True]
     assert "Adoptar shell" in datos["consecuencias"] and "Orden: ./main.sh adoptar -p shell" in datos["consecuencias"]
-    assert datos["portada"] == {"aplicar": False, "portada": False}
+    assert datos["portada"] == {"aplicar": False, "portada": False, "simular": True, "textoSimular": "Simular lo que se ve"}
     assert datos["pagina"]["aplicar"] == "Adoptar" and datos["pagina"]["simular"] == "Simular «adoptar»"
     assert datos["pagina"]["habilitada"] and datos["pagina"]["indice"] == 1
     assert datos["cambios"] == "Confirmar este archivo"
@@ -171,11 +172,14 @@ app.cerrar()
 
 
 def test_sin_colores_propios_en_qml():
+    """Todo color sale de Kirigami.Theme (rediseño del 2026-11-18: tampoco Qt.rgb, Qt.rgba, Qt.hsla, Qt.lighter ni
+    Qt.darker; Qt.alpha sí, porque atenúa un color del tema)."""
     malos = []
     for qml in QML.rglob("*.qml"):
         for n, linea in enumerate(qml.read_text(encoding="utf-8").splitlines(), 1):
             sin_comentario = linea.split("//")[0]
-            if re.search(r'"#[0-9a-fA-F]{3,8}"', sin_comentario) or re.search(r'\bfont\.(pointSize|pixelSize|family)\s*:\s*["\d]', sin_comentario):
+            if (re.search(r'"#[0-9a-fA-F]{3,8}"', sin_comentario) or re.search(r'\bfont\.(pointSize|pixelSize|family)\s*:\s*["\d]', sin_comentario)
+                    or re.search(r'\bQt\.(rgba?|hsla?|hsva?|lighter|darker|tint)\s*\(', sin_comentario)):
                 malos.append(f"{qml.relative_to(STUDIO)}:{n}: {linea.strip()}")
     assert not malos, "\n".join(malos)
 

@@ -230,3 +230,20 @@ Pruebas: 53 en `studio/tests/run.sh` (repo y HOME falsos). Cubren:
   `gui_comun.diferencias`, el texto `VistaTexto` y las etiquetas `EtiquetaNivel`; retiradas las copias propias
   (`VistaDiferencia`, `VistaTexto`, `Resaltado`, `EtiquetaEstado`, `servicios/diferencias.py`). Requiere `gui-comun` 3.1
   (`VERSION_GUI_COMUN = "v4.0.0"`).
+
+## 7. La forma propia (2026-11-18)
+
+El rediseño visual de los studios, aprobado por el autor sobre maquetas «con identidad propia», mantiene la portada
+de Discover y le da lo propio de un gestor de enlaces (decisión en [decisiones.md](decisiones.md) §La ventana):
+
+| parte | qué hay |
+|---|---|
+| tarjeta | el icono de la aplicación (tema de iconos), el nombre y el estado de stow como un punto de color de estado (enlazado, positivo; a medias, sin enlazar o solo en HOME, neutro; un conflicto, negativo, aunque el paquete esté a medias; sin configuración, tenue); qué guarda; una línea tenue con archivos, enlazados, híbridos y sin confirmar; la operación que pide |
+| abajo | la terminal con la simulación de lo que se ve: `main.sh instalar --dry-run` de las tarjetas a la vista (sin `-p` si se ven todas), con la orden arriba y cada línea en el color de estado de lo que dice; Ctrl+Mayús+Intro o «Simular lo que se ve»; un divisor reparte el alto y se recuerda |
+| a la izquierda | la barra lateral de siempre; un recuento que pide algo lleva su color de estado |
+
+La terminal nunca escribe: solo corre la simulación, y aplicar sigue siendo cosa de la página del paquete, con la
+comparación y el plan a la vista. Los avisos sin decisión van a las notificaciones de KDE (`Mensajes` de
+`gui-comun`); en la ventana solo quedan el bloqueo de una operación y la versión de un conflicto al adoptar. La
+primera figura de §4, regenerada con la muestra, la enseña con la simulación corrida.
+

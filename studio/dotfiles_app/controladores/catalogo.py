@@ -7,6 +7,10 @@ plan por archivo (`servicios/plan.py`), la orden exacta y la comparación del ar
 antes de simular o aplicar**. Simular corre `main.sh … --dry-run` y guarda su salida para la pestaña Simulación;
 aplicar lo hace de verdad (o abre una terminal si `main.sh` va a preguntar) y después comprueba que el estado nuevo es
 el que el plan anunciaba.
+
+Rediseño del 2026-11-18 (la forma propia aprobada): cada tarjeta lleva un punto con el color de estado de su stow (un
+conflicto, en negativo, aunque el paquete esté a medias) y el número de archivos; bajo las tarjetas, la terminal con la
+simulación de lo que se ve (`main.sh instalar --dry-run`, el `stow -n` de este gestor), que nunca escribe.
 """
 
 from __future__ import annotations
@@ -29,6 +33,8 @@ ESTADO = {"activo": ("Enlazado", "positivo", ""), "parcial": ("Parcial", "neutro
           "conflicto": ("Archivo real en HOME", "negativo", "adoptar"), "pendiente": ("Sin enlazar", "neutro", "instalar"),
           "local": ("Solo en HOME", "neutro", "adoptar"), "ausente": ("Sin configuración aún", "", ""), "sin config": ("Sin archivos", "", "")}
 NIVEL_ARCHIVO = {"activo": "positivo", "conflicto": "negativo", "pendiente": "neutro", "local": "neutro", "ausente": ""}
+# la simulación de la portada (el `stow -n` de este gestor): instalar con --dry-run, nunca otra operación
+OPERACION_PORTADA = "instalar"
 _ANSI = re.compile(r"\x1b\[[0-9;]*[A-Za-z]")
 
 
@@ -38,6 +44,7 @@ class Catalogo(QObject):
     operacionCambiada = Signal()      # la operación, «Reemplazar» o el detalle
     archivoCambiado = Signal()        # otro archivo elegido en la página
     salidaCambiada = Signal()
+    salidaPortadaCambiada = Signal()  # la terminal de la portada
     terminado = Signal(str, int)      # operación, código
     aviso = Signal(str, str)
 
@@ -57,6 +64,8 @@ class Catalogo(QObject):
         self._detallado = detallado
         self._salida: list[str] = []
         self._salida_de = ""
+        self._salida_portada: list[str] = []
+        self._salida_portada_de = ""
         self._patrones = None
         self._comparacion: dict = {}
         self._elecciones: dict[str, str] = {}
@@ -134,10 +143,25 @@ class Catalogo(QObject):
     def _tarjeta(self, p: est.Paquete) -> dict:
         app = est.aplicacion(p.nombre)
         texto, nivel, pide = ESTADO.get(p.estado, (p.estado, "", ""))
+        conflictos = p.cuenta("conflicto")
+        # el punto de estado: un archivo real en HOME es un conflicto aunque el paquete esté a medias
+        punto = "negativo" if conflictos else nivel
+        if conflictos and p.estado != "conflicto":
+            texto += f" · {conflictos} conflicto" + ("s" if conflictos > 1 else "")
+        total, hibridos, cambios = len(p.archivos), sum(a.hibrido for a in p.archivos), self._con_cambios.get(p.nombre, 0)
+        partes = [f"{total} archivo" + ("s" if total != 1 else "")]
+        if total:
+            partes.append(f"{p.cuenta('activo')}/{total} enlazados")
+        if hibridos:
+            partes.append(f"{hibridos} híbrido" + ("s" if hibridos > 1 else ""))
+        if cambios:
+            partes.append(f"{cambios} sin confirmar")
+        if not app["instalada"]:
+            partes.append("aplicación no instalada")
         return {"nombre": p.nombre, "aplicacion": app["nombre"], "icono": app["icono"], "descripcion": app["descripcion"],
-                "instalada": app["instalada"], "estado": p.estado, "textoEstado": texto, "nivel": nivel,
-                "enlazados": p.cuenta("activo"), "total": len(p.archivos), "hibridos": sum(a.hibrido for a in p.archivos),
-                "cambios": self._con_cambios.get(p.nombre, 0), "pide": pide,
+                "instalada": app["instalada"], "estado": p.estado, "textoEstado": texto, "nivel": nivel, "punto": punto,
+                "enlazados": p.cuenta("activo"), "total": total, "hibridos": hibridos, "conflictos": conflictos,
+                "cambios": cambios, "cifras": " · ".join(partes), "pide": pide,
                 "textoPide": planes.TEXTO.get(pide, ""), "sustituye": p.nombre in est.SUSTITUYEN}
 
     @Property("QVariantList", notify=cambiado)
@@ -280,6 +304,7 @@ class Catalogo(QObject):
         if bool(v) != self._detallado:
             self._detallado = bool(v)
             self.operacionCambiada.emit()
+            self.cambiado.emit()                 # la orden de la terminal de la portada lleva --verbose o no
 
     detallado = Property(bool, _detallado_get, _detallado_set, notify=operacionCambiada)
 
@@ -391,6 +416,57 @@ class Catalogo(QObject):
     def _anotar(self, texto: str, _es_err: bool = False) -> None:
         self._salida.append(self._corta(_ANSI.sub("", texto)).rstrip())
         self.salidaCambiada.emit()
+
+    # ------------------------------------------------------------------ la terminal de la portada
+    def _visibles(self) -> list[str]:
+        return [t["nombre"] for t in self.tarjetas]
+
+    def orden_portada(self) -> list[str]:
+        """`main.sh instalar --dry-run` de los paquetes que se ven (sin `-p` si se ven todos): el `stow -n` del gestor."""
+        visibles = self._visibles()
+        if visibles and len(visibles) == len(self._paquetes):
+            return est.orden_main(OPERACION_PORTADA, "--dry-run", *(["--verbose"] if self._detallado else []))
+        return est.orden_paquetes(OPERACION_PORTADA, visibles or ["<paquete>"], simular=True, detallado=self._detallado)
+
+    @Property(str, notify=cambiado)
+    def ordenPortada(self) -> str:
+        return "./" + " ".join(self.orden_portada()[1:])
+
+    @Property("QVariantList", notify=salidaPortadaCambiada)
+    def salidaPortada(self) -> list:
+        return self._salida_portada
+
+    @Property(str, notify=salidaPortadaCambiada)
+    def salidaPortadaDe(self) -> str:
+        return self._salida_portada_de
+
+    def _anotar_portada(self, texto: str, _es_err: bool = False) -> None:
+        self._salida_portada.append(self._corta(_ANSI.sub("", texto)).rstrip())
+        self.salidaPortadaCambiada.emit()
+
+    @Slot()
+    def simularPortada(self) -> None:
+        """La simulación de lo que se ve en la portada (`--dry-run`: no toca el disco); su salida, en la terminal de abajo."""
+        if self.tareas.activa:
+            self.aviso.emit("Hay una operación en curso; espere a que termine o cancélela.", "informacion")
+            return
+        visibles = self._visibles()
+        if not visibles:
+            self.aviso.emit("Ningún paquete a la vista que simular.", "informacion")
+            return
+        orden = self.orden_portada()
+        self._salida_portada = []
+        self._salida_portada_de = "./" + " ".join(orden[1:])
+        self.salidaPortadaCambiada.emit()
+        cuantos = f"{len(visibles)} paquete" + ("s" if len(visibles) > 1 else "")
+        w = self.tareas.proceso(f"Simular la instalación de {cuantos}", orden, cwd=str(est.repo()), operacion="simulacion",
+                                al_terminar=lambda c, n=cuantos: self._fin_portada(c, n))
+        w.line.connect(self._anotar_portada)
+
+    def _fin_portada(self, codigo: int, cuantos: str) -> None:
+        self.recargar()
+        if codigo == 0:
+            self.aviso.emit(f"Simulación de {cuantos} terminada: nada cambió en el disco.", "informacion")
 
     def _ocupado(self) -> bool:
         if not self._abierto:

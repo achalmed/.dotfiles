@@ -114,7 +114,8 @@ def construir(app: Aplicacion) -> dict:
                        descripcion="La salida íntegra de main.sh y git, y el registro")
     # --- Paquete: la operación elegida en la página, simulada o aplicada, y las cuatro con su confirmación
     acciones.registrar("paq.simular", "&Simular", "view-preview", "Ctrl+Shift+Return", "Paquete", operacion="simulacion",
-                       al_disparar=lambda *_: catalogo.simular(), descripcion="La operación elegida con --dry-run: no toca el disco")
+                       al_disparar=lambda *_: catalogo.simular() if catalogo.abierto else catalogo.simularPortada(),
+                       descripcion="Con --dry-run, no toca el disco: en la página, la operación elegida; en la portada, instalar lo que se ve")
     acciones.registrar("paq.aplicar", "&Aplicar…", "dialog-ok-apply", "Ctrl+Return", "Paquete", al_disparar=lambda *_: aplicar(),
                        descripcion="Paquetes: la operación elegida, tras confirmar · Cambios: confirma el archivo elegido")
     for op, icono in (("instalar", "emblem-symbolic-link"), ("adoptar", "document-import"), ("actualizar", "view-refresh"), ("eliminar", "edit-delete")):
@@ -188,7 +189,7 @@ def construir(app: Aplicacion) -> dict:
         en_pagina = v == "paquetes" and bool(catalogo.abierto)
         for op in plan.OPERACIONES:
             acciones.habilitar(f"paq.{op}", en_pagina and not activa and catalogo.puede(op))
-        acciones.habilitar("paq.simular", en_pagina and not activa)
+        acciones.habilitar("paq.simular", (en_pagina or (v == "paquetes" and bool(catalogo._paquetes))) and not activa)
         acciones.habilitar("paq.aplicar", not activa and ((en_pagina and catalogo.puede(catalogo.operacion)) or (v == "cambios" and cambios.filaActual >= 0)))
         acciones.habilitar("paq.forzar", en_pagina)
         acciones.habilitar("paq.cancelar", activa)
@@ -203,7 +204,8 @@ def construir(app: Aplicacion) -> dict:
             a.texto, a.icono = "&Confirmar este archivo…", "vcs-commit"
         else:
             a.texto, a.icono = f"&{plan.TEXTO[catalogo.operacion]}…", acciones.accion(f"paq.{catalogo.operacion}").icono
-        acciones.accion("paq.simular").texto = f"&Simular «{plan.TEXTO[catalogo.operacion].lower()}»"
+        acciones.accion("paq.simular").texto = (f"&Simular «{plan.TEXTO[catalogo.operacion].lower()}»" if en_pagina
+                                                else "&Simular lo que se ve")
 
     def vista_cambiada():
         for n, *_r in VISTAS:
@@ -224,6 +226,7 @@ def construir(app: Aplicacion) -> dict:
     catalogo.operacionCambiada.connect(opciones_cambiadas)
     catalogo.paginaCambiada.connect(disponibilidad)
     catalogo.cambiado.connect(barra_estado)
+    catalogo.cambiado.connect(disponibilidad)                          # la portada sin tarjetas no simula
     catalogo.terminado.connect(lambda _o, _c: cambios.recargar())          # instalar o adoptar cambian el repo
     cambios.cambiado.connect(barra_estado)
     cambios.cambiado.connect(disponibilidad)

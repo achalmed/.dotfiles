@@ -44,6 +44,9 @@ APLICACIONES = {
     "systemd": ("systemd (usuario)", ("systemctl",), "preferences-system-services", "unidades de usuario de la máquina"),
     "vim": ("Vim", ("vim",), "vim", "el ~/.vimrc"),
     "nvim": ("Neovim", ("nvim",), "nvim", "el init.lua"),
+    "ortografia": ("Corrector en español", ("/usr/share/hunspell/es_PE.dic", "/usr/share/hunspell/es_ES.dic"),
+                   "tools-check-spelling", "Sonnet de KDE y el corrector de los navegadores"),
+    "panel": ("Panel de Plasma", ("plasmashell",), "preferences-desktop-plasma", "la barra superior en cada monitor"),
 }
 # lo que el gestor necesita de la distribución (`_install_deps_apt` en lib/tools.sh): (paquete, binario)
 DEPENDENCIAS_SISTEMA = (("git", "git"), ("zsh", "zsh"), ("curl", "curl"), ("stow", "stow"),

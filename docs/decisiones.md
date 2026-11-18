@@ -125,6 +125,27 @@ en cada cambio está en el mensaje de commit; aquí queda por qué.
 
   El defecto de `--dry-run` que creaba carpetas se corrige en `lib/stow_ops.sh` en un commit propio.
 
+- **La forma propia de Dotfiles Studio** (2026-11-18; rediseño visual de los studios aprobado por el autor sobre
+  maquetas «con identidad propia»; [reingenieria.md](reingenieria.md) §7). Se conserva la portada de tarjetas de
+  Discover y se le da lo propio de un gestor de enlaces:
+
+  - cada tarjeta lleva el icono de su aplicación (del tema de iconos), el número de archivos y el **estado de stow
+    como un punto de color de estado**. Un conflicto (un archivo real en HOME) va en negativo aunque el paquete esté
+    a medias: es lo que exige decidir. El punto es un carácter del tipo de letra, sin radios ni medidas propias;
+  - las cifras (archivos, enlazados, híbridos, sin confirmar) pasan de etiquetas a una línea tenue;
+  - **abajo, la terminal con la simulación de lo que se ve**: `main.sh instalar --dry-run` de las tarjetas a la vista,
+    sin `-p` si se ven todas. Es el `stow -n` de este gestor, que no usa stow (§Cómo se enlaza), y nunca escribe. La
+    orden se ve antes de correr; cada línea lleva el color de estado de lo que dice. La misma pieza
+    (`TerminalSimulacion`) sirve a la pestaña Simulación de la página del paquete;
+  - en la barra lateral, un recuento que pide algo lleva su color de estado: lo que pide atención en neutro, los
+    hallazgos del escáner en negativo.
+
+  Los atajos no cambian: Ctrl+Mayús+Intro simula (en la portada, lo que se ve) y F5 relee, como decidió la
+  reingeniería y como Git y Filesystem, donde F5 lee. El error de `config.sh` pasa del mensaje en línea al vacío de la
+  portada, porque no pide decisión y ya va a las notificaciones. Los paquetes `ortografia` y `panel` reciben su
+  aplicación y su icono (`tools-check-spelling`, `preferences-desktop-plasma`). Cero colores propios: todo es
+  `Kirigami.Theme`, y una prueba vigila además `Qt.rgb`, `Qt.hsla`, `Qt.lighter` y `Qt.darker`.
+
 ## Pendientes
 
 | prioridad | pendiente | anotado | dueño |
