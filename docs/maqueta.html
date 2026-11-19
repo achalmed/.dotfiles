@@ -3,64 +3,565 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Maqueta — Dotfiles Studio</title>
+<title>Maqueta de Dotfiles Studio</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
 <style>
-/* Variables de respaldo: imitan las del anfitrión donde se mostró la maqueta. */
-:root{color-scheme:light;
---bg-primary:#ffffff;--surface-1:#f4f3ef;--surface-2:#ffffff;
---text-primary:#1c1c1e;--text-secondary:#6b6b66;--text-muted:#8e8e88;
---text-accent:#2563eb;--text-success:#15803d;--text-warning:#b45309;--text-danger:#b91c1c;
---border:rgba(0,0,0,.12);--border-strong:rgba(0,0,0,.24);--border-accent:#2563eb;--border-danger:#dc2626;--border-warning:#d97706;
---bg-accent:#dbe7fd;--bg-accent-muted:#eef3fe;--bg-success:#dcfce7;--bg-warning:#fef3c7;--bg-danger:#fee2e2;
---fill-accent:#2563eb;--fill-success:#16a34a;--fill-warning:#d97706;--fill-danger:#dc2626;--fill-ghost-selected:rgba(0,0,0,.06);
---on-accent:#ffffff;--radius:8px;
---font-sans:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;--font-mono:"JetBrains Mono",ui-monospace,monospace;--font-voice:Georgia,"Source Serif 4",serif}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;
---bg-primary:#1c1c1e;--surface-1:#242426;--surface-2:#2c2c2e;
---text-primary:#f5f5f0;--text-secondary:#a0a09a;--text-muted:#7c7c76;
---text-accent:#7aa7ff;--text-success:#4ade80;--text-warning:#fbbf24;--text-danger:#f87171;
---border:rgba(255,255,255,.12);--border-strong:rgba(255,255,255,.24);--border-accent:#7aa7ff;
---bg-accent:#1e3a6e;--bg-accent-muted:#1a2740;--bg-success:#14532d;--bg-warning:#4a3410;--bg-danger:#4c1d1d;
---fill-ghost-selected:rgba(255,255,255,.08)}}
-body{margin:0;padding:24px 16px;background:var(--bg-primary);color:var(--text-primary);font-family:var(--font-sans);font-size:14px;line-height:1.5}
-main{max-width:1100px;margin:0 auto}
-.encabezado{margin:0 0 14px}.encabezado h1{font-size:18px;font-weight:600;margin:0}
-.encabezado p{margin:4px 0 0;color:var(--text-secondary);font-size:12px}
-button{font:inherit;color:var(--text-primary);background:var(--surface-2);border:0.5px solid var(--border-strong);border-radius:var(--radius);cursor:pointer}
-input,select,textarea{font:inherit;color:inherit}
-.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-</style>
-<style>
-/* La metáfora de Dotfiles Studio: La portada de tarjetas de paquetes (cada una con su enlace y su estado de stow) y la terminal abajo con la simulación, porque aquí la salida de stow es lo que se lee. Acento propio #4f46e5; en la app el color sale del tema de KDE. */
-.nota-maqueta{color:var(--text-secondary);font-size:13px;margin:0 0 12px;max-width:820px}
-.win{border:0.5px solid var(--border);border-radius:12px;overflow:hidden;font-size:12px;background:var(--surface-2);box-shadow:0 8px 30px rgb(0 0 0 / .10)}
-.tit{display:flex;align-items:center;gap:8px;padding:6px 10px;border-bottom:0.5px solid var(--border);background:var(--surface-1)}
-.mut{color:var(--text-secondary);font-size:11px}
-.mono{font-family:var(--font-mono);font-size:11px;line-height:1.55}
-.row{display:flex;align-items:center;gap:6px}
-.btn{font-size:11px;padding:3px 9px}
-.pane{border-right:0.5px solid var(--border);padding:8px;overflow:hidden}
-.dt{width:8px;height:8px;border-radius:50%;display:inline-block;flex:none}
+/* La metáfora: un Discover de la configuración. Cada paquete de stow es una tarjeta con el icono de su aplicación,
+   su nombre y un punto de estado (el conflicto, en rojo); abajo, la terminal con la simulación, porque aquí lo que se
+   lee es la salida de main.sh. Colores: Lliphi Claro y Oscuro con el acento propio del studio (#4f46e5); en la app el
+   color sale del tema de KDE y el acento solo vive en el icono del lanzador. */
+:root{
+  --n0:#fbfcfd;--n1:#f2f3f5;--n2:#ecedef;--n3:#e0e1e5;--n4:#ccced2;--n5:#66676c;--n6:#4b4d53;--n7:#1d1f24;
+  --acento:#4f46e5;--acento-t:#4338ca;--acento-f:color-mix(in oklab,#4f46e5 13%,transparent);
+  --pos:#137738;--neg:#b63132;--neu:#915b00;--info:#286cab;
+  --term:#1b1c1e;--term-t:#d9dadd;--term-pos:#6fc884;--term-neg:#fb817a;--term-neu:#ebb25f;--term-tenue:#8d8e92;--term-ac:#a5a1ff;
+  --ui:Inter,"Noto Sans",system-ui,sans-serif;--mono:"JetBrains Mono","JetBrainsMono Nerd Font",ui-monospace,monospace;
+  color-scheme:light;
+}
+:root[data-theme="dark"]{
+  --n0:#101012;--n1:#161719;--n2:#1b1c1e;--n3:#232426;--n4:#3d3e42;--n5:#97989c;--n6:#bcbec1;--n7:#eaebed;
+  --acento:#6d66f0;--acento-t:#a5a1ff;--acento-f:color-mix(in oklab,#6d66f0 22%,transparent);
+  --pos:#6fc884;--neg:#fb817a;--neu:#ebb25f;--info:#7fb6ee;--term:#0b0b0d;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--n2);color:var(--n7);font:13px/1.5 var(--ui);padding:16px max(16px,env(safe-area-inset-right,0px)) 24px max(16px,env(safe-area-inset-left,0px))}
+button,input,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--acento);outline-offset:1px}
+.mandos{display:flex;flex-wrap:wrap;gap:8px 20px;align-items:center;margin:0 auto 12px;max-width:1320px}
+.mandos .grupo{display:flex;gap:2px;flex-wrap:wrap;align-items:center}
+.mandos .rot{color:var(--n5);margin-right:6px}
+.mandos button{border:1px solid var(--n4);background:var(--n0);padding:4px 10px;border-radius:4px;cursor:pointer}
+.mandos button[aria-pressed="true"]{background:var(--acento);border-color:var(--acento);color:#fff}
+.nota-maqueta{max-width:1320px;margin:0 auto 10px;color:var(--n5)}
+
+.ventana{max-width:1320px;margin:0 auto;background:var(--n1);border:1px solid var(--n4);border-radius:10px;overflow:hidden;box-shadow:0 8px 30px rgb(0 0 0 / .14);display:flex;flex-direction:column;position:relative}
+.ventana.celular{max-width:390px}
+.titulo{display:flex;align-items:center;gap:8px;padding:6px 10px;background:var(--n2);border-bottom:1px solid var(--n3)}
+.titulo .t{flex:1;text-align:center;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.titulo .bt{width:12px;height:12px;border-radius:50%;background:var(--n4);flex:none}
+.menu{display:flex;gap:14px;padding:3px 12px;border-bottom:1px solid var(--n3);flex-wrap:wrap}
+.barra{display:flex;align-items:center;gap:6px;padding:6px 10px;border-bottom:1px solid var(--n3);flex-wrap:wrap}
+.b{display:inline-flex;align-items:center;gap:5px;border:1px solid transparent;background:transparent;padding:3px 9px;border-radius:6px;white-space:nowrap;cursor:pointer}
+.b:hover{background:var(--n3)}
+.b i{font-size:15px;color:var(--n6)}
+.b.marco{border-color:var(--n4);background:var(--n0)}
+.b.prim{background:var(--acento);border-color:var(--acento);color:#fff}
+.b.prim i{color:#fff}
+.b.peligro{background:var(--neg);border-color:var(--neg);color:#fff}
+.b[disabled]{opacity:.45;cursor:not-allowed}
+.b kbd{font:11px var(--ui);color:var(--n5)}
+.b.prim kbd{color:#ffffffc0}
+.sep{width:1px;height:18px;background:var(--n3);flex:none}
+.esp{flex:1}
+.donde{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.buscar{display:flex;align-items:center;gap:6px;border:1px solid var(--n4);background:var(--n0);border-radius:6px;padding:3px 8px;min-width:240px}
+.buscar input{border:0;background:none;outline:0;flex:1;min-width:0}
+.buscar i{color:var(--n5)}
+.celular .menu,.celular .solo-esc{display:none!important}
+.celular .buscar{min-width:0;flex:1}
+.celular .barra .esp{display:none}
+.celular .donde{max-width:45%}
+.celular .b .tx{display:none}
+
+.cuerpo{display:grid;grid-template-columns:220px minmax(0,1fr);min-height:620px}
+.lateral{border-right:1px solid var(--n3);padding:10px 8px;display:flex;flex-direction:column;gap:2px;background:var(--n1)}
+.lateral h4,h4{margin:10px 6px 4px;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--n5);font-weight:500;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+h4 small{text-transform:none;letter-spacing:0;font-weight:400}
+.lateral h4:first-child{margin-top:2px}
+.lateral button{display:flex;align-items:center;gap:8px;border:0;background:none;padding:5px 8px;border-radius:6px;text-align:left;cursor:pointer;color:var(--n6)}
+.lateral button i{font-size:16px}
+.lateral button span{flex:1}
+.lateral button small{color:var(--n5);font-variant-numeric:tabular-nums}
+.lateral button small.neu{color:var(--neu)}.lateral button small.neg{color:var(--neg)}
+.lateral button[aria-current="page"]{background:var(--acento-f);color:var(--n7)}
+.lateral .pie-lat{margin-top:auto;padding:8px;border-top:1px solid var(--n3);color:var(--n5);font-size:11.5px;display:grid;gap:2px}
+.celular .lateral{display:none}
+.celular .cuerpo{grid-template-columns:minmax(0,1fr);min-height:0}
+
+.principal{min-width:0;display:flex;flex-direction:column}
+.contenido{flex:1;padding:14px 16px;display:grid;gap:12px;align-content:start;min-width:0}
+.celular .contenido{padding:10px}
+.tarjetas{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px}
+.celular .tarjetas{grid-template-columns:minmax(0,1fr)}
+.tarjeta{background:var(--n0);border:1px solid var(--n4);border-radius:10px;padding:10px 12px;display:grid;gap:4px;text-align:left;cursor:pointer;min-width:0}
+.tarjeta:hover{border-color:var(--n5)}
+.tarjeta.mal{border-color:color-mix(in oklab,var(--neg) 60%,var(--n4))}
+.tarjeta .fila{display:flex;align-items:center;gap:9px;min-width:0}
+.tarjeta .ico{width:32px;height:32px;border-radius:8px;display:grid;place-items:center;background:var(--n2);flex:none}
+.tarjeta .ico i{font-size:19px;color:var(--n6)}
+.tarjeta .nom{flex:1;min-width:0}
+.tarjeta .nom b{display:block;font-weight:600}
+.tarjeta .nom span{color:var(--n5);font-size:11.5px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tarjeta .que{color:var(--n6);font-size:12px}
+.tarjeta .cifras{color:var(--n5);font-size:11.5px}
+.tarjeta .op{justify-self:start;font-size:12px;color:var(--acento-t);font-weight:500}
+.pt{width:10px;height:10px;border-radius:50%;display:inline-block;flex:none;background:var(--c)}
+.pt.pos{--c:var(--pos)}.pt.neu{--c:var(--neu)}.pt.neg{--c:var(--neg)}.pt.ten{--c:var(--n4)}
+.etq{font-size:11.5px;color:var(--c);display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
+.etq.pos{--c:var(--pos)}.etq.neu{--c:var(--neu)}.etq.neg{--c:var(--neg)}.etq.ten{--c:var(--n5)}
+.vacio{color:var(--n5);padding:20px;text-align:center;border:1px dashed var(--n4);border-radius:10px}
+
+.terminal{background:var(--term);color:var(--term-t);font:11.5px/1.55 var(--mono);border-top:1px solid var(--n3);min-width:0}
+.terminal .cab{display:flex;align-items:center;gap:8px;padding:5px 10px;background:color-mix(in oklab,var(--term) 80%,#fff 6%);color:var(--term-tenue);font-family:var(--ui);font-size:11.5px;flex-wrap:wrap}
+.terminal .cab code{font:11.5px var(--mono);color:var(--term-ac);flex:1;min-width:0;overflow-wrap:anywhere}
+.terminal .cab button{border:1px solid #ffffff2a;background:none;color:var(--term-t);border-radius:5px;padding:1px 8px;cursor:pointer;font-family:var(--ui)}
+.terminal pre{margin:0;padding:8px 12px;white-space:pre-wrap;overflow-wrap:anywhere;max-height:210px;overflow:auto;font:inherit}
+.terminal .ok{color:var(--term-pos)}.terminal .mal{color:var(--term-neg)}.terminal .ad{color:var(--term-neu)}.terminal .t{color:var(--term-tenue)}.terminal .p{color:var(--term-ac)}
+
+.cab-paq{display:flex;gap:14px;align-items:center;min-width:0}
+.cab-paq .ico{width:54px;height:54px;border-radius:12px;display:grid;place-items:center;background:var(--n0);border:1px solid var(--n4);flex:none}
+.cab-paq .ico i{font-size:30px;color:var(--n6)}
+.cab-paq h2{margin:0;font-size:18px;font-weight:600}
+.cab-paq p{margin:0;color:var(--n5)}
+.operacion{background:var(--n0);border:1px solid var(--n4);border-radius:10px;padding:10px 12px;display:grid;gap:8px;min-width:0}
+.segm{display:inline-flex;border:1px solid var(--n4);border-radius:6px;overflow:hidden;flex-wrap:wrap}
+.segm button{border:0;background:var(--n0);padding:4px 11px;cursor:pointer}
+.segm button+button{border-left:1px solid var(--n4)}
+.segm button[aria-pressed="true"]{background:var(--acento);color:#fff}
+.segm.chico button{padding:1px 8px;font-size:11.5px}
+.orden{display:flex;gap:8px;align-items:center;background:var(--n1);border:1px solid var(--n3);border-radius:6px;padding:4px 8px;min-width:0}
+.orden code{font:12px var(--mono);flex:1;overflow-wrap:anywhere;min-width:0}
+.fila-acc{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.resumen{font-size:12px;color:var(--n6)}
+.bloqueo{border:1px solid color-mix(in oklab,var(--c,var(--neg)) 45%,transparent);background:color-mix(in oklab,var(--c,var(--neg)) 10%,transparent);border-radius:8px;padding:7px 10px;font-size:12px}
+.dos{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:12px;align-items:start}
+.celular .dos{grid-template-columns:minmax(0,1fr)}
+.panel{background:var(--n0);border:1px solid var(--n4);border-radius:10px;min-width:0;overflow:hidden}
+.panel>h4{margin:8px 12px 4px}
+.archivos{display:grid}
+.archivo{display:grid;grid-template-columns:12px minmax(0,1fr);gap:4px 8px;padding:7px 12px;border-top:1px solid var(--n3);cursor:pointer;align-items:center}
+.archivo.sel{background:var(--acento-f)}
+.archivo .mono{overflow-wrap:anywhere}
+.archivo .acc{grid-column:2;display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:11.5px;color:var(--n5)}
+.archivo .acc b{font-weight:500;color:var(--c,var(--n6))}
+.pestanas{display:flex;border-bottom:1px solid var(--n3);padding:0 6px;overflow-x:auto}
+.pestanas button{border:0;background:none;padding:8px 10px;color:var(--n5);border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap}
+.pestanas button[aria-selected="true"]{color:var(--n7);border-bottom-color:var(--acento)}
+.comp{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);font:11.5px/1.55 var(--mono)}
+.comp>div{min-width:0;padding:0 10px;white-space:pre-wrap;overflow-wrap:anywhere;min-height:1.55em}
+.comp>div:nth-child(even){border-left:1px solid var(--n3)}
+.comp .cab{font:500 11.5px var(--ui);padding:5px 10px;background:var(--n2);color:var(--n6);border-bottom:1px solid var(--n3)}
+.comp .menos{background:color-mix(in oklab,var(--neg) 14%,transparent)}
+.comp .mas{background:color-mix(in oklab,var(--pos) 14%,transparent)}
+.celular .comp{grid-template-columns:minmax(0,1fr)}
+.celular .comp>div:nth-child(even){border-left:0}
+.celular .comp>div.igual{display:none}
+.celular .comp>div.menos::before{content:"− "}.celular .comp>div.mas::before{content:"+ "}
+.detalles{padding:10px 12px;display:grid;gap:6px;font-size:12px}
+.detalles>div:not(.fila-acc){display:grid;grid-template-columns:150px minmax(0,1fr);gap:8px}
+.celular .detalles>div:not(.fila-acc){grid-template-columns:1fr}
+.detalles dt,.detalles span:first-child{color:var(--n5)}
+.mono{font-family:var(--mono);font-size:12px}
+.suave{color:var(--n5);font-size:11.5px}
+
+.tabla{display:grid}
+.tabla>div{display:grid;grid-template-columns:28px minmax(0,1fr) auto;gap:8px;padding:6px 12px;border-top:1px solid var(--n3);align-items:center;cursor:pointer}
+.tabla>div.sel{background:var(--acento-f)}
+.tabla .mono{overflow-wrap:anywhere}
+.tabla .letra{font:600 12px var(--mono);color:var(--neu)}
+.campo{border:1px solid var(--n4);background:var(--n0);border-radius:6px;padding:5px 8px;width:100%;resize:vertical;min-height:34px}
+.patrones{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:2px 14px;padding:4px 12px 10px;font-size:12px;color:var(--n6)}
+.celular .patrones{grid-template-columns:1fr}
+.hallazgo{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 12px;padding:8px 12px;border-top:1px solid var(--n3);font-size:12px}
+.hallazgo .mono{overflow-wrap:anywhere}
+.lista{display:grid}
+.lista>div{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 10px;padding:8px 12px;border-top:1px solid var(--n3);align-items:center}
+.lista .acc{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.celular .lista>div{grid-template-columns:minmax(0,1fr)}
+.celular .lista .acc{justify-content:flex-start}
+.paso-n{display:grid;grid-template-columns:26px minmax(0,1fr);gap:10px;padding:9px 12px;border-top:1px solid var(--n3);align-items:start}
+.paso-n>b{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:var(--n3);font-size:12px}
+.paso-n.hecho>b{background:var(--pos);color:#fff}
+.paso-n.ahora>b{background:var(--acento);color:#fff}
+.paso-n p{margin:2px 0 6px;color:var(--n6);font-size:12px}
+.doc{padding:12px 16px;font-size:13px;line-height:1.6}
+.doc h3{margin:0 0 6px;font-size:15px}
+.doc code{font:12px var(--mono);background:var(--n2);padding:1px 4px;border-radius:3px}
+.doc table{border-collapse:collapse;font-size:12px;margin:6px 0;width:100%}
+.doc td,.doc th{border:1px solid var(--n4);padding:3px 7px;text-align:left}
+
+.salida{border-top:1px solid var(--n3);background:var(--n0);display:flex;flex-direction:column}
+.salida pre{margin:0;padding:8px 12px;font:11.5px/1.5 var(--mono);white-space:pre-wrap;overflow-wrap:anywhere;max-height:150px;overflow:auto;color:var(--n6)}
+.estado{display:flex;gap:16px;padding:4px 12px;border-top:1px solid var(--n3);background:var(--n2);color:var(--n5);font-size:11.5px;flex-wrap:wrap}
+.estado .neu{color:var(--neu)}.estado #aviso{color:var(--n7);margin-left:auto}
+.celular .estado{display:none}
+.abajo-cel{display:none}
+.celular .abajo-cel{display:flex;justify-content:space-around;border-top:1px solid var(--n3);background:var(--n1);padding:6px 4px 8px}
+.abajo-cel button{border:0;background:none;display:grid;justify-items:center;gap:1px;font-size:11px;color:var(--n5);cursor:pointer;padding:2px 6px}
+.abajo-cel button i{font-size:19px}
+.abajo-cel button[aria-pressed="true"]{color:var(--acento-t)}
+
+.capa{position:absolute;inset:0;background:rgb(16 16 18 / .42);display:flex;align-items:flex-start;justify-content:center;padding-top:80px;z-index:8}
+.celular .capa{padding-top:0;align-items:flex-end}
+.dialogo{background:var(--n1);border:1px solid var(--n4);border-radius:12px;width:min(560px,94%);box-shadow:0 12px 40px rgb(0 0 0 / .3);max-height:calc(100% - 100px);overflow:auto}
+.celular .dialogo{width:100%;border-radius:14px 14px 0 0;max-height:92%}
+.dialogo .cab{padding:10px 14px;border-bottom:1px solid var(--n3);font-weight:600;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.dialogo .cuerpo-d{padding:12px 14px;display:grid;gap:10px}
+.dialogo .cuerpo-d p{margin:0}
+.dialogo .pie{padding:10px 14px;border-top:1px solid var(--n3);display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}
+.estado-op{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:500;color:var(--c)}
+.lista-paleta{display:grid;gap:1px;max-height:300px;overflow:auto}
+.lista-paleta button{display:flex;justify-content:space-between;gap:10px;border:0;background:none;text-align:left;padding:6px 8px;border-radius:6px;cursor:pointer}
+.lista-paleta button.on,.lista-paleta button:hover{background:var(--acento-f)}
+.lista-paleta small{color:var(--n5)}
+.opcion{display:flex;gap:8px;align-items:flex-start}
+.opcion input{accent-color:var(--acento);margin-top:3px}
+.metodo{max-width:1320px;margin:22px auto 0;color:var(--n6)}
+.metodo h2{font-size:15px;margin:0 0 8px;color:var(--n7)}
+.metodo ol{margin:0;padding-left:20px;display:grid;gap:6px}
+.metodo b{color:var(--n7);font-weight:600}
+[hidden]{display:none!important}
 </style>
 </head>
 <body>
-<main>
-<header class="encabezado"><h1>Maqueta — Dotfiles Studio</h1>
-<p>Aprobada el 2026-11-18 (versión «identidad propia»).</p></header>
-<p class="nota-maqueta">La portada de tarjetas de paquetes (cada una con su enlace y su estado de stow) y la terminal abajo con la simulación, porque aquí la salida de stow es lo que se lee.</p>
-<div id="vista" aria-label="Ventana de Dotfiles Studio"></div>
-</main>
+
+<div class="mandos" role="toolbar" aria-label="Mandos de la maqueta">
+  <div class="grupo" id="g-pantalla"><span class="rot">Pantalla</span>
+    <button data-p="portada" aria-pressed="true">Portada</button>
+    <button data-p="conflicto">Paquete con conflicto</button>
+    <button data-p="adoptar">Adoptar y elegir versión</button>
+    <button data-p="instalar">Instalar con respaldo</button>
+    <button data-p="cambios">Cambios</button>
+    <button data-p="seguridad">Seguridad</button>
+    <button data-p="maquina">Máquina nueva</button>
+    <button data-p="guia">Guía</button>
+  </div>
+  <div class="grupo" id="g-tema"><span class="rot">Tema</span>
+    <button data-t="light" aria-pressed="true">Lliphi Claro</button>
+    <button data-t="dark">Lliphi Oscuro</button>
+  </div>
+  <div class="grupo" id="g-ancho"><span class="rot">Ancho</span>
+    <button data-a="escritorio" aria-pressed="true">Escritorio</button>
+    <button data-a="celular">Celular (390 px)</button>
+  </div>
+</div>
+<p class="nota-maqueta">Maqueta de composición. Los 17 paquetes, sus archivos, sus estados (dos conflictos: <span class="mono">mimeapps.list</span> en kde y dos JSON de calibre) y los 8 cambios sin confirmar son los reales de <span class="mono">~/.dotfiles</span> el 19 de noviembre; los contenidos de los archivos son de ejemplo y nunca se muestra un secreto. Todo responde: filtros, búsqueda, operaciones, elección de versión, confirmar y la terminal.</p>
+
+<div class="ventana" id="ventana">
+  <div class="titulo"><span class="bt"></span><span class="bt"></span><span class="bt"></span><span class="t" id="t-ventana">Paquetes · Dotfiles Studio</span></div>
+  <div class="menu"><span>Archivo</span><span>Editar</span><span>Ver</span><span>Paquete</span><span>Repositorio</span><span>Sistema</span><span>Ajustes</span><span>Ayuda</span></div>
+  <div class="barra">
+    <button class="b" id="b-volver" hidden title="Volver a la portada (Alt+Izquierda)"><i class="ti ti-arrow-left"></i><span class="tx">Paquetes</span></button>
+    <span class="donde" id="donde">Todos los paquetes</span>
+    <span class="esp"></span>
+    <label class="buscar"><i class="ti ti-search"></i><input id="q" placeholder="Paquete, aplicación o ruta" aria-label="Buscar un paquete, una aplicación o la ruta de un archivo"><kbd class="suave solo-esc">Ctrl+F</kbd></label>
+    <button class="b solo-esc" id="b-releer"><i class="ti ti-refresh"></i>Releer <kbd>F5</kbd></button>
+    <button class="b solo-esc" id="b-escanear"><i class="ti ti-shield-search"></i>Escanear</button>
+    <button class="b" id="b-paleta" title="Órdenes (Ctrl+K)"><i class="ti ti-command"></i><span class="tx">Órdenes</span></button>
+    <button class="b" id="b-salida" title="Salida (F4)"><i class="ti ti-file-text"></i><span class="tx">Salida</span></button>
+  </div>
+
+  <div class="cuerpo">
+    <nav class="lateral" aria-label="Secciones" id="lateral"></nav>
+    <div class="principal">
+      <section class="contenido" id="contenido"></section>
+      <div class="terminal" id="terminal">
+        <div class="cab"><i class="ti ti-terminal-2"></i><code id="t-orden">./main.sh instalar --dry-run</code><span id="t-nota">simulación · nada escrito</span><button id="b-simular">Simular lo que se ve <kbd style="color:inherit;opacity:.6">Ctrl+Mayús+Intro</kbd></button></div>
+        <pre id="t-texto"></pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="salida" id="salida" hidden><div class="pestanas" role="tablist"><button role="tab" aria-selected="true" data-s="salida">Salida</button><button role="tab" aria-selected="false" data-s="registro">Registro</button></div><pre id="salida-texto"></pre></div>
+  <div class="estado" id="estado"></div>
+  <div class="abajo-cel" id="abajo-cel">
+    <button data-c="portada" aria-pressed="true"><i class="ti ti-packages"></i>Paquetes</button>
+    <button data-c="cambios"><i class="ti ti-git-commit"></i>Cambios</button>
+    <button data-c="seguridad"><i class="ti ti-shield-check"></i>Seguridad</button>
+    <button data-c="maquina"><i class="ti ti-device-laptop"></i>Sistema</button>
+  </div>
+  <div class="capa" id="capa" hidden><div class="dialogo" role="dialog" aria-modal="true" id="dialogo"></div></div>
+</div>
+
+<section class="metodo" aria-label="Notas de método">
+  <h2>Notas de método</h2>
+  <ol>
+    <li><b>La forma de Discover.</b> Un paquete de stow es una aplicación: tarjeta con su icono, su nombre, qué guarda y un punto de estado. Verde enlazado, ámbar parcial o sin enlazar, rojo cuando hay un archivo real en HOME (el conflicto), tenue sin configuración. La tarjeta solo dice qué operación pide; nada se aplica desde la portada.</li>
+    <li><b>La terminal es el texto que manda.</b> Abajo, siempre, la simulación de lo que se ve (<span class="mono">main.sh … --dry-run</span>) con la orden arriba y cada línea en su color de estado. Es la misma salida que daría la terminal, sin rutas de la máquina.</li>
+    <li><b>El plan antes que el botón.</b> La página del paquete calcula, archivo por archivo, lo que <span class="mono">lib/stow_ops.sh</span> haría en cada operación (la tabla de <span class="mono">servicios/plan.py</span>), con la comparación repo ⟷ HOME a la vista. «Actualizar» con un archivo real se bloquea porque lo borraría sin respaldo.</li>
+    <li><b>Un conflicto se resuelve sobre la comparación.</b> Adoptar con un archivo en los dos lados pide elegir la versión de cada uno («La de HOME, al repo» · «La del repo» · «Saltar») y corre <span class="mono">main.sh adoptar --elecciones</span>, sin terminal; si queda alguno sin elegir, se abre Konsole.</li>
+    <li><b>El repo es público.</b> Confirmar exige la diferencia a la vista y un mensaje, corre el escáner antes y usa <span class="mono">git add -- ruta</span>, nunca <span class="mono">git add .</span>; el escáner muestra tipo, archivo, línea y huella, nunca el valor. No hay sync-push.</li>
+    <li><b>Una máquina nueva es una lista, no un asistente opaco.</b> Clonar, dependencias (sudo, en terminal), fuentes, simular, instalar y adoptar lo que ya había: cada paso con su orden, su simulación y su confirmación.</li>
+  </ol>
+</section>
+
 <script>
-const A={"dotfiles": "#4f46e5"};
-const el=id=>document.getElementById(id);
-const tb=(c,t,extra)=>`<div class="tit"><i class="ti ${t[0]}" style="color:${c};font-size:15px" aria-hidden="true"></i><span style="font-weight:500">${t[1]}</span>${extra||""}</div>`;
-const vista=c=>`<div class="win">${tb(c,["ti-adjustments","Dotfiles"],`<span class="mut">~/.dotfiles · 31 paquetes</span><span style="flex:1"></span><button class="btn">Simular</button><button class="btn">Subir a GitHub…</button>`)}
-<div style="display:grid;grid-template-columns:120px minmax(0,1fr)">
-<div class="pane">${["Portada","Paquetes","Cambios","Sistema","Seguridad","Guía"].map((s,i)=>`<div style="padding:4px 6px;border-radius:4px;${i===0?`background:${c}1f;color:${c}`:""}">${s}</div>`).join("")}</div>
-<div style="padding:10px;display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px">${[["ti-brand-kde","kde","42 archivos",1],["ti-terminal","zsh","1 conflicto",0],["ti-terminal-2","konsole","3 archivos",1],["ti-git-branch","git","2 archivos",1],["ti-notebook","obsidian","hasta la ola 8",1],["ti-brand-vscode","code","5 cambios",2]].map(p=>`<div style="border:0.5px solid var(--border);border-radius:8px;padding:8px;${p[3]===0?"border-color:var(--border-danger)":""}"><div class="row"><i class="ti ${p[0]}" style="font-size:18px;color:${c}" aria-hidden="true"></i><span style="font-weight:500;flex:1">${p[1]}</span><span class="dt" style="background:${p[3]===1?"var(--text-success)":p[3]===0?"var(--text-danger)":"var(--text-warning)"}"></span></div><div class="mut" style="margin-top:4px">${p[2]}</div></div>`).join("")}</div></div>
-<div class="mono" style="background:var(--surface-1);border-top:0.5px solid var(--border);padding:8px 10px"><span style="color:${c}">$</span> stow -n -v zsh<br>LINK: .zshrc => .dotfiles/zsh/.zshrc<br><span style="color:var(--text-danger)">CONFLICTO: .zshenv existe y no es un enlace</span><br><span class="mut">simulación · nada escrito</span></div></div>`;
-el("vista").innerHTML=vista("#4f46e5");
+(function(){
+'use strict';
+var $=function(id){return document.getElementById(id)}, v=$('ventana'), raiz=document.documentElement;
+/* ---------- Los paquetes de config.sh, con sus archivos y el estado real ---------- */
+var A='activo',C='conflicto',P='pendiente',L='local';
+var PAQ=[
+ ['git','Git','ti-brand-git','identidad y preferencias, sin credenciales',[['.gitconfig',A]]],
+ ['shell','Zsh y Starship','ti-terminal','el shell, sus alias y el prompt',[['.zshrc',A],['.config/starship.toml',A]]],
+ ['kde','KDE Plasma','ti-layout-dashboard','tema, colores, atajos globales, KWin y Dolphin',[['.config/kdeglobals',A],['.config/kglobalshortcutsrc',A],['.config/kwinrc',A],['.config/dolphinrc',A],['.config/plasmarc',A],['.config/plasma-localerc',A],['.config/mimeapps.list',C],['.local/share/applications/obsidian-captura-rapida.desktop',A],['.local/share/applications/deepseek-harness.desktop',A],['.local/share/icons/hicolor/scalable/apps/deepseek-harness.svg',A]]],
+ ['konsole','Konsole','ti-terminal-2','el perfil y el esquema de color',[['.config/konsolerc',A],['.local/share/konsole/achalmaedison.profile',A],['.local/share/konsole/Nothing.colorscheme',A]]],
+ ['positron','Positron','ti-chart-histogram','ajustes y atajos del IDE',[['.config/Positron/User/settings.json',A]]],
+ ['calibre','calibre','ti-books','preferencias de la biblioteca, el visor y el editor',[['.config/calibre/global.py.json',C],['.config/calibre/tweak_book_gui.json',A],['.config/calibre/viewer-webengine.json',C]]],
+ ['kate','Kate','ti-edit','editor, cliente LSP y herramientas externas',[['.config/katerc',A],['.config/kate/lspclient/settings.json',A],['.config/kate/externaltools',A]]],
+ ['texstudio','TeXstudio','ti-math-function','la configuración completa del editor',[['.config/texstudio/texstudio.ini',A]]],
+ ['okular','Okular','ti-file-type-pdf','las preferencias de visualización',[['.config/okularpartrc',A]]],
+ ['rstudio','RStudio','ti-chart-dots','las preferencias del editor',[['.config/rstudio/rstudio-prefs.json',A]]],
+ ['xournalpp','Xournal++','ti-writing','los ajustes de la aplicación',[['.config/xournalpp/settings.xml',A]]],
+ ['koreader','KOReader','ti-book','ajustes de lectura, gestos y teclas',[['.config/koreader/defaults.custom.lua',A],['.config/koreader/settings/gestures.lua',A],['.config/koreader/settings/hotkeys.lua',A],['.config/koreader/settings/directory_defaults.lua',A]]],
+ ['systemd','systemd (usuario)','ti-settings-automation','unidades de usuario de la máquina',[['.config/systemd/user/audio-sesion-local.service',A]]],
+ ['vim','Vim','ti-brand-vim','el ~/.vimrc',[['.vimrc',A]]],
+ ['nvim','Neovim','ti-file-code','el init.lua',[['.config/nvim/init.lua',A]]],
+ ['ortografia','Corrector en español','ti-abc','Sonnet de KDE y el corrector de los navegadores',[['.config/KDE/Sonnet.conf',A],['.local/bin/corrector-espanol',A]]],
+ ['panel','Panel de Plasma','ti-layout-navbar','la barra superior en cada monitor',[['.local/bin/panel-en-cada-pantalla',A],['.config/autostart/panel-en-cada-pantalla.desktop',A]]]
+].map(function(x){return {id:x[0],app:x[1],ico:x[2],que:x[3],arch:x[4].map(function(f){return {rel:f[0],e:f[1]}})}});
+var POR={};PAQ.forEach(function(p){POR[p.id]=p});
+var HIBRIDOS=['kdeglobals','kwinrc','konsolerc','texstudio.ini'];
+var CAMBIOS=[['kde/.config/kdeglobals'],['kde/.config/kglobalshortcutsrc'],['kde/.config/kwinrc'],['konsole/.local/share/konsole/achalmaedison.profile'],['positron/.config/Positron/User/settings.json'],['rstudio/.config/rstudio/rstudio-prefs.json'],['texstudio/.config/texstudio/texstudio.ini'],['xournalpp/.config/xournalpp/settings.xml']].map(function(x){return x[0]});
+var SIN_SUBIR=2;
+var EXPLICA={activo:'enlazado al repo',conflicto:'archivo real en HOME',pendiente:'en el repo, sin enlace',local:'solo en HOME',ausente:'ni en el repo ni en HOME'};
+var NIVEL={activo:'pos',conflicto:'neg',pendiente:'neu',local:'neu',ausente:'ten'};
+function estadoPaq(p){var c=function(e){return p.arch.filter(function(a){return a.e===e}).length};
+  if(!p.arch.length)return['Sin configuración aún','ten'];
+  if(c(C))return['Archivo real en HOME','neg'];
+  if(c(A)===p.arch.length)return['Enlazado','pos'];
+  if(c(L)===p.arch.length)return['Solo en HOME','neu'];
+  if(!c(A))return['Sin enlazar','neu'];return['Parcial','neu'];}
+function cambiosDe(id){return CAMBIOS.filter(function(r){return r.indexOf(id+'/')===0}).length}
+function opPide(p){if(p.arch.some(function(a){return a.e===C||a.e===L}))return'adoptar';if(p.arch.some(function(a){return a.e===P}))return'instalar';return null}
+var TXT_OP={instalar:'Instalar',adoptar:'Adoptar',actualizar:'Actualizar',eliminar:'Quitar enlaces'};
+var EST_OP={instalar:['instalación','var(--info)'],adoptar:['escritura','var(--neu)'],actualizar:['instalación','var(--info)'],eliminar:['eliminación','var(--neg)']};
+
+/* ---------- El plan por archivo: la tabla de servicios/plan.py ---------- */
+var ELECC={l:['lleva la de HOME al repo','pos'],r:['deja la del repo y enlaza','neu'],s:['se salta','ten']};
+function plan(op,p,forzar,elec){var filas=[],terminal=false,bloqueo='';
+  p.arch.forEach(function(a){var f;
+    if(op==='instalar'){f=a.e===A?['rehace el enlace','ten','ya enlazado: no cambia nada']:a.e===C?(forzar?['reemplaza por el enlace','neg','el archivo de HOME queda en .backups/',1]:['se salta','neu','hay un archivo real en HOME: marque «Reemplazar» o adopte']):a.e===P?['crea el enlace','pos','',1]:['se salta','neu','no está en el repo']}
+    else if(op==='adoptar'){if(a.e===A)f=['ya enlazado','ten','no cambia nada'];else if(a.e===L)f=['lo mueve al repo y lo enlaza','pos','entra al repo: confírmelo después en Cambios',1];
+      else if(a.e===C&&elec[a.rel]){var x=ELECC[elec[a.rel]];f=[x[0],x[1],elec[a.rel]==='r'?'la de HOME queda en .backups/':elec[a.rel]==='l'?'el repo cambia: aparece en Cambios':'',elec[a.rel]!=='s'];}
+      else if(a.e===C){terminal=true;f=['pregunta qué versión conservar','neu','está en HOME y en el repo: elija aquí la versión, o se responde en una terminal',1]}
+      else f=['crea el enlace','pos','',1]}
+    else if(op==='actualizar'){if(a.e===C){bloqueo='Hay archivos reales en HOME que «actualizar» borraría sin respaldo (ln -sfn). Use Instalar con «Reemplazar», que respalda, o Adoptar.';f=['lo borraría sin respaldo','neg','bloqueado']}else f=a.e===A?['rehace el enlace','ten','ya enlazado: no cambia nada']:a.e===P?['crea el enlace','pos','',1]:['se salta','neu','no está en el repo']}
+    else f=a.e===A?['quita el enlace','neg','la aplicación pierde esta configuración hasta instalar; el repo no cambia',1]:['no se toca','ten',EXPLICA[a.e]];
+    filas.push({a:a,acc:f[0],niv:f[1],det:f[2],cambia:!!f[3]})});
+  if(op==='eliminar'&&!filas.some(function(f){return f.cambia}))bloqueo='Ningún archivo de este paquete está enlazado: no hay enlaces que quitar.';
+  var cuenta={};filas.forEach(function(f){cuenta[f.acc]=(cuenta[f.acc]||0)+1});
+  var res=Object.keys(cuenta).filter(function(k){return k!=='ya enlazado'&&k!=='rehace el enlace'&&k!=='no se toca'}).map(function(k){return cuenta[k]+' '+k}).join(' · ')||'nada cambia';
+  var orden='./main.sh '+(op==='eliminar'?'eliminar':op)+' -p '+p.id+(op==='instalar'&&forzar?' --force':'')+(op==='adoptar'&&Object.keys(elec).length&&!terminal?' --elecciones /tmp/dotfiles-elecciones-'+p.id:'');
+  return {filas:filas,terminal:terminal,bloqueo:bloqueo,res:res,orden:orden,cambian:filas.filter(function(f){return f.cambia}).length};}
+
+/* ---------- Contenidos de ejemplo para comparar (sin secretos) ---------- */
+var COMP={
+ '.config/mimeapps.list':[['[Default Applications]','[Default Applications]'],['application/pdf=okularApplication_pdf.desktop','application/pdf=org.kde.okular.desktop',1],['text/markdown=org.kde.kate.desktop','text/markdown=obsidian.desktop',1],['x-scheme-handler/http=zen.desktop','x-scheme-handler/http=zen.desktop'],['','x-scheme-handler/obsidian=obsidian.desktop',2]],
+ '.config/calibre/global.py.json':[['{','{'],['  "language": "es",','  "language": "es",'],['  "library_path": "~/Documents/biblioteca",','  "library_path": "~/Documents/biblioteca",'],['  "network_timeout": 5,','  "network_timeout": 15,',1],['','  "check_for_plugin_updates": false,',2],['}','}']],
+ '.config/calibre/viewer-webengine.json':[['{','{'],['  "session_data": {','  "session_data": {'],['    "base_font_size": 18,','    "base_font_size": 20,',1],['    "current_color_scheme": "*sepia-light"','    "current_color_scheme": "*sepia-light"'],['}','}']]};
+var DIFF={
+ 'kde/.config/kwinrc':[['[Plugins]','[Plugins]'],['blurEnabled=true','blurEnabled=false',1],['wobblywindowsEnabled=false','wobblywindowsEnabled=false'],['[Windows]','[Windows]'],['','BorderlessMaximizedWindows=true',2]],
+ 'kde/.config/kdeglobals':[['[General]','[General]'],['ColorScheme=LliphiOscuro','ColorScheme=LliphiClaro',1],['[KDE]','[KDE]'],['LookAndFeelPackage=org.lliphi.oscuro','LookAndFeelPackage=org.lliphi.claro',1],['[KFileDialog Settings]','[KFileDialog Settings]'],['Show hidden files=false','Show hidden files=true',1]],
+ 'texstudio/.config/texstudio/texstudio.ini':[['[texmaker]','[texmaker]'],['Tools\\Commands\\lualatex="lualatex -synctex=1 %.tex"','Tools\\Commands\\lualatex="lualatex -synctex=1 -interaction=nonstopmode %.tex"',1],['Editor\\Font Size=11','Editor\\Font Size=12',1]]};
+function comparacion(izq,der,filas){return '<div class="comp"><div class="cab">'+izq+'</div><div class="cab">'+der+'</div>'+filas.map(function(f){return '<div class="'+(f[2]===1?'menos':'')+'">'+esc(f[0])+'</div><div class="'+(f[2]?'mas':'igual')+'">'+esc(f[1])+'</div>'}).join('')+'</div>';}
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;')}
+
+/* ---------- Estado de la vista ---------- */
+var vista='portada', filtro='todos', paq=null, op=null, forzar=false, elec={}, fsel=0, pest='comp', csel=0, conHallazgo=false, maqNueva=false, pasoMaq=0, doc=0;
+
+/* ---------- Barra lateral ---------- */
+function lateral(){var aten=PAQ.filter(function(p){return estadoPaq(p)[1]!=='pos'}).length,enl=PAQ.filter(function(p){return estadoPaq(p)[1]==='pos'}).length,conC=PAQ.filter(function(p){return cambiosDe(p.id)}).length;
+  var item=function(id,ico,t,n,cl){var act=(vista==='portada'&&filtro===id)||(vista===id);return '<button data-l="'+id+'"'+(act?' aria-current="page"':'')+'><i class="ti '+ico+'"></i><span>'+t+'</span>'+(n!==''?'<small class="'+(cl||'')+'">'+n+'</small>':'')+'</button>'};
+  $('lateral').innerHTML='<h4>Paquetes</h4>'+item('todos','ti-packages','Todos',PAQ.length)+item('atencion','ti-alert-triangle','Piden atención',aten,aten?'neu':'')+item('enlazados','ti-link','Enlazados',enl)+item('concambios','ti-pencil','Con cambios sin confirmar',conC)+
+    '<h4>Repositorio</h4>'+item('cambios','ti-git-commit','Cambios sin confirmar',CAMBIOS.length)+item('seguridad','ti-shield-check','Seguridad',conHallazgo?1:0,conHallazgo?'neg':'')+item('maquina','ti-device-laptop','Sistema','')+item('guia','ti-book-2','Guía','')+
+    '<div class="pie-lat"><span><i class="ti ti-git-branch"></i> main</span><span>'+SIN_SUBIR+' commit'+(SIN_SUBIR===1?'':'s')+' sin subir</span></div>';
+  $('lateral').querySelectorAll('[data-l]').forEach(function(b){b.onclick=function(){var l=b.dataset.l;if(['todos','atencion','enlazados','concambios'].indexOf(l)>=0){filtro=l;ir('portada')}else ir(l)}});}
+function estadoBarra(){var aten=PAQ.filter(function(p){return estadoPaq(p)[1]!=='pos'}).length,enl=0,tot=0;PAQ.forEach(function(p){p.arch.forEach(function(a){tot++;if(a.e===A)enl++})});
+  $('estado').innerHTML='<span>'+PAQ.length+' paquetes · '+enl+' de '+tot+' enlaces</span><span class="'+(aten?'neu':'')+'">'+(aten?aten+' piden atención':'todo enlazado')+'</span><span><i class="ti ti-git-branch"></i> main · '+CAMBIOS.length+' cambios · '+SIN_SUBIR+' sin subir</span><span id="aviso" role="status"></span>';}
+
+/* ---------- Portada ---------- */
+function visibles(){var q=$('q').value.trim().toLowerCase();return PAQ.filter(function(p){var e=estadoPaq(p)[1];
+  if(filtro==='atencion'&&e==='pos')return false;if(filtro==='enlazados'&&e!=='pos')return false;if(filtro==='concambios'&&!cambiosDe(p.id))return false;
+  return !q||(p.id+' '+p.app+' '+p.arch.map(function(a){return a.rel}).join(' ')).toLowerCase().indexOf(q)>=0})}
+function portada(){var lista=visibles(),T={todos:'Todos los paquetes',atencion:'Piden atención',enlazados:'Enlazados',concambios:'Con cambios sin confirmar'};
+  $('donde').textContent=T[filtro]+' · '+lista.length;
+  var h=lista.length?'<div class="tarjetas">'+lista.map(function(p){var e=estadoPaq(p),o=opPide(p),enl=p.arch.filter(function(a){return a.e===A}).length,hib=p.arch.filter(function(a){return HIBRIDOS.indexOf(a.rel.split('/').pop())>=0}).length,cc=cambiosDe(p.id);
+    return '<button class="tarjeta'+(e[1]==='neg'?' mal':'')+'" data-paq="'+p.id+'"><span class="fila"><span class="ico"><i class="ti '+p.ico+'"></i></span><span class="nom"><b>'+p.id+'</b><span>'+p.app+'</span></span><span class="pt '+e[1]+'" title="'+e[0]+'"></span></span><span class="que">'+p.que+'</span><span class="cifras"><span class="etq '+e[1]+'">'+e[0]+'</span> · '+p.arch.length+' archivo'+(p.arch.length===1?'':'s')+' · '+enl+' enlazado'+(enl===1?'':'s')+(hib?' · '+hib+' híbrido'+(hib>1?'s':''):'')+(cc?' · '+cc+' sin confirmar':'')+'</span>'+(o?'<span class="op">'+TXT_OP[o]+' →</span>':'')+'</button>'}).join('')+'</div>':'<div class="vacio">Ningún paquete coincide con «'+esc($('q').value)+'».</div>';
+  $('contenido').innerHTML=h;
+  $('contenido').querySelectorAll('[data-paq]').forEach(function(b){b.onclick=function(){abrirPaquete(b.dataset.paq)}});
+  simularVisible();}
+function simularVisible(){var lista=visibles(),todos=lista.length===PAQ.length,lin=[];
+  $('t-orden').textContent='./main.sh instalar --dry-run'+(todos?'':' -p '+lista.map(function(p){return p.id}).join(','));
+  lista.forEach(function(p){lin.push('<span class="t">Instalando: '+p.id+'</span>');p.arch.forEach(function(a){
+    if(a.e===C)lin.push('  <span class="mal">⚠ Archivo real existe: ~/'+a.rel+'</span>\n  <span class="ad">→ Saltado: '+a.rel+'</span> <span class="t">(sin terminal se toma la opción segura)</span>');
+    else if(a.e===A||a.e===P)lin.push('  <span class="ok">[dry-run] ln -sfn</span> '+p.id+'/'+a.rel+' → ~/'+a.rel)})});
+  var c=lista.reduce(function(n,p){return n+p.arch.filter(function(a){return a.e===C}).length},0);
+  lin.push(c?'<span class="ad">'+c+' archivo'+(c>1?'s':'')+' real'+(c>1?'es':'')+' en HOME: se saltan. Adóptelos o instale con «Reemplazar».</span>':'<span class="ok">✓ nada que saltar</span>');
+  $('t-texto').innerHTML=lin.join('\n');$('t-nota').textContent='simulación · nada escrito';}
+$('q').oninput=function(){if(vista!=='portada')ir('portada');else portada()};
+
+/* ---------- La página de un paquete ---------- */
+function abrirPaquete(id,o){paq=POR[id];op=o||opPide(paq)||'actualizar';forzar=false;elec={};fsel=Math.max(0,paq.arch.findIndex(function(a){return a.e===C}));pest='comp';ir('paquete');}
+function pagina(){var p=paq,e=estadoPaq(p),pl=plan(op,p,forzar,elec),eo=EST_OP[op],a=p.arch[fsel];
+  $('donde').textContent=p.id+' · '+p.app;
+  var h='<div class="cab-paq"><span class="ico"><i class="ti '+p.ico+'"></i></span><div style="min-width:0"><h2>'+p.app+' <span class="etq '+e[1]+'" style="font-size:12px;font-weight:500"><span class="pt '+e[1]+'"></span>'+e[0]+'</span></h2><p>paquete '+p.id+' · '+p.que+' · '+p.arch.length+' archivos, '+p.arch.filter(function(x){return x.e===A}).length+' enlazados</p></div></div>';
+  h+='<div class="operacion"><div class="fila-acc"><span class="segm" id="ops">'+['instalar','adoptar','actualizar','eliminar'].map(function(x){return '<button data-op="'+x+'" aria-pressed="'+(x===op)+'">'+TXT_OP[x]+'</button>'}).join('')+'</span><span class="estado-op" style="--c:'+eo[1]+'"><span class="pt"></span>'+eo[0]+'</span>'+(op==='instalar'&&p.arch.some(function(x){return x.e===C})?'<label class="opcion"><input type="checkbox" id="c-forzar"'+(forzar?' checked':'')+'><span>Reemplazar los archivos reales (respaldo en .backups/)</span></label>':'')+'</div>'+
+    '<div class="orden"><code>'+pl.orden+'</code><button class="b" data-copiar aria-label="Copiar la orden"><i class="ti ti-copy"></i></button></div><div class="resumen"><b>Plan:</b> '+pl.res+'.</div>'+
+    (pl.bloqueo?'<div class="bloqueo">'+pl.bloqueo+'</div>':'')+(pl.terminal?'<div class="bloqueo" style="--c:var(--neu)">Hay archivos en los dos lados sin versión elegida: elija la versión en la lista, o main.sh preguntará en una terminal (Konsole).</div>':'')+
+    '<div class="fila-acc"><button class="b marco" id="b-sim"><i class="ti ti-player-play"></i>Simular <kbd>Ctrl+Mayús+Intro</kbd></button><button class="b prim" id="b-aplicar"'+(pl.bloqueo||!pl.cambian?' disabled':'')+'><i class="ti ti-check"></i>'+TXT_OP[op]+(pl.terminal?' en una terminal…':'…')+' <kbd>Ctrl+Intro</kbd></button></div></div>';
+  h+='<div class="dos"><div class="panel"><h4>Archivos <small>lo que le pasa a cada uno</small></h4><div class="archivos">'+pl.filas.map(function(f,i){var c=f.a.e===C&&op==='adoptar';
+    return '<div class="archivo'+(i===fsel?' sel':'')+'" data-f="'+i+'"><span class="pt '+NIVEL[f.a.e]+'" title="'+EXPLICA[f.a.e]+'"></span><span class="mono">~/'+f.a.rel+'</span><span class="acc"><b style="--c:var(--'+(f.niv==='ten'?'n5':f.niv)+')">'+f.acc+'</b>'+(f.det?'<span>'+f.det+'</span>':'')+
+      (c?'<span class="segm chico" data-elec="'+f.a.rel+'">'+[['l','La de HOME, al repo'],['r','La del repo'],['s','Saltar']].map(function(x){return '<button data-v="'+x[0]+'" aria-pressed="'+(elec[f.a.rel]===x[0])+'">'+x[1]+'</button>'}).join('')+'</span>':'')+'</span></div>'}).join('')+'</div></div>';
+  h+='<div class="panel"><div class="pestanas" role="tablist">'+[['comp','Comparación'],['sim','Simulación'],['det','Detalles']].map(function(x){return '<button role="tab" data-pe="'+x[0]+'" aria-selected="'+(pest===x[0])+'">'+x[1]+'</button>'}).join('')+'</div>';
+  if(pest==='comp'){var cc=COMP[a.rel];h+=a.e===C?comparacion('Repo · '+p.id+'/'+a.rel.split('/').pop(),'HOME · ~/'+a.rel+' (archivo real)',cc||[['…','…']]):'<div class="detalles"><span>~/'+a.rel+' es un enlace a '+p.id+'/'+a.rel+': repo y HOME son el mismo archivo.</span>'+(HIBRIDOS.indexOf(a.rel.split('/').pop())>=0?'<span class="suave">Híbrido: preferencias y estado en el mismo archivo; cambia solo al usar la aplicación, y su diferencia se lee entera antes de confirmar.</span>':'')+'</div>';}
+  else if(pest==='sim')h+='<div class="terminal" style="border:0"><pre>'+simPaquete(pl)+'</pre></div>';
+  else h+='<div class="detalles"><div><span>Aplicación</span><span>'+p.app+' · instalada</span></div><div><span>Destino del enlace</span><span class="mono">~/'+a.rel+' → ~/.dotfiles/'+p.id+'/'+a.rel+'</span></div><div><span>Rutas compartidas</span><span>'+(p.id==='kde'&&/mimeapps/.test(a.rel)?'ninguna (ortografia no la reclama)':'ninguna')+'</span></div><div><span>Huérfanos del repo</span><span>ninguno</span></div><div><span>Notas</span><span>'+(p.id==='calibre'?'calibre reescribe estos archivos de forma atómica y rompe el enlace al usarlos: adoptar lo repone.':p.id==='kde'?'plasma-org.kde.plasma.desktop-appletsrc no se versiona: es estado de pantalla.':'—')+'</span></div></div>';
+  h+='</div></div>';
+  $('contenido').innerHTML=h;
+  $('ops').querySelectorAll('button').forEach(function(b){b.onclick=function(){op=b.dataset.op;elec={};pagina()}});
+  if($('c-forzar'))$('c-forzar').onchange=function(){forzar=this.checked;pagina()};
+  $('contenido').querySelectorAll('[data-f]').forEach(function(d){d.onclick=function(ev){if(ev.target.closest('[data-elec]'))return;fsel=+d.dataset.f;pagina()}});
+  $('contenido').querySelectorAll('[data-elec] button').forEach(function(b){b.onclick=function(){elec[b.parentNode.dataset.elec]=b.dataset.v;pagina()}});
+  $('contenido').querySelectorAll('[data-pe]').forEach(function(b){b.onclick=function(){pest=b.dataset.pe;pagina()}});
+  $('b-sim').onclick=function(){simularPaq(pl)};$('b-aplicar').onclick=function(){confirmarOp(pl)};copiar();
+  simularPaq(pl,true);}
+function simPaquete(pl){var p=paq,l=['<span class="p">$ '+pl.orden.replace('./main.sh '+op,'./main.sh '+op+' --dry-run')+'</span>','<span class="ad">Modo simulación activado. No se realizarán cambios reales.</span>'];
+  pl.filas.forEach(function(f){var r=f.a.rel;
+    if(f.acc==='crea el enlace'||f.acc==='rehace el enlace')l.push('  <span class="ok">[dry-run] ln -sfn</span> '+p.id+'/'+r+' → ~/'+r);
+    else if(f.acc==='reemplaza por el enlace')l.push('  <span class="ad">[dry-run] mv ~/'+r+' .backups/2026-11-19_1240/</span>\n  <span class="ok">[dry-run] ln -sfn</span> '+p.id+'/'+r+' → ~/'+r);
+    else if(f.acc==='lleva la de HOME al repo')l.push('  <span class="ok">[dry-run] mv ~/'+r+' → '+p.id+'/'+r+'</span> y enlaza');
+    else if(f.acc==='deja la del repo y enlaza')l.push('  <span class="ad">[dry-run] respaldo de ~/'+r+'</span>; <span class="ok">ln -sfn</span> '+p.id+'/'+r);
+    else if(f.acc==='pregunta qué versión conservar')l.push('  <span class="mal">⚠ Existe en los dos lados: ~/'+r+'</span>\n  <span class="t">  [l] la de HOME al repo · [r] la del repo · [s] saltar → pide terminal</span>');
+    else if(f.acc==='quita el enlace')l.push('  <span class="mal">[dry-run] rm ~/'+r+'</span> <span class="t">(solo el enlace)</span>');
+    else if(f.acc==='lo borraría sin respaldo')l.push('  <span class="mal">✗ ln -sfn borraría ~/'+r+' sin respaldo</span>');
+    else if(f.acc==='se salta')l.push('  <span class="ad">→ Saltado: '+r+'</span>')});
+  l.push(pl.bloqueo?'<span class="mal">Bloqueado: '+pl.bloqueo+'</span>':'<span class="t">Plan: '+pl.res+'</span>');return l.join('\n');}
+function simularPaq(pl,silencio){$('t-orden').textContent=pl.orden.replace('./main.sh '+op,'./main.sh '+op+' --dry-run');$('t-texto').innerHTML=simPaquete(pl).split('\n').slice(2).join('\n');if(!silencio)avisar('Simulado: '+pl.res);}
+function confirmarOp(pl){var eo=EST_OP[op],p=paq;
+  var txt=TXT_OP[op]+' '+p.id+': '+pl.res+'.'+(op==='instalar'||pl.filas.some(function(f){return f.acc==='deja la del repo y enlaza'})?' Antes se guarda un respaldo de lo que se toca en .backups/.':'')+(op==='eliminar'?' Las aplicaciones afectadas pierden esa configuración hasta volver a instalar; el repo no cambia.':'')+(pl.filas.some(function(f){return f.acc==='lleva la de HOME al repo'||f.acc==='lo mueve al repo y lo enlaza'})?' Los archivos que entran al repo aparecen después en Cambios, para confirmarlos (el repo es público).':'')+(pl.terminal?' Hay archivos sin versión elegida: main.sh pregunta cuál conservar, así que se abre en Konsole.':'');
+  dialogo('<div class="cab"><span>¿'+TXT_OP[op]+' '+p.id+'?</span><span class="estado-op" style="--c:'+eo[1]+'"><span class="pt"></span>'+eo[0]+'</span></div><div class="cuerpo-d"><p>'+txt+'</p><div class="orden"><code>'+pl.orden+'</code></div></div><div class="pie"><button class="b marco" data-cerrar>Cancelar</button><button class="b '+(op==='eliminar'?'peligro':'prim')+'" id="b-si">'+(pl.terminal?'Abrir en Konsole':TXT_OP[op])+'</button></div>',function(){
+    $('b-si').onclick=function(){cerrar();var hechos=[];
+      pl.filas.forEach(function(f){if(!f.cambia)return;var a=f.a;
+        if(f.acc==='quita el enlace')a.e=P;else if(f.acc!=='pregunta qué versión conservar')a.e=A;
+        if(f.acc==='lleva la de HOME al repo'||f.acc==='lo mueve al repo y lo enlaza'){var r=p.id+'/'+a.rel;if(CAMBIOS.indexOf(r)<0)CAMBIOS.push(r)}
+        hechos.push('<span class="ok">✓</span> ~/'+a.rel+' · '+(a.e===A?'enlace verificado':'enlace quitado'))});
+      if(pl.terminal){salida(['$ konsole -e '+pl.orden,'(main.sh pregunta en la terminal; al cerrarla la ventana relee el disco)']);avisar('Abierto en Konsole');return}
+      salida(['$ '+pl.orden].concat(hechos.map(function(x){return x.replace(/<[^>]+>/g,'')})));elec={};lateral();estadoBarra();pagina();
+      $('t-orden').textContent=pl.orden;$('t-nota').textContent='aplicado · verificado';$('t-texto').innerHTML=['<span class="p">$ '+pl.orden+'</span>'].concat(hechos).concat(['<span class="ok">Releído el disco: cada archivo quedó como el plan decía.</span>']).join('\n');avisar(TXT_OP[op]+' '+p.id+': hecho y verificado')}});}
+
+/* ---------- Cambios ---------- */
+function cambios(){$('donde').textContent='Cambios sin confirmar · '+CAMBIOS.length;
+  if(!CAMBIOS.length){$('contenido').innerHTML='<div class="vacio">Sin cambios: el repo está como el último commit. '+(SIN_SUBIR?SIN_SUBIR+' commits esperan subir.':'')+'</div>'+botonSubir();$('b-subir')&&($('b-subir').onclick=subir);return}
+  csel=Math.min(csel,CAMBIOS.length-1);var r=CAMBIOS[csel],nom=r.split('/').pop(),hib=HIBRIDOS.indexOf(nom)>=0,d=DIFF[r]||[['{','{'],['  "editor.fontSize": 13,','  "editor.fontSize": 14,',1],['}','}']];
+  var h='<div class="dos"><div class="panel"><h4>git status <small>'+CAMBIOS.length+' archivos · rama main</small></h4><div class="tabla">'+CAMBIOS.map(function(x,i){var hb=HIBRIDOS.indexOf(x.split('/').pop())>=0;return '<div data-c="'+i+'" class="'+(i===csel?'sel':'')+'"><span class="letra">M</span><span class="mono">'+x+'</span><span class="suave">'+(hb?'híbrido':'')+(/texstudio/.test(x)?' · filtro clean':'')+'</span></div>'}).join('')+'</div></div>';
+  h+='<div class="panel">'+comparacion('Último commit · '+nom,'Repo ahora · '+nom,d)+'<div class="detalles">'+(hib?'<span class="suave">Híbrido: este archivo guarda también estado de la aplicación. Lea la diferencia entera: no todo lo que cambió es una preferencia.</span>':'')+(/texstudio/.test(r)?'<span class="suave">El filtro clean <span class="mono">texstudio-ini</span> quita el último documento y la geometría antes de comparar.</span>':'')+'<label for="msg" class="suave">Mensaje del commit</label><textarea class="campo" id="msg" placeholder="Qué cambió y por qué">'+esc(MSG[r]||'')+'</textarea><div class="fila-acc"><button class="b prim" id="b-confirmar"><i class="ti ti-git-commit"></i>Confirmar este archivo <kbd>Ctrl+Intro</kbd></button><button class="b" id="b-descartar"><i class="ti ti-arrow-back-up"></i>Descartar…</button></div><span class="suave">Corre el escáner antes · <span class="mono">git add -- '+r+'</span> · <span class="mono">git commit -- '+r+'</span></span></div></div></div>'+botonSubir();
+  $('contenido').innerHTML=h;
+  $('contenido').querySelectorAll('[data-c]').forEach(function(x){x.onclick=function(){csel=+x.dataset.c;cambios()}});
+  $('msg').oninput=function(){MSG[r]=this.value};
+  $('b-confirmar').onclick=function(){var m=$('msg').value.trim();if(!m){$('msg').focus();avisar('Escriba el mensaje del commit');return}
+    var hall=conHallazgo&&/shell/.test(r);if(hall){avisar('El escáner encontró algo: no se confirma');return}
+    salida(['$ ./main.sh seguridad -- '+r,'No se encontraron datos sensibles.','$ git add -- '+r,'$ git commit -m "'+m+'" -- '+r,'[main 7c1e2a9] '+m,' 1 file changed']);CAMBIOS.splice(csel,1);SIN_SUBIR++;lateral();estadoBarra();cambios();avisar('Confirmado: '+r)};
+  $('b-descartar').onclick=function(){dialogo('<div class="cab"><span>¿Descartar el cambio?</span><span class="estado-op" style="--c:var(--neg)"><span class="pt"></span>eliminación</span></div><div class="cuerpo-d"><p>Devuelve <span class="mono">'+r+'</span> al último commit. Como HOME apunta al repo, la aplicación lee la versión anterior desde ahora.</p><div class="orden"><code>git restore -- '+r+'</code></div></div><div class="pie"><button class="b marco" data-cerrar>Cancelar</button><button class="b peligro" id="b-si">Descartar</button></div>',function(){$('b-si').onclick=function(){cerrar();CAMBIOS.splice(csel,1);salida(['$ git restore -- '+r]);lateral();estadoBarra();cambios()}})};
+  $('b-subir').onclick=subir;}
+var MSG={'kde/.config/kwinrc':'kde: sin desenfoque y ventanas maximizadas sin borde'};
+function botonSubir(){return '<div class="fila-acc"><span class="suave">'+SIN_SUBIR+' commit'+(SIN_SUBIR===1?'':'s')+' sin subir a origin/main</span><button class="b marco" id="b-subir"'+(SIN_SUBIR?'':' disabled')+'><i class="ti ti-cloud-upload"></i>Subir a GitHub…</button></div>'}
+function subir(){dialogo('<div class="cab"><span>¿Subir a GitHub?</span><span class="estado-op" style="--c:var(--acento)"><span class="pt"></span>publicación</span></div><div class="cuerpo-d"><p>'+SIN_SUBIR+' commits de main pasan a origin (github.com/achalmed/.dotfiles, <b>público</b>). Antes corre el escáner sobre todo lo versionado.</p><div class="orden"><code>./main.sh seguridad &amp;&amp; git push origin main</code></div></div><div class="pie"><button class="b marco" data-cerrar>Cancelar</button><button class="b prim" id="b-si">Subir</button></div>',function(){$('b-si').onclick=function(){cerrar();if(conHallazgo){salida(['$ ./main.sh seguridad','1 hallazgo: no se sube.']);avisar('No se subió: hay un hallazgo');ir('seguridad');return}salida(['$ ./main.sh seguridad','No se encontraron datos sensibles en los archivos versionados.','$ git push origin main','   258e5b7..7c1e2a9  main -> main']);SIN_SUBIR=0;lateral();estadoBarra();if(vista==='cambios')cambios();avisar('Subido a GitHub')}})}
+
+/* ---------- Seguridad ---------- */
+var PATRONES=['contraseña (clave = valor)','clave o token (clave = valor)','clave privada','token de GitHub','token de acceso fino de GitHub','clave de API sk- (OpenAI, Anthropic)','clave de acceso de AWS','token de GitLab','token de Slack','clave de API de Google','token de bot de Telegram','clave secreta de Stripe','token de Hugging Face','token de npm','token JWT','contraseña en una URL'];
+function seguridad(){$('donde').textContent='Seguridad';
+  var h='<div class="panel"><h4>Último escaneo <small>hoy, 12:34 · 127 archivos versionados</small></h4>'+(conHallazgo?'<div class="hallazgo"><span class="etq neg"><span class="pt neg"></span>clave de API sk-</span><span class="mono">shell/.zshrc · línea 212</span><span class="suave">huella</span><span class="mono">hmac:a3f9·71c0·e2 <span class="suave">(vale solo en esta sesión)</span></span><span class="suave">qué hacer</span><span>Saque el valor del archivo (una variable de entorno en ~/.zshrc.local, que no se versiona) y vuelva a escanear. El valor nunca se muestra aquí.</span></div>':'<div class="hallazgo"><span class="etq pos"><span class="pt pos"></span>limpio</span><span>No se encontraron datos sensibles en los archivos versionados. Ningún .env versionado.</span></div>')+
+    '<div class="fila-acc" style="padding:8px 12px;border-top:1px solid var(--n3)"><button class="b prim" id="b-esc2"><i class="ti ti-shield-search"></i>Escanear con main.sh <kbd>Ctrl+Alt+S</kbd></button><button class="b marco" data-copiar><i class="ti ti-copy"></i>Copiar el informe (sin valores)</button><label class="opcion"><input type="checkbox" id="c-hall"'+(conHallazgo?' checked':'')+'><span>Ver con un hallazgo de ejemplo</span></label></div></div>'+
+    '<div class="panel"><h4>Qué se busca <small>SENSITIVE_PATTERNS de config.sh · grep -iE</small></h4><div class="patrones">'+PATRONES.map(function(x,i){return '<span>'+(i+1)+'. '+x+'</span>'}).join('')+'</div><div class="detalles" style="border-top:1px solid var(--n3)"><span class="suave">Excepciones revisadas a mano (SENSITIVE_SCAN_ALLOWLIST): ninguna. Además, cualquier archivo .env que entre al índice.</span></div></div>';
+  $('contenido').innerHTML=h;copiar();
+  $('c-hall').onchange=function(){conHallazgo=this.checked;lateral();seguridad()};$('b-esc2').onclick=escanear;}
+function escanear(){$('t-orden').textContent='./main.sh seguridad';$('t-nota').textContent='solo lee';$('t-texto').innerHTML='<span class="t">Escaneando archivos versionados en busca de datos sensibles...</span>\n'+(conHallazgo?'<span class="mal">✗ clave de API sk- (OpenAI, Anthropic) · shell/.zshrc:212 · valor oculto</span>\n<span class="mal">1 hallazgo. Corríjalo antes de confirmar o subir.</span>':'<span class="ok">✓ No se encontraron datos sensibles en los archivos versionados.</span>');avisar('Escaneo terminado')}
+$('b-escanear').onclick=function(){ir('seguridad');escanear()};
+
+/* ---------- Sistema y máquina nueva ---------- */
+var DEPS=[['git','git'],['zsh','zsh'],['curl','curl'],['stow','stow'],['systemd-zram-generator','zram-generator']];
+var PASOS_MAQ=[['Clonar el repo','git clone https://github.com/achalmed/.dotfiles ~/.dotfiles','Una copia en ~/.dotfiles; el repo no conoce ninguna otra carpeta.',0],
+  ['Dependencias del sistema','./main.sh instalar-deps','git, zsh, curl, stow y zram-generator con apt; pide sudo, así que se abre en Konsole. Escribe /etc/systemd/zram-generator.conf (ram / 2, zstd).',1],
+  ['Fuentes de usuario','./main.sh instalar-fuentes','Source Serif 4 (4.005R) en ~/.local/share/fonts/, con su sha256 verificado; sin sudo.',0],
+  ['Simular la instalación','./main.sh instalar --dry-run','Qué enlace se crea y qué archivo real se saltaría; nada escrito.',0],
+  ['Instalar los 17 paquetes','./main.sh instalar','Crea los enlaces; lo que ya había en HOME queda en .backups/ antes de tocarlo.',0],
+  ['Adoptar lo que ya había','./main.sh adoptar --elecciones …','Los archivos reales que no se reemplazaron se comparan y se elige versión, paquete por paquete.',0]];
+function maquina(){$('donde').textContent=maqNueva?'Sistema · máquina nueva':'Sistema';
+  var h='<div class="fila-acc"><label class="opcion"><input type="checkbox" id="c-nueva"'+(maqNueva?' checked':'')+'><span>Ver como una máquina nueva (Kubuntu 26.04 recién instalado, sin ~/.dotfiles)</span></label></div>';
+  if(maqNueva){h+='<div class="panel"><h4>Instalar en una máquina nueva <small>paso '+(pasoMaq+1)+' de '+PASOS_MAQ.length+'</small></h4>'+PASOS_MAQ.map(function(s,i){return '<div class="paso-n '+(i<pasoMaq?'hecho':i===pasoMaq?'ahora':'')+'"><b>'+(i<pasoMaq?'✓':i+1)+'</b><div><strong>'+s[0]+'</strong><p>'+s[2]+'</p><div class="orden"><code>'+s[1]+'</code></div>'+(i===pasoMaq?'<div class="fila-acc" style="margin-top:6px"><button class="b marco" data-mq="sim"><i class="ti ti-player-play"></i>Simular</button><button class="b prim" data-mq="ap"><i class="ti ti-check"></i>'+(s[3]?'Abrir en Konsole (sudo)…':'Aplicar…')+'</button></div>':'')+'</div></div>'}).join('')+'</div>';}
+  else h+='<div class="panel"><h4>Lo que el gestor necesita de la distribución <small>Kubuntu 26.04 · apt</small></h4><div class="lista">'+DEPS.map(function(d){return '<div><span><b>'+d[0]+'</b> <span class="suave">'+d[1]+'</span></span><span class="etq pos"><span class="pt pos"></span>instalado</span></div>'}).join('')+'</div></div>'+
+    '<div class="panel"><h4>Operaciones del sistema</h4><div class="lista">'+[['Dependencias','./main.sh instalar-deps','apt y la zram (ram / 2, zstd); pide sudo: se abre en Konsole'],['Fuentes de usuario','./main.sh instalar-fuentes','source-serif-4 · sha256 549fdb8f…a0c425 · instalada'],['Respaldo','./main.sh backup','copia lo que gestionan los paquetes en .backups/ con su fecha']].map(function(o,i){return '<div><span><b>'+o[0]+'</b><br><span class="mono">'+o[1]+'</span><br><span class="suave">'+o[2]+'</span></span><span class="acc"><button class="b marco" data-sis="'+i+'">Simular</button><button class="b" data-sis-ap="'+i+'">Aplicar…</button></span></div>'}).join('')+'</div></div>';
+  $('contenido').innerHTML=h;
+  $('c-nueva').onchange=function(){maqNueva=this.checked;pasoMaq=0;maquina()};
+  $('contenido').querySelectorAll('[data-mq]').forEach(function(b){b.onclick=function(){var s=PASOS_MAQ[pasoMaq];
+    if(b.dataset.mq==='sim'){$('t-orden').textContent=s[1]+(s[1].indexOf('--dry-run')<0?' --dry-run':'');$('t-nota').textContent='simulación · nada escrito';$('t-texto').innerHTML=simMaquina(pasoMaq);return}
+    dialogo('<div class="cab"><span>'+s[0]+'</span><span class="estado-op" style="--c:var(--info)"><span class="pt"></span>instalación</span></div><div class="cuerpo-d"><p>'+s[2]+'</p><div class="orden"><code>'+s[1]+'</code></div></div><div class="pie"><button class="b marco" data-cerrar>Cancelar</button><button class="b prim" id="b-si">'+(s[3]?'Abrir en Konsole':'Aplicar')+'</button></div>',function(){$('b-si').onclick=function(){cerrar();salida(['$ '+s[1],'hecho']);pasoMaq=Math.min(PASOS_MAQ.length,pasoMaq+1);maquina();if(pasoMaq===PASOS_MAQ.length)avisar('Máquina lista: 17 paquetes enlazados')}})}});
+  $('contenido').querySelectorAll('[data-sis]').forEach(function(b){b.onclick=function(){var o=['instalar-deps','instalar-fuentes','backup'][+b.dataset.sis];$('t-orden').textContent='./main.sh '+o+' --dry-run';$('t-texto').innerHTML=o==='instalar-deps'?'<span class="t">[dry-run] sudo apt install git zsh curl stow systemd-zram-generator</span>\n<span class="ok">todo instalado: nada que hacer</span>':o==='backup'?'<span class="t">[dry-run] copiar 38 archivos a .backups/2026-11-19_1240/</span>':'<span class="ok">source-serif-4: ya instalada (sha256 coincide)</span>'}});
+  $('contenido').querySelectorAll('[data-sis-ap]').forEach(function(b){b.onclick=function(){avisar(+b.dataset.sisAp===0?'Abierto en Konsole: instalar-deps pide sudo':'Hecho')}});}
+function simMaquina(i){return ['<span class="t">git clone: 127 archivos, 17 paquetes</span>','<span class="t">[dry-run] sudo apt install</span> git zsh curl <span class="ad">stow systemd-zram-generator</span>\n<span class="t">[dry-run] escribir /etc/systemd/zram-generator.conf</span>','<span class="t">[dry-run] descargar source-serif-4.005_Desktop.zip · verificar sha256 · ~/.local/share/fonts/source-serif-4/</span>',
+  PAQ.slice(0,5).map(function(p){return '<span class="ok">[dry-run] ln -sfn</span> '+p.id+'/'+p.arch[0].rel+' → ~/'+p.arch[0].rel}).join('\n')+'\n<span class="mal">⚠ Archivo real existe: ~/.zshrc</span> <span class="ad">(el .zshrc de fábrica: se saltaría sin «Reemplazar»)</span>','<span class="ok">[dry-run] ln -sfn</span> 38 enlaces · 1 archivo real a .backups/','<span class="ad">~/.zshrc: existe en los dos lados</span> → elegir: la del repo'][i]}
+
+/* ---------- Guía ---------- */
+var DOCS=[['Uso','README.md','<h3>Uso</h3><p><code>./main.sh</code> sin argumentos abre el menú; con un comando lo corre. Toda operación que escribe admite <code>-n</code> (simular).</p><table><tr><th>orden</th><th>qué hace</th></tr><tr><td><code>instalar -p git,shell</code></td><td>enlaces repo → HOME</td></tr><tr><td><code>adoptar -p calibre</code></td><td>HOME → repo y enlaza</td></tr><tr><td><code>estado --verbose</code></td><td>cada archivo con su estado</td></tr><tr><td><code>seguridad</code></td><td>el escáner antes de subir</td></tr></table>'],
+  ['Paquetes','docs/paquetes.md','<h3>Paquetes</h3><p>Un paquete = una aplicación, nombrado igual que la app. Se versionan preferencias, temas, atajos y plantillas; nunca caché, historial, IDs de máquina ni credenciales.</p><p>Excluidos tras auditoría: <code>gui.json</code> de calibre (geometría), <code>settings.reader.lua</code> de KOReader (MRU), <code>plasma-org.kde.plasma.desktop-appletsrc</code> (pantallas).</p>'],
+  ['Arquitectura','docs/arquitectura.md','<h3>Arquitectura</h3><p><code>main.sh</code> lee <code>config.sh</code> (STOW_PACKAGES y PACKAGE_FILES) y opera archivo por archivo con <code>lib/stow_ops.sh</code>: enlaces explícitos compatibles con GNU Stow. La ventana nunca escribe por su cuenta: corre <code>main.sh</code> o <code>git</code>.</p>'],
+  ['Atajos de KDE','docs/atajos-kde.md','<h3>Atajos de KDE</h3><p>Los atajos globales viven en <code>kglobalshortcutsrc</code> (paquete kde). Meta+Alt+C abre la captura rápida de Obsidian.</p>'],
+  ['Decisiones','docs/decisiones.md','<h3>Decisiones</h3><p>2026-11-03 · La versión de un conflicto se elige en la ventana (<code>--elecciones</code>), no en la terminal.</p><p>2026-11-02 · Se confirma por ruta; no hay sync-push.</p><p>2026-10-10 · Obsidian sale del repo (ola 8).</p>']];
+function guia(){$('donde').textContent='Guía · '+DOCS[doc][0];
+  $('contenido').innerHTML='<div class="fila-acc"><span class="segm" id="docs">'+DOCS.map(function(d,i){return '<button data-d="'+i+'" aria-pressed="'+(i===doc)+'">'+d[0]+'</button>'}).join('')+'</span></div><div class="panel"><h4>'+DOCS[doc][1]+' <small>se abre en su aplicación con Abrir</small></h4><div class="doc">'+DOCS[doc][2]+'</div></div>';
+  $('docs').querySelectorAll('button').forEach(function(b){b.onclick=function(){doc=+b.dataset.d;guia()}});}
+
+/* ---------- Diálogos, salida, avisos ---------- */
+function dialogo(html,alAbrir){$('dialogo').innerHTML=html;$('capa').hidden=false;$('dialogo').querySelectorAll('[data-cerrar]').forEach(function(b){b.onclick=cerrar});if(alAbrir)alAbrir();var f=$('dialogo').querySelector('input,.pie .prim,.pie .peligro');if(f)f.focus()}
+function cerrar(){$('capa').hidden=true}
+$('capa').onclick=function(e){if(e.target===this)cerrar()};
+var REG=['12:16 estado: 15 activos · 2 conflictos','12:34 seguridad: limpio (127 archivos)'];
+function salida(l){REG.push('12:40 '+l[0].replace(/^\$ /,''));$('salida').hidden=false;$('salida-texto').textContent=l.join('\n');}
+$('b-salida').onclick=function(){$('salida').hidden=!$('salida').hidden;if(!$('salida-texto').textContent)$('salida-texto').textContent='Lo que main.sh y git escriben, íntegro, aparece aquí.'};
+$('salida').querySelectorAll('[data-s]').forEach(function(b){b.onclick=function(){$('salida').querySelectorAll('[data-s]').forEach(function(x){x.setAttribute('aria-selected',x===b)});if(b.dataset.s==='registro')$('salida-texto').textContent=REG.join('\n')}});
+var tA;function avisar(t){var a=$('aviso');if(!a)return;a.textContent=t;clearTimeout(tA);tA=setTimeout(function(){if($('aviso'))$('aviso').textContent=''},6000)}
+function copiar(){$('contenido').querySelectorAll('[data-copiar]').forEach(function(b){b.onclick=function(){avisar('Copiado al portapapeles')}})}
+var ORDENES=function(){return [['Simular lo que se ve','Ctrl+Mayús+Intro',function(){ir('portada');simularVisible()}],['Cambios sin confirmar','Ctrl+2',function(){ir('cambios')}],['Seguridad: escanear','Ctrl+Alt+S',function(){ir('seguridad');escanear()}],['Sistema','Ctrl+4',function(){ir('maquina')}],['Subir a GitHub…','',subir]]
+  .concat(PAQ.map(function(p){return ['Paquete: '+p.id,p.app,function(){abrirPaquete(p.id)}]})).concat(DOCS.map(function(d,i){return ['Guía: '+d[0],d[1],function(){doc=i;ir('guia')}]}))};
+function paleta(){dialogo('<div class="cab"><span>Órdenes</span><span class="suave">Esc</span></div><div class="cuerpo-d"><input class="campo" id="pq" placeholder="Una orden, «Paquete: …» o «Guía: …»" aria-label="Buscar una orden"><div class="lista-paleta" id="pl"></div></div>',function(){
+  var sel=0,f=[];function pintar(){var q=$('pq').value.toLowerCase();f=ORDENES().filter(function(o){return (o[0]+' '+o[1]).toLowerCase().indexOf(q)>=0});sel=Math.min(sel,Math.max(0,f.length-1));
+    $('pl').innerHTML=f.length?f.map(function(o,i){return '<button data-i="'+i+'" class="'+(i===sel?'on':'')+'"><span>'+o[0]+'</span><small>'+o[1]+'</small></button>'}).join(''):'<div class="suave">Ninguna orden coincide.</div>';
+    $('pl').querySelectorAll('button').forEach(function(b){b.onclick=function(){cerrar();f[+b.dataset.i][2]()}})}
+  $('pq').oninput=function(){sel=0;pintar()};$('pq').onkeydown=function(e){if(e.key==='ArrowDown'){sel=Math.min(sel+1,f.length-1);pintar();e.preventDefault()}else if(e.key==='ArrowUp'){sel=Math.max(0,sel-1);pintar();e.preventDefault()}else if(e.key==='Enter'&&f[sel]){cerrar();f[sel][2]()}};pintar()})}
+$('b-paleta').onclick=paleta;
+$('b-releer').onclick=function(){salida(['$ ./main.sh estado','15 activos | 2 conflictos | 0 pendientes']);avisar('Releído')};
+$('b-simular').onclick=function(){if(vista==='paquete')simularPaq(plan(op,paq,forzar,elec));else simularVisible()};
+
+/* ---------- Navegación entre pantallas ---------- */
+var TIT={portada:'Paquetes',paquete:'Paquete',cambios:'Cambios',seguridad:'Seguridad',maquina:'Sistema',guia:'Guía'};
+function ir(x){cerrar();vista=x;$('b-volver').hidden=x==='portada';
+  ({portada:portada,paquete:pagina,cambios:cambios,seguridad:seguridad,maquina:maquina,guia:guia})[x]();
+  $('t-ventana').textContent=(x==='paquete'?paq.id:TIT[x])+' · Dotfiles Studio';lateral();estadoBarra();
+  document.querySelectorAll('#abajo-cel button').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.c===x||(x==='paquete'&&b.dataset.c==='portada'))});}
+$('b-volver').onclick=function(){ir('portada')};
+var PANT={portada:function(){filtro='todos';$('q').value='';ir('portada')},conflicto:function(){abrirPaquete('kde','instalar');pest='comp';pagina()},adoptar:function(){abrirPaquete('calibre','adoptar')},
+  instalar:function(){abrirPaquete('calibre','instalar');forzar=true;pagina()},cambios:function(){csel=2;ir('cambios')},seguridad:function(){ir('seguridad')},maquina:function(){maqNueva=true;pasoMaq=0;ir('maquina')},guia:function(){ir('guia')}};
+function pantalla(p){if(!PANT[p])p='portada';PANT[p]();document.querySelectorAll('#g-pantalla button').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.p===p)});try{history.replaceState(null,'','#'+p)}catch(e){}}
+document.querySelectorAll('#g-pantalla button').forEach(function(b){b.onclick=function(){pantalla(b.dataset.p)}});
+document.querySelectorAll('#abajo-cel button').forEach(function(b){b.onclick=function(){if(b.dataset.c==='portada')filtro='todos';ir(b.dataset.c)}});
+function tema(t){raiz.setAttribute('data-theme',t);document.querySelectorAll('#g-tema button').forEach(function(x){x.setAttribute('aria-pressed',x.dataset.t===t)})}
+document.querySelectorAll('#g-tema button').forEach(function(b){b.onclick=function(){tema(b.dataset.t)}});
+function ancho(a){v.classList.toggle('celular',a==='celular');document.querySelectorAll('#g-ancho button').forEach(function(x){x.setAttribute('aria-pressed',x.dataset.a===a)})}
+document.querySelectorAll('#g-ancho button').forEach(function(b){b.onclick=function(){ancho(b.dataset.a)}});
+
+/* ---------- Atajos ---------- */
+document.addEventListener('keydown',function(e){var k=e.key;
+  if(k==='Escape'){if(!$('capa').hidden)cerrar();else if(vista!=='portada')ir('portada');return}
+  if(!$('capa').hidden)return;
+  if(e.altKey&&k==='ArrowLeft'){e.preventDefault();ir('portada')}
+  else if(e.ctrlKey&&k.toLowerCase()==='k'){e.preventDefault();paleta()}
+  else if(e.ctrlKey&&k.toLowerCase()==='f'){e.preventDefault();$('q').focus()}
+  else if(k==='F4'){e.preventDefault();$('b-salida').click()}
+  else if(k==='F5'){e.preventDefault();$('b-releer').click()}
+  else if(e.ctrlKey&&e.shiftKey&&k==='Enter'){e.preventDefault();$('b-simular').click()}
+  else if(e.ctrlKey&&k==='Enter'){var b=$('b-aplicar')||$('b-confirmar');if(b&&!b.disabled){e.preventDefault();b.click()}}
+  else if(e.ctrlKey&&e.altKey&&k.toLowerCase()==='s'){e.preventDefault();$('b-escanear').click()}
+  else if(e.ctrlKey&&/^[1-5]$/.test(k)&&document.activeElement.tagName!=='INPUT'){e.preventDefault();ir(['portada','cambios','seguridad','maquina','guia'][+k-1])}});
+
+/* ---------- Arranque ---------- */
+try{if(matchMedia('(prefers-color-scheme: dark)').matches)tema('dark')}catch(e){}
+try{var mq=matchMedia('(max-width: 760px)');if(mq.matches)ancho('celular');mq.addEventListener('change',function(){ancho(mq.matches?'celular':'escritorio')})}catch(e){}
+simularVisible();
+function porHash(){pantalla((location.hash||'').slice(1))}
+porHash();window.addEventListener('hashchange',porHash);
+})();
 </script>
 </body>
 </html>
