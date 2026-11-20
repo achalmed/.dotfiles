@@ -26,8 +26,10 @@ from dotfiles_app.servicios import comparar, seguridad
 from dotfiles_app.servicios import plan as planes
 
 # nombre, texto, icono
-FILTROS = (("todos", "Todos los paquetes", "view-list-icons"), ("atencion", "Piden atención", "dialog-warning"),
-           ("activos", "Enlazados", "emblem-symbolic-link"), ("cambios", "Con cambios sin confirmar", "vcs-locally-modified"))
+# los iconos, de acción (monocromos y del color del texto en cualquier tema: los de estado de Colloid son círculos de
+# color y sus «-symbolic» traen el color fijo; 2026-11-19)
+FILTROS = (("todos", "Todos los paquetes", "view-list-icons"), ("atencion", "Piden atención", "flag"),
+           ("activos", "Enlazados", "edit-link"), ("cambios", "Con cambios sin confirmar", "document-edit"))
 # estado del paquete → (texto, nivel semántico, la operación que pide)
 ESTADO = {"activo": ("Enlazado", "positivo", ""), "parcial": ("Parcial", "neutro", "instalar"),
           "conflicto": ("Archivo real en HOME", "negativo", "adoptar"), "pendiente": ("Sin enlazar", "neutro", "instalar"),
@@ -413,8 +415,13 @@ class Catalogo(QObject):
     def salidaDe(self) -> str:
         return self._salida_de
 
+    def _linea_segura(self, texto: str) -> str:
+        """Una línea de main.sh para la terminal: sin colores ANSI, con rutas cortas y con los secretos ocultos como en
+        la comparación (2026-11-19: el diff de una simulación de adoptar los mostraba enteros)."""
+        return seguridad.enmascarar(self._corta(_ANSI.sub("", texto)).rstrip(), self.patrones())
+
     def _anotar(self, texto: str, _es_err: bool = False) -> None:
-        self._salida.append(self._corta(_ANSI.sub("", texto)).rstrip())
+        self._salida.append(self._linea_segura(texto))
         self.salidaCambiada.emit()
 
     # ------------------------------------------------------------------ la terminal de la portada
@@ -441,7 +448,7 @@ class Catalogo(QObject):
         return self._salida_portada_de
 
     def _anotar_portada(self, texto: str, _es_err: bool = False) -> None:
-        self._salida_portada.append(self._corta(_ANSI.sub("", texto)).rstrip())
+        self._salida_portada.append(self._linea_segura(texto))
         self.salidaPortadaCambiada.emit()
 
     @Slot()

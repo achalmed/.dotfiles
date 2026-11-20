@@ -18,10 +18,14 @@ ColumnLayout {
         Layout.fillWidth: true
         Layout.margins: Kirigami.Units.largeSpacing
         spacing: Kirigami.Units.largeSpacing
+        // 2026-11-19: un candado monocromo, del trazo del texto (antes, un escudo rojo a todo color del tamaño de un cartel)
         Kirigami.Icon {
-            source: !raiz.seguridad.escaneado ? "security-medium" : raiz.seguridad.cuantos ? "security-low" : "security-high"
-            Layout.preferredWidth: Kirigami.Units.iconSizes.huge
-            Layout.preferredHeight: Kirigami.Units.iconSizes.huge
+            source: "object-locked"
+            isMask: true
+            color: !raiz.seguridad.escaneado ? Kirigami.Theme.disabledTextColor : raiz.seguridad.cuantos ? Kirigami.Theme.negativeTextColor : Kirigami.Theme.positiveTextColor
+            Layout.preferredWidth: Kirigami.Units.iconSizes.large
+            Layout.preferredHeight: Kirigami.Units.iconSizes.large
+            Layout.alignment: Qt.AlignTop
         }
         ColumnLayout {
             Layout.fillWidth: true
@@ -100,7 +104,7 @@ ColumnLayout {
                 anchors.centerIn: parent
                 width: parent.width - Kirigami.Units.gridUnit * 4
                 visible: lista.count === 0
-                icon.name: raiz.seguridad.escaneado ? "security-high" : "security-medium"
+                icon.name: "object-locked"
                 text: raiz.seguridad.escaneado ? "Nada que revisar" : "Sin escanear todavía"
                 explanation: raiz.seguridad.escaneado ? "Ningún patrón casa en lo que se subiría."
                                                       : "Escanear (Ctrl+Alt+S) lee los archivos sin cambiar nada. Hágalo antes de confirmar."

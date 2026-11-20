@@ -48,7 +48,7 @@ ColumnLayout {
                 Layout.fillWidth: true
                 spacing: Kirigami.Units.smallSpacing
                 EtiquetaNivel { visible: text !== ""; text: raiz.p.textoEstado || ""; nivel: raiz.p.nivel || "" }
-                EtiquetaNivel { visible: text !== ""; text: raiz.p.total ? raiz.p.enlazados + "/" + raiz.p.total + " enlazados" : ""; icono: "emblem-symbolic-link" }
+                EtiquetaNivel { visible: text !== ""; text: raiz.p.total ? raiz.p.enlazados + "/" + raiz.p.total + " enlazados" : ""; icono: "edit-link" }
                 EtiquetaNivel {
                     visible: text !== ""
                     text: raiz.p.instalada === undefined ? "" : raiz.p.instalada ? raiz.p.aplicacion + " instalada" : raiz.p.aplicacion + " no instalada"
@@ -56,11 +56,11 @@ ColumnLayout {
                     icono: raiz.p.instalada ? "checkmark" : "dialog-warning"
                 }
                 EtiquetaNivel { visible: text !== ""; text: raiz.p.hibridos ? raiz.p.hibridos + " híbrido" + (raiz.p.hibridos > 1 ? "s" : "") : ""; icono: "document-edit" }
-                EtiquetaNivel { visible: text !== ""; text: raiz.p.cambios ? raiz.p.cambios + " sin confirmar" : ""; icono: "vcs-locally-modified"; nivel: "neutro" }
+                EtiquetaNivel { visible: text !== ""; text: raiz.p.cambios ? raiz.p.cambios + " sin confirmar" : ""; icono: "document-edit"; nivel: "neutro" }
             }
         }
         QQC2.ToolButton {
-            icon.name: "system-file-manager"
+            icon.name: "folder-open"
             text: "Carpeta del paquete"
             display: QQC2.AbstractButton.TextBesideIcon
             Layout.alignment: Qt.AlignTop
@@ -71,32 +71,33 @@ ColumnLayout {
     }
 
     // ------------------------------------------------------------------ la operación, su orden y su plan
+    // 2026-11-19: una sola tarjeta (radio y borde del tema) en lugar de una franja gris de borde a borde: arriba, la
+    // operación en un pozo con Simular y Aplicar a la derecha; debajo, qué hace, la orden como código y el plan
     Rectangle {
         Layout.fillWidth: true
+        Layout.leftMargin: Kirigami.Units.largeSpacing
+        Layout.rightMargin: Kirigami.Units.largeSpacing
+        Layout.bottomMargin: Kirigami.Units.largeSpacing
         implicitHeight: operacion.implicitHeight + Kirigami.Units.largeSpacing * 2
-        color: Kirigami.Theme.alternateBackgroundColor
+        radius: Kirigami.Units.cornerRadius * 2
+        readonly property bool oscuro: Kirigami.ColorUtils.brightnessForColor(Kirigami.Theme.backgroundColor) === Kirigami.ColorUtils.Dark
+        color: Kirigami.ColorUtils.linearInterpolation(Kirigami.Theme.backgroundColor, Kirigami.Theme.textColor, oscuro ? 0.04 : 0.025)
+        border.width: 1
+        border.color: Kirigami.ColorUtils.linearInterpolation(Kirigami.Theme.backgroundColor, Kirigami.Theme.textColor, oscuro ? 0.14 : 0.11)
         ColumnLayout {
             id: operacion
             anchors.fill: parent
             anchors.margins: Kirigami.Units.largeSpacing
-            spacing: Kirigami.Units.smallSpacing
+            spacing: Kirigami.Units.smallSpacing + Kirigami.Units.smallSpacing / 2
             RowLayout {
-                spacing: Kirigami.Units.smallSpacing
-                QQC2.Label { text: "Operación:"; font.bold: true }
-                Repeater {
-                    model: raiz.catalogo.operaciones
-                    delegate: QQC2.Button {
-                        required property var modelData
-                        text: modelData.texto
-                        icon.name: raiz.registro.accion("paq." + modelData.nombre).icono
-                        checkable: true
-                        checked: raiz.catalogo.operacion === modelData.nombre
-                        flat: !checked
-                        onClicked: raiz.catalogo.fijarOperacion(modelData.nombre)
-                        QQC2.ToolTip.text: modelData.queHace + (modelData.motivo ? "\n\n" + modelData.motivo : "\n\n" + modelData.resumen)
-                        QQC2.ToolTip.visible: hovered
-                        QQC2.ToolTip.delay: Kirigami.Units.toolTipDelay
-                    }
+                Layout.fillWidth: true
+                spacing: Kirigami.Units.largeSpacing
+                SelectorSegmentado {
+                    titulo: "Operación"
+                    opciones: raiz.catalogo.operaciones.map(o => ({ clave: o.nombre, texto: o.texto, icono: raiz.registro.accion("paq." + o.nombre).icono,
+                                                                   descripcion: o.queHace + (o.motivo ? "\n\n" + o.motivo : "\n\n" + o.resumen) }))
+                    onElegida: clave => raiz.catalogo.fijarOperacion(clave)
+                    Binding on actual { value: raiz.catalogo.operacion }
                 }
                 QQC2.CheckBox {
                     visible: raiz.catalogo.operacion === "instalar"
@@ -105,48 +106,59 @@ ColumnLayout {
                     onToggled: raiz.catalogo.forzar = checked
                 }
                 Item { Layout.fillWidth: true }
+                BotonAccion { accion: raiz.registro.accion("paq.simular"); conTexto: true }
+                BotonPrincipal {                                    // la acción principal, como «Instalar» en Discover
+                    accion: raiz.registro.accion("paq.aplicar")
+                    text: accion.textoPlano + "…"
+                    QQC2.ToolTip.text: "Pide confirmación con lo que cambiará (Ctrl+Intro)"
+                    QQC2.ToolTip.visible: hovered
+                    QQC2.ToolTip.delay: Kirigami.Units.toolTipDelay
+                }
             }
             QQC2.Label {
                 text: raiz.pl.queHace || ""
+                color: Kirigami.Theme.disabledTextColor
                 wrapMode: Text.WordWrap
                 Layout.fillWidth: true
             }
-            RowLayout {
+            // la orden exacta, como código en un pozo, con su botón de copiar
+            Rectangle {
                 Layout.fillWidth: true
-                spacing: Kirigami.Units.smallSpacing
-                QQC2.TextField {
-                    id: orden
-                    Layout.fillWidth: true
-                    readOnly: true
-                    text: raiz.catalogo.ordenAplicar
-                    font: Kirigami.Theme.fixedWidthFont
-                    Accessible.name: "Orden exacta que se ejecutará"
-                    QQC2.ToolTip.text: "La orden que corre al aplicar (en la carpeta del repo). Simular añade --dry-run."
-                    QQC2.ToolTip.visible: hovered
-                }
-                QQC2.ToolButton {
-                    icon.name: "edit-copy"
-                    onClicked: { orden.selectAll(); orden.copy(); orden.deselect() }
-                    Accessible.name: "Copiar la orden"
-                    QQC2.ToolTip.text: "Copiar la orden"
-                    QQC2.ToolTip.visible: hovered
-                }
-                BotonAccion { accion: raiz.registro.accion("paq.simular"); conTexto: true }
-                QQC2.Button {                                       // el botón principal, como «Instalar» en Discover
-                    readonly property var accion: raiz.registro.accion("paq.aplicar")
-                    text: accion.textoPlano + "…"
-                    icon.name: accion.icono
-                    enabled: accion.habilitada
-                    highlighted: true
-                    onClicked: accion.disparar()
-                    QQC2.ToolTip.text: "Pide confirmación con lo que cambiará (Ctrl+Intro)"
-                    QQC2.ToolTip.visible: hovered
+                implicitHeight: filaOrden.implicitHeight + Kirigami.Units.smallSpacing * 2
+                radius: Kirigami.Units.cornerRadius
+                color: Kirigami.ColorUtils.linearInterpolation(Kirigami.Theme.backgroundColor, Kirigami.Theme.textColor, parent.parent.oscuro ? 0.08 : 0.05)
+                RowLayout {
+                    id: filaOrden
+                    anchors.fill: parent
+                    anchors.leftMargin: Kirigami.Units.largeSpacing
+                    anchors.rightMargin: Kirigami.Units.smallSpacing
+                    QQC2.Label {
+                        id: orden
+                        Layout.fillWidth: true
+                        text: "$ " + raiz.catalogo.ordenAplicar
+                        font: Kirigami.Theme.fixedWidthFont
+                        elide: Text.ElideMiddle
+                        Accessible.name: "Orden exacta que se ejecutará: " + raiz.catalogo.ordenAplicar
+                        QQC2.ToolTip.text: "La orden que corre al aplicar (en la carpeta del repo). Simular añade --dry-run."
+                        QQC2.ToolTip.visible: ratonOrden.hovered
+                        HoverHandler { id: ratonOrden }
+                    }
+                    TextEdit { id: copiador; visible: false }          // solo para el portapapeles
+                    QQC2.ToolButton {
+                        icon.name: "edit-copy"
+                        display: QQC2.AbstractButton.IconOnly
+                        text: "Copiar la orden"
+                        onClicked: { copiador.text = raiz.catalogo.ordenAplicar; copiador.selectAll(); copiador.copy(); copiador.text = "" }
+                        Accessible.name: text
+                        QQC2.ToolTip.text: text
+                        QQC2.ToolTip.visible: hovered
+                    }
                 }
             }
-            RowLayout {
+            Flow {
+                Layout.fillWidth: true
                 spacing: Kirigami.Units.smallSpacing
-                Kirigami.Icon { source: "view-list-details"; implicitWidth: Kirigami.Units.iconSizes.small; implicitHeight: implicitWidth }
-                QQC2.Label { text: "Plan: " + (raiz.pl.resumen || "—"); font.bold: true }
+                QQC2.Label { text: "Plan: " + (raiz.pl.resumen || "—"); font.weight: Font.DemiBold; rightPadding: Kirigami.Units.smallSpacing }
                 EtiquetaNivel { visible: text !== ""; text: raiz.pl.respaldo ? "respaldo antes en .backups/" : ""; icono: "document-save" }
                 EtiquetaNivel { visible: text !== ""; text: raiz.pl.terminal ? "pregunta: se abre en una terminal" : ""; icono: "utilities-terminal"; nivel: "neutro" }
                 EtiquetaNivel { visible: text !== ""; text: raiz.pl.estadoOperacion ? studio.acciones.accion("paq." + raiz.catalogo.operacion).operacionTexto : "" }
@@ -190,16 +202,29 @@ ColumnLayout {
                     required property int index
                     width: ListView.view.width
                     highlighted: ListView.isCurrentItem
+                    hoverEnabled: true
+                    leftInset: Kirigami.Units.smallSpacing / 2
+                    rightInset: Kirigami.Units.smallSpacing / 2
+                    topInset: 1
+                    bottomInset: 1
+                    leftPadding: Kirigami.Units.largeSpacing
+                    background: FondoFila { fila: fila }
+                    readonly property color colorNivel: modelData.nivel === "negativo" ? Kirigami.Theme.negativeTextColor
+                                                     : modelData.nivel === "positivo" ? Kirigami.Theme.positiveTextColor
+                                                     : modelData.nivel === "neutro" ? Kirigami.Theme.neutralTextColor : Kirigami.Theme.disabledTextColor
                     onClicked: { archivos.currentIndex = index; raiz.catalogo.fijarArchivo(modelData.rel) }
                     Accessible.name: modelData.rel + ": " + modelData.accion + (modelData.detalle ? ", " + modelData.detalle : "")
                     contentItem: RowLayout {
                         spacing: Kirigami.Units.smallSpacing
                         Kirigami.Icon {
-                            source: ({ activo: "emblem-symbolic-link", conflicto: "emblem-warning", pendiente: "list-add",
-                                       local: "document-import", ausente: "emblem-question" })[fila.modelData.estado] || "text-x-generic"
-                            implicitWidth: Kirigami.Units.iconSizes.smallMedium
+                            source: ({ activo: "edit-link", conflicto: "dialog-warning-symbolic", pendiente: "list-add",
+                                       local: "document-import", ausente: "help-hint" })[fila.modelData.estado] || "document-edit"
+                            implicitWidth: Kirigami.Units.iconSizes.small
                             implicitHeight: implicitWidth
                             Layout.alignment: Qt.AlignTop
+                            Layout.topMargin: 2
+                            isMask: true
+                            color: fila.colorNivel
                         }
                         ColumnLayout {
                             Layout.fillWidth: true
@@ -209,17 +234,14 @@ ColumnLayout {
                                     text: fila.modelData.rel
                                     elide: Text.ElideMiddle
                                     Layout.fillWidth: true
-                                    font.bold: fila.highlighted
-                                    color: fila.highlighted ? Kirigami.Theme.highlightedTextColor : Kirigami.Theme.textColor
+                                    font.weight: fila.highlighted ? Font.DemiBold : Font.Normal
+                                    color: Kirigami.Theme.textColor
                                 }
                                 EtiquetaNivel { visible: text !== ""; text: fila.modelData.hibrido ? "híbrido" : "" }
                             }
                             QQC2.Label {
                                 text: fila.modelData.accion + (fila.modelData.detalle ? " · " + fila.modelData.detalle : "")
-                                color: fila.highlighted ? Kirigami.Theme.highlightedTextColor
-                                     : fila.modelData.nivel === "negativo" ? Kirigami.Theme.negativeTextColor
-                                     : fila.modelData.nivel === "positivo" ? Kirigami.Theme.positiveTextColor
-                                     : fila.modelData.nivel === "neutro" ? Kirigami.Theme.neutralTextColor : Kirigami.Theme.disabledTextColor
+                                color: fila.colorNivel
                                 font: Kirigami.Theme.smallFont
                                 wrapMode: Text.WordWrap
                                 Layout.fillWidth: true
@@ -228,28 +250,46 @@ ColumnLayout {
                     }
                 }
             }
-            QQC2.Label {
+            Kirigami.ListSectionHeader {
                 visible: (raiz.pl.huerfanos || []).length > 0
                 Layout.fillWidth: true
-                Layout.margins: Kirigami.Units.smallSpacing
-                wrapMode: Text.WordWrap
-                color: Kirigami.Theme.neutralTextColor
-                text: "Huérfanos en el repo (ya no están en config.sh): " + (raiz.pl.huerfanos || []).join(", ")
+                text: "Huérfanos en el repo"
+            }
+            RowLayout {
+                visible: (raiz.pl.huerfanos || []).length > 0
+                Layout.fillWidth: true
+                Layout.leftMargin: Kirigami.Units.largeSpacing
+                Layout.rightMargin: Kirigami.Units.largeSpacing
+                Layout.bottomMargin: Kirigami.Units.largeSpacing
+                spacing: Kirigami.Units.smallSpacing
+                EtiquetaNivel { text: "fuera de config.sh"; nivel: "neutro"; Layout.alignment: Qt.AlignTop }
+                QQC2.Label {
+                    Layout.fillWidth: true
+                    wrapMode: Text.WrapAnywhere
+                    font: Kirigami.Theme.fixedWidthFont
+                    color: Kirigami.Theme.disabledTextColor
+                    text: (raiz.pl.huerfanos || []).join("\n")
+                }
             }
         }
 
         ColumnLayout {
             QQC2.SplitView.fillWidth: true
             spacing: 0
-            QQC2.TabBar {
+            // 2026-11-19: las tres vistas del archivo en un pozo (gui-comun 4.2), no una tira de pestañas a medio ancho
+            SelectorSegmentado {
                 id: pestanas
-                Layout.fillWidth: true
-                currentIndex: raiz.pestana
-                onCurrentIndexChanged: raiz.pestana = currentIndex
-                QQC2.TabButton { text: "Comparación"; icon.name: "document-compare" }
-                QQC2.TabButton { text: "Simulación" + (raiz.catalogo.salida.length ? " (" + raiz.catalogo.salida.length + ")" : ""); icon.name: "view-preview" }
-                QQC2.TabButton { text: "Detalles"; icon.name: "documentinfo" }
+                Layout.margins: Kirigami.Units.smallSpacing
+                Layout.leftMargin: Kirigami.Units.largeSpacing
+                titulo: "Vista del archivo"
+                readonly property int currentIndex: raiz.pestana
+                opciones: [{ clave: "0", texto: "Comparación", icono: "view-split-left-right" },
+                           { clave: "1", texto: "Simulación", icono: "utilities-terminal", contador: raiz.catalogo.salida.length ? raiz.catalogo.salida.length : undefined },
+                           { clave: "2", texto: "Detalles", icono: "documentinfo" }]
+                onElegida: clave => raiz.pestana = parseInt(clave)
+                Binding on actual { value: String(raiz.pestana) }
             }
+            Kirigami.Separator { Layout.fillWidth: true }
             StackLayout {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
@@ -283,23 +323,52 @@ ColumnLayout {
                         }
                         BotonAccion { accion: raiz.registro.accion("archivo.abrir"); conTexto: false }
                     }
-                    // la versión de un conflicto al adoptar (2026-11-03): main.sh --elecciones, sin terminal
-                    Kirigami.InlineMessage {
+                    // la versión de un conflicto al adoptar (2026-11-03): main.sh --elecciones, sin terminal. 2026-11-19: una
+                    // fila con la pregunta y la elección en un pozo (antes, un aviso naranja con tres botones)
+                    RowLayout {
                         Layout.fillWidth: true
-                        Layout.margins: Kirigami.Units.smallSpacing
+                        Layout.leftMargin: Kirigami.Units.largeSpacing
+                        Layout.rightMargin: Kirigami.Units.largeSpacing
+                        Layout.bottomMargin: Kirigami.Units.smallSpacing
                         visible: raiz.catalogo.operacion === "adoptar" && raiz.catalogo.filaPlan.estado === "conflicto"
-                        type: Kirigami.MessageType.Warning
-                        text: "Está en HOME y en el repo con contenido distinto: ¿qué versión se queda al adoptar?"
-                        actions: [
-                            Kirigami.Action { text: "La de HOME, al repo"; icon.name: "go-home"; checkable: true; checked: raiz.catalogo.elecciones[raiz.catalogo.archivo] === "l"; onTriggered: raiz.catalogo.fijarEleccion(raiz.catalogo.archivo, checked ? "l" : "") },
-                            Kirigami.Action { text: "La del repo"; icon.name: "folder-git"; checkable: true; checked: raiz.catalogo.elecciones[raiz.catalogo.archivo] === "r"; onTriggered: raiz.catalogo.fijarEleccion(raiz.catalogo.archivo, checked ? "r" : "") },
-                            Kirigami.Action { text: "Saltar"; icon.name: "go-next-skip"; checkable: true; checked: raiz.catalogo.elecciones[raiz.catalogo.archivo] === "s"; onTriggered: raiz.catalogo.fijarEleccion(raiz.catalogo.archivo, checked ? "s" : "") }
-                        ]
+                        spacing: Kirigami.Units.largeSpacing
+                        EtiquetaNivel { text: "distinto en los dos lados"; nivel: "neutro" }
+                        QQC2.Label { text: "¿Qué versión se queda al adoptar?"; Layout.fillWidth: true; elide: Text.ElideRight }
+                        SelectorSegmentado {
+                            titulo: "Versión que se queda"
+                            compacto: true
+                            opciones: [{ clave: "l", texto: "La de HOME", icono: "go-home", descripcion: "La de HOME pasa al repo" },
+                                       { clave: "r", texto: "La del repo", icono: "folder-git", descripcion: "Se conserva la del repo" },
+                                       { clave: "s", texto: "Saltar", icono: "go-next-skip", descripcion: "Este archivo no se adopta" }]
+                            onElegida: clave => raiz.catalogo.fijarEleccion(raiz.catalogo.archivo, clave)
+                            Binding on actual { value: raiz.catalogo.elecciones[raiz.catalogo.archivo] || "" }
+                        }
+                    }
+                    Repeater {
+                        model: raiz.catalogo.comparacion.notas || []
+                        delegate: RowLayout {
+                            required property string modelData
+                            Layout.fillWidth: true
+                            Layout.leftMargin: Kirigami.Units.largeSpacing
+                            Layout.rightMargin: Kirigami.Units.largeSpacing
+                            Layout.bottomMargin: Kirigami.Units.smallSpacing
+                            spacing: Kirigami.Units.smallSpacing
+                            readonly property bool secreto: modelData.indexOf("secreto") >= 0
+                            Kirigami.Icon {
+                                source: parent.secreto ? "object-locked" : "documentinfo"
+                                isMask: true
+                                color: parent.secreto ? Kirigami.Theme.neutralTextColor : Kirigami.Theme.disabledTextColor
+                                implicitWidth: Kirigami.Units.iconSizes.small
+                                implicitHeight: implicitWidth
+                                Layout.alignment: Qt.AlignTop
+                            }
+                            QQC2.Label { text: parent.modelData; color: Kirigami.Theme.disabledTextColor; font: Kirigami.Theme.smallFont; wrapMode: Text.WordWrap; Layout.fillWidth: true }
+                        }
                     }
                     VistaComparacion {
                         Layout.fillWidth: true
                         Layout.fillHeight: true
-                        diferencia: raiz.catalogo.comparacion
+                        diferencia: Object.assign({}, raiz.catalogo.comparacion, { notas: [] })
                         mensajeVacio: "Elija un archivo a la izquierda para comparar el repo con HOME"
                     }
                 }

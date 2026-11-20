@@ -18,11 +18,22 @@ QQC2.SplitView {
         Accessible.name: "Documentos del repo"
         header: Kirigami.ListSectionHeader { text: "Documentos"; width: ListView.view.width }
         delegate: QQC2.ItemDelegate {
+            id: documento
             required property var modelData
             width: ListView.view.width
             text: modelData.texto
-            icon.name: modelData.icono
             highlighted: modelData.nombre === raiz.guia.nombreActual
+            hoverEnabled: true
+            leftInset: Kirigami.Units.smallSpacing / 2
+            rightInset: Kirigami.Units.smallSpacing / 2
+            leftPadding: Kirigami.Units.largeSpacing
+            background: FondoFila { fila: documento }
+            // 2026-11-19: el documento elegido teñido (dos bloques llenos, el de la barra y este, competían)
+            contentItem: RowLayout {
+                spacing: Kirigami.Units.smallSpacing
+                Kirigami.Icon { source: "view-list-text"; isMask: true; color: Kirigami.Theme.disabledTextColor; implicitWidth: Kirigami.Units.iconSizes.small; implicitHeight: implicitWidth }
+                QQC2.Label { text: documento.text; elide: Text.ElideRight; Layout.fillWidth: true; font.weight: documento.highlighted ? Font.DemiBold : Font.Normal }
+            }
             onClicked: raiz.guia.fijarDocumento(modelData.ruta)
         }
     }
@@ -32,7 +43,7 @@ QQC2.SplitView {
         RowLayout {
             Layout.fillWidth: true
             Layout.margins: Kirigami.Units.smallSpacing
-            QQC2.Label { text: raiz.guia.titulo; font.bold: true; elide: Text.ElideRight; Layout.fillWidth: true }
+            Kirigami.Heading { level: 4; text: raiz.guia.titulo; elide: Text.ElideRight; Layout.fillWidth: true; Layout.leftMargin: Kirigami.Units.smallSpacing }
             BotonAccion { accion: studio.acciones.accion("guia.abrir"); conTexto: false }
         }
         VistaTexto {

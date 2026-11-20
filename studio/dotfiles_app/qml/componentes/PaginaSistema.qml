@@ -51,7 +51,7 @@ QQC2.ScrollView {
                 Layout.leftMargin: Kirigami.Units.largeSpacing
                 Layout.rightMargin: Kirigami.Units.largeSpacing
                 implicitHeight: contenido.implicitHeight + Kirigami.Units.largeSpacing * 2
-                radius: Kirigami.Units.cornerRadius
+                radius: Kirigami.Units.cornerRadius * 2
                 color: Kirigami.Theme.backgroundColor
                 border.width: 1
                 border.color: Qt.alpha(Kirigami.Theme.textColor, 0.15)
@@ -62,8 +62,10 @@ QQC2.ScrollView {
                     spacing: Kirigami.Units.largeSpacing
                     Kirigami.Icon {
                         source: tarjeta.accion ? tarjeta.accion.icono : "system-run"
-                        Layout.preferredWidth: Kirigami.Units.iconSizes.large
-                        Layout.preferredHeight: Kirigami.Units.iconSizes.large
+                        isMask: true                                  // los tres con el mismo trazo (antes, uno de cada estilo)
+                        color: Kirigami.Theme.textColor
+                        Layout.preferredWidth: Kirigami.Units.iconSizes.medium
+                        Layout.preferredHeight: Kirigami.Units.iconSizes.medium
                         Layout.alignment: Qt.AlignTop
                     }
                     ColumnLayout {
@@ -83,15 +85,18 @@ QQC2.ScrollView {
                     }
                     ColumnLayout {
                         Layout.alignment: Qt.AlignTop
+                        Layout.preferredWidth: Kirigami.Units.gridUnit * 7
                         QQC2.Button {
+                            Layout.fillWidth: true
                             text: "Simular"
-                            icon.name: "view-preview"
+                            icon.name: "utilities-terminal"
                             enabled: !studio.tareas.activa
                             onClicked: raiz.sistema.correr(tarjeta.modelData.nombre, true)
                             QQC2.ToolTip.text: tarjeta.info.ordenSimular + " (no cambia nada; la salida, en F4)"
                             QQC2.ToolTip.visible: hovered
                         }
-                        QQC2.Button {
+                        BotonPrincipal {
+                            Layout.fillWidth: true
                             text: "Aplicar…"
                             icon.name: "dialog-ok-apply"
                             enabled: tarjeta.accion ? tarjeta.accion.habilitada : false

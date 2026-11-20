@@ -8,6 +8,7 @@ import QtQuick.Layouts
 import QtQuick.Controls as QQC2
 import QtCore
 import org.kde.kirigami as Kirigami
+import GuiComun
 
 QQC2.SplitView {
     id: raiz
@@ -83,7 +84,24 @@ QQC2.SplitView {
         }
     }
 
+    // 2026-11-19: sin salida, la terminal es una línea (la orden y «Simular lo que se ve»); antes, un vacío de un tercio
+    // de la ventana que cortaba las tarjetas. Con salida, su alto de siempre (y se recuerda)
+    readonly property bool conSalida: raiz.catalogo.salidaPortada.length > 0 || studio.tareas.activa
+    QQC2.ToolBar {
+        visible: !raiz.conSalida
+        QQC2.SplitView.minimumHeight: implicitHeight
+        QQC2.SplitView.maximumHeight: implicitHeight
+        position: QQC2.ToolBar.Footer
+        RowLayout {
+            anchors.fill: parent
+            Kirigami.Icon { source: "utilities-terminal"; isMask: true; color: Kirigami.Theme.disabledTextColor; implicitWidth: Kirigami.Units.iconSizes.small; implicitHeight: implicitWidth; Layout.leftMargin: Kirigami.Units.largeSpacing }
+            QQC2.Label { text: "Simulación"; font.weight: Font.DemiBold }
+            QQC2.Label { text: raiz.catalogo.ordenPortada; font: Kirigami.Theme.fixedWidthFont; color: Kirigami.Theme.disabledTextColor; elide: Text.ElideMiddle; Layout.fillWidth: true }
+            BotonAccion { accion: studio.acciones.accion("paq.simular"); conTexto: true }
+        }
+    }
     TerminalSimulacion {
+        visible: raiz.conSalida
         QQC2.SplitView.preferredHeight: raiz.altoTerminal
         QQC2.SplitView.minimumHeight: Kirigami.Units.gridUnit * 5
         onHeightChanged: if (raiz.resizing) raiz.altoTerminal = height

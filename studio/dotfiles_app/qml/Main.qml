@@ -78,8 +78,10 @@ VentanaBase {
             anchors.fill: parent
             spacing: Kirigami.Units.smallSpacing
             BotonAccion { accion: ventana.registro.accion("ver.portada"); conTexto: false; visible: ventana.indice === 1 }
+            // la miga solo dentro de un paquete: en las demás páginas el título ya está, grande, en la página
             QQC2.Label {
-                text: ventana.indice === 1 ? "Paquetes › " + ventana.catalogo.abierto : ventana.espacio.textoVista
+                visible: ventana.indice === 1
+                text: "Paquetes › " + ventana.catalogo.abierto
                 font.bold: true
                 elide: Text.ElideRight
                 Layout.leftMargin: Kirigami.Units.smallSpacing

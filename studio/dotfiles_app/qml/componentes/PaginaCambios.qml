@@ -52,9 +52,9 @@ ColumnLayout {
             mensajeVacio: "Sin cambios: el repo está al día"
             iconoVacio: "vcs-normal"
             columnas: [
-                { ancho: 0, minimo: 12, conIcono: true },
-                { ancho: 7, secundaria: true },
-                { ancho: 8, semantica: true, conIcono: true },
+                { ancho: 0, minimo: 11, conIcono: true },
+                { ancho: 6, secundaria: true },
+                { ancho: 6.5, semantica: true },     // el estado en su color, sin el emblema a todo color (2026-11-19)
                 { ancho: 12, secundaria: true, estrecho: true }
             ]
             onOrdenar: (columna, descendente) => raiz.cambios.modelo.ordenar(columna, descendente)
@@ -84,10 +84,9 @@ ColumnLayout {
                     Keys.onReturnPressed: event => { if (event.modifiers & Qt.ControlModifier) raiz.confirmar(); else event.accepted = false }
                     Connections { target: raiz.cambios; function onFilaCambiada() { mensaje.text = raiz.cambios.mensajeSugerido } }
                 }
-                QQC2.Button {
+                BotonPrincipal {
                     text: "Confirmar este archivo"
                     icon.name: "vcs-commit"
-                    highlighted: true
                     onClicked: raiz.confirmar()
                     QQC2.ToolTip.text: "Escanea credenciales y, si sale limpio, confirma solo " + raiz.cambios.ruta + " (Ctrl+Intro)"
                     QQC2.ToolTip.visible: hovered

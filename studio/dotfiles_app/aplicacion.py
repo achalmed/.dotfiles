@@ -113,12 +113,12 @@ def construir(app: Aplicacion) -> dict:
     acciones.registrar("ver.salida", "&Salida y registro", "utilities-terminal", "F4", "Ver", marcable=True, al_disparar=pedir("salida"),
                        descripcion="La salida íntegra de main.sh y git, y el registro")
     # --- Paquete: la operación elegida en la página, simulada o aplicada, y las cuatro con su confirmación
-    acciones.registrar("paq.simular", "&Simular", "view-preview", "Ctrl+Shift+Return", "Paquete", operacion="simulacion",
+    acciones.registrar("paq.simular", "&Simular", "utilities-terminal", "Ctrl+Shift+Return", "Paquete", operacion="simulacion",
                        al_disparar=lambda *_: catalogo.simular() if catalogo.abierto else catalogo.simularPortada(),
                        descripcion="Con --dry-run, no toca el disco: en la página, la operación elegida; en la portada, instalar lo que se ve")
     acciones.registrar("paq.aplicar", "&Aplicar…", "dialog-ok-apply", "Ctrl+Return", "Paquete", al_disparar=lambda *_: aplicar(),
                        descripcion="Paquetes: la operación elegida, tras confirmar · Cambios: confirma el archivo elegido")
-    for op, icono in (("instalar", "emblem-symbolic-link"), ("adoptar", "document-import"), ("actualizar", "view-refresh"), ("eliminar", "edit-delete")):
+    for op, icono in (("instalar", "insert-link"), ("adoptar", "document-import"), ("actualizar", "view-refresh"), ("eliminar", "edit-delete")):
         acciones.registrar(f"paq.{op}", f"{plan.TEXTO[op]}…", icono, None, "Paquete", operacion=plan.ESTADO_OPERACION[op], confirmar=True,
                            consecuencias=lambda o=op: catalogo.consecuencias(o), descripcion=plan.QUE_HACE[op],
                            al_disparar=lambda *_, o=op: (catalogo.fijarOperacion(o), catalogo.aplicar(o)))
@@ -136,7 +136,7 @@ def construir(app: Aplicacion) -> dict:
                                               "El repo es público: lo confirmado queda a la vista de todos."),
                        al_disparar=lambda *_: cambios.subir(), descripcion="git push de la rama actual (el repo es público)")
     # --- Seguridad
-    acciones.registrar("seg.escanear", "&Escanear credenciales", "security-high", "Ctrl+Alt+S", "Seguridad", operacion="lectura",
+    acciones.registrar("seg.escanear", "&Escanear credenciales", "object-locked", "Ctrl+Alt+S", "Seguridad", operacion="lectura",
                        al_disparar=lambda *_: (espacio.fijarVista("seguridad"), seguridad.escanear()),
                        descripcion="Busca claves, tokens, contraseñas y .env en lo que subiría un git add . (sin mostrar el valor)")
     acciones.registrar("seg.main", "Escanear con &main.sh", "utilities-terminal", None, "Seguridad", operacion="lectura",

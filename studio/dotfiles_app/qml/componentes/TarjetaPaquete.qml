@@ -8,6 +8,7 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls as QQC2
 import org.kde.kirigami as Kirigami
+import GuiComun
 
 QQC2.ItemDelegate {
     id: raiz
@@ -32,10 +33,10 @@ QQC2.ItemDelegate {
     Accessible.role: Accessible.Button
 
     background: Rectangle {
-        radius: Kirigami.Units.cornerRadius
-        color: raiz.hovered || raiz.visualFocus ? Qt.alpha(Kirigami.Theme.highlightColor, 0.10) : Kirigami.Theme.backgroundColor
+        color: raiz.hovered || raiz.visualFocus ? Kirigami.ColorUtils.tintWithAlpha(Kirigami.Theme.backgroundColor, Kirigami.Theme.textColor, 0.05) : Kirigami.Theme.backgroundColor
         border.width: 1
-        border.color: raiz.visualFocus ? Kirigami.Theme.focusColor : Qt.alpha(Kirigami.Theme.textColor, 0.15)
+        border.color: raiz.visualFocus ? Kirigami.Theme.focusColor : Qt.alpha(Kirigami.Theme.textColor, raiz.hovered ? 0.28 : 0.15)
+        radius: Kirigami.Units.cornerRadius * 2
     }
 
     contentItem: RowLayout {
@@ -59,18 +60,13 @@ QQC2.ItemDelegate {
                     text: raiz.datos.nombre || ""
                     elide: Text.ElideRight
                 }
-                // el punto es un carácter del tipo de letra (sin radios ni medidas propias), del color de estado
-                QQC2.Label {
-                    text: "●"
-                    color: raiz.colorPunto(raiz.datos.punto || "")
-                    Accessible.ignored: true
-                }
-                QQC2.Label {
-                    Layout.fillWidth: true
+                // 2026-11-19: el estado como etiqueta de su nivel (la misma de la página del paquete), no un punto y texto de color
+                EtiquetaNivel {
+                    visible: text !== ""
                     text: raiz.datos.textoEstado || ""
-                    color: (raiz.datos.punto || "") === "negativo" ? Kirigami.Theme.negativeTextColor : Kirigami.Theme.textColor
-                    elide: Text.ElideRight
+                    nivel: (raiz.datos.punto || "") === "inactivo" ? "" : raiz.datos.punto || ""
                 }
+                Item { Layout.fillWidth: true }
             }
             QQC2.Label {
                 text: (raiz.datos.aplicacion || "") + (raiz.datos.descripcion ? " · " + raiz.datos.descripcion : "")
@@ -89,7 +85,7 @@ QQC2.ItemDelegate {
         QQC2.Button {
             visible: (raiz.datos.textoPide || "") !== ""
             text: (raiz.datos.textoPide || "") + "…"
-            icon.name: raiz.datos.pide === "adoptar" ? "document-import" : "emblem-symbolic-link"
+            icon.name: raiz.datos.pide === "adoptar" ? "document-import" : "insert-link"
             Layout.alignment: Qt.AlignVCenter
             onClicked: raiz.abrir(raiz.datos.nombre, raiz.datos.pide)
             QQC2.ToolTip.text: "Abre la comparación y el plan antes de " + (raiz.datos.textoPide || "").toLowerCase()

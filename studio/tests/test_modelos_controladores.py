@@ -262,6 +262,17 @@ def test_cambios_ocultan_un_secreto_y_marcan_el_hibrido(app, piezas):
 
 
 @requiere_binding
+def test_la_terminal_de_simulacion_oculta_los_secretos(app, piezas):
+    """2026-11-19: la salida de main.sh (el diff de una simulación de adoptar) oculta un secreto como la comparación."""
+    c = piezas["catalogo"]
+    token = "gh" + "p_" + "Abc123" * 7                           # armado al vuelo (ver test_servicios.py)
+    c._anotar("+export GITHUB_TOKEN=" + token)
+    c._anotar_portada("+export GITHUB_TOKEN=" + token)
+    assert token not in repr(c.salida) and token not in repr(c.salidaPortada)
+    assert "oculto" in c.salida[-1] and "oculto" in c.salidaPortada[-1]
+
+
+@requiere_binding
 def test_seguridad_escanea_sin_mostrar_el_valor(app, piezas):
     s, tareas, repo, consola = piezas["seguridad"], piezas["tareas"], piezas["repo"], piezas["consola"]
     assert "contraseña en una URL" in s.tipos and "archivo .env versionado" in s.tipos and s.orden == "./main.sh seguridad"
