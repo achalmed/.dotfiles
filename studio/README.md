@@ -78,7 +78,7 @@ Requisitos:
   `qml6-module-org-kde-desktop` y `qml6-module-org-kde-syntaxhighlighting`.
 - `gui-comun` 4.1 o superior, de una de estas dos formas:
   - **como paquete de pip**, desde su repo público con la versión fija de `dotfiles_app/__init__.py`:
-    `/usr/bin/python3 -m pip install --user --break-system-packages "gui-comun @ git+https://github.com/achalmed/gui-comun@v4.1.0"`;
+    `/usr/bin/python3 -m pip install --user --break-system-packages "gui-comun @ git+https://github.com/achalmed/gui-comun@v4.2.0"`;
   - señalado con `GUI_COMUN_DIR=<carpeta del repo gui-comun>`, para desarrollar contra una copia local.
 
 El repo no conoce ningún espacio de trabajo: nunca busca `gui-comun` subiendo carpetas. El PySide6 de pip o de
