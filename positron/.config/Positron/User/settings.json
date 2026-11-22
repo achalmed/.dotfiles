@@ -267,5 +267,5 @@
     "window.autoDetectColorScheme": true,
     "workbench.preferredDarkColorTheme": "Lliphi Oscuro",
     "workbench.preferredLightColorTheme": "Lliphi Claro",
-    "vscode-office.editorTheme": "One Dark" // número en segundos
+    "vscode-office.editorTheme": "Dim Light" // número en segundos
 }

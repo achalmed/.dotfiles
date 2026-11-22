@@ -92,7 +92,7 @@
   <property name="selectionBorderColor" value="4281424879"/>
   <property name="backgroundColor" value="4282203714"/>
   <property name="selectionMarkerColor" value="4282873840"/>
-  <property name="activeSelectionColor" value="4293010729"/>
+  <property name="activeSelectionColor" value="4281954006"/>
   <property name="touchZoomStartThreshold" value="0"/>
   <property name="pageRerenderThreshold" value="5"/>
   <!--The count of rendered PDF pages which will be cached.-->
@@ -200,6 +200,10 @@
       <attribute name="deviceSource" type="int" value="0"/>
     </data>
     <data name="Wayland Wheel Scrolling">
+      <attribute name="deviceClass" type="int" value="1"/>
+      <attribute name="deviceSource" type="int" value="0"/>
+    </data>
+    <data name="xwayland-relative-pointer:10">
       <attribute name="deviceClass" type="int" value="1"/>
       <attribute name="deviceSource" type="int" value="0"/>
     </data>

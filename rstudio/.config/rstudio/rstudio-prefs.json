@@ -35,5 +35,8 @@
         "sidebar_visible": true,
         "sidebar_location": "left"
     },
-    "editor_theme": "Lliphi Claro"
+    "editor_theme": "Lliphi Oscuro",
+    "initial_working_directory": "~",
+    "pdf_previewer": "none",
+    "posix_terminal_shell": "zsh"
 }

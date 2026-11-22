@@ -3,6 +3,8 @@ _k_friendly_name=Activity Manager
 switch-to-activity-cf8e29f3-11dc-40d7-87c5-6b9ca77bd6e5=none,none,Switch to activity "Default"
 
 [KDE Keyboard Layout Switcher]
+Switch keyboard layout to English (US)=none,none,Switch keyboard layout to English (US)
+Switch keyboard layout to Spanish=none,none,Switch keyboard layout to Spanish
 Switch to Last-Used Keyboard Layout=,Meta+Alt+L,Switch to Last-Used Keyboard Layout
 Switch to Next Keyboard Layout=,Meta+Alt+K,Switch to Next Keyboard Layout
 _k_friendly_name=Keyboard Layout Switcher
