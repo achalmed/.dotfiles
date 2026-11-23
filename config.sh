@@ -223,7 +223,11 @@ PACKAGE_FILES["koreader"]=\
 # audio-sesion-local.service: Chrome Remote Desktop filtra su audio al
 # entorno compartido al arrancar; la unidad lo devuelve a PipeWire.
 # Tras instalar: systemctl --user enable audio-sesion-local.service
-PACKAGE_FILES["systemd"]=".config/systemd/user/audio-sesion-local.service"
+# plasma-xdg-desktop-portal-kde.service.d/estilo-breeze.conf: los diálogos de archivos
+# del portal (Zen, Chrome, Telegram) con Breeze, porque con Kvantum la vista en detalle
+# corta con «…» las columnas Tamaño y Fecha. Tras instalar: daemon-reload y reiniciar el portal.
+PACKAGE_FILES["systemd"]=".config/systemd/user/audio-sesion-local.service|\
+.config/systemd/user/plasma-xdg-desktop-portal-kde.service.d/estilo-breeze.conf"
 
 # vim y nvim: la configuración propia del editor de terminal. Los dos activan el esquema de colores
 # `lliphi` (el tema de escritorio del autor), que no se versiona aquí: lo instala Lliphi en

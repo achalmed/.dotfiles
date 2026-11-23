@@ -1,7 +1,7 @@
 ---
 tipo: estado
 estado: activo
-actualizado: 2026-11-22
+actualizado: 2026-11-23
 ---
 # estado.md — dotfiles (repo público `achalmed/.dotfiles`)
 
@@ -13,6 +13,7 @@ en `docs/decisiones.md` §Pendientes. Nada aquí lleva rutas de máquina: el rep
 
 | fecha | qué | dónde se ve |
 |---|---|---|
+| 2026-11-23 | **Los diálogos de archivos del portal, con Breeze**: con Kvantum (Lliphi) la vista en detalle del diálogo de abrir y guardar cortaba con «…» las columnas Tamaño y Fecha; `KFileItemDelegate` mide la celda con su margen, Kvantum recalcula el tamaño desde el texto y lo descarta, y al pintar se restan los dos (faltan 2·`PM_FocusFrameHMargin`, 24 px con Lliphi; ni el mínimo de Kvantum alcanza). Un ajuste de la unidad del portal (`QT_STYLE_OVERRIDE=Breeze`) lo resuelve en Zen, Chrome y Telegram; enlazado y comprobado con una captura del portal. Los diálogos dentro de las aplicaciones de KDE con Kvantum siguen con el defecto (es de Kvantum) | `systemd/.config/systemd/user/plasma-xdg-desktop-portal-kde.service.d/`; `docs/paquetes.md` |
 | 2026-11-22 | **Lo elegido sigue al esquema de color de la ventana (gui-comun 4.4)**: se retira la copia `FondoFila` y la barra lateral, la guía y los archivos de un paquete usan `FondoSeleccion` de la base; con «Ajustes ▸ Esquema de color de la ventana ▸ Lliphi Dark» lo elegido es un bloque lleno como en Dolphin, sin marca; con «Predeterminado», el tinte con su marca de siempre; 60 pruebas | `studio/dotfiles_app/qml/componentes/` |
 | 2026-11-19 | **Dotfiles Studio con el acabado de la familia (gui-comun 4.2)**: la página del paquete ordena sus cinco franjas en una tarjeta (la operación en un pozo con Simular y Aplicar como acción principal, qué hace, la orden como código con su botón de copiar y el plan con sus etiquetas); la pregunta del conflicto al adoptar es una fila con su elección en un pozo y las notas de la comparación, líneas tenues (no tres avisos de color); Comparación · Simulación · Detalles en un `SelectorSegmentado`; la barra lateral, los archivos del paquete y la guía con la fila elegida teñida y su marca (`FondoFila`, hasta que la base la ofrezca) y los iconos de acción del color del texto (antes, círculos de estado a todo color); el estado de cada tarjeta como `EtiquetaNivel`; la simulación de la portada plegada a una línea hasta que hay salida; Seguridad con un candado monocromo; Sistema con Simular y Aplicar del mismo ancho; **la terminal de Simulación oculta los secretos como la Comparación** (`catalogo._linea_segura`); 61 pruebas | `docs/figuras/dotfiles-studio-acabado.png`; `studio/dotfiles_app/qml/`; `studio/tests/test_modelos_controladores.py` |
 | 2026-11-18 | **La terminal de simulación sobre gui-comun 4.1**: `TerminalSimulacion` pasa a ser la `TerminalSalida` de la base (que nació de ella) con las reglas de main.sh (archivo real en HOME en negativo; «[dry-run]» y las secciones en el color del texto; lo demás tenue), en el orden de antes. Sin cambio a la vista. Pide gui-comun 4.1 (`VERSION_GUI_COMUN = v4.1.0`): antes de publicar este repo, la etiqueta v4.1.0 de gui-comun tiene que estar en su remoto. 59 pruebas (1 nueva) | `studio/dotfiles_app/qml/componentes/TerminalSimulacion.qml` |
