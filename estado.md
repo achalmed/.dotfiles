@@ -1,7 +1,7 @@
 ---
 tipo: estado
 estado: activo
-actualizado: 2026-11-18
+actualizado: 2026-11-22
 ---
 # estado.md — dotfiles (repo público `achalmed/.dotfiles`)
 
@@ -13,6 +13,7 @@ en `docs/decisiones.md` §Pendientes. Nada aquí lleva rutas de máquina: el rep
 
 | fecha | qué | dónde se ve |
 |---|---|---|
+| 2026-11-22 | **Lo elegido sigue al esquema de color de la ventana (gui-comun 4.4)**: se retira la copia `FondoFila` y la barra lateral, la guía y los archivos de un paquete usan `FondoSeleccion` de la base; con «Ajustes ▸ Esquema de color de la ventana ▸ Lliphi Dark» lo elegido es un bloque lleno como en Dolphin, sin marca; con «Predeterminado», el tinte con su marca de siempre; 60 pruebas | `studio/dotfiles_app/qml/componentes/` |
 | 2026-11-19 | **Dotfiles Studio con el acabado de la familia (gui-comun 4.2)**: la página del paquete ordena sus cinco franjas en una tarjeta (la operación en un pozo con Simular y Aplicar como acción principal, qué hace, la orden como código con su botón de copiar y el plan con sus etiquetas); la pregunta del conflicto al adoptar es una fila con su elección en un pozo y las notas de la comparación, líneas tenues (no tres avisos de color); Comparación · Simulación · Detalles en un `SelectorSegmentado`; la barra lateral, los archivos del paquete y la guía con la fila elegida teñida y su marca (`FondoFila`, hasta que la base la ofrezca) y los iconos de acción del color del texto (antes, círculos de estado a todo color); el estado de cada tarjeta como `EtiquetaNivel`; la simulación de la portada plegada a una línea hasta que hay salida; Seguridad con un candado monocromo; Sistema con Simular y Aplicar del mismo ancho; **la terminal de Simulación oculta los secretos como la Comparación** (`catalogo._linea_segura`); 61 pruebas | `docs/figuras/dotfiles-studio-acabado.png`; `studio/dotfiles_app/qml/`; `studio/tests/test_modelos_controladores.py` |
 | 2026-11-18 | **La terminal de simulación sobre gui-comun 4.1**: `TerminalSimulacion` pasa a ser la `TerminalSalida` de la base (que nació de ella) con las reglas de main.sh (archivo real en HOME en negativo; «[dry-run]» y las secciones en el color del texto; lo demás tenue), en el orden de antes. Sin cambio a la vista. Pide gui-comun 4.1 (`VERSION_GUI_COMUN = v4.1.0`): antes de publicar este repo, la etiqueta v4.1.0 de gui-comun tiene que estar en su remoto. 59 pruebas (1 nueva) | `studio/dotfiles_app/qml/componentes/TerminalSimulacion.qml` |
 | 2026-11-18 | **Dotfiles Studio con su forma propia** (rediseño visual aprobado por el autor): cada tarjeta de paquete lleva el icono de su aplicación, el número de archivos y el estado de stow como un punto de color de estado (un conflicto, en negativo, aunque el paquete esté a medias); bajo las tarjetas, la terminal con la simulación de lo que se ve (`main.sh instalar --dry-run`, que nunca escribe; Ctrl+Mayús+Intro); en la barra lateral, los recuentos que piden algo con su color de estado. `TerminalSimulacion` sirve también a la pestaña Simulación. `ortografia` y `panel` con su aplicación e icono. Cero colores propios; los avisos sin decisión van a las notificaciones de KDE. 58 pruebas (4 nuevas; arreglada la búsqueda que «autostart» de `panel` rompía) | `docs/decisiones.md` §La ventana; `docs/reingenieria.md` §7; `docs/figuras/dotfiles-studio-oscuro.png` |

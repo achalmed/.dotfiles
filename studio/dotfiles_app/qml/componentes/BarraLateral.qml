@@ -82,7 +82,7 @@ Rectangle {
         topInset: 1
         bottomInset: 1
         leftPadding: Kirigami.Units.largeSpacing
-        background: FondoFila { fila: entrada }
+        background: FondoSeleccion { elegida: entrada.highlighted; sobre: entrada.hovered; pulsada: entrada.pressed; foco: entrada.visualFocus }
         text: texto
         icon.name: icono
         Accessible.name: texto + (contador >= 0 ? ", " + contador : "")

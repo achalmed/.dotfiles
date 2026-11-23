@@ -208,7 +208,7 @@ ColumnLayout {
                     topInset: 1
                     bottomInset: 1
                     leftPadding: Kirigami.Units.largeSpacing
-                    background: FondoFila { fila: fila }
+                    background: FondoSeleccion { elegida: fila.highlighted; sobre: fila.hovered; pulsada: fila.pressed; foco: fila.visualFocus }
                     readonly property color colorNivel: modelData.nivel === "negativo" ? Kirigami.Theme.negativeTextColor
                                                      : modelData.nivel === "positivo" ? Kirigami.Theme.positiveTextColor
                                                      : modelData.nivel === "neutro" ? Kirigami.Theme.neutralTextColor : Kirigami.Theme.disabledTextColor

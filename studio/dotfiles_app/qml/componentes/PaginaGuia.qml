@@ -27,7 +27,7 @@ QQC2.SplitView {
             leftInset: Kirigami.Units.smallSpacing / 2
             rightInset: Kirigami.Units.smallSpacing / 2
             leftPadding: Kirigami.Units.largeSpacing
-            background: FondoFila { fila: documento }
+            background: FondoSeleccion { elegida: documento.highlighted; sobre: documento.hovered; pulsada: documento.pressed; foco: documento.visualFocus }
             // 2026-11-19: el documento elegido teñido (dos bloques llenos, el de la barra y este, competían)
             contentItem: RowLayout {
                 spacing: Kirigami.Units.smallSpacing
