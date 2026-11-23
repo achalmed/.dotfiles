@@ -76,9 +76,9 @@ Requisitos:
 - El Python y el Qt del sistema (Kubuntu 26.04 o equivalente): `python3-pyside6.qtquick`,
   `python3-pyside6.qtquickcontrols2`, `qml6-module-org-kde-kirigami`, `qml6-module-org-kde-kirigamiaddons-formcard`,
   `qml6-module-org-kde-desktop` y `qml6-module-org-kde-syntaxhighlighting`.
-- `gui-comun` 4.1 o superior, de una de estas dos formas:
+- `gui-comun` 4.4 o superior, de una de estas dos formas:
   - **como paquete de pip**, desde su repo público con la versión fija de `dotfiles_app/__init__.py`:
-    `/usr/bin/python3 -m pip install --user --break-system-packages "gui-comun @ git+https://github.com/achalmed/gui-comun@v4.2.0"`;
+    `/usr/bin/python3 -m pip install --user --break-system-packages "gui-comun @ git+https://github.com/achalmed/gui-comun@v4.4.1"`;
   - señalado con `GUI_COMUN_DIR=<carpeta del repo gui-comun>`, para desarrollar contra una copia local.
 
 El repo no conoce ningún espacio de trabajo: nunca busca `gui-comun` subiendo carpetas. El PySide6 de pip o de
